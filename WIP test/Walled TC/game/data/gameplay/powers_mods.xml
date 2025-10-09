@@ -1,0 +1,95 @@
+<powersmod>
+	
+  
+  <power name="AbilityUnitAction_Bolt" type="UnitAction">
+    <displaynameid>STR_ABILITY_GUARDIAN</displaynameid>
+    <rolloverid>STR_ABILITY_GUARDIAN_LR</rolloverid>
+    <icon>spc\static_color\abilities\guardian_ability_icon.png</icon>
+    <placement enemy="" allownature="" ally="">Unit</placement>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <unitaction>BoltAttack</unitaction>
+  </power>
+ 
+ <!-- AbilityGuardianBolt is mostly the same like "Bolt" godpower, but added as abilitiy. For castpower in unitaction this is not mandatory (you can use the godpower directly in castpower), but maybe you need slight adjustments for your godpower as ability -->
+  <power name="PowerGuardianBolt_Copy" type="Bolt" godpower="">
+    <displaynameid>STR_POWER_BOLT</displaynameid>
+    <rolloverid>STR_POWER_BOLT_LR</rolloverid>
+    <icon>greek\static_color\god_powers\bolt_icon.png</icon>
+    <placement enemy="" allownature="" ally="">Unit</placement>
+    <abstractplacementtargettype>LogicalTypeValidBoltTarget</abstractplacementtargettype>
+    <soundset type="StartSound" listenertype="IfOnScreenAll">LightningStrike</soundset>
+    <soundset type="StartSound" listenertype="AllExceptCaster">GodPowerStart</soundset>
+    <activetime>3.0</activetime>
+    <abstractattacktargettype>Unit</abstractattacktargettype>
+    <!-- <powerplayerrelation>Enemy</powerplayerrelation> -->
+    <powerplayerrelation>All</powerplayerrelation>
+    <strikeproto>BoltStrike</strikeproto>
+    <sparksvfxproto>VFXLightningSparks</sparksvfxproto>
+    <scorchvfxproto>VFXBoltScorch</scorchvfxproto>
+    <strikeheight>25.0</strikeheight>
+    <strikeminoffset>0.0</strikeminoffset>
+    <strikemaxoffset>0.1</strikemaxoffset>
+  </power>
+  
+  
+  <!-- ################### -->
+ 
+ 
+  
+  <power name="AbilityUnitAction_Wall" type="UnitAction">
+    <displaynameid>STR_ABILITY_ROCK_GIANT_JOTUNMODR</displaynameid>
+    <rolloverid>STR_ABILITY_ROCK_GIANT_JOTUNMODR_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\rock_giant_ability_jotunmodr_icon.png</icon>
+    <placement>Self</placement>
+    <abstractplacementtargettype>Building</abstractplacementtargettype>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <unitaction>UnitAction_Wall</unitaction>
+    <!-- <unitaction>BirthUnitAction_Wall2</unitaction> -->
+  </power>
+  
+  <power name="EarthWall_Self" type="EarthWall" godpower="">
+    <displaynameid>STR_POWER_EARTH_WALL</displaynameid>
+    <rolloverid>STR_POWER_EARTH_WALL_LR2</rolloverid>
+    <icon>chinese\static_color\god_powers\earth_wall_power_icon.png</icon>
+    <placement>Self</placement>
+    <abstractplacementtargettype>LogicalTypeValidForestProtectionPlacement</abstractplacementtargettype>
+    <reveallos radius="10.0">Revealer</reveallos>
+    <rangeindicator range="10.0" speed="0.2">Circle</rangeindicator>
+    <camerashake duration="0.50" strength="0.25">
+    </camerashake>
+    <minimapeventtime sendalertto="All">10.0</minimapeventtime>
+    <soundset type="StartSound" listenertype="AllExceptCaster">GodPowerStart</soundset>
+    <soundset type="StartSound" listenertype="IfOnScreenAll">EarthWallBirth</soundset>
+    <activetime>-1</activetime>
+    <radius>10.0</radius>
+    <cost>5</cost>
+    <repeatcost>1</repeatcost>
+    <wallproto>EarthWall</wallproto>
+    <wallsegmentcount>16</wallsegmentcount>
+    <!-- <damagetiers> -->
+      <!-- <damagetier mindestroyed="1">0.125</damagetier> -->
+      <!-- <damagetier mindestroyed="2">0.125</damagetier> -->
+      <!-- <damagetier mindestroyed="3">0.125</damagetier> -->
+      <!-- <damagetier mindestroyed="4">0.125</damagetier> -->
+      <!-- <damagetier mindestroyed="5">0.125</damagetier> -->
+      <!-- <damagetier mindestroyed="6">0.125</damagetier> -->
+      <!-- <damagetier mindestroyed="7">0.125</damagetier> -->
+      <!-- <damagetier mindestroyed="8">0.125</damagetier> -->
+    <!-- </damagetiers> -->
+  </power>
+ 
+ 
+ <!-- AbilityGuardian_Copy is the ability in the UI you can select. All it does is manually activating the ChargedHandAttack action from the guardian, -->
+   <!-- which has defined values in proto and tactics file. -->
+  <power name="AbilityGuardian_Copy" type="UnitAction">
+    <displaynameid>STR_ABILITY_GUARDIAN</displaynameid>
+    <rolloverid>STR_ABILITY_GUARDIAN_LR</rolloverid>
+    <icon>spc\static_color\abilities\guardian_ability_icon.png</icon>
+    <placement enemy="" allownature="" ally="">Unit</placement>
+    <abstractplacementtargettype>All</abstractplacementtargettype>
+    <unitaction>ChargedHandAttack</unitaction>
+  </power>
+  
+ 
+  
+</powersmod>

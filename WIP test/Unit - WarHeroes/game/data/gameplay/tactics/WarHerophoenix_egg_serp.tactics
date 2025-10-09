@@ -1,0 +1,12 @@
+<tactics>
+  <action>
+    <name>PhoenixRebirth</name>
+    <type>Maintain</type>
+    <rate type="WarHero_Serp">1.0</rate>
+    <maintaintrainpoints>20.0000</maintaintrainpoints>
+    <persistent>1</persistent>
+    <killontrain>1</killontrain>
+    <pausable>0</pausable>
+  </action>
+  <tactic>Default<action>PhoenixRebirth</action></tactic>
+</tactics>

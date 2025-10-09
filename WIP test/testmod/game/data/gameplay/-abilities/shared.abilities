@@ -1,0 +1,69 @@
+<powers>
+  <power name="Heal" type="UnitAction">
+    <displaynameid>STR_ABILITY_HEAL</displaynameid>
+    <rolloverid>STR_ABILITY_HEAL_LR</rolloverid>
+    <icon>greek\static_color\technologies\temple_of_healing_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>LogicalTypeHealed</abstractplacementtargettype>
+    <unitaction>Heal</unitaction>
+    <cursortype>Heal</cursortype>
+  </power>
+  <power name="AbilityTitan" type="UnitAction">
+    <displaynameid>STR_ABILITY_TITAN</displaynameid>
+    <rolloverid>STR_ABILITY_TITAN_LR</rolloverid>
+    <icon>shared\static_color\abilities\titan_ability_icon.png</icon>
+    <placement enemy="">All</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <unitaction>ChargedHandAttack</unitaction>
+  </power>
+  <power name="AbilityAutoScout" type="GeneralEffect">
+    <icon>shared\static_color\abilities\auto_scout_ability_icon.png</icon>
+  </power>
+  <power name="PassiveTitanicStature" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_TITANIC_STATURE</displaynameid>
+    <rolloverid>STR_ABILITY_TITANIC_STATURE_LR</rolloverid>
+    <icon>shared\static_color\abilities\titanic_stature_ability_icon.png</icon>
+  </power>
+  <power name="PassiveTransportation" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_TRANSPORTATION</displaynameid>
+    <rolloverid>STR_ABILITY_TRANSPORTATION_LR</rolloverid>
+    <icon>shared\static_color\abilities\transportation_ability_icon.png</icon>
+  </power>
+  <power name="PassiveMannedEngine" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_MANNED_ENGINE</displaynameid>
+    <rolloverid>STR_ABILITY_MANNED_ENGINE_LR</rolloverid>
+    <icon>shared\static_color\abilities\manned_engine_ability_icon.png</icon>
+  </power>
+  <power name="PassiveWallBreaching" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_WALL_BREACHING</displaynameid>
+    <rolloverid>STR_ABILITY_WALL_BREACHING_LR</rolloverid>
+    <icon>shared\static_color\abilities\wall_breaching_ability_icon.png</icon>
+  </power>
+  <power name="PassiveDivineImmunity" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_DIVINE_IMMUNITY</displaynameid>
+    <rolloverid>STR_ABILITY_DIVINE_IMMUNITY_LR</rolloverid>
+    <icon>shared\static_color\abilities\divine_immunity_ability_icon.png</icon>
+  </power>
+  <power name="PassiveLifesteal" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_LIFESTEAL</displaynameid>
+    <rolloverid>STR_ABILITY_LIFESTEAL_LR</rolloverid>
+    <icon>greek\static_color\technologies\temple_of_healing_icon.png</icon>
+  </power>
+  <power name="PassiveVenomous" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_VENOMOUS</displaynameid>
+    <rolloverid>STR_ABILITY_VENOMOUS_LR</rolloverid>
+    <icon>shared\static_color\abilities\venomous_ability_icon.png</icon>
+  </power>
+  <power name="PassiveSacredHands" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SACRED_HANDS</displaynameid>
+    <rolloverid>STR_ABILITY_SACRED_HANDS_LR</rolloverid>
+    <icon>shared\static_color\abilities\sacred_hands_ability_icon.png</icon>
+  </power>
+  <power name="PassiveWonderAge" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_WONDER_AGE</displaynameid>
+    <rolloverid>STR_ABILITY_WONDER_AGE_LR</rolloverid>
+    <icon>shared\static_color\technologies\wonder_age_icon.png</icon>
+  </power>
+</powers>

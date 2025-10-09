@@ -1,0 +1,9 @@
+(Additive Mod)
+- multiplies the hitpoints and damage from AbstractTownCenter and AbstractFortress with 3 and slightly increases Hack armor.
+- multiplies the hitpoints from AbstractTower and AbstractWall with 2 and slightly increases Hack armor.
+- doubles the buildlimit for AbstractTower and *1.5 the buildlimit from AbstractFortress.
+
+- this mod should work for every other building of these kinds added by game updates or mods, even from new civs. No need to update the mod.
+- it does not hardcode new values, but increases the current ones, so can also be combined with other mods changing these values.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

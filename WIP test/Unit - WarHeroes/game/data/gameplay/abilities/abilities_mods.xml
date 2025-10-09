@@ -1,0 +1,71 @@
+<abilitiesmods>
+
+  <!-- info: laut slush sind actioncommand abilities buggy wenn man sie hinter eine tech packt, werden dennoch im ui angezeigt aber nicht nutzbar -->
+  
+  
+  <WarHero_Serp mergeMode="add">
+    <!-- <castonself>1</castonself> <noautocast>true</noautocast> -->
+    <!-- <ability>AbilityVanishSmall_WarHeroSerp<rof>5</rof></ability> -->
+  
+    <!-- <ability>Ability_ArmorShield_WarHeroSerp<rof>1</rof></ability> -->
+    
+    
+    <!-- <ability>AbilityReginleifHeal<actioncommand>true</actioncommand></ability> -->
+    <ability>AbilityConvert_WarHeroSerp<noautocast>true</noautocast><rof>10</rof></ability>
+  
+    <!-- <ability>AbilityLampadesChaoticRealignment<rof>60</rof></ability> -->
+    <!-- <ability>AbilityMutate_WarHeroSerp<rof>60</rof></ability> -->
+    
+    <!-- <tech>TechAbilityJump_WarHeroSerp</tech> -->
+    <!-- <noautocast>true</noautocast> -->
+    <!-- <actioncommand>true</actioncommand> -->
+    <!-- <donotallowoverpoplimit>true</donotallowoverpoplimit> -->
+    <!-- <donotforcestop>true</donotforcestop> -->
+    <!-- <chargetimeasrof>1</chargetimeasrof> -->
+    <!-- <auxchargetimeasrof>1</auxchargetimeasrof> -->
+    
+    <!-- <ability>AbilityCastBolt_Serp<tech>TestTech</tech><noautocast>true</noautocast><auxchargetimeasrof>1</auxchargetimeasrof></ability> -->
+    <!-- <ability>AbilityImplode_Serp<auxchargetimeasrof>1</auxchargetimeasrof></ability> -->
+    <!-- <ability>Implode<rof>10</rof><actioncommand>true</actioncommand></ability> -->
+    
+    <!-- <ability>AbilityAmanra_WarHeroSerp<rof>5</rof></ability> -->
+
+    <!-- <ability>AbilityCastBolt_Serp<chargetimeasrof>1</chargetimeasrof></ability> -->
+    <!-- <ability>Bolt<chargetimeasrof>1</chargetimeasrof></ability> -->
+    <!-- <ability>Bolt<rof>5</rof><actioncommand>true</actioncommand></ability> -->
+    
+    
+    <!-- <ability>AbilityChironSPC_WarHeroSerp<rof>10</rof></ability> -->
+    
+    
+    <!-- <ability>AbilityChironSPC_WarHeroSerp<chargetimeasrof>1</chargetimeasrof></ability> -->
+    <!-- <ability>AbilitySatyr_WarHeroSerp<rof>10</rof></ability> -->
+    <!-- <ability>AbilityTroll_WarHeroSerp<rof>1</rof></ability> -->
+    
+    
+    
+    <!-- <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability> -->
+    <!-- <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability> -->
+    
+    <!-- test -->
+    <!-- <ability>Bolt<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Lure<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Meteor<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Earthquake<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>PlentyVault<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>UnderworldPassage<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Curse<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    
+    <!-- switching tactic -->
+    <!-- put after the first 6 so it does not waste an ability slot. but we can add another button (command/tech) with doAbilityInSelected -->
+    <!-- does not work for whatever reason, we will use a command for it anyways -->
+    <!-- <ability>SwitchTactic_WarHeroSerp<rof>3</rof><castonself>true</castonself><noautocast>true</noautocast><donotforcestop>true</donotforcestop></ability> -->
+
+
+    
+  </WarHero_Serp>
+  
+  
+  
+  
+</abilitiesmods>

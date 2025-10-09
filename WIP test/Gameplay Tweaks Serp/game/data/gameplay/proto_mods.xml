@@ -1,0 +1,1958 @@
+<protomods>
+
+  <!-- TODO: -->
+   <!-- <die neuen Helden auch weaken, bzw. stärken, je nach Zeitalter?  -->
+   <!-- wobei ich grad nicht sehe, wie vanilla das genau macht in weaken sind nur  -->
+   <!-- ein paar und die werden auch nie wieder stärker oder wie? -->
+   
+   
+   <!-- scheint dass man bei mergeMode="remove" entweder alles exact schreiben muss, oder wohl bis zu eins weglassen darf? -->
+   <!-- <tech name="RelicAnkhofRa" type="Normal"> -->
+      <!-- <effects> -->
+        <!-- <effect mergeMode="remove" type="Data" subtype="ResourceTrickleRate" resource="Favor" relativity="Absolute" /> -->
+      <!-- </effects> -->
+    <!-- </tech> -->
+    <!-- das funzt zb bei weglassen des amount -->
+   <!-- und das funzt auch (aber nicht weglassen von mehr) -->
+   <!-- <effect mergeMode="remove" type="Data" amount="0.05" resource="Favor" relativity="Absolute" /> -->
+   
+   
+   
+   <!-- man könnte auch Gebäuden versuchen abilities zu geben? -->
+    <!-- mal gucken ob ich nem Turm den Bolt geben kann. -->
+   <!-- wenn das geht, könnte man noch n speziellen Turm machen mit abilities oderso -->
+   
+   
+
+   
+   
+   <!-- für norse: -->
+    <!-- zum kämpfen ohne gegner am besten wohl über ability mit buildlimit eine höhle pro zeitalter spawnen können -->
+     <!-- wo mit der zeit immer mal wieder gegner bei spawnen (zb Trollhöhle, Wolfshöhle usw) -->
+   <!-- hm.. gibt kein Höhlen Modell.. -->
+   <!-- die units mit <flag>ForceToNature</flag> immer nature machen und mit predator code dafür sorgen, dass sie agressiv sind -->
+   <!-- und -->
+    <!-- <unitaitype mergeMode="add">Predator</unitaitype> -->
+	<!-- <autoattackrange mergeMode="add">12</autoattackrange> -->
+	<!-- <unittype mergeMode="add">LogicalTypeAgressiveNatureUnit</unittype> -->
+   <!-- evlt tactics animal_predator.tactics oder neue taktik (erstmal Predator testen) -->
+   
+   <!-- auch nice wäre es, wenn die nature settlements von selbst nature units alle x minuten produzieren, die sie bewachen? -->
+   
+   
+  <!-- <unitregen idleTimeout="10">0.0000</unitregen> -->
+   <!-- das in proto zu verwenden und dann zb in tech UnitRegenRate zu machen, dann wirkt idleTimeout weiterhin, also regeneriert nur wenn x sekunden idle (alternativ damageTimeout) -->
+   
+   
+   
+   <!-- With Flag "ForceToNature" I can make a unit always belong to nature even if trained by a player, so the unit part is already solved. -->
+  <!-- What I already found in code about spawning units: -->
+  <!-- 1) tech effect "CreateUnit": can spawn a defined number of units near one thing  (eg. temple on ageup or TownCenter Pharaoh respawn, if possible an object owned by player is prefered, if not found also nature works). But I'm sure it does not care for pop- or buildlimits. And even if it would, an evenly distributed spawn around all settlements is also unlikely with this... NO, always spawnes next to first found object, so always the same location!.. -->
+  <!-- 2) TartatianGate: Would fit quite well in theory, but unfortunately all the relevant spawn code is not defined in the building, but in the godpower -.- So this can only be used if we somehow manage to cast the godpower on every settlement on gamestart...  -->
+  <!-- 2.1) And even allowing a norse unit to cast this power, how to limit the amount of casts, since there we can not add any kind of cost. removing a unit ability is only possible if it is a unitaction, but a godpower as unitaction can not target ground. And targetting eg. settlements also does not work properly, because the settlement is not tranforemd the gate is spawned on top of it, and depending on which position you exactly clicked, it looks strange... And of course you could cast the power unlimited times on the same settlement... maybe making a new limited building that acts as target with shared buildlimit with the spawned Gate, while the target gets destroyed somehow.. dont know how.. -->
+  <!-- 3) Train a unit: I can make the ForceToNature-Unit trainable, but how to force the settlements to auto-train them from gamestart? Already added the unit for testing to my own TownCenter, added AutoTrainable flag to the unit and can autotrain it, but not sure how to make it autotrain directly from the start. In major_gods.xml is autotrain for villagers defined, but users could disable this in settings and in addition what major_god is the "Nature" player, to make the Settlement autotrain units? -->
+  <!-- 3.1) Or I could make the neutral unit trainable in building owned by player, but how to limit the amount of neutral units, build-/pop-limit do not work, since owner is nature, while I train the unit -->
+  <!-- If we could enable the autotrain for settlements, I think this would be the best solution, since this cares for buildlimit, which could be increased for every additional settlement automatically and when all settlements start at the same time to train, the units also would be evenly distributed. -->
+  <!-- 4) protoaction "ChargedSpawn", which is eg used from Kebenit ships to spawn seasnakes while fighting with enemy ships. Based on my tests it is required to have a fight (with the Unit mentioned in "minrate"), did not succeed to make it spawn units without a fight yet (setting minrate=0 or removing this entry did not help), maybe someone knows how? If we get this working without a fight, then this could be the solution. But otherwise, even if we make the settlement attackable/attacking, it would only spawn units when an enemy is nearby, which does not gurantee an even distribution. (geht glaub ich echt nur wenn meine unit angreift, dann wird automatisch daneben gespawned. geht wohl nicht als manuelle ability) -->
+  <!-- 5) bonusunitspawning from Loki: does not really help for this case I think. -->
+   <!-- Oder halt doch über ne random map machen, wobei ich auch da nicht weiß wie :D -->
+   <!-- 6) action <type>Maintain</type> see phoenix egg tactics file. The object trains the unit and can be killed aftewards or not. also can overwrite the default trainpoints -->
+      <!-- one can train different units this way (adding multiple actions) but if limit from one is reached before the other, they are blocking each other -->
+       <!-- they are trained at the same time though, but only at beginning, afterwards the first unit is blocking the others always .. and adding SplitQueue to one or all of them does not help to lift the block (maybe DoNotQueue ? ne hilft auch nicht) -->
+     <!-- if this action is assigned to settlements to spawn guards: -->
+      <!-- the max number of guards is defined by their buildlimit -->
+       <!-- which is increased by the same amount for every dynamicbuildlimitunittypes (AbstractSettlement) that still exists on the map. -->
+       <!-- Settlements fully overbuild with TownCenters do not produce guards anymore and no longer increase the buildlimit -->
+        <!-- since all settlements start producing at the same time, the first amounts will be evenly distributed between settlements. -->
+       <!-- problem with buildlimit: -->
+       <!-- as soon as reached, if you then kill one (or two with the extra one that spawns for whatever reason), -->
+        <!-- a new one will spawn at the first Settlement again. It will always be the very same settlement, not a random one, -->
+         <!-- as long as less guards are dead then settlements exist (only if every settlement can produce a new one based on buildlimit, it will again distribute them evenly) -->
+  <!-- 7) <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">Deer</spawn> beim Tod (oder auch hit) spawned das object direkt  -->
+    <!-- mit skipplacementcheck direkt auf derselben Stelle, ohne skipplacementcheck wird geschaut obs hinpasst und spawned evlt leicht versetzt, wobei der check scheiße ist und zb goldmine woanders hinspaned obwohl an derselben stelle nun eig genug platz gewesen wäre -->
+      <!-- when using <replacement type="dead"> it maintains the state, so it is still dead, and decay is used from the original object. -->
+      <!-- while when using <spawn type="dead" count="1"> it spawns a new alive object -->
+       <!-- and replacement is executed before spawn, which makes spawn never happen if both at used.. -->
+         <!-- (wobei man hier mal die flag DeadReplacementWhenDestroyed versuchen kann, dadurch soll replacement später passieren? -->
+              <!-- oder auch DeadReplaceOnlyOnTimeout, wodurch replacement nur gemacht wird wenn zb lifespan zuende ist) -->
+          <!-- theoretisch gibts auch DeadTransform, aber keine ahnung ob das funzt, wird in vanilla nicht verwendet, das könnte buildlimit beachten mit flag -->
+   <!-- 8) testen: Command mit: <spawncommand></spawncommand> <unittype>Minuteman</unittype> <amount>6</amount> <associatedtech>DEOttomanLevy</associatedtech> -->
+   
+   <!-- dependentunit spawned unit sobald zb. gebäude das das hat fertiggestellt wurde (nur einmalig und nur beim fertigstellen, nicht nachträglich) -->
+    <!-- kann auch via techtree zugefügt werden, siehe AddDependentUnit. aber wie gesagt klappt nur beim fertigstellen, szu bereits vorhandenen wir dadurchn ichts zugefügt. -->
+   
+   <!-- truppen automatisch spawnen lassen: -->
+   <!-- <rechargetime>8.0000</rechargetime> -->
+   <!-- <protoaction mergeMode="add"> -->
+     <!-- <name stringid="STR_ACTION_CHARGE_SPAWN">ChargedSpawn</name> -->
+     <!-- <active>1</active> -->
+     <!-- <type>Spawn</type> -->
+     <!-- <rate type="Troll">3.000000</rate> -->
+     <!-- <minrate type="Unit">1.000000</minrate> -->
+     <!-- <persistent>1</persistent> -->
+     <!-- <animationrate>1</animationrate> -->
+     <!-- <chargeaction>1</chargeaction> -->
+     <!-- <forcespawn>1</forcespawn> -->
+   <!-- </protoaction> -->
+   <!-- das spawned alle 8 sekunden 3 trolle, wenn 1 feindliche unit angegriffen wird (oderso) -->
+   <!-- keine ahnung was minrate ist, egal ob 1 oder 2 sehe keinen unterschied (eine feindliche unit reicht) -->
+    <!-- aber bei 0 passiert nichts und allgemein wird nichts gespawned ohne feind in der nähe (oder evlt angriff) -->
+   <!-- es hält auch buildlimit ein. -->
+    <!-- evtl auch mal targetenemy/targetnonally oder targetally versuchen -->
+    
+    
+    <!-- es aber dem settlement zu geben funzt nicht, vermutlich weil es nicht feindlich ist.. und dazu gibts keine einstellung.. -->
+     <!-- evlt gucken ob man autotrain für nature gebäude anschalten kann? -->
+      <!-- mit buildlimit welches pro setlement erhöht ist -->
+    
+   <!-- OracleRevealEnemyUI ist auch interessant, orakel können in der nähe gebäude ausspionieren ,dass man sieht was da trainiert wird -->
+   
+   
+   <!-- GreatHunt god power ist wohl leider hardcoded darauf, dass verdoppelte units nature gehören, selbst mit convertunitstogodpowerplayer .. -->
+   
+
+   
+   <!-- veterancybonus über totaldamage klingt auhc interessant, je mehr schaden ne unit macht, desto stärker wird sie, zb Hydra -->
+     <!-- könnte man da auch Helden geben und ein Levelsystem draus machen? -->
+      <!-- mal gucken ob aktuelles lvl angezeigt wird... ne wird leider nicht, geht nur über buff nen wert ändern wie zb standard 1 schaden und lvl2 sinds dann 2 usw oderso..  -->
+    <!-- veterancyranks keyword sind auch numattacks und numkills gültig (neben totaldamage was in vanilla verwendet wird) -->
+    <!-- kann man wohl mit einem hex editor https://hexed.it/ in der .exe Datei nachschauen, indem man nach totaldamage sucht -->
+     <!-- und guckt welche strings in der nähe sind, die dazu passen könnten -->
+     
+     
+     <!-- LikeBonus mit definieren für welche unit man stärker wird (basiert auf fenris_wolf_brood.tactics) -->
+      <!-- wenn man das zufügt, wirkt es nicht mehr für "like" also Fenris zu Fenris (außer diese sind vom abstracttype auch umfasst) -->
+      <!-- rate ist nötig und man kann da auch noch andere typen definieren mit untersch. rates -->
+     <!-- <action> -->
+        <!-- <name>IncreaseSpeedWithLikeUnits</name> -->
+
+        <!-- <modifyratebytype>1</modifyratebytype> -->
+        <!-- <modifyabstracttype>MilitaryUnit</modifyabstracttype> -->
+        <!-- <rate type="MilitaryUnit">2.0</rate> -->
+
+        <!-- <type>LikeBonus</type> -->
+        <!-- <persistent>1</persistent> -->
+        <!-- <modifytype>Speed</modifytype> -->
+        <!-- <modifyexponent>1.0</modifyexponent> -->
+        <!-- <modifybase>1.0</modifybase> -->
+      <!-- </action> -->
+     
+     
+     <!-- tower defense towers in base game zufügen "286944_tower defence" damit man mehr interessante Türme bauen kann -->
+     
+     
+     
+      <!-- Um Action einer einzeln unit zu ändern (tactic) kann man Mechanik von Factory aus AoE3DE nutzen! -->
+       <!-- (alternativ BuildingShowTactics peach_blossom.tactics von amor) -->
+       <!-- Dadurch kann man quasi von nah auf fernkampf wechseln, oder agressive/defensive haltung usw. -->
+       <!-- evtl noch testen was passiert wenn man merhere units selected hat während man den command ausführt -->
+      <!-- proto_unit_command_mods.xml: -->
+      <!-- <protounitcommand mergeMode="add"> -->
+        <!-- <name>CommandGatherGold</name> -->
+        <!-- <icon>resources\shared\hud\command\market_buy_gold_icon.png</icon> -->
+        <!-- <displaynameid>STR_EFFECT_ENABLE</displaynameid> -->
+        <!-- <rollovertextid>STR_EFFECT_ENABLE</rollovertextid> -->
+        <!-- <command>unitSetTactic("TacticGatherGold")</command> -->
+      <!-- </protounitcommand> -->
+      <!-- <protounitcommand mergeMode="add"> -->
+        <!-- <name>CommandDefaultTactic</name> -->
+        <!-- <icon>resources\shared\hud\command\market_sell_gold_icon.png</icon> -->
+        <!-- <displaynameid>STR_EFFECT_ENABLE</displaynameid> -->
+        <!-- <rollovertextid>STR_EFFECT_ENABLE</rollovertextid> -->
+        <!-- <command>unitSetTactic("Default")</command> -->
+      <!-- </protounitcommand> -->
+      <!-- tactics file, add this line (just adding, not replacing anything): -->
+      <!-- <action> -->
+        <!-- <name>AutoGatherCoin</name> -->
+        <!-- <type>AutoGather</type> -->
+        <!-- <rate type="Gold">10.0</rate> -->
+        <!-- <persistent>1</persistent> -->
+      <!-- </action> -->
+      <!-- <tactic>TacticGatherGold<action>AutoGatherCoin</action></tactic> -->
+      <!-- in proto_mods_xml: -->
+      <!-- <unit name="SentryTower"> -->
+        <!-- <command mergeMode="add" row="2" column="2">CommandGatherGold</command> -->
+        <!-- <command mergeMode="add" row="2" column="1">CommandDefaultTactic</command> -->
+      <!-- </unit> -->
+     
+     
+     
+     <!-- es gibt variation(skins) für units, zb männliche/weibliche Villager. -->
+     <!-- command unitSetVariation -->
+      <!-- public void unitSetVariation(int variation, int unitID) -->
+      <!-- Sets the current variation of the given UnitID (current selected unit(s) if UnitID is 1). -->
+     <!-- wird wohl definiert in art\egyptian\units\economic\villager_egyptian\villager_egyptian.xml -->
+     <!-- aber wie leicht ich damit völlig andere anims hin und her wechseln kann, weiß ich nicht, und sicher muss man auch simdata.simjson anpassen, was nicht additive geht -->
+       <!-- (command scheint leider nicht zu funzen?) -->
+   
+   <!-- TODO: die helden in die zweite reihe zu packen ist evlt auch nicht gut, da gibts oft auch Forschungen vom game.. -->
+      <!-- zb bei Re ist erster slot ne forschung zu beginn -->
+
+  
+  <!-- TODO AreaHeal TownCenter mod: -->
+   <!-- man könnte noch <includeally>1</includeally> in proto action zufügen. -->
+
+
+  <!-- Transform Unit: -->
+  <!-- we could use unitaction+ability DelayedTransform to transform, but this is like every ability limited to up to 6 per unit -->
+   <!-- so instead we could better use "Command" (super tricky to make it work, finally succeeded, but other commands still dont work) -->
+    <!-- or a tech that makes TransformUnit (which effects every unit of this kind currently on the map from the player) -->
+   <!-- For a transform command to work you need:  -->
+    <!-- 1) command added to proto_unit_commands.xml, eg based on TransformToGate command. But you need an associatedtech (additive modding with proto_unit_command_mods.xml , so without the s ... ) -->
+    <!-- 2) the associatedtech also has to be added to techtree, see FanaticToHero as example and the tech should be named exactly like the command and set to active -->
+    <!-- 3) the transform in unit_transform.xml, see gate as example. command is not required. the tech here can (should?) be another tech, eg an age, but is not required -->
+    <!-- 4) transformcommand in protounit is not required if we use uiTransformSelectedUnit() in proto_unit_commands.xml -->
+  <!-- Problem with transform command: -->
+   <!-- you can not do an endless cycle like Unit1 -> Unit2 -> Unit3 -> Unit1 -> Unit2 and so on. -->
+    <!-- Because with the transform I guess the UnitID does not change and it remembers that it already did a Transform (eg to Unit2) -->
+     <!-- so every transform can only be exeucted once on the same unit...(or test <usemultiple></usemultiple> ?) -->
+
+
+
+  
+   <!-- proto_unit_commands.xml additive modding is done with proto_unit_command_mods.xml (removed the s) -->
+
+  <!-- ATTENTION, setting maxrange=0 in any action BREAKS all abilities (why devs, why? that makes no sense!) -->
+
+
+  <!-- it is possible to have an aura with DoubleTrainChance AutoRangedModify (did not get SelfModify to work yet) -->
+    <!-- but it seems this does not apply to "maintain" training, which is eg used by the phoenix and this mod -->
+     <!-- and it makes spawn only 2 units anyways, while I would like to spawn eg 5 or more at once.. -->
+  <!-- BlockTrainCount also exists, but no clue how to use it. Adding it to building/unit did not work, neither via proto nor via techtree -->
+   <!-- um sich selbst zu treffen muss es <ModifySelf>1</ModifySelf>  haben (oder ModifySelfOnly) -->
+
+
+  <!-- info: -->
+   <!-- Limitations I found out while testing socketing: -->
+  <!-- when using the flag UpgradeSocket in the Tower, the socket (WallConnector) requires ForceToNature flag, which makes it owned by nature. -->
+   <!-- UpgradeSocket is luckily only needed if the socket building is bigger in size. But for Tower+Wall its not needed, so we can make it work also without ForceToNature -->
+  <!-- nonsocketplaceprotoid can not be the name of the unit we are currently in. So SentryTower can not have SentryTower as nonsocketplaceprotoid ... so we may need a copy of it. And to prevent having 2 different towers built which could cause update conflicts, we will instead put this copy to place into the wall menu as ability to place. -->
+    <!-- wait .. for whatever reason it now suddenly also works to place the tower as nonsocketplaceprotoid (maybe also because of missing UpdateSocket?) -->
+  <!-- Without PlaceSocketWhenPlacing flag the wall is removed and the tower placed. With it, the wall stays so we will have both at the same position (qhich actually looks quite nice) -->
+  <!-- With RevertToSocketAtZeroHitpoints when the tower is destroyed, that wall appears again, but as a construction site. and when build up again, the placement for another tower on top works a bit different, so better dont use this. -->
+  
+  <!-- tactics sind für automatische Angriffsmuster relevant, sonst nichts. abilities werden aber oft damit komibiniert, -->
+   <!-- damit automatisches Anwenden funktioniert. -->
+   <!-- Außerdem sind die action einträge in tactic dieselben vom aufbau her wie protoaction, nur eine erweiterung der protoaction. -->
+    <!-- man kann also auch, wenn man abilities mit einer protoaction verbinden will, aber keine tactic braucht, direkt in die protoaction reinschreiben. -->
+  
+    <!-- tactics muss vor protoaction in protounit definiert sein! -->
+  
+  <!-- An sich ist es fast immer egal ob eine action nur in tactic oder nur als protoaction oder beides aufgeteilt definiert ist. -->
+  <!-- Aber wenn man die action in tactic automatisiert verwenden will, dann muss sie als name in der tactic datei vorkommen, -->
+   <!-- und bei angriffs-actions muss anscheinend auch zwangsweise <attackaction>1</attackaction> in der tactic action drinstehen -->
+    <!-- sonst wird die action nicht als angriff automatisch ausgeführt -->
+  
+  
+  <!-- tactic dateien kann man ganz normal additive modden. -->
+   <!-- godpower/abilities aktuell nicht direkt, da sie mit der powers.xml und include ein wenig anders aufgebaut werden. -->
+    <!-- vermutlich wird nämlich das include in powers.xml zurzeit vor dem additiven modding ausgeführt, weshalb man 1) kein include mehr in powers.xml verwenden kann (sondern direkt die powers/abilities reinschreibt) -->
+     <!-- und 2. eben auch dass addtrive modden von existierenden dann in powers_mods.xml macht. -->
+  
+  
+  
+  <!-- invisible helper unit that can be owned by a player, and produces units (for techtree) -->
+  <unit name="SpawnHelper_Serp">
+    <displaynameid>STR_SPAWNTYPE_BIRTH</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <buildingworkrate>1.0000</buildingworkrate>
+    <buildlimit>1</buildlimit>
+    <populationcount>0</populationcount>
+    <trainpoints>1.0000</trainpoints>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>RMCanRotate</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>VariationLocked</flag>
+    <flag>Invulnerable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <!-- <flag>NotSelectable</flag> -->
+    <!-- <flag>OnlyInEditor</flag> -->
+    <tactics>KotHVaultspawn_serp.tactics</tactics>
+  </unit>
+  
+  
+  <unit name="Hersir">
+    <unitregen mergeMode="add">0.5000</unitregen>
+    
+    
+    <!-- <protoaction> -->
+      <!-- <name>ChaosAttack</name> -->
+      <!-- <rof>2.000000</rof> -->
+      <!-- <maxrange>10.000000</maxrange> -->
+      <!-- <onhiteffect type="StatModify" duration="30.000000"> -->
+        <!-- <modify type="Chaos">1.000000</modify> -->
+      <!-- </onhiteffect> -->
+      <!-- <onhiteffect type="Attach" targetunittype="Unit" proto="VFXChaos" attachbone="vfx_top" duration="30.000000"> -->
+      <!-- </onhiteffect> -->
+    <!-- </protoaction> -->
+    <protoaction>
+      <name>TransfigurationAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <active>1</active>
+      <onhiteffect type="MutateNature" proto="Chicken">
+      </onhiteffect>
+    </protoaction>
+    
+  </unit>
+  <unit name="Godi">
+    <unitregen mergeMode="add">0.5000</unitregen>
+  </unit>
+  
+  
+  
+  
+  <!-- test -->
+  <!-- units that want to be able to train units for whatever reason need the hero unittype (maybe others also work) -->
+   <!-- to make the train queue show up -->
+  <unit name="Berserk">
+    <train mergeMode="add" row="2" column="4">Troll</train>
+    <unittype mergeMode="add">Hero</unittype>
+  </unit>
+  
+  
+  
+  
+  <!-- add regeneration to greek heros -->
+   <!-- am besten auch via tech machen? -->
+  
+  <unit name="Jason">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Ajax">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Theseus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Heracles">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Achilles">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Atalanta">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Adysseus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Chiron">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Hippolyta">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Bellerophon">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Perseus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Polyphemus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  
+  <unit name="Priest">
+    <buildlimit mergeMode="add">25</buildlimit>
+    <unitregen mergeMode="add">0.5000</unitregen>
+  </unit>
+  <unit name="SonOfOsiris">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  
+  <unit name="TitanCerberus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="TitanBird">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="TitanYmir">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="TitanAtlantean">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  <unit name="Nidhogg">
+    <initialhitpoints mergeMode="replace">3000</initialhitpoints>
+    <maxhitpoints mergeMode="replace">3000</maxhitpoints>
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  
+  
+  <unit name="TownCenter">
+        
+    
+    <train mergeMode="add" row="1" column="0">Amanra_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="1">Theris_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="2">Kemsyt_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="3">Guardian_SkirmishSerp</train>
+    
+    <train mergeMode="add" row="1" column="0">Brokk_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="1">Eitri_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="2">Reginleif_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="3">Ornlu_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="4">KingFolstag_SkirmishSerp</train>
+    
+    <train mergeMode="add" row="1" column="0">Kastor_SkirmishSerp</train>
+    
+    
+    <rechargetime>8.0000</rechargetime>
+    <!-- <protoaction mergeMode="add"> -->
+      <!-- <name stringid="STR_ACTION_CHARGE_SPAWN">ChargedSpawn</name> -->
+      <!-- <active>1</active> -->
+      <!-- <type>Spawn</type> -->
+      <!-- <rate type="Troll">3.000000</rate> -->
+      <!-- <minrate type="Unit">1.000000</minrate> -->
+      <!-- <persistent>1</persistent> -->
+      <!-- <animationrate>1</animationrate> -->
+      <!-- <chargeaction>1</chargeaction> -->
+      <!-- <forcespawn>1</forcespawn> -->
+    <!-- </protoaction> -->
+    
+  </unit>
+  <unit name="CitadelCenter">
+
+    <train mergeMode="add" row="1" column="0">Amanra_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="1">Theris_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="2">Kemsyt_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="3">Guardian_SkirmishSerp</train>
+    
+    <train mergeMode="add" row="1" column="0">Brokk_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="1">Eitri_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="2">Reginleif_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="3">Ornlu_SkirmishSerp</train>
+    <train mergeMode="add" row="1" column="4">KingFolstag_SkirmishSerp</train>
+    
+    <train mergeMode="add" row="1" column="0">Kastor_SkirmishSerp</train>
+  </unit>
+  
+  
+  
+  <unit name="VillagerEgyptian">
+    <train mergeMode="add" row="4" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="VillagerAtlantean">
+    <train mergeMode="add" row="0" column="3">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="VillagerGreek">
+    <train mergeMode="add" row="0" column="3">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="Berserk">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="ThrowingAxeman">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="Hirdman">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="Huskarl">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="Hersir">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="Godi">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="HeroOfRagnarok">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  <unit name="HeroOfRagnarokDwarf">
+    <train mergeMode="add" row="2" column="4">StatueMajorGod_SkirmishSerp</train>
+  </unit>
+  
+
+  <unit name="StatueMajorGod_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_BLD_STATUE_MAJOR_GOD_NAME</displaynameid>
+    <rollovertextid>STR_BLD_STATUE_MAJOR_GOD_LR</rollovertextid>
+    <editornameid>STR_BLD_STATUE_MAJOR_GOD_EDT_NAME</editornameid>
+    <icon>resources\spc\static_color\buildings\statue_major_god_icon.png</icon>
+    <animfile culture="greek">greek\buildings\statue_major_god\statue_major_god_greek.xml</animfile>
+    <animfile culture="egyptian">egyptian\buildings\statue_major_god\statue_major_god_egyptian.xml</animfile>
+    <animfile culture="norse">norse\buildings\statue_major_god\statue_major_god_norse.xml</animfile>
+    <animfile culture="atlantean">atlantean\buildings\statue_major_god\statue_major_god_atlantean.xml</animfile>
+    <soundsetfile>egyptian\sfx\buildings\monument_to_villagers.xml</soundsetfile>
+    <obstructionradiusx>1.0000</obstructionradiusx>
+    <obstructionradiusz>1.0000</obstructionradiusz>
+    <impacttype>Stone</impacttype>
+    <screenshakeondestruction>0.300</screenshakeondestruction>
+    <movementtype>land</movementtype>
+    <initialhitpoints>5000.0000</initialhitpoints>
+    <maxhitpoints>5000.0000</maxhitpoints>
+    <!-- <buildpoints>300.0000</buildpoints> -->
+    <rechargetime>12.0000</rechargetime>
+    <auxrechargetime>10.0000</auxrechargetime>
+    <buildpoints>30.0000</buildpoints>
+    <buildlimit>1</buildlimit>
+    <populationcount>1</populationcount>
+    <maxvelocity>0.0000</maxvelocity>
+    <displayedrange>20.0000</displayedrange>
+    <los>9.0000</los>
+    <cost resourcetype="Wood">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <armor type="Hack" value="0.5500">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.1000">
+    </armor>
+    <unittype>LogicalTypeMinimapFilterEconomic</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>Building</unittype>
+    <unittype>CountsTowardEconomicScore</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeTartarianGateValidOverlapPlacement</unittype>
+    <unittype>LogicalTypeBuildingThatCanBeEmpowered</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>NoIdleActions</flag>
+    <flag>DisplayRange</flag>
+    <command row="1" column="1">CancelBuilding</command>
+    <command row="3" column="5">Delete</command>
+    <!-- <tactics>statuemajorgod_skirmishserp.tactics</tactics> -->
+    <tactics>lampades.tactics</tactics>
+    <protoaction>
+      <name>AutoGather</name>
+      <rate type="Favor">0.20000</rate>
+    </protoaction>
+    <!-- <protoaction> -->
+      <!-- <name>TransfigurationAttack</name> -->
+      <!-- <rof>20.000000</rof> -->
+      <!-- <maxrange>15.000000</maxrange> -->
+      <!-- <active>1</active> -->
+      <!-- <onhiteffect type="MutateNature" proto="FenrisWolfBrood"/> -->
+    <!-- </protoaction> -->
+    
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Pierce">24.000000</damage>
+      <damage type="Crush">20.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.250000</damagebonus>
+      <maxrange>10.000000</maxrange>
+      <projectile>ProjectileLampadesBolt</projectile>
+    </protoaction>
+    <!-- <protoaction> -->
+      <!-- <name>ChaosAttack</name> -->
+      <!-- <rof>2.000000</rof> -->
+      <!-- <maxrange>10.000000</maxrange> -->
+      <!-- <onhiteffect type="StatModify" duration="30.000000"> -->
+        <!-- <modify type="Chaos">1.000000</modify> -->
+      <!-- </onhiteffect> -->
+      <!-- <onhiteffect type="Attach" targetunittype="Unit" proto="VFXChaos" attachbone="vfx_top" duration="30.000000"> -->
+      <!-- </onhiteffect> -->
+    <!-- </protoaction> -->
+    <protoaction>
+      <name>TransfigurationAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>1000000.000000</maxrange>
+      <active>1</active>
+      <onhiteffect type="MutateNature" proto="Chicken">
+      </onhiteffect>
+    </protoaction>
+    <protoaction>
+      <name>SelfDestructAttack</name>
+      <damage type="Divine">75.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <damagearea>9.000000</damagearea>
+      <damageflags>Nature|Enemy</damageflags>
+    </protoaction>
+    
+  </unit>
+  
+  
+  
+  <!-- add campaign heroes(a copy of them, so we can balance them if needed, eg without KnockoutDeath and adding costs) -->
+  
+  
+  <unit name="Amanra_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_AMANRA_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_AMANRA_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_AMANRA_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\amanra_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\amanra\amanra.xml</animfile>
+    <soundsetfile>spc\vo\amanra\amanra.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>250.0000</initialhitpoints>
+    <maxhitpoints>250.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>5.3000</maxvelocity>
+    <rechargetime>12.0000</rechargetime>
+    <los>20.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.5000">
+    </armor>
+    <armor type="Pierce" value="0.5000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>handattack_jumpattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>0.800000</rof>
+      <damage type="Divine">10.000000</damage>
+      <damagebonus type="MythUnit">6.000000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>0.750000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>JumpAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damagebonus type="MythUnit">1.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <minrange>3.000000</minrange>
+      <maxrange>9.000000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  
+  <unit name="Kemsyt_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_KEMSYT_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_KEMSYT_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_KEMSYT_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\kemsyt_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\kemsyt\kemsyt.xml</animfile>
+    <soundsetfile>spc\vo\kemsyt\kemsyt.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>200.0000</initialhitpoints>
+    <maxhitpoints>200.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>3.7000</maxvelocity>
+    <los>17.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.5000">
+    </armor>
+    <armor type="Pierce" value="0.5000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>handattack_chargedhandattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.200000</rof>
+      <damage type="Hack">10.000000</damage>
+      <damagebonus type="MythUnit">3.000000</damagebonus>
+      <maxrange>0.750000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>ChargedHandAttack</name>
+      <rof>2.00000</rof>
+      <damage type="Divine">4.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.250000</damagebonus>
+      <maxrange>1.000000</maxrange>
+      <damagearea>2.000000</damagearea>
+      <damageflags>Nature|Enemy</damageflags>
+      <rate type="Unit">1.0</rate>
+      <onhiteffect type="DamageOverTime" dmgtype="Divine" duration="6.000000" rate="1.500000">
+      </onhiteffect>
+      <onhiteffect type="Attach" targetunittype="Unit" proto="VFXPoison" attachbone="spine" duration="6.000000">
+      </onhiteffect>
+      <attachvalidtargetonly>1</attachvalidtargetonly>
+      <displayednumberprojectiles>3</displayednumberprojectiles>
+    </protoaction>
+  </unit>
+  
+  <unit name="Theris_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_THERIS_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_THERIS_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_THERIS_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\theris_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\theris\theris.xml</animfile>
+    <soundsetfile>egyptian\vo\anubite\anubite.xml</soundsetfile>
+    <obstructionradiusx>0.7400</obstructionradiusx>
+    <obstructionradiusz>0.7400</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>700.0000</initialhitpoints>
+    <maxhitpoints>700.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>7</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>5.3000</maxvelocity>
+    <rechargetime>5.0000</rechargetime>
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.6000">
+    </armor>
+    <armor type="Pierce" value="0.5500">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>handattack_jumpattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>0.800000</rof>
+      <damage type="Hack">11.000000</damage>
+      <damagebonus type="MythUnit">3.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <maxrange>0.500000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>JumpAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">15.000000</damage>
+      <damagebonus type="MythUnit">3.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <damagearea>4.000000</damagearea>
+      <minrange>4.000000</minrange>
+      <maxrange>11.000000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  <unit name="Guardian_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_GUARDIAN_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_GUARDIAN_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_GUARDIAN_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\guardian_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\guardian\guardian.xml</animfile>
+    <soundsetfile>egyptian\vo\anubite\anubite.xml</soundsetfile>
+    <obstructionradiusx>1.4900</obstructionradiusx>
+    <obstructionradiusz>1.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>2000.0000</initialhitpoints>
+    <maxhitpoints>2000.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>13</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>3</populationcount>
+    <maxvelocity>4.0000</maxvelocity>
+    <rechargetime>60.0000</rechargetime>
+    <auxrechargetime>10.0000</auxrechargetime>
+    <los>25.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.8500">
+    </armor>
+    <armor type="Pierce" value="0.9500">
+    </armor>
+    <armor type="Crush" value="0.5500">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>RotateInPlace</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <tactics>guardian_skirmishserp.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.500000</rof>
+      <damage type="Hack">30.000000</damage>
+      <damage type="Crush">30.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <maxrange>1.000000</maxrange>
+      <damagearea>4.000000</damagearea>
+      <damageflags>Nature|Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>ChargedHandAttack</name>
+      <rof>5.000000</rof>
+      <damage type="Hack">1.000000</damage>
+      <damage type="Crush">1.000000</damage>
+      <damagebonus type="MythUnit">1.000000</damagebonus>
+      <damagebonus type="Hero">0.250000</damagebonus>
+      <maxrange>14.000000</maxrange>
+    </protoaction>
+  </unit>
+  <!-- weaker BoltStrike for weaker guardian -->
+  <unit name="BoltStrike_SkirmishSerp">
+    <animfile>greek\godpowers\bolt\bolt.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <lifespan>6.0000</lifespan>
+    <decay delay="0.0000" duration="0.0100">
+    </decay>
+    <movementtype>air</movementtype>
+    <maxvelocity>0.0000</maxvelocity>
+    <los>0.0000</los>
+    <flag>NotSelectable</flag>
+    <flag>NotSearchable</flag>
+    <flag>DoNotYawDuringMovement</flag>
+    <flag>NonCollideable</flag>
+    <flag>GivesLOSToAll</flag>
+    <flag>NoHPBar</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>HasContinuousParticles</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <tactics>handattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.0</rof>
+      <damage type="Divine">500</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <maxrange>0.300000</maxrange>
+      <damagearea>2.000000</damagearea>
+      <damageflags>Nature|Enemy</damageflags>
+    </protoaction>
+  </unit>
+  
+  <!-- Norse -->
+  
+  <unit name="Brokk_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_BROKK_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_BROKK_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_BROKK_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\brokk_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\brokk\brokk.xml</animfile>
+    <soundsetfile>spc\vo\brokk\brokk.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>180.0000</initialhitpoints>
+    <maxhitpoints>180.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>5</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>1</populationcount>
+    <maxvelocity>4.3000</maxvelocity>
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <carrycapacity resourcetype="Food">20.0000</carrycapacity>
+    <carrycapacity resourcetype="Wood">10.0000</carrycapacity>
+    <carrycapacity resourcetype="Gold">15.0000</carrycapacity>
+    <armor type="Hack" value="0.3500">
+    </armor>
+    <armor type="Pierce" value="0.3500">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>EconomicUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>AbstractDwarf</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <hotkeycontext>BuildNorseAccel</hotkeycontext>
+    <train row="0" column="0">House</train>
+    <train row="0" column="1">OxCartBuilding</train>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <!-- <flag>ForceSecondPage</flag> -->
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <contain external="1">LogicalTypePickable</contain>
+    <command row="3" column="5">Delete</command>
+    <command row="3" column="0">Stop</command>
+    <command row="3" column="1">Eject</command>
+    <command row="3" column="3">Repair</command>
+    <tactics>brokk.tactics</tactics>
+    <protoaction>
+      <name>Hunting</name>
+      <rate type="Herdable">1.000000</rate>
+      <rate type="Huntable">1.000000</rate>
+      <rate type="Tree">1.000000</rate>
+      <rate type="Taproot">1.000000</rate>
+      <rate type="NonConvertableHerdable">1.000000</rate>
+    </protoaction>
+    <protoaction>
+      <name>ChopAttack</name>
+      <damage type="Hack">8.000000</damage>
+    </protoaction>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Pierce">12.000000</damage>
+      <maxrange>12.000000</maxrange>
+      <projectile>ProjectileArrowNotFlaming</projectile>
+    </protoaction>
+    <protoaction>
+      <name>Build</name>
+      <rate type="House">1.000000</rate>
+      <rate type="OxCartBuilding">1.000000</rate>
+    </protoaction>
+    <protoaction>
+      <name>Repair</name>
+      <maxrange>0.2</maxrange>
+      <rate type="House">0.75</rate>
+    </protoaction>
+    <protoaction>
+      <name>Gather</name>
+      <dropsitegathering>1</dropsitegathering>
+      <rate type="Tree">0.80000</rate>
+      <rate type="Taproot">0.80000</rate>
+      <rate type="GoldResource">1.020000</rate>
+      <rate type="Herdable">0.720000</rate>
+      <rate type="Huntable">0.800000</rate>
+      <rate type="NonConvertableHerdable">0.720000</rate>
+      <rate type="BerryBush">0.640000</rate>
+    </protoaction>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">9.000000</damage>
+      <damagebonus type="MythUnit">5.00000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>0.750000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  <unit name="Eitri_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_EITRI_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_EITRI_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_EITRI_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\eitri_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\eitri\eitri.xml</animfile>
+    <soundsetfile>spc\vo\eitri\eitri.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>150.0000</initialhitpoints>
+    <maxhitpoints>150.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>5</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>1</populationcount>
+    <maxvelocity>4.3000</maxvelocity>
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <carrycapacity resourcetype="Food">20.0000</carrycapacity>
+    <carrycapacity resourcetype="Wood">10.0000</carrycapacity>
+    <carrycapacity resourcetype="Gold">15.0000</carrycapacity>
+    <armor type="Hack" value="0.3000">
+    </armor>
+    <armor type="Pierce" value="0.3000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>EconomicUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>AbstractDwarf</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <hotkeycontext>BuildNorseAccel</hotkeycontext>
+    <train row="0" column="0">House</train>
+    <train row="0" column="1">OxCartBuilding</train>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <!-- <flag>ForceSecondPage</flag> -->
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <contain external="1">LogicalTypePickable</contain>
+    <command row="3" column="0">Stop</command>
+    <command row="3" column="1">Eject</command>
+    <command row="3" column="3">Repair</command>
+    <command row="3" column="5">Delete</command>
+    <tactics>eitri.tactics</tactics>
+    <protoaction>
+      <name>Hunting</name>
+      <rate type="Herdable">1.000000</rate>
+      <rate type="Huntable">1.000000</rate>
+      <rate type="Tree">1.000000</rate>
+      <rate type="Taproot">1.000000</rate>
+      <rate type="NonConvertableHerdable">1.000000</rate>
+    </protoaction>
+    <protoaction>
+      <name>ChopAttack</name>
+      <damage type="Hack">8.000000</damage>
+    </protoaction>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Pierce">12.000000</damage>
+      <maxrange>12.000000</maxrange>
+      <projectile>ProjectileArrowNotFlaming</projectile>
+    </protoaction>
+    <protoaction>
+      <name>Build</name>
+      <rate type="House">1.000000</rate>
+      <rate type="OxCartBuilding">1.000000</rate>
+    </protoaction>
+    <protoaction>
+      <name>Repair</name>
+      <maxrange>0.2</maxrange>
+      <rate type="House">0.75</rate>
+    </protoaction>
+    <protoaction>
+      <name>Gather</name>
+      <dropsitegathering>1</dropsitegathering>
+      <rate type="Tree">0.80000</rate>
+      <rate type="Taproot">0.80000</rate>
+      <rate type="GoldResource">1.020000</rate>
+      <rate type="Herdable">0.720000</rate>
+      <rate type="Huntable">0.800000</rate>
+      <rate type="NonConvertableHerdable">0.720000</rate>
+      <rate type="BerryBush">0.640000</rate>
+    </protoaction>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">9.000000</damage>
+      <damagebonus type="MythUnit">5.00000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>0.750000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  
+  <unit name="KingFolstag_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_KING_FOLSTAG_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_KING_FOLSTAG_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_KING_FOLSTAG_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\king_folstag_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\king_folstag\king_folstag.xml</animfile>
+    <soundsetfile>spc\vo\king_folstag\king_folstag.xml</soundsetfile>
+    <obstructionradiusx>0.9900</obstructionradiusx>
+    <obstructionradiusz>0.9900</obstructionradiusz>
+    <selectionradiusx>1.2500</selectionradiusx>
+    <selectionradiusz>1.2500</selectionradiusz>
+    <impacttype>Wood</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>800.0000</initialhitpoints>
+    <maxhitpoints>800.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>11</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>5</populationcount>
+    <maxvelocity>4.3000</maxvelocity>
+    <rechargetime>20</rechargetime>
+    <auxrechargetime>60</auxrechargetime>
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Food">400.0000</cost>
+    <cost resourcetype="Gold">200.0000</cost>
+    <cost resourcetype="Wood">200.0000</cost>
+    <cost resourcetype="Favor">20.0000</cost>
+    <armor type="Hack" value="0.5500">
+    </armor>
+    <armor type="Pierce" value="0.5000">
+    </armor>
+    <armor type="Crush" value="0.9000">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>king_folstag.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Hack">36.000000</damage>
+      <damage type="Crush">24.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <maxrange>0.500000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>FreezeAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>4.000000</maxrange>
+      <projectile>ProjectileBallOfFireInvisible</projectile>
+      <onhiteffect type="Freeze" duration="20.000000" freezetype="default">
+      </onhiteffect>
+      <workonfrozenunits>0</workonfrozenunits>
+    </protoaction>
+    <protoaction>
+      <name>FreezeTitan</name>
+      <rof>2.000000</rof>
+      <maxrange>4.000000</maxrange>
+      <projectile>ProjectileBallOfFireInvisible</projectile>
+      <onhiteffect type="Freeze" duration="30.000000" freezetype="default">
+      </onhiteffect>
+      <workonfrozenunits>0</workonfrozenunits>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  <unit name="Reginleif_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_REGINLEIF_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_REGINLEIF_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_REGINLEIF_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\reginleif_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\reginleif\reginleif.xml</animfile>
+    <soundsetfile>spc\vo\reginleif\reginleif.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>RangedCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <formationorder>1</formationorder>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>400.0000</initialhitpoints>
+    <maxhitpoints>400.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>4.3000</maxvelocity>
+    <los>20.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Food">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.5500">
+    </armor>
+    <armor type="Pierce" value="0.6000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>Ranged</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>AbstractHealer</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CanAutoHeal</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>reginleif.tactics</tactics>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Pierce">16.000000</damage>
+      <damagebonus type="MythUnit">7.000000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>17.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+    </protoaction>
+    <protoaction>
+      <name>Heal</name>
+      <type>Heal</type>
+      <rate type="LogicalTypeHealed">40.00000</rate>
+      <maxrange>12.000000</maxrange>
+      <slowhealmultiplier>0.50</slowhealmultiplier>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  <unit name="Ornlu_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_ORNLU_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_ORNLU_LR</rollovertextid>
+    <icon>resources\spc\player_color\units\ornlu_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\ornlu\ornlu.xml</animfile>
+    <soundsetfile>norse\vo\fenris_wolf_brood\fenris_wolf_brood.xml</soundsetfile>
+    <obstructionradiusx>0.7400</obstructionradiusx>
+    <obstructionradiusz>0.7400</obstructionradiusz>
+    <selectionradiusx>0.7500</selectionradiusx>
+    <selectionradiusz>1.2500</selectionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>1000.0000</initialhitpoints>
+    <maxhitpoints>1000.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>7</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>5.3000</maxvelocity>
+    <maxrunvelocity>5.8300</maxrunvelocity>
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.4000">
+    </armor>
+    <armor type="Pierce" value="0.5500">
+    </armor>
+    <armor type="Crush" value="0.9000">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <tactics>ornlu_skirmishserp.tactics</tactics>
+    <!-- <tactics>fenris_wolf_brood.tactics</tactics> -->
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.500000</rof>
+      <damage type="Hack">25.000000</damage>
+      <damagebonus type="MythUnit">5.000000</damagebonus>
+      <maxrange>1.00000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>IncreaseDamageFenris_Serp</name>
+      <maxrange>30</maxrange>
+      <modifydamagetype>Hack</modifydamagetype>
+      <modifymultiplier>0.10</modifymultiplier>
+      <modifytargetlimit>5</modifytargetlimit>
+    </protoaction>
+    <protoaction>
+      <name>IncreaseSpeedFenris_Serp</name>
+      <maxrange>30</maxrange>
+      <modifytype>Speed</modifytype>
+      <modifymultiplier>0.05</modifymultiplier>
+      <modifytargetlimit>5</modifytargetlimit>
+    </protoaction>
+  </unit>
+  
+  <!-- Atlantean, only Kastor, because there are not many campaign heroes and they have enough heroes by upgrading the units -->
+  <unit name="Kastor_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_KASTOR_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_KASTOR_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_KASTOR_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\kastor_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\kastor\kastor.xml</animfile>
+    <soundsetfile>spc\vo\kastor\kastor.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>350.0000</initialhitpoints>
+    <maxhitpoints>350.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.5000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>4.3000</maxvelocity>
+    <rechargetime>5</rechargetime>
+    <los>17.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.5000">
+    </armor>
+    <armor type="Pierce" value="0.5000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>kastor.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.500000</rof>
+      <damage type="Hack">15.000000</damage>
+      <damagebonus type="MythUnit">7.000000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>0.750000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>Gore</name>
+      <rof>1.300000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damagebonus type="MythUnit">1.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <coneareaangle>60.000000</coneareaangle>
+      <maxrange>1.000000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+      <onhiteffect type="Stun" duration="5">
+      </onhiteffect>
+      <maxsizeclass>4</maxsizeclass>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  
+  
+  <unit name="EnemySettlement_Serp">
+    <displaynameid>STR_BLD_TARTARIAN_GATE_NAME</displaynameid>
+    <rollovertextid>STR_BLD_TARTARIAN_GATE_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_TARTARIAN_GATE_SR</shortrollovertextid>
+    <!-- <icon>resources\atlantean\static_color\buildings\tartarian_gate_icon.png</icon> -->
+    <!-- <animfile>atlantean\buildings\tartarian_gate\tartarian_gate.xml</animfile> -->
+    <!-- <soundsetfile>atlantean\sfx\buildings\tartarian_gate.xml</soundsetfile> -->
+    <icon>resources\nature\settlement_icon.png</icon>
+    <animfile>shared\buildings\settlement\settlement.xml</animfile>
+    <!-- <animfile>misc\editor\3d_icons\light_icon\yellow_lights.xml</animfile> -->
+    <soundsetfile>shared\sfx\buildings\settlement.xml</soundsetfile>
+    <obstructionradiusx>5.0000</obstructionradiusx>
+    <obstructionradiusz>5.0000</obstructionradiusz>
+    <selectionradiusx>5.0000</selectionradiusx>
+    <selectionradiusz>5.0000</selectionradiusz>
+    <impacttype>Stone</impacttype>
+    <initialhitpoints>2500.0000</initialhitpoints>
+    <maxhitpoints>2500.0000</maxhitpoints>
+    <los>10.0000</los>
+    <armor type="Hack" value="0.2500">
+    </armor>
+    <armor type="Pierce" value="0.6000">
+    </armor>
+    <armor type="Crush" value="0.0500">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>Building</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>NonSolid</flag>
+    <flag>NotAttackableByNature</flag>
+    <flag>NotRepairable</flag>
+    <flag>NoIdleActions</flag>
+    <command row="3" column="5">Delete</command>
+  </unit>
+  
+  <unit name="InvisibleDummy_Serp">
+    <displaynameid>STR_SCN_REVEALER_NAME</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer.xml</animfile>
+    <obstructionradiusx>2.0000</obstructionradiusx>
+    <obstructionradiusz>2.0000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>VisibleUnderFog</flag>
+    <flag>NoUnitAI</flag>
+    <flag>StartOnNoUpdate</flag>
+    <flag>NoIdleActions</flag>
+    <flag>RMCanRotate</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>VariationLocked</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>Invulnerable</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+  </unit>
+  
+  <!-- make HesperidesTree deleteable  -->
+  <unit name="HesperidesTree">
+    <flag mergeMode="remove">NotDeleteable</flag>
+    <command mergeMode="add" row="3" column="5">Delete</command>
+  </unit>
+  
+
+  
+</protomods>

@@ -1,0 +1,15 @@
+<battlesmods>
+
+   <!-- To add hotkey one has to overwrite default_hotkey file, which does not support additive modding yet -->
+   
+  <squadmode>
+    <name>Line</name>
+    <!-- test if armorbonus works -->
+    <armorbonus mergeMode="add">
+      <damagetype>Pierce</damagetype>
+      <value>0.90</value>
+    </armorbonus>
+    
+  </squadmode>
+  
+</battlesmods>

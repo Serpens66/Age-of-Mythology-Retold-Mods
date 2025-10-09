@@ -1,0 +1,73 @@
+<techtreemods>
+
+  <!-- <tech name="HeroicAgeGeneral"> -->
+  <!-- <tech name="ClassicalAgeGeneral"> -->
+    <!-- <effects> -->
+      <!-- <effect type="TechStatus" status="obtainable">TempleOfHealing</effect> -->
+    <!-- </effects> -->
+  <!-- </tech> -->
+  
+  <!-- <tech name="HornsOfConsecration"> -->
+    <!-- <effects> -->
+      <!-- <effect type="Data" action="Autogather" amount="0.025" subtype="WorkRate" unittype="Favor" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">TownCenter</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Autogather" amount="0.025" subtype="WorkRate" unittype="Favor" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">CitadelCenter</target> -->
+      <!-- </effect> -->
+    <!-- </effects> -->
+  <!-- </tech> -->
+  
+  <!-- add StatueMajorGod unlock to an age that is executed for everyone -->
+  <tech name="ArchaicAgeWeakenUnits">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">StatueMajorGod_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  
+      
+  
+  
+  <!-- enable new Heroes -->
+  
+  <tech name="ArchaicAgeEgyptian">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Amanra_SkirmishSerp</target>
+      </effect>
+      
+      <!-- test, train TartarianSpawn -->
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Hersir</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" proto="Hersir" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">Pharaoh</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">TartarianSpawn</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" proto="TartarianSpawn" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">Pharaoh</target>
+      </effect>
+
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" proto="TartarianSpawn" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">VillagerEgyptian</target>
+      </effect>
+      
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">StatueMajorGod_SkirmishSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" proto="StatueMajorGod_SkirmishSerp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">Priest</target>
+      </effect>
+      
+      
+    </effects>    
+  </tech>
+  
+    
+  
+</techtreemods>

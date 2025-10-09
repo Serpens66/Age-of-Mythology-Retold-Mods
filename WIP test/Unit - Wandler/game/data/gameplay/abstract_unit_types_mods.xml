@@ -1,0 +1,5 @@
+<abstractunittypesmods>
+  <abstractunittype mergeMode="add">AbstractWandlerUnitSerp</abstractunittype>
+  <abstractunittype mergeMode="add">AbstractWandlerUnitAndEggInitialSerp</abstractunittype>
+  <abstractunittype mergeMode="add">AbstractWandlerUnitAndEggSerp</abstractunittype>
+</abstractunittypesmods>

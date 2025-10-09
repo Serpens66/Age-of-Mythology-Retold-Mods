@@ -1,0 +1,21 @@
+<unittypedatamods>
+  <!-- TODO string -->
+  <unittypeentry mergeMode="add">
+    <unittype>AbstractWandlerUnitSerp</unittype>
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <hidefromrollover>
+    </hidefromrollover>
+  </unittypeentry>
+  <unittypeentry mergeMode="add">
+    <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype>
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <hidefromrollover>
+    </hidefromrollover>
+  </unittypeentry>
+  <unittypeentry mergeMode="add">
+    <unittype>AbstractWandlerUnitAndEggSerp</unittype>
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <hidefromrollover>
+    </hidefromrollover>
+  </unittypeentry>
+</unittypedatamods>

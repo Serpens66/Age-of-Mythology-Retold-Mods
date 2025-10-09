@@ -1,0 +1,2548 @@
+<techtreemods>
+  
+
+  
+  <!-- IF game crashes before main menu, read my comment about "MythicAgeGeneral" (search in this file) -->
+    <!-- it is the 13th techtype in tech_types.xml that can not be used (may be fixed meanwhile) -->
+  
+  <!-- I dont use mergeMode="add" to add my techs, but within them for the effects, because they have unique names, and it is good to default to "modify" -->
+   <!-- if the name already exists, in case other mods want to add on top of this mod by adding new effects eg. -->
+   <!-- but of course it would be better to load after my mod, if you want to add sth to it -->
+  
+  <!-- das mit dem resett beim sterben nochmal überdenken: -->
+  <!-- 1) ich möchte nicht,dass wenn mans endlich geschafft hat son super starken helden zu besiegen, der einfach nach 90 sekunden oderso -->
+   <!-- genauso stark neu spawned und man dann wieder es schaffen muss (deswegen der reset) -->
+  <!-- 2) aber andererseits wird es bestimmt 100 oder mehr Forschungen geben, die ja nicht instant sein sollen, -->
+   <!-- und wenn man dann beim tod nochmal von vorne skillen muss und das dann 60 minuten dauert, bis er wieder so stark ist, ist das halt zu lang. -->
+  <!-- ... -->
+  <!-- evtl. die Zeit/Kosten für jede Forschung ein klein wenig alles reduzieren, sodass es immer schneller geht? -->
+     <!-- (aber instant darfs dennoch nicht sein, mindestens 10 sek pro tech)   -->
+  
+  
+  <!-- TODO: -->
+   <!-- testen ob das hier funzt als flag: -->
+   <!-- DEUnobtainableAfterActive: Causes the technology to be set back to Unobtainable -->
+    <!-- status once it’s set to Active. It will automatically revert its effects if the technology is -->
+    <!-- then set to Obtainable again. The process of setting it to Obtainable can be done -->
+    <!-- automatically by adding the Volatile flag to the technology. So when -->
+    <!-- DEUnobtainableAfterActive is used alongside the Volatile flag, it can be used to create a -->
+    <!-- self-reversible persistent technology. Tip: spawn units. -->
+  
+  
+  <!-- powers können effect nutzen, wie in techtree. Aber die syntax ist anders als im techtree!! und nicht alle types sind in godpower gültig! -->
+   <!-- um dennoch techtree effecte nutzen zu können, kann man als effect in godpower eine tech erforschen lassen, die YPForceUnapply -->
+    <!-- hat und damit für die dauer der godpower dann diese tech aktiv haben -->
+    <!-- Tech aktiviert in Godpower wird mit: -->
+    <!-- <effect type="TechActivate"> -->
+      <!-- <target type="Tech">EclipseActive</target> -->
+    <!-- </effect> -->
+    
+    
+  <!-- wenn ich unsichtbare hilfsunits als marker nutzen will, dass etwas zb nur xmal erforscht werden kann -->
+   <!-- muss ich diese bei reset auch wieder löschen. -->
+    <!-- das könnte man mit -->
+      <!-- <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  doCommandInSelected("Delete")  uiClearSelection()</effect>  -->
+   <!-- erreichen -->
+   
+  
+  <!-- TODO: -->
+  <!-- aus inem grund zeigt jede forschung den tooltip +15% hitpioints und die anderen an, -->
+   <!-- auch wenns nicht auslöst.  -->
+   <!-- komisch.. -->
+  
+  
+  <!-- plan was to use a Reversible tech which checks the techstatus do apply/revert the boni. -->
+   <!-- but unfortunately Reversible does not work combined with a techstatus prereqs (it simply does not revert and therefore can not be executed again, regardlless what techstatus I check -->
+     <!-- while it works fine with a typecount prereqs ..) -->
+  <!-- also YPForceUnapply does not work (which does the opposite effect as soon as a tech is set to UNOBTAINABLE, because this also fires if the tech was never active before we again set it to UNOBTAINABLE...) -->
+    <!-- testing if it works to always have the techs Obtainable and only using CommandAdd/CommandRemove to show/hide the techs/keep the correct order: resulted in a dozen of other problems, eg. the volatile tech to check if tech was active before setting it to unobtainable again always fired, although it should have been UNOBTAINABLE.. -->
+  <!-- an alternative is that you have to build small buildings to tech up your Wandler Her, then we could use typecount -->
+    <!-- but if the wandler dies, we want to destroy all thouse buildings so you have to start from new.. but how? -->
+ <!-- In the end I will use the ResetWandlerStats_Serp tech, that Overrides all stats to default values.. -->
+
+  <!-- und prereqs testen: -->
+   <!-- Culture/civilzation  damit könnte man ne tech nur erlauben, wenn man grieche ist zb. -->
+   <!-- <Culture> -->
+    <!-- <cultureName>Greek</cultureName> -->
+   <!-- </Culture> -->
+  <!-- <Civilization> -->
+    <!-- <civName>Zeus</civName> -->
+    <!-- <civName>Hades</civName> -->
+  <!-- </Civilization> -->
+  
+
+  <!-- um zb 3 von 10 optionen wählbar zu haben, ist einzige sinnvolle option ne unsichtbare hilfunit zu spawnen, -->
+   <!-- dessen typecount dann unobtainable bei den restlichen techs auslöst. -->
+  <!-- Ne unit entfernen bei Reset kann man leider nicht, aber man könnte TransformUnit probieren zu einer unit -->
+   <!-- die eine lifespan hat von zb 0.1 sekunde und dadurch dann verschwindet (oder ne selfdesctruct action starten oder vllt auch lifespawn mit tech zufügen oderso) -->
+
+
+  <!-- TODO: -->
+   <!-- bevor ich hier weiter mache, erstmal rausfinden welche effect failen -->
+
+
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- bei manchen sachen hilfts wohl auch n delay zuzufügen, bei anderen schadets.. -->
+  <tech name="AlwaysStuff_WandlerSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>3.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <!-- <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">Wandler_Serp</target> -->
+      <!-- </effect> -->
+            
+      <effect mergeMode="add" type="TechStatus" status="obtainable">FirstspawnWandler_Serp</effect>
+      <effect mergeMode="add" type="SetOnTechResearchedTech" amount="1.00" techtype="TypeUpgrade_WandlerSerp">AddScaleOnTech_Serp</effect>
+      <effect mergeMode="add" type="SetOnTechResearchedTech" amount="1.00" techtype="TypeArmor_WandlerSerp">AddHPOnArmorTech_Serp</effect>
+      <effect mergeMode="add" type="SetOnTechResearchedTech" amount="1.00" techtype="TypeShields_WandlerSerp">AddHPOnArmorTech_Serp</effect>
+      <effect mergeMode="add" type="SetOnTechResearchedTech" amount="1.00" techtype="TypeArmor_WandlerSerp">IncreaseShieldCostsOnArmorTech_Serp</effect>
+      <effect mergeMode="add" type="SetOnTechResearchedTech" amount="1.00" techtype="TypeShields_WandlerSerp">IncreaseArmorCostsOnShieldTech_Serp</effect>
+      
+      
+      
+      <!-- test -->
+      <!-- <effect type="Data" subtype="GodPower" power="CallHeroBack_WandlerSerp" amount="1.0" cooldown="10.0" relativity="Absolute"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      
+      <!-- <effect type="Data" subtype="GodPower" power="Valor_Other_Serp" amount="1.0" cooldown="30.0" relativity="Absolute"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" subtype="PowerMaxUses" protopower="Valor_Other_Serp" amount="-1.0" relativity="Assign"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" subtype="GodPower" power="TeamBonuss" amount="1.0" cooldown="10.0" relativity="Absolute"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" subtype="PowerMaxUses" protopower="TeamBonuss" amount="-1.0" relativity="Assign"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      
+      
+      
+      <!-- <effect mergeMode="add" type="CreateUnit" unit="Reginleif" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="CreateUnit" unit="Cyclops" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Scatter" speed="0.00" radius="0.00" quantity="2.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="CreateUnit" unit="Roc" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+      
+      
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechCategoryAutomaticAbilities_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechCategoryGodPowers_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechCategoryPassives_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechCategoryStats_WandlerSerp</effect>
+      <!-- show the Stats techs at beginning -->
+      <effect mergeMode="add" type="TechStatus" status="active">TechCategoryStats_WandlerSerp</effect>
+      
+      
+      
+    </effects>
+  </tech>
+  
+  <tech name="FirstspawnWandler_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>Volatile</flag>
+    <flag>Persistent</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="AbstractTownCenter" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="AbstractWandlerUnitAndEggInitialSerp" count="1.00" state="aliveState" operator="lt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">ResetWandlerStats_Serp</effect>
+      <effect mergeMode="add" type="CreateUnit" unit="InitialWandler_Serp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+            
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">RespawnWandler_Serp</effect>
+      <effect mergeMode="add" type="TextOutput">STR_MSG_PHARAOH</effect>
+    </effects>
+  </tech>
+  <tech name="RespawnWandler_Serp">
+    <status>UNOBTAINABLE</status>
+    <!-- <delay>90.0000</delay> -->
+    <delay>2.0000</delay>
+    <flag>Volatile</flag>
+    <flag>Persistent</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="AbstractTownCenter" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="AbstractWandlerUnitAndEggInitialSerp" count="1.00" state="aliveState" operator="lt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">ResetWandlerStats_Serp</effect>
+      <effect mergeMode="add" type="CreateUnit" unit="InitialWandler_Serp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+      
+      
+      <effect mergeMode="add" type="TextOutput">STR_MSG_PHARAOH</effect>
+    </effects>
+  </tech>
+  
+
+  <!-- ### -->
+  <!-- ### techs to upgrade stats of Wandler ### -->
+  <!-- ### -->
+  
+  
+  <tech name="ResetWandlerStats_Serp">
+    <displaynameid>STR_EDT_CTE_RSALL</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <icon>resources\front_end\generics\Button_Close_Off.png</icon>
+    <flag>InfiniteTech</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      
+      <!-- TODO: Kosten resetten .. jede einzeln auflisten... -->
+      <!-- <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Food" relativity="Override"> -->
+        <!-- <target type="Tech">CopperPierceWeapons_WandlerSerp</target> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Gold" relativity="Override"> -->
+        <!-- <target type="Tech">CopperPierceWeapons_WandlerSerp</target> -->
+      <!-- </effect> -->
+      
+      <!-- <effect mergeMode="add" type="Data" amount="5.0" subtype="ResearchPoints" relativity="Assign"> -->
+        <!-- <target </target> -->
+      <!-- </effect> -->
+      
+      
+      <!-- RechargeTime , empower, RevealUI, bounces (siehe evlt falls mal release offizielles TD scenario STR_TD_LIGHTNING_TOWER_TECH_4_NAME) -->
+      
+      <!-- gibt auch allactions="1" anstatt action= zu nutzen, aber nicht dass das auch werte von Heal usw ändert -->
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.0" subtype="Damage" damagetype="Hack" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.0" subtype="Damage" damagetype="Pierce" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.0" subtype="Damage" damagetype="Crush" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="0.10" subtype="ArmorSpecific" armortype="Hack" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.10" subtype="ArmorSpecific" armortype="Pierce" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.50" subtype="ArmorSpecific" armortype="Crush" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="500.0" subtype="Hitpoints" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="DamageBonus" unittype="MythUnit" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="DamageBonus" unittype="Hero" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      
+      
+      
+
+      <effect mergeMode="add" type="Data" amount="10.00" subtype="LOS" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- Fernkampf genauigkeit, TODO: das auf 99 und 1 zu setzen machts leider noch nicht exakt.. keine ahnung wie sonst.. -->
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="Trackrating" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.0" subtype="HomingBallistics" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      
+      
+      
+      <!-- <effect mergeMode="add" type="Data" amount="0.0000" subtype="OnDamageModify" modifytype="Speed" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="Data" amount="0.0000" subtype="OnDamageModify" modifytype="Damage" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="Data" amount="0.0000" subtype="OnDamageModify" modifytype="ROF" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="Data" amount="0.0000" subtype="OnDamageModify" modifytype="MaxHP" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      
+      
+      <!-- speed -->
+      <effect mergeMode="add" type="Data" amount="3.0" subtype="MaximumVelocity" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- 2000 RateOfFire entspricht <rof>2</rof> aus proto -->
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2000.000000" subtype="RateOfFire" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      
+      
+      <effect mergeMode="add" type="Data" action="Convert" amount="200.0" subtype="WorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="100.0" subtype="WorkRate" unittype="HumanSoldier" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="60.0" subtype="WorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="60.0" subtype="WorkRate" unittype="TradeUnit" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="400.0" subtype="WorkRate" unittype="Building" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="45.0" subtype="MinWorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="15.0" subtype="MinWorkRate" unittype="HumanSoldier" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="9.0" subtype="MinWorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="9.0" subtype="MinWorkRate" unittype="TradeUnit" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="60.0" subtype="MinWorkRate" unittype="Building" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="3.0" subtype="MaximumRange" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      
+      
+      <effect mergeMode="add" type="Data" action="Heal" amount="0.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Heal" amount="1.0" unittype="LogicalTypeHealed" subtype="WorkRate" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Heal" amount="1.0" subtype="MaximumRange" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.0" subtype="UnitRegenRate" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      <!-- diverse OnHitEffect/OnHitEffectActive (was ist unterschied?) zb LifeSteal, ProgFreeze -->
+      <!-- <effect mergeMode="add" type="Data" amount="0.0" subtype="OnHitEffect" action="RangedAttack" effecttype="Lifesteal" targettype="Unit" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="Data" amount="1.00" subtype="OnHitEffectActive" action="HandAttack" effecttype="ProgFreeze" targettype="LogicalTypeMythUnitNotTitan" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      
+      <effect mergeMode="add" type="Data" amount="1.0" subtype="AdditionalScale" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.5" subtype="AdditionalScale" relativity="Override">
+        <target type="ProtoUnit">WandlerPhoenixEgg_Serp</target>
+      </effect>
+      
+      <!-- revert the TechHero_WandlerSerp that adds PassiveDivineImmunity -->
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeValidBoltTarget" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeValidMeteorTarget" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeValidTornadoAttack" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeEarthquakeAttack" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeValidSpyTarget" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeValidShockwaveTarget" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeValidFrostTarget" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeSharedHeroSelection" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="MajorHero" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeValidShockwaveTarget" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="Hero" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      
+      
+      <!-- reset all techs on respawn -->
+      <!-- TODO: dies noch basierend darauf machen welches zeitalter wir aktuell haben -->
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">ArchaicWandler_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">ClassicalWandler_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">HeroicWandler_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">MythicWandler_Serp</effect>
+
+      
+    </effects>
+  </tech>
+  
+  
+  
+  
+  <!-- ############################################################################################################ -->
+  <!-- ########  Infinite SetOnTechResearchedTech techs (automtically researched everytime sth else is researched) ### -->
+  <!-- ############################################################################################################ -->
+  
+  <!-- every TypeUpgrade_WandlerSerp increases size of unit -->
+  <tech name="AddScaleOnTech_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>InfiniteTech</flag>
+    <flag>IgnoreIfAutoActivated</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="0.03" subtype="AdditionalScale" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- TypeArmor_WandlerSerp TypeShields_WandlerSerp executes also this to increase HP -->
+  <tech name="AddHPOnArmorTech_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>InfiniteTech</flag>
+    <flag>IgnoreIfAutoActivated</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.15" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- TypeArmor_WandlerSerp increases costs of TypeShields_WandlerSerp (so its not easy to have both) -->
+  <tech name="IncreaseShieldCostsOnArmorTech_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>InfiniteTech</flag>
+    <flag>IgnoreIfAutoActivated</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Wood" relativity="Percent">
+        <target type="techType">TypeShields_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="Percent">
+        <target type="techType">TypeShields_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Favor" relativity="Percent">
+        <target type="techType">TypeShields_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- TypeShields_WandlerSerp increases costs of TypeArmor_WandlerSerp (so its not easy to have both) -->
+  <tech name="IncreaseArmorCostsOnShieldTech_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>InfiniteTech</flag>
+    <flag>IgnoreIfAutoActivated</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Wood" relativity="Percent">
+        <target type="techType">TypeArmor_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="Percent">
+        <target type="techType">TypeArmor_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Favor" relativity="Percent">
+        <target type="techType">TypeArmor_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+      
+  
+  <!-- ########################################################################################## -->
+  <!-- ########               ### -->
+  <!-- ########################################################################################## -->
+  
+  <!-- los=(base=10,current=10), MaximumRange=(base=1,current=1),Trackrating=(base=1,current=1) -->
+  <tech name="TechRange1_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <displaynameid>STR_INGAME_HELP_MAX_RANGE</displaynameid>
+    <icon>resources\shared\static_color\technologies\ballistics_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="LOS" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="20.0" subtype="Trackrating" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechRange2_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <displaynameid>STR_INGAME_HELP_MAX_RANGE</displaynameid>
+    <icon>resources\shared\static_color\technologies\ballistics_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="3.00" subtype="LOS" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="45.0" subtype="Trackrating" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechRange3_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <displaynameid>STR_INGAME_HELP_MAX_RANGE</displaynameid>
+    <icon>resources\shared\static_color\technologies\ballistics_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="5.00" subtype="LOS" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="5.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="70.0" subtype="Trackrating" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechRange4_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <displaynameid>STR_INGAME_HELP_MAX_RANGE</displaynameid>
+    <icon>resources\shared\static_color\technologies\ballistics_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="5.00" subtype="LOS" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="6.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- Fernkampf genauigkeit -->
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="99.0" subtype="Trackrating" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="HomingBallistics" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="TechAntiHuman1_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiHuman_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiHuman2_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiHuman_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiHuman3_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>HeroicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiHuman_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiHuman4_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiHuman_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth1_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiMyth_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth2_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiMyth_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth3_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>HeroicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiMyth_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth4_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiMyth_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding1_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiBuilding_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding2_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiBuilding_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding3_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>HeroicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiBuilding_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding4_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techtype>TypeAntiBuilding_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- rof=(base=2,current=2),Velocity=(base=3,current=3) -->
+  <!-- 2 + ((0.9-1)*2) + ((0.9-1)*2) = 1.6 -->
+  <tech name="TechSpeed1_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_MODIFYTYPE_SPEED</displaynameid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\norse\static_color\technologies\hall_of_thanes_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="0.5" subtype="MaximumVelocity" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.9" subtype="RateOfFire" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechSpeed2_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_MODIFYTYPE_SPEED</displaynameid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\norse\static_color\technologies\hall_of_thanes_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="0.5" subtype="MaximumVelocity" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.85" subtype="RateOfFire" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechSpeed3_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_MODIFYTYPE_SPEED</displaynameid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\norse\static_color\technologies\hall_of_thanes_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="0.5" subtype="MaximumVelocity" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.85" subtype="RateOfFire" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechSpeed4_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_MODIFYTYPE_SPEED</displaynameid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\norse\static_color\technologies\hall_of_thanes_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="0.5" subtype="MaximumVelocity" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="0.85" subtype="RateOfFire" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="TechAbilityConvert_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_ACTION_CONVERT</displaynameid>
+    <rollovertextid>STR_POWER_TRAITOR_LR</rollovertextid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\egyptian\static_color\abilities\priest_ability_convert_animal_icon.png</icon>
+    <!-- <icon>resources\atlantean\static_color\god_powers\traitor_icon.png</icon> -->
+    <flag>YPForceUnapply</flag>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Convert" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAbilityConvert2_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_ACTION_CONVERT</displaynameid>
+    <rollovertextid>STR_POWER_TRAITOR_LR</rollovertextid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\egyptian\static_color\abilities\priest_ability_convert_animal_icon.png</icon>
+    <!-- <icon>resources\atlantean\static_color\god_powers\traitor_icon.png</icon> -->
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techage>ClassicalAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="TradeUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="TradeUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="3.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAbilityConvert3_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_ACTION_CONVERT</displaynameid>
+    <rollovertextid>STR_POWER_TRAITOR_LR</rollovertextid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\egyptian\static_color\abilities\priest_ability_convert_animal_icon.png</icon>
+    <!-- <icon>resources\atlantean\static_color\god_powers\traitor_icon.png</icon> -->
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <techage>HeroicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="TradeUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="TradeUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="3.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAbilityConvert4_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_ACTION_CONVERT</displaynameid>
+    <rollovertextid>STR_POWER_TRAITOR_LR</rollovertextid>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\egyptian\static_color\abilities\priest_ability_convert_animal_icon.png</icon>
+    <!-- <icon>resources\atlantean\static_color\god_powers\traitor_icon.png</icon> -->
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="TradeUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="WorkRate" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="LogicalTypeMythUnitNotTitan" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="LogicalTypeVillagerNotHero" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="TradeUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="0.70" subtype="MinWorkRate" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Convert" amount="3.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  
+  <tech name="TechAbilityJump_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\spc\static_color\abilities\amanra_ability_icon.png</icon>
+    <flag>YPForceUnapply</flag>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="JumpAttack" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAbilityThrowBack_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\greek\static_color\abilities\minotaur_ability_icon.png</icon>
+    <flag>YPForceUnapply</flag>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Gore" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="TestTech">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\greek\static_color\abilities\minotaur_ability_icon.png</icon>
+    <flag>YPForceUnapply</flag>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="CastImplode_Serp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="CastBolt_Serp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      <!-- test, auch welche werte bei amount richtig sein könnten -->
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="EnableDodge" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="90.00" subtype="DodgeChance" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="CanDodgeAttacks" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+
+      <effect type="Data" action="RangedAttack" amount="1.0" subtype="PerfectAccuracy" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      
+      
+    </effects>
+  </tech>
+  
+  
+  <!-- TechHero_WandlerSerp -->
+  <!-- TODO: test ob YPForceUnapply gut funzt, zb. wenn mehrmals unapply gemacht wird, dass n unittype dadurch nicht iwie mehrfach da ist, -->
+   <!-- und auch wieder mehrfach entfernt werden müsste -->
+  <tech name="TechHero_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\shared\static_color\abilities\divine_immunity_ability_icon.png</icon>
+    <displaynameid>STR_ABILITY_DIVINE_IMMUNITY</displaynameid>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeValidBoltTarget" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeValidMeteorTarget" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeValidTornadoAttack" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeEarthquakeAttack" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeValidSpyTarget" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeValidShockwaveTarget" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="SetUnitType" unittype="LogicalTypeValidFrostTarget" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeSharedHeroSelection" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="MajorHero" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeValidShockwaveTarget" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="SetUnitType" unittype="Hero" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      
+      <!-- todo change to name with (Hero) in it -->
+      <!-- <effect mergeMode="add" type="SetName" proto="AbstractWandlerUnitSerp" newname="STR_UNIT_THE_ARGO_NAME"> -->
+      <!-- </effect> -->
+      
+      
+    </effects>
+  </tech>
+  
+  
+  
+  
+  
+  <!-- BasePercent vs Percent: -->
+  <!-- Lurker: "Base percent adds the value on the base stats of the units, percent is exponental and adds numerical value to the sum of other multipliers that increased the value." -->
+  <!-- Eg Hitpoints is 750 and we use amount 3 two times with BasePercent: 750 + ((3-1)*750) + ((3-1)*750) = 3750 -->
+  <!-- Basevalue from Heal and regen and healrange is 1 (proto). current value from Heal is 1, from regen is 0 and from range is 1 -->
+  <tech name="TechHeal1_WandlerSerp">
+    <displaynameid>STR_ACTION_HEAL</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\spc\static_color\abilities\reginleif_ability_heal_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Heal" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.10" subtype="UnitRegenRate" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechHeal2_WandlerSerp">
+    <displaynameid>STR_ACTION_HEAL</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\spc\static_color\abilities\reginleif_ability_heal_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Heal" amount="6.0" unittype="LogicalTypeHealed" subtype="WorkRate" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Heal" amount="3.0" subtype="MaximumRange" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.90" subtype="UnitRegenRate" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechHeal3_WandlerSerp">
+    <displaynameid>STR_ACTION_HEAL</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\spc\static_color\abilities\reginleif_ability_heal_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Heal" amount="11.0" unittype="LogicalTypeHealed" subtype="WorkRate" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Heal" amount="3.0" subtype="MaximumRange" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="UnitRegenRate" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechHeal4_WandlerSerp">
+    <displaynameid>STR_ACTION_HEAL</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\spc\static_color\abilities\reginleif_ability_heal_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="Heal" amount="31.0" unittype="LogicalTypeHealed" subtype="WorkRate" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="Heal" amount="5.0" subtype="MaximumRange" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="UnitRegenRate" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  
+  <tech name="CopperHackWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_COPPER_WEAPONS_NAME</displaynameid>
+    <researchpoints>3.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\copper_weapons_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeHackWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="20.0" subtype="Damage" damagetype="Hack" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Food" relativity="Absolute">
+        <target type="Tech">CopperPierceWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Gold" relativity="Absolute">
+        <target type="Tech">CopperPierceWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Food" relativity="Absolute">
+        <target type="Tech">CopperCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Gold" relativity="Absolute">
+        <target type="Tech">CopperCrushWeapons_WandlerSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="BronzeHackWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_BRONZE_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">300.0000</cost>
+    <cost resourcetype="Gold">300.0000</cost>
+    <researchpoints>40.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\bronze_weapons_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeHackWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">CopperHackWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="Damage" damagetype="Hack" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="IronHackWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_IRON_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">600.0000</cost>
+    <cost resourcetype="Gold">600.0000</cost>
+    <researchpoints>50.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\iron_weapons_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypeHackWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">BronzeHackWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="Damage" damagetype="Hack" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="DwarvenHackWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_DWARVEN_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <cost resourcetype="Favor">25.0000</cost>
+    <researchpoints>60.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\norse\static_color\technologies\dwarven_weapons_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeHackWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IronHackWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="3.0" subtype="Damage" damagetype="Hack" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="cost" resource="Favor" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="cost" resource="Favor" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="CopperPierceWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_COPPER_WEAPONS_NAME</displaynameid>
+    <researchpoints>3.0000</researchpoints>
+    <cost resourcetype="Food">1.0000</cost>
+    <cost resourcetype="Gold">1.0000</cost>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\copper_weapons_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypePierceW_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="20.0" subtype="Damage" damagetype="Pierce" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Food" relativity="Absolute">
+        <target type="Tech">CopperHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Gold" relativity="Absolute">
+        <target type="Tech">CopperHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Food" relativity="Absolute">
+        <target type="Tech">CopperCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Gold" relativity="Absolute">
+        <target type="Tech">CopperCrushWeapons_WandlerSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="BronzePierceWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_BRONZE_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">300.0000</cost>
+    <cost resourcetype="Gold">300.0000</cost>
+    <researchpoints>40.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\bronze_weapons_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypePierceW_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">CopperPierceWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="Damage" damagetype="Pierce" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="IronPierceWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_IRON_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">600.0000</cost>
+    <cost resourcetype="Gold">600.0000</cost>
+    <researchpoints>50.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\iron_weapons_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypePierceW_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">BronzePierceWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="Damage" damagetype="Pierce" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="DwarvenPierceWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_DWARVEN_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <cost resourcetype="Favor">25.0000</cost>
+    <researchpoints>60.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\norse\static_color\technologies\dwarven_weapons_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypePierceW_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IronPierceWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="3.0" subtype="Damage" damagetype="Pierce" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="cost" resource="Favor" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="cost" resource="Favor" relativity="BasePercent">
+        <target type="techType">TypeCrushWeapons_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="CopperCrushWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_COPPER_WEAPONS_NAME</displaynameid>
+    <researchpoints>3.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\copper_weapons_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeCrushWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="20.0" subtype="Damage" damagetype="Crush" relativity="Override">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Food" relativity="Absolute">
+        <target type="Tech">CopperHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Gold" relativity="Absolute">
+        <target type="Tech">CopperHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Food" relativity="Absolute">
+        <target type="Tech">CopperPierceWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="75" subtype="cost" resource="Gold" relativity="Absolute">
+        <target type="Tech">CopperPierceWeapons_WandlerSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="BronzeCrushWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_BRONZE_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">300.0000</cost>
+    <cost resourcetype="Gold">300.0000</cost>
+    <researchpoints>40.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\bronze_weapons_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeCrushWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">CopperCrushWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="Damage" damagetype="Crush" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="IronCrushWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_IRON_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">600.0000</cost>
+    <cost resourcetype="Gold">600.0000</cost>
+    <researchpoints>50.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\iron_weapons_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypeCrushWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">BronzeCrushWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="Damage" damagetype="Crush" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="DwarvenCrushWeapons_WandlerSerp">
+    <displaynameid>STR_TECH_DWARVEN_WEAPONS_NAME</displaynameid>
+    <cost resourcetype="Food">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <cost resourcetype="Favor">25.0000</cost>
+    <researchpoints>60.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\norse\static_color\technologies\dwarven_weapons_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeCrushWeapons_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IronCrushWeapons_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="3.0" subtype="Damage" damagetype="Crush" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <!-- increase the costs for all techs from other damagetypes, so it is not so cheap to mix damagetypes -->
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="cost" resource="Favor" relativity="BasePercent">
+        <target type="techType">TypeHackWeapons_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Food" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.2" subtype="cost" resource="Gold" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.0" subtype="cost" resource="Favor" relativity="BasePercent">
+        <target type="techType">TypePierceW_WandlerSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- 500 + (1.1-1)*1000 = 600 (BasePercent 1.1 fügt bei nem base wert von 1000 immer 100 hinzu) -->
+  <tech name="CopperArmor_WandlerSerp">
+    <displaynameid>STR_TECH_COPPER_ARMOR_NAME</displaynameid>
+    <cost resourcetype="Wood">75.0000</cost>
+    <cost resourcetype="Gold">75.0000</cost>
+    <researchpoints>30.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\copper_armor_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeArmor_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="BronzeArmor_WandlerSerp">
+    <displaynameid>STR_TECH_BRONZE_ARMOR_NAME</displaynameid>
+    <cost resourcetype="Wood">300.0000</cost>
+    <cost resourcetype="Gold">200.0000</cost>
+    <researchpoints>40.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\bronze_armor_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeArmor_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">CopperArmor_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="IronArmor_WandlerSerp">
+    <displaynameid>STR_TECH_IRON_ARMOR_NAME</displaynameid>
+    <cost resourcetype="Wood">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <researchpoints>50.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\iron_armor_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypeArmor_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">BronzeArmor_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="MeteoricIronArmor_WandlerSerp">
+    <displaynameid>STR_TECH_METEORIC_IRON_ARMOR_NAME</displaynameid>
+    <cost resourcetype="Wood">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <cost resourcetype="Favor">25.0000</cost>
+    <researchpoints>60.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\norse\static_color\technologies\meteoric_iron_armor_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeArmor_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IronArmor_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="CopperShields_WandlerSerp">
+    <displaynameid>STR_TECH_COPPER_SHIELDS_NAME</displaynameid>
+    <cost resourcetype="Wood">75.0000</cost>
+    <cost resourcetype="Gold">75.0000</cost>
+    <researchpoints>30.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\copper_shields_icon.png</icon>
+    <techage>ArchaicAge</techage>
+    <techtype>TypeShields_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="BronzeShields_WandlerSerp">
+    <displaynameid>STR_TECH_BRONZE_SHIELDS_NAME</displaynameid>
+    <cost resourcetype="Wood">300.0000</cost>
+    <cost resourcetype="Gold">200.0000</cost>
+    <researchpoints>40.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\bronze_shields_icon.png</icon>
+    <techage>ClassicalAge</techage>
+    <techtype>TypeShields_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">CopperShields_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="IronShields_WandlerSerp">
+    <displaynameid>STR_TECH_IRON_SHIELDS_NAME</displaynameid>
+    <cost resourcetype="Wood">500.0000</cost>
+    <cost resourcetype="Gold">400.0000</cost>
+    <researchpoints>50.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\shared\static_color\technologies\iron_shields_icon.png</icon>
+    <techage>HeroicAge</techage>
+    <techtype>TypeShields_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">BronzeShields_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="DragonscaleShields_WandlerSerp">
+    <displaynameid>STR_TECH_DRAGONSCALE_SHIELDS_NAME</displaynameid>
+    <cost resourcetype="Wood">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <cost resourcetype="Favor">25.0000</cost>
+    <researchpoints>60.0000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <icon>resources\norse\static_color\technologies\dragonscale_shields_icon.png</icon>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <techtype>TypeShields_WandlerSerp</techtype>
+    <techtype>TypeUpgrade_WandlerSerp</techtype>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IronShields_WandlerSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-0.15" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractWandlerUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+<!-- ################################################################################################## -->
+  <!-- #### AGES obtainable ####-->
+  <!-- ################################################################################################## -->
+  
+  <!-- do it with volatile specificage 1) because of savegame compatibility and 2) because when we reset the stats, we only make the correct techs obtainable, based on current age -->
+  <tech name="ArchaicWandler_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <delay>1.0000</delay>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <specificage>ArchaicAge</specificage>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">CopperHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">CopperHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">CopperPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">CopperPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">CopperCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">CopperCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">CopperArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">CopperArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">CopperShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">CopperShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechRange1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechRange1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechHeal1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHeal1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechSpeed1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechSpeed1_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiHuman1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiMyth1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiBuilding1_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding1_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAbilityConvert_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityConvert_WandlerSerp</effect>
+      
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAbilityJump_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityJump_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAbilityThrowBack_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityThrowBack_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TestTech</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TestTech</effect>
+      
+      <!-- todo: später erst ab heroic age? -->
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechHero_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHero_WandlerSerp</effect>
+      
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">ArchaicWandler_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalWandler_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <delay>1.0000</delay>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <specificage>ClassicalAge</specificage>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">BronzeHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">BronzePierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzePierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">BronzeCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">BronzeArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">BronzeShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechRange2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechRange2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechHeal2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHeal2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechSpeed2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechSpeed2_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiHuman2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiMyth2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiBuilding2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding2_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAbilityConvert2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityConvert2_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">ClassicalWandler_Serp</effect>
+    </effects>
+  </tech>
+  <!-- Adding to the vanilla General Ages is required to have the techs be shown greyed out with "available in age ..." -->
+  <tech mergeMode="modify" name="ClassicalAgeGeneral">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzePierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">BronzeShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechRange2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHeal2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechSpeed2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth2_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding2_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityConvert2_WandlerSerp</effect>
+      
+    </effects>
+  </tech>
+  
+  <tech name="HeroicWandler_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <specificage>HeroicAge</specificage>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">IronHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">IronPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">IronCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">IronArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">IronShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechRange3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechRange3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechHeal3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHeal3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechSpeed3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechSpeed3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiHuman3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiMyth3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiBuilding3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding3_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAbilityConvert3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityConvert3_WandlerSerp</effect>
+      
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechHero_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHero_WandlerSerp</effect>
+      
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">HeroicWandler_Serp</effect>
+    </effects>
+  </tech>
+  <tech mergeMode="modify" name="HeroicAgeGeneral">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">IronShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechRange3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHeal3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechSpeed3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth3_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding3_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityConvert3_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHero_WandlerSerp</effect>
+      
+    </effects>
+  </tech>
+  <tech name="MythicWandler_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <specificage>MythicAge</specificage>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">DwarvenHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DwarvenHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">DwarvenPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DwarvenPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">DwarvenCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DwarvenCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">MeteoricIronArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">MeteoricIronArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">DragonscaleShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DragonscaleShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechRange4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechRange4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechHeal4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHeal4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechSpeed4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechSpeed4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiHuman4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiMyth4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAntiBuilding4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding4_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">TechAbilityConvert4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityConvert4_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">MythicWandler_Serp</effect>
+    </effects>
+  </tech>
+  <!-- super strange crash  (before main menu)reason for adding techs to MythicAgeGeneral: -->
+   <!-- as soon as the tech includes a cost change of techtype "TypePierceWeapons_WandlerSerp" the game crashes before main menu. -->
+    <!-- Only a rename of this type to TypePierceW_WandlerSerp solved this, while of course all techtypes are added properly to tech_types_mods.xml -->
+    <!-- and it is required that tech_types_mods.xml still includes TypePierceWeapons_WandlerSerp for whatever reason... -->
+     <!-- maybe it is the second techtype added that will always break and removing it breaks another? -->
+      <!-- it is the 13th techtype in tech_types.xml that can not be used (after game update a new techtype was added and made my other techtype crash, which prooves that it is the 13th position) -->
+  <tech mergeMode="modify" name="MythicAgeGeneral">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DwarvenHackWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DwarvenPierceWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DwarvenCrushWeapons_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">MeteoricIronArmor_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">DragonscaleShields_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechRange4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechHeal4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechSpeed4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth4_WandlerSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding4_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAbilityConvert4_WandlerSerp</effect>
+      
+      
+    </effects>
+  </tech>
+  
+  
+  
+  <!-- ########################################################################################################### -->
+  <!-- ###################  Research Categories   ################################################################ -->
+  <!-- ########################################################################################################### -->
+  
+  
+  <tech name="TechCategoryStats_WandlerSerp">
+    <displaynameid>STR_EDT_STATES</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <icon>resources\norse\static_color\technologies\dragonscale_shields_icon.png</icon>
+    <flag>InfiniteTech</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">TechRemoveAllTechUI_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="CopperHackWeapons_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="BronzeHackWeapons_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="IronHackWeapons_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="DwarvenHackWeapons_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="CopperPierceWeapons_WandlerSerp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="BronzePierceWeapons_WandlerSerp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="IronPierceWeapons_WandlerSerp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="DwarvenPierceWeapons_WandlerSerp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="CopperCrushWeapons_WandlerSerp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="BronzeCrushWeapons_WandlerSerp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="IronCrushWeapons_WandlerSerp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="DwarvenCrushWeapons_WandlerSerp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="CopperArmor_WandlerSerp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="BronzeArmor_WandlerSerp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="IronArmor_WandlerSerp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="MeteoricIronArmor_WandlerSerp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="CopperShields_WandlerSerp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="BronzeShields_WandlerSerp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="IronShields_WandlerSerp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="DragonscaleShields_WandlerSerp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal1_WandlerSerp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal2_WandlerSerp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal3_WandlerSerp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal4_WandlerSerp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <!-- row="1" column="0" is SECONDPAGE button -->
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiHuman1_WandlerSerp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiHuman2_WandlerSerp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiHuman3_WandlerSerp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiHuman4_WandlerSerp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiMyth1_WandlerSerp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiMyth2_WandlerSerp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiMyth3_WandlerSerp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiMyth4_WandlerSerp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiBuilding1_WandlerSerp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiBuilding2_WandlerSerp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiBuilding3_WandlerSerp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAntiBuilding4_WandlerSerp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechSpeed1_WandlerSerp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechSpeed2_WandlerSerp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechSpeed3_WandlerSerp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechSpeed4_WandlerSerp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechRange1_WandlerSerp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechRange2_WandlerSerp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechRange3_WandlerSerp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechRange4_WandlerSerp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  
+  
+  <tech name="TechCategoryPassives_WandlerSerp">
+    <displaynameid>STR_EDT_STATES</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <icon>resources\shared\static_color\abilities\divine_immunity_ability_icon.png</icon>
+    <flag>InfiniteTech</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">TechRemoveAllTechUI_WandlerSerp</effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHero_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  
+  <tech name="TechCategoryAutomaticAbilities_WandlerSerp">
+    <displaynameid>STR_EDT_STATES</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <icon>resources\greek\static_color\abilities\minotaur_ability_icon.png</icon>
+    <flag>InfiniteTech</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">TechRemoveAllTechUI_WandlerSerp</effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal1_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal2_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal3_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechHeal4_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAbilityJump_WandlerSerp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAbilityThrowBack_WandlerSerp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  
+  <tech name="TechCategoryGodPowers_WandlerSerp">
+    <displaynameid>STR_HISTORY_LINK_GOD_POWER</displaynameid>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <icon>resources\spectator\resourceViewButton\GodPowerDefault.png</icon>
+    <flag>InfiniteTech</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">TechRemoveAllTechUI_WandlerSerp</effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAbilityConvert_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAbilityConvert2_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAbilityConvert3_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TechAbilityConvert4_WandlerSerp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="TestTech" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  
+
+  <!-- used to remove all techs from the UI, so we can add the ones that should be displayed based on chosen category -->
+   <!-- unfortunately we can not simply remove based on row/column (tested).. we have to mention every single tech we added.. -->
+    <!-- also techtype="..." did not work to remove.. -->
+  <tech name="TechRemoveAllTechUI_WandlerSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>InfiniteTech</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="CopperHackWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="BronzeHackWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="IronHackWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="DwarvenHackWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="CopperPierceWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="BronzePierceWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="IronPierceWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="DwarvenPierceWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="CopperCrushWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="BronzeCrushWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="IronCrushWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="DwarvenCrushWeapons_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="CopperArmor_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="BronzeArmor_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="IronArmor_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="MeteoricIronArmor_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="CopperShields_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="BronzeShields_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="IronShields_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="DragonscaleShields_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechSpeed1_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechSpeed2_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechSpeed3_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechSpeed4_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechHeal1_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechHeal2_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechHeal3_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechHeal4_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechRange1_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechRange2_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechRange3_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechRange4_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiHuman1_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiHuman2_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiHuman3_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiHuman4_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiMyth1_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiMyth2_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiMyth3_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiMyth4_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiBuilding1_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiBuilding2_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiBuilding3_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAntiBuilding4_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechHero_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAbilityJump_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAbilityThrowBack_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAbilityConvert_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAbilityConvert2_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAbilityConvert3_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TechAbilityConvert4_WandlerSerp" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="TestTech" relativity="Assign">
+        <target type="ProtoUnit">AbstractWandlerUnitAndEggSerp</target>
+      </effect>
+      
+      
+    </effects>
+  </tech>
+  
+    
+  
+</techtreemods>

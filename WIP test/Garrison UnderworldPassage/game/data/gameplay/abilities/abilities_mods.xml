@@ -1,0 +1,8 @@
+<abilitiesmods>  
+  <!-- only to display it in UI. the buff is done in tactic file -->
+  <UnderworldPassageB_Serp mergeMode="add">
+    <ability>BuffNearbyShades_Serp<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </UnderworldPassageB_Serp>
+  
+  
+</abilitiesmods>

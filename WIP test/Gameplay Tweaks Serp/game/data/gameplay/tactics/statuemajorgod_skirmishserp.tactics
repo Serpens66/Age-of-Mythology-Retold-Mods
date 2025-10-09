@@ -1,0 +1,17 @@
+<tactics>
+  <action>
+    <name stringid="STR_ACTION_TRANSFIGURATION">TransfigurationAttack</name>
+    <type>Attack</type>
+    <attackaction>1</attackaction>
+    <handlogic>1</handlogic>
+    <anim>ChaosAttack</anim>
+    <auxchargeaction>1</auxchargeaction>
+    <workonchaosunits>0</workonchaosunits>
+    <impacteffect>effects\impacts\pierce</impacteffect>
+    <rate type="HumanSoldier">1.0</rate>
+    <rate type="LogicalTypeVillagerNotHero">1.0</rate>
+    <rate type="TradeUnit">1.0</rate>
+    <rate type="Unit">1.0</rate>
+  </action>
+  <tactic>Default<action priority="100">TransfigurationAttack</action></tactic>
+</tactics>

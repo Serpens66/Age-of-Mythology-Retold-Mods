@@ -1,0 +1,4 @@
+<!-- based on reginleif, additive scheint hier noch nicht zu funktionieren -->
+<animfilemods>
+  <anim mergeMode="add">Convert<assetreference type="TMAnimation"><file>spc\units\reginleif\anim\reginleif_heal_a</file><duration>2.26666</duration><tag type="SpecificSoundSet" checkvisible="1" set="Converting">0.0</tag><tag type="particles" popcornfxname="glow\conversion_casting.pkfx" bone="vfx_convert" movewithbone="true" stopwithanim="true" adjustduration="true">0.17</tag></assetreference><component>ModelComp</component></anim>
+</animfilemods>

@@ -1,0 +1,2 @@
+1.01:
+- made savegame compatible (previously only did anything in new game)

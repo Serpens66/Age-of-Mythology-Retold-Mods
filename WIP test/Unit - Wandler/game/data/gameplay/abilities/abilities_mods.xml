@@ -1,0 +1,129 @@
+<abilitiesmods>
+
+  <!-- PassiveDivineImmunity is not really an ability, I think it is just the lack of unittypes like LogicalTypeValidBoltTarget and -->
+   <!-- having the unittype "Hero" which is not allowed as target for many spells.  -->
+   <!-- Since we should not remove the Hero unittype, it makes only sense to also remove the other targetting and make her have PassiveDivineImmunity from begin -->
+  
+  <!-- unfortuantely a unit can only have up to 6 abilities listed here -->
+   <!-- it does not matter if active/passive or whatever, only the first 6 entries are working. -->
+    <!-- And unfortuantely it also does not work to put them behind techs and hope "the first 6 researched are working", nope... -->
+  <!-- Since most passive abilities here are in fact only "GeneralEffect" which does nothing on its own, -->
+   <!-- we will not include any passive abilities here. They will still work fine, just without any hint about them being active (good work devs..) -->
+  <!--  Theoretisch hat n entwickeler gesagt, dass passives zukünftig ausgenommen werden, aber das ist jetzt auch schon n halbes jahr her, wird wohl nichts mehr.. -->
+  
+  <!-- Workaround: Man kann aktive abilities auch über diese 6 hinaus zufügen, sie werden halt nicht als abilitiy angezeigt. -->
+   <!-- Aber die Unit hat sie trotzdem, zb. Heilen macht sie dann auch automatisch, sofern in der tactic so eingetragen. -->
+   <!-- Außerdem kann man solche unsichtbaren abilities auch manuell starten, indem man sie hinter Commands/Techs  -->
+    <!-- <effect type="ConsoleCommand">doAbilityInSelected("StatueAnyPower_TransformAb_Serp")</effect> -->
+   <!-- packt (commands sind auf selber UI page, techs auf 2ter UI page. wobei bei commands auch diverse militärcommands wie stellung usw sind, also nicht mehr viel platz).  -->
+   <!-- Dadurch kann man ihnen auch Kosten zum auslösen geben. -->
+   <!-- Haken dabei:  -->
+    <!-- 1) Man kann nicht togglen ob Abilitiy von unit automatisch gemacht werden soll oder nicht. -->
+      <!-- (scheinbar ist autocast auch etwas was man pro unit für alle abilities ein/ausschaltet? zumindest scheint es so,  -->
+        <!-- wenn das so ist, kann man natürlich auch einen allgemeinen button dazu sichtbar machen) -->
+        <!-- Autocast an/aus: bis jetzt 3 autocast-gruppen gefunden: auxchargetimeasrof ist ein eigener, actioncommand ein weiterer und rof+chargetimeasrof der dritte. -->
+    <!-- 2) Nan sieht den Cooldown der ability nicht, falls sie einen hat (kanns wie gewollt in der zeit nicht nutzen, zahlt aber die Kosten!. -->
+        <!-- (wenn man die 2 unit cooldowns (recharge) an mehrere abilities packt, sodass das auslösen einer ability, mehrere abilities -->
+        <!-- in den cooldown zwingt, könnte man für dieses problem in die 6-er ability Leiste 2 abilities packen, die dann quasi als cooldown- -->
+         <!-- Anzeige fungieren... die restlichen 4 plätze können kann abilities sein, wo man automatik ein/ausschalten können will) -->
+     <!-- 3) wenn man nach der Forschung dann rechtsklick macht um den Zauber abzubrechen,bekommt man die Kosten usw nicht wieder.. -->
+             <!-- (und man kann auch nicht einfach effect in godpower packen, damits erst beim Wirken abgezogen wird, weil effect nur in wenigen powers funktioniert =/) -->
+  
+  <!-- For our Wandler unit this means we have to make several protounits, each with a selection of up to -->
+   <!-- 6 active abilities you can choose from. -->
+   <!-- Passive abilties and stat improvements will be the same for every wandler -->
+  
+    <!-- in a future patch the passives will be excluded from the "only up to 6" logic! -->
+
+  
+  
+  <!-- anstatt chargetimeasrof/auxchargetimeasrof kann man auch rof nehmen und direkt n cooldown definieren -->
+   <!-- allerdings ist ersteres sinnvoller, wenn ich möchte, dass eine action auch den cooldown von anderen actions startet -->
+
+  <!-- TODO: -->
+   <!-- AbilityTransform_WandlerSerp kann auch nach den ersten 6 kommen, da wir es auch problemlos mit doAbilityInSelected starten können (command oder tech) -->
+  <!-- Ansonsten ist die Frage, ob wir wirklich völlig frei gestaltbare abilities haben wollen, dann müssen sie mit tech/command gestartet werden mit allen Nachteilen (und brauchen die Wandel-fähigkeit eig nicht mehr). -->
+     <!-- für cooldown anzeige der 2 unit cooldowns kann man 2 abilities machen, die man nirgendwo hinzielen kann, die dann nur als anzeige für geteilten cooldown da sind. -->
+      <!-- und auch eine für autocast, weil autocast glaube ich auch für alle abilities zeitgleich ein/aus geschaltet wird (Held darf dann wohl am besten nur eine autocast ability gleichzeitig haben) -->
+       <!-- Dann wären noch 3 abilitily slots frei ...wenn die abilitiies dann hinter commands/techs sind, muss man gucken wie man das im UI sinnvoll platziert, am besten alles im militaryui.. -->
+         <!-- die 3 freien abilitiy ui slots kann man auch mit commands füllen (den Reset Button wenn wir ihn noch brauchen nur auf der tech seite haben (slot 2,5 wird auch von no-formation mod genutzt)) -->
+      <!-- die militaryui slots sind bis 1,4 und 2,4 reserviert, kann man also keine commands adden. Können also nur obere row und hinterste column noch nutzen.. -->
+      <!-- ACHTUNG: commands scheinen auf beiden pages angezeigt zu werden?! also verwendung nicht sinnvoll? -->
+        <!-- wobei es zu gehen scheint, wenn zb in proto erst die tech und dann der command in der reihenfolge kommt, dann ist command auf military und tech auf eco page (oder wars zufall?) -->
+         <!-- allerdings werden die techs die ich über techtree CommandAdd zufüge nicht über die commands aus proto geschrieben, müsste man also etwas rumprobieren mit CommandAdd ob man das irgendwie richtig hinbekommt.. -->
+   <!-- Oder ob wir wie bei Warcraft 3 feste Sets zusammenstellen, dann reichen die 6 aktive-abiliities UI slots aus. -->
+  
+  
+  
+  <InitialWandler_Serp mergeMode="add">  
+    <ability>AbilityTransform_WandlerSerp<castonself>true</castonself><noautocast>true</noautocast></ability>
+    <ability>AbilityReginleifHeal<actioncommand>true</actioncommand></ability>
+    <ability>AbilityReginleifSeidr<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    
+  </InitialWandler_Serp>
+  
+  
+  <Wandler_Serp mergeMode="add">
+    
+  
+    <ability>AbilityTransform_WandlerSerp<castonself>true</castonself><noautocast>true</noautocast></ability>
+
+    <ability>AbilityLampadesChaoticRealignment<rof>60</rof></ability>
+    <ability>AbilityMutate_WandlerSerp<rof>30</rof></ability>
+    
+    
+    <!-- test -->
+    <!-- <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability> -->
+    <!-- <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability> -->
+    <!-- <ability>Bolt<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Lure<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Meteor<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Earthquake<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>PlentyVault<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>UnderworldPassage<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    <!-- <ability>Curse<actioncommand>true</actioncommand><noautocast>true</noautocast></ability> -->
+    
+    
+    <!-- <ability>AbilityCastBolt_Serp<tech>TestTech</tech><noautocast>true</noautocast><auxchargetimeasrof>1</auxchargetimeasrof></ability> -->
+    <!-- <ability>AbilityImplode_Serp<tech>TestTech</tech><noautocast>true</noautocast><chargetimeasrof>1</chargetimeasrof></ability> -->
+    
+    <ability>AbilityAmanra<tech>TechAbilityJump_WandlerSerp</tech><rof>30</rof></ability>
+    <!-- <ability>AbilityGore_WandlerSerp<tech>TechAbilityThrowBack_WandlerSerp</tech><chargetimeasrof>1</chargetimeasrof></ability> -->
+
+    <ability>AbilityCastBolt_Serp<tech>TestTech</tech><noautocast>true</noautocast><rof>2</rof></ability>
+    
+    <!-- <ability>AbilityConvert_WandlerSerp<tech>TechAbilityConvert_WandlerSerp</tech><noautocast>true</noautocast><rof>20</rof></ability> -->
+    
+    
+    <ability>AbilityReginleifHeal<tech>TechHeal1_WandlerSerp</tech><actioncommand>true</actioncommand></ability>
+    
+    
+    
+  </Wandler_Serp>
+  
+  <Wandler2_Serp mergeMode="add">
+    
+    <ability>AbilityTransform_WandlerSerp<castonself>true</castonself><noautocast>true</noautocast></ability>
+    
+    
+    <!-- <ability>AbilityCastBolt_Serp<tech>TestTech</tech><noautocast>true</noautocast><auxchargetimeasrof>1</auxchargetimeasrof></ability> -->
+    <!-- <ability>AbilityImplode_Serp<tech>TestTech</tech><noautocast>true</noautocast><chargetimeasrof>1</chargetimeasrof></ability> -->
+    <ability>AbilityCastBolt_Serp<tech>TestTech</tech><noautocast>true</noautocast><rof>2</rof></ability>
+    <!-- <ability>AbilityImplode_Serp<tech>TestTech</tech><noautocast>true</noautocast><chargetimeasrof>1</chargetimeasrof></ability> -->
+    
+    <ability>AbilityAmanra<tech>TechAbilityJump_WandlerSerp</tech><actioncommand>true</actioncommand><rof>30</rof></ability>
+    
+    
+    
+    <ability>AbilityReginleifHeal<tech>TechHeal1_WandlerSerp</tech><actioncommand>true</actioncommand></ability>
+    
+    
+    
+  </Wandler2_Serp>
+  
+  
+  
+  
+</abilitiesmods>

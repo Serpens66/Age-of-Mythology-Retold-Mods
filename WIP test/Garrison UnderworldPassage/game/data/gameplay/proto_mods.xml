@@ -1,0 +1,173 @@
+<protomods>
+
+   <!-- improve skypassage by adding autogarrison... (was meanwhile also added by patch, so no need for AutoGarrison anymore) -->
+  <unit name="SkyPassage">
+    <flag mergeMode="add">ShowGarrisonButton</flag>
+    <flag mergeMode="remove">DoNotAllowAlliedGarrison</flag>
+  </unit>
+  
+  <!-- improve UnderworldPassage wonder to work like the skypassage from atlantean -->
+  
+  <!-- Have to replace the whole godpower with a new one, because when changing it, the AI can not handle it (and stops building military units) -->
+  
+   <!-- even adding the SkyPassage building to the Godpower itself and spawn this one, automatically ejects the units, so the problem is the godpower itself.. -->
+    <!-- so we have to change the godpower itself eg to TempUnit, so we create a new one and replace it in the techtree -->
+  <!-- (as TartarianGate godpower it can spawn nature shades, but it looses garrision and training of units.. and we dont want them to be nature anyways) -->
+  <!-- And also for compatibility to savgames reasons, we should not modify the vanilla UnderworldPassage, but add a new one (crashes and other problems happen) -->
+    
+     <!-- replacing the whole godpower is too incompatible.. and since AI can not handle it and we can not remove a granted godpower from the top bar -->
+       <!-- it means we have to not grant any godpower on age up, but grant them afterwards, different ones if AI or human (icon on ageup will be empty) -->
+       <!-- So too much hassle to implement the sky-passage kind of behaviour... -->
+       <!-- So maybe just strengthen the vanilla underworld and give them the shadows? -->
+    
+    <!-- <flag>NotRepairable</flag> -->
+    <!-- <flag>NotAttackableByNature</flag> -->
+  <unit mergeMode="add" name="UnderworldPassageB_Serp">
+    <displaynameid>STR_BLD_UNDERWORLD_PASSAGE_NAME</displaynameid>
+    <rollovertextid>STR_BLD_UNDERWORLD_PASSAGE_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_UNDERWORLD_PASSAGE_SR</shortrollovertextid>
+    <icon>resources\greek\static_color\god_powers\underworld_passage_icon.png</icon>
+    <minimapcolor red="0.7500" blue="0.7500" green="0.7500">
+    </minimapcolor>
+    <animfile>greek\buildings\underworld_passage\underworld_passage.xml</animfile>
+    <soundsetfile>greek\sfx\buildings\underworld_passage.xml</soundsetfile>
+    <obstructionradiusx>1.0000</obstructionradiusx>
+    <obstructionradiusz>1.0000</obstructionradiusz>
+    <selectionradiusx>4.5000</selectionradiusx>
+    <selectionradiusz>4.5000</selectionradiusz>
+    <impacttype>Stone</impacttype>
+    <movementtype>land</movementtype>
+    <initialhitpoints>2500.0000</initialhitpoints>
+    <maxhitpoints>2500.0000</maxhitpoints>
+    <buildpoints>1250.0000</buildpoints>
+    <buildingworkrate>1.0000</buildingworkrate>
+    <maxcontained>200</maxcontained>
+    <maxvelocity>0.0000</maxvelocity>
+    <los>18.0000</los>
+    <armor type="Hack" value="0.4000">
+    </armor>
+    <armor type="Pierce" value="0.8000">
+    </armor>
+    <armor type="Crush" value="0.0500">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>MilitaryBuilding</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>Building</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeMilitaryProductionBuilding</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeTeleporterBuilding</unittype>
+    <hotkeycontext>SkyPassageAccel</hotkeycontext>
+    <train row="0" column="0">HadesShade_UnderworldPassage_Serp</train>
+    <flag>SharedGarrison</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>FlattenGround</flag>
+    <flag>HasGatherPoint</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>AllowAutoGarrison</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>GroupSelection</flag>
+    <contain>LogicalTypeGarrisonInShips</contain>
+    <command row="3" column="0">SetGatherPoint</command>
+    <command row="3" column="1">Eject</command>
+    <command row="3" column="5">Delete</command>
+    <tactics>underworld_serp.tactics</tactics>
+  </unit>
+  
+  <unit mergeMode="add" name="HadesShade_UnderworldPassage_Serp">
+    <displaynameid>STR_UNIT_HADES_SHADE_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_HADES_SHADE_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_HADES_SHADE_SR</shortrollovertextid>
+    <icon>resources\greek\player_color\units\hades_shade_icon.png</icon>
+    <animfile>greek\units\myth\hades_shade\hades_shade.xml</animfile>
+    <soundsetfile>greek\vo\hades_shade\hades_shade.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>100.0000</initialhitpoints>
+    <maxhitpoints>100.0000</maxhitpoints>
+    <trainpoints>8.0000</trainpoints>
+    <buildlimit>10</buildlimit>
+    <dynamicbuildlimitunittypes>
+      <unittype>UnderworldPassageB_Serp</unittype>
+    </dynamicbuildlimitunittypes>
+    <weightclass>5</weightclass>
+    <populationcount>0</populationcount>
+    <maxvelocity>4.5000</maxvelocity>
+    <los>16.0000</los>
+    <cost resourcetype="Favor">3.0000</cost>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.8000">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeArchaicMythUnit</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MythUnit</unittype>
+    <unittype>MythUnitMelee</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeMythUnitNotTitan</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidTraitorTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeFreezableMythUnit</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>Wanders</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>handattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Hack">12.000000</damage>
+      <maxrange>0.500000</maxrange>
+    </protoaction>
+  </unit>
+  
+  
+</protomods>

@@ -1,0 +1,80 @@
+<powers>
+  <power name="AbilitySerpTest" type="Implode" godpower="">
+    <displaynameid>STR_POWER_IMPLODE</displaynameid>
+    <rolloverid>STR_POWER_IMPLODE_LR</rolloverid>
+    <icon>atlantean\static_color\god_powers\implode_icon.png</icon>
+    <placement>Full</placement>
+    <reveallos radius="30.0">Revealer</reveallos>
+    <minimapeventtime sendalertto="All">10.0</minimapeventtime>
+    <rangeindicator range="25.0" speed="0.2">Circle</rangeindicator>
+    <soundset type="StartSound" listenertype="AllExceptCaster">GodPowerStart</soundset>
+    <soundset type="EndSound" listenertype="All">GodPowerEnd</soundset>
+    <soundset type="Manual" listenertype="IfOnScreenAll" loop="">ImplodeExists1</soundset>
+    <soundset type="Manual" listenertype="IfOnScreenAll" loop="">ImplodeExists2</soundset>
+    <playsbattlemusic>
+    </playsbattlemusic>
+    <activetime>-1</activetime>
+    <powerblocker>30</powerblocker>
+    <abstractattacktargettype>Unit</abstractattacktargettype>
+    <explicitlyrestrictedattacktargettype>AbstractTitan</explicitlyrestrictedattacktargettype>
+    <explicitlyrestrictedattacktargettype>Carnivora</explicitlyrestrictedattacktargettype>
+    <explicitlyrestrictedattacktargettype>CarnivoraWater</explicitlyrestrictedattacktargettype>
+    <powerplayerrelation>Enemy</powerplayerrelation>
+    <cost>0</cost>
+    <repeatcost>0</repeatcost>
+    <sphereproto>ImplodeSphere</sphereproto>
+    <shockwaveproto>ImplodeShockwave</shockwaveproto>
+    <vfxpulleffectproto>VFXImplodePullEffect</vfxpulleffectproto>
+    <implodestartsoundset>ImplodeBirth</implodestartsoundset>
+    <implodeexplodesoundset>ImplodeDeath</implodeexplodesoundset>
+    <implodehitsoundset>ImplodeHit</implodehitsoundset>
+    <implodeexplosionwindupsoundset>ImplodeWindup</implodeexplosionwindupsoundset>
+    <explosionwinduplength>1.396</explosionwinduplength>
+    <pullradius>25.0</pullradius>
+    <exploderadius>35.0</exploderadius>
+    <unitescaperadius>35.0</unitescaperadius>
+    <damageintervalseconds>1.0</damageintervalseconds>
+    <pullstrengthincrement>0.1</pullstrengthincrement>
+    <maximumpullstrength>1.0</maximumpullstrength>
+    <pullstrengthoverkillincrement>0.1</pullstrengthoverkillincrement>
+    <pullstrengthadjustfactor>0.06</pullstrengthadjustfactor>
+    <unitacceleration>4.0</unitacceleration>
+    <poweraccumulationincrement>0.1</poweraccumulationincrement>
+    <maximumaccumulatedpower>1.0</maximumaccumulatedpower>
+    <spherescalemultiplier>1.2</spherescalemultiplier>
+    <shearmultiplier>0.2</shearmultiplier>
+    <baseshearincrement>0.1</baseshearincrement>
+    <baseshearmax>1.0</baseshearmax>
+    <unitimplodetimedelaymin>0.3</unitimplodetimedelaymin>
+    <unitimplodetimedelaymax>0.7</unitimplodetimedelaymax>
+    <unitimplodeendtimedelaymin>0.01</unitimplodeendtimedelaymin>
+    <unitimplodeendtimedelaymax>0.1</unitimplodeendtimedelaymax>
+    <spheretargetheight>3.0</spheretargetheight>
+    <sphereheightadjustfactor>2.0</sphereheightadjustfactor>
+    <unitfloatadjustfactor>0.3</unitfloatadjustfactor>
+    <spheremovementdelay>2.0</spheremovementdelay>
+    <mintimeinstagestarting>3.0</mintimeinstagestarting>
+    <mintimeinstagepullingunits>4.0</mintimeinstagepullingunits>
+    <mintimeinstageexploding>3.0</mintimeinstageexploding>
+    <explosiondelay>1.6</explosiondelay>
+    <shockwavevelocity>67.2</shockwavevelocity>
+    <outerorbitradiussquared>225.0</outerorbitradiussquared>
+    <middleorbitradiussquared>100.0</middleorbitradiussquared>
+    <innerorbitradiussquared>25.0</innerorbitradiussquared>
+    <outerorbitangularacceleration>0.5</outerorbitangularacceleration>
+    <middleorbitangularacceleration>2.5</middleorbitangularacceleration>
+    <innerorbitangularacceleration>14.0</innerorbitangularacceleration>
+    <initialrumblecamerashakeduration>3.0</initialrumblecamerashakeduration>
+    <initialrumblecamerashakestrength>0.05</initialrumblecamerashakestrength>
+    <unitdeathcamerashakeduration>0.1</unitdeathcamerashakeduration>
+    <unitdeathcamerashakestrength>0.1</unitdeathcamerashakestrength>
+    <explosioncamerashakeduration>0.8</explosioncamerashakeduration>
+    <explosioncamerashakestrength>0.3</explosioncamerashakestrength>
+    <minthrowdistance>15.0</minthrowdistance>
+    <maxthrowdistance>25.0</maxthrowdistance>
+    <minthrowheight>1.0</minthrowheight>
+    <maxthrowheight>2.0</maxthrowheight>
+    <minthrowvelocity>15.0</minthrowvelocity>
+    <maxthrowvelocity>22.0</maxthrowvelocity>
+  </power>
+</powers>

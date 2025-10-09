@@ -1,0 +1,15 @@
+<unittypedatamods>
+  <!-- TODO string -->
+  <unittypeentry mergeMode="add">
+    <unittype>AbstractWarHeroUnitSerp</unittype>
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <hidefromrollover>
+    </hidefromrollover>
+  </unittypeentry>
+  <unittypeentry mergeMode="add">
+    <unittype>AbstractWarHeroUnitAndEggSerp</unittype>
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <hidefromrollover>
+    </hidefromrollover>
+  </unittypeentry>
+</unittypedatamods>

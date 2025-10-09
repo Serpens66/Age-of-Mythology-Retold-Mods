@@ -1,0 +1,68 @@
+
+ 
+ 
+ 
+NEUER ANSATZ:
+eigentlich sind alle in vanilla jetzt in Ordnung, außer Norse.
+Und für norse könnte man evlt. eine Kampatrappe oderso bauen/beschwören lassen, gegen die man kämpfen kann (oder vllt auch echte gegner)
+ sodass man dadurch aktiv auch ohne mitspieler anzugreifen, gunst generieren kann.
+ 
+
+ansonsten testen zb kopie von TartarianSpawn machen mit unittype NatureClass und diese iwo ausbilden lassen,
+ und gucken ob sie dann nature gehören oder mir
+
+
+  <!-- evtl the obelisken der ägypter die fähigkeiten der orakel der atlanter geben? -->
+   <!-- also dass sie ein klein wenig gunst generieren (1/10 der atlanter) und das eben auf ihrer los basiert usw. -->
+    <!-- sie orakel proto und tactics -->
+
+ein ziel in eine einheit von nature umwandeln geht zb so wie bei lanpades:
+<protoaction>
+      <name>TransfigurationAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <active>0</active>
+      <onhiteffect type="MutateNature" proto="Chicken">
+      </onhiteffect>
+    </protoaction>
+ist nur die Frage ob man dieselbe einheit beibehalten kann..
+
+
+die Tiere von Seth also zb : BaboonOfSet
+kann man auch angreifen und schlachten/nahrung von bekommen, obwohl sie einen selbst gehören.
+ vllt darüber dann umsetzen? 
+
+
+
+ansonsten vllt auch ne Statue von jedem Gott baubar machen,
+ die einfach x bevölkerung kostet und gunst über Zeit generiert (und vllt auch von Isis den Schutz vor Zaubern)
+StatueMajorGod
+
+
+TreeDamageAura den Titanen geben funzt nicht so gut:
+1) Die bäume fallen nicht um, sondern sind instant Stumpf, was komisch aussieht (keine ahnung warum sie nicht umfallen)
+2) bäume die durch andere dinge bereits umgefallen sind, werden dadurch nicht beeinflusst
+alternativ mal action mit type=TreeDeath versuchen?
+
+
+Helden:
+
+alle Völker brauchen 2-3 Helden, wie die Griechen.
+ evlt. die andere Art von Held ent-helden?
+Vorallem Ägypter sind ziemlich lost, weil Priester einfach scheiße sind.
+(realism mod hat helden zugefügt, könnte man da gucken wie)
+
+Ägypter: Amanra, Setna (eher nicht weil ist pharao), Kemsyt (evlt noch ability geben), Theris
+Wikinger: König Folstag (im letzten Zeitalter), Reginleif (walküre), Ornlu Wolf, Brokk (verstärkt rüstung), Eitri (verstärkt Waffen),
+Atlanter: Cheiroballiste (Held), Contarius (ist das normale unit? ja), Kastor
+
+ressourcen: evlt menge erhöhen? (realism mod)
+
+
+
+
+
+
+
+
+

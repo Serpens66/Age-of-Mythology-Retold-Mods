@@ -1,0 +1,81 @@
+Favor:
+
+- gibt beim smallen eig eine anzeige wie schnell gesammlet wird, gucken ob das bei griechen da ist und ob man das übertragen kann.
+- genauso oben in ressourcenanzeige die info wieviele Einheiten sammeln...
+   das zeigt da leider nur die defaulteinheiten an, die sammeln können.
+    und ich wüsste nicht wo man sowas modden kann, dass da dorfbewohner angezeigt werden...
+
+- KI anpassen? evlt lieber nicht, evlt nur passiven Gunst Boost geben, damit sie mit halbierung der Gunst wenn nicht Grieche klarkommt?
+  (wäre zu kompliziert und vorallem inkompatibel zu anderen mods)
+  
+- animation: noch keine ahnung wie änderung der datei übernommen wird, wäre aber vemrutlich ebenfalls inkompatible, da additive hier vermutlichn nicht geht?
+
+- Hersis und Godi Norse Helden generieren tatsächlich keine menge favor automatisch, evtl. auch halbieren?
+genauso wie Oracle/Held
+
+Ah in Retold wurde es geändert für Atlanter:
+ sie bekommen keine Gunst mehr durch towncenter, sondern durch Oracle/Held, mehr wenn sie vollen sichtradius haben.
+wobei mit Rheia Horns of Consecration entwicklung wird towncenter sammlung aktiviert.
+ 
+ 
+ 
+ 
+NEUER ANSATZ:
+eigentlich sind alle in vanilla jetzt in Ordnung, außer Norse.
+Und für norse könnte man evlt. eine Kampatrappe oderso bauen/beschwören lassen, gegen die man kämpfen kann (oder vllt auch echte gegner)
+ sodass man dadurch aktiv auch ohne mitspieler anzugreifen, gunst generieren kann.
+ 
+ Für Norse stattdessen:
+  den Lampade/Chaos Effekt (dass Ziel generalenemy wird) nutzen und den erlauben auf eigene units zu machen
+   dadurch verliert man also eigene units, aber gewinnt gunst
+hm chaos zauber auf eigene einheiten macht sie iwie nicht feindlich...
+
+ansonsten testen zb kopie von TartarianSpawn machen mit unittype NatureClass und diese iwo ausbilden lassen,
+ und gucken ob sie dann nature gehören oder mir
+
+
+ein ziel in eine einheit von nature umwandeln geht zb so wie bei lanpades:
+<protoaction>
+      <name>TransfigurationAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <active>0</active>
+      <onhiteffect type="MutateNature" proto="Chicken">
+      </onhiteffect>
+    </protoaction>
+ist nur die Frage ob man dieselbe einheit beibehalten kann..
+
+
+die Tiere von Seth also zb : BaboonOfSet
+kann man auch angreifen und schlachten/nahrung von bekommen, obwohl sie einen selbst gehören.
+ vllt darüber dann umsetzen? 
+
+
+
+ansonsten vllt auch ne Statue von jedem Gott baubar machen,
+ die einfach x bevölkerung kostet und gunst über Zeit generiert (und vllt auch von Isis den Schutz vor Zaubern)
+StatueMajorGod
+
+
+Helden:
+
+alle Völker brauchen 2-3 Helden, wie die Griechen.
+ evlt. die andere Art von Held ent-helden?
+Vorallem Ägypter sind ziemlich lost, weil Priester einfach scheiße sind.
+(realism mod hat helden zugefügt, könnte man da gucken wie)
+
+Ägypter: Amanra, Setna (eher nicht weil ist pharao), Kemsyt (evlt noch ability geben), Theris
+Wikinger: König Folstag (im letzten Zeitalter), Reginleif (walküre), Ornlu Wolf, Brokk (verstärkt rüstung), Eitri (verstärkt Waffen),
+   Gull-Thorir-Oddsson
+Atlanter: Cheiroballiste (Held), Contarius (ist das normale unit? ja), Kastor
+
+ressourcen: evlt menge erhöhen? (realism mod)
+
+
+
+
+
+
+
+
+

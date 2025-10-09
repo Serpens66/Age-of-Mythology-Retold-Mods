@@ -1,0 +1,4 @@
+(Additive Mod)
+- Spawns a new hero unit for everyone (respawns like the Pharaoh), which you can skill/specialise however you like.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

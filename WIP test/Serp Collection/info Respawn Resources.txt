@@ -1,0 +1,12 @@
+(Additive Mod)
+- Makes most resource sources renewable:
+ - goldmines regenerate 1 gold per second (also over the maximum unfortunately)
+ - animals and trees respawn after 20 minutes if the stump/marker was not overbuilt.
+ - You can prevent respawning by placing any construction site on top of the stumps/markers (animals have tiny animals as respawn marker)
+
+Unlike most of my other mods, this time it was not possible to make this mod also compatible for all trees/animals/goldmines that may be added by mods/game updates.
+ So it only works for the ones currently existing in the game as of 30.09.2024
+ Needs an update to support new kind of trees/animals.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.
+(there you can also request updates to the mod. If I do not respond within 1 month, feel free to upload an updated version yourself)

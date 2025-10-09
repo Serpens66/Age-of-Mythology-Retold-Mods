@@ -1,0 +1,12 @@
+<techtypesmods>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypePierceWeapons_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeHackWeapons_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeCrushWeapons_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeArmor_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeShields_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypePierceW_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeUpgrade_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeAntiHuman_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeAntiMyth_WandlerSerp</techtype>
+  <techtype mergeMode="add" displaynameid="STR_TECH_TYPE_HERO">TypeAntiBuilding_WandlerSerp</techtype>
+</techtypesmods>

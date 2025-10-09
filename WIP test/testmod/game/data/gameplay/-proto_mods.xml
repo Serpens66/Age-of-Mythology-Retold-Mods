@@ -1,0 +1,550 @@
+<protomods>
+
+  <!-- TODO: ich weiß noch nicht ob mein protoaction code additive so richtig ist, -->
+   <!-- muss evtl. anders aussehen, damit nur der richitge eintrag editiert wird? -->
+
+
+
+  <!-- first I planned to add Gather Temple to all villagers (all civs), but it does not work well. -->
+   <!-- it works to generate favor, but anim is miss, AI can not handle it, UI does not display the rate and the number of gatherers and so on. -->
+  <!-- In Retold the favor collection is fine for all except the Norse, so I will add some kind of punchin-bag unit for the norse to -->
+   <!-- "gather" favor. -->
+
+
+  <!-- test/example code -->
+  <unit name="House">
+    <buildlimit mergeMode="replace">32</buildlimit>
+  </unit>
+  
+  <!-- VillagerGreek -->
+  <!-- <protoaction> -->
+    <!-- <name>Gather</name> -->
+    <!-- <dropsitegathering>1</dropsitegathering> -->
+    <!-- <rate type="Temple">0.1</rate> -->
+    <!-- <rate type="Tree">1.000000</rate> -->
+    <!-- <rate type="GoldResource">0.850000</rate> -->
+    <!-- <rate type="Herdable">0.900000</rate> -->
+    <!-- <rate type="Huntable">1.000000</rate> -->
+    <!-- <rate type="NonConvertableHerdable">0.900000</rate> -->
+    <!-- <rate type="BerryBush">0.800000</rate> -->
+    <!-- <rate type="AbstractFarm">0.700000</rate> -->
+  <!-- </protoaction> -->
+  
+  
+    <!-- so ist offenbar falsch... -->
+    <!-- <protoaction mergeMode='add' name ='Gather'> -->
+      <!-- <rate type="Temple">0.1</rate> -->
+    <!-- </protoaction> -->
+
+  <!-- <unit name="VillagerEgyptian"> -->
+    <!-- <protoaction> -->
+      <!-- <name>Gather</name> -->
+      <!-- <rate type="Temple">0.045</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  
+  <!-- <unit name="VillagerNorse"> -->
+    <!-- <protoaction> -->
+      <!-- <name>Gather</name> -->
+      <!-- <rate type="Temple">0.048</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+
+  <!-- <unit name="VillagerAtlantean"> -->
+    <!-- <protoaction> -->
+      <!-- <name>Gather</name> -->
+      <!-- <rate type="Temple">0.075</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+
+  <!-- <unit name="VillagerAtlanteanHero"> -->
+    <!-- <protoaction> -->
+      <!-- <name>Gather</name> -->
+      <!-- <rate type="Temple">0.0825</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+
+  
+  
+  
+  <!-- Reduce gather collection from other vanilla sources for everyone except greek, so in the end other civs can generate half from villager gathering and half from regular -->
+   <!-- (but is this fair? eg monument costs can be halfed, but "wasting" villagers to gather can not be made cheaper?) -->
+  
+  <!-- <unit name="MonumentToVillagers"> -->
+    <!-- <cost mergeMode="replace" resourcetype="Food">25.0000</cost> -->
+    <!-- <cost mergeMode="replace" resourcetype="Gold">25.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGather</name> -->
+      <!-- <rate type="Favor">5.05000</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  <!-- <unit name="MonumentToSoldiers"> -->
+    <!-- <cost resourcetype="Food">40.0000</cost> -->
+    <!-- <cost resourcetype="Gold">35.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGather</name> -->
+      <!-- <rate type="Favor">0.05000</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  <!-- <unit name="MonumentToPriests"> -->
+    <!-- <cost resourcetype="Food">75.0000</cost> -->
+    <!-- <cost resourcetype="Gold">75.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGather</name> -->
+      <!-- <rate type="Favor">0.05000</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  <!-- <unit name="MonumentToPharaohs"> -->
+    <!-- <cost resourcetype="Food">100.0000</cost> -->
+    <!-- <cost resourcetype="Gold">100.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGather</name> -->
+      <!-- <rate type="Favor">0.05000</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  <!-- <unit name="MonumentToGods"> -->
+    <!-- <cost resourcetype="Food">350.0000</cost> -->
+    <!-- <cost resourcetype="Gold">350.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGather</name> -->
+      <!-- <rate type="Favor">0.10000</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  
+  <!-- Atlantean (in Retold get favor via Oracle) -->
+  
+  <!-- <unit name="Oracle"> -->
+    <!-- <cost resourcetype="Food">30.0000</cost> -->
+    <!-- <cost resourcetype="Gold">30.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGatherFavor</name> -->
+      <!-- <rate type="Favor">0.005000</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  <!-- <unit name="OracleHero"> -->
+    <!-- <cost resourcetype="Food">30.0000</cost> -->
+    <!-- <cost resourcetype="Gold">30.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGatherFavor</name> -->
+      <!-- <rate type="Favor">0.005000</rate> -->
+    <!-- </protoaction> -->
+  <!-- </unit> -->
+  
+  <!-- Norse: Hersir and Godi passively generate favor. The fighting favor is done in major_gods.xml with bountyresourceearning -->
+  <unit name="Hersir">
+    <unitregen mergeMode="add">0.5000</unitregen>
+    
+    <rechargetime mergeMode="add">15.0000</rechargetime>
+    <auxrechargetime mergeMode="add">15.0000</auxrechargetime>
+    
+    <!-- <cost resourcetype="Food">70.0000</cost> -->
+    <!-- <cost resourcetype="Gold">35.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGather</name> -->
+      <!-- <type>AutoGather</type> -->
+      <!-- <rate type="Favor">0.005000</rate> -->
+    <!-- </protoaction> -->
+  </unit>
+  <unit name="Godi">
+    <unitregen mergeMode="add">0.5000</unitregen>
+    <!-- <cost resourcetype="Wood">70.0000</cost> -->
+    <!-- <cost resourcetype="Gold">35.0000</cost> -->
+    <!-- <protoaction> -->
+      <!-- <name>AutoGather</name> -->
+      <!-- <type>AutoGather</type> -->
+      <!-- <rate type="Favor">0.005000</rate> -->
+    <!-- </protoaction> -->
+  </unit>
+  
+  
+  <!-- add regeneration to greek heros -->
+  
+  <unit name="Jason">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Ajax">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Theseus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Heracles">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Achilles">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Atalanta">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Adysseus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Chiron">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Hippolyta">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Bellerophon">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Perseus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="Polyphemus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  
+  <unit name="Priest">
+    <buildlimit mergeMode="add">20</buildlimit>
+    
+    
+    
+    <initialresource resourcetype="Food" mergeMode="add">75.0000</initialresource>
+    <resourcesubtype mergeMode="add">meat</resourcesubtype>
+    <resourcedecay mergeMode="add">0.3000</resourcedecay>
+    <unittype mergeMode="add">NatureClass</unittype>
+    <unittype mergeMode="add">Huntable</unittype>
+    <unittype mergeMode="add">HuntedResource</unittype>
+    <unittype mergeMode="add">AnimalPrey</unittype>
+    <unittype mergeMode="add">Resource</unittype>
+    
+  </unit>
+  <unit name="SonOfOsiris">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  
+  <unit name="TitanCerberus">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="TitanBird">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="TitanYmir">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  <unit name="TitanAtlantean">
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  <unit name="Nidhogg">
+    <initialhitpoints mergeMode="replace">3000</initialhitpoints>
+    <maxhitpoints mergeMode="replace">3000</maxhitpoints>
+    <unitregen mergeMode="add">1.0000</unitregen>
+  </unit>
+  
+  
+  <!-- more hitpoints for buildings: -->
+  
+  <unit name="TownCenter">
+    <initialhitpoints mergeMode="replace">5000</initialhitpoints>
+    <maxhitpoints mergeMode="replace">5000</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.6500"></armor>
+    <protoaction>
+      <name>AreaHeal</name>
+      <persistent>1</persistent>
+      <active>1</active>
+      <modifytargetlimit>2</modifytargetlimit>
+    </protoaction>
+    <train mergeMode="add" row="0" column="4">Amanra_SkirmishSerp</train>
+  </unit>
+  <unit name="CitadelCenter">
+    <initialhitpoints mergeMode="replace">7000</initialhitpoints>
+    <maxhitpoints mergeMode="replace">7000</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.6500"></armor>
+    <protoaction>
+      <name>AreaHeal</name>
+      <persistent>1</persistent>
+      <active>1</active>
+      <modifytargetlimit>3</modifytargetlimit>
+    </protoaction>
+    <train mergeMode="add" row="0" column="4">Amanra_SkirmishSerp</train>
+  </unit>
+  
+  <unit name="WallShort">
+    <initialhitpoints mergeMode="replace">1500</initialhitpoints>
+    <maxhitpoints mergeMode="replace">1500</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.7000"></armor>
+  </unit>
+  <unit name="WallMedium">
+    <initialhitpoints mergeMode="replace">1500</initialhitpoints>
+    <maxhitpoints mergeMode="replace">1500</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.7000"></armor>
+  </unit>
+  <unit name="WallLong">
+    <initialhitpoints mergeMode="replace">1500</initialhitpoints>
+    <maxhitpoints mergeMode="replace">1500</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.7000"></armor>
+  </unit>
+  <unit name="WallConnector">
+    <initialhitpoints mergeMode="replace">750</initialhitpoints>
+    <maxhitpoints mergeMode="replace">750</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.7000"></armor>
+  </unit>
+  <unit name="WallGate">
+    <initialhitpoints mergeMode="replace">1000</initialhitpoints>
+    <maxhitpoints mergeMode="replace">1000</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.7000"></armor>
+  </unit>
+  
+  <unit name="SentryTower">
+    <initialhitpoints mergeMode="replace">1500</initialhitpoints>
+    <maxhitpoints mergeMode="replace">1500</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.6500"></armor>
+    <buildlimit mergeMode="replace">30</buildlimit>
+  </unit>
+  <unit name="MirrorTower">
+    <initialhitpoints mergeMode="replace">1600</initialhitpoints>
+    <maxhitpoints mergeMode="replace">1600</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.6500"></armor>
+    <armor mergeMode="replace" type="Hack" value="0.1000"></armor>
+    <buildlimit mergeMode="replace">10</buildlimit>
+  </unit>
+  
+  <unit name="HillFort">
+    <initialhitpoints mergeMode="replace">4000</initialhitpoints>
+    <maxhitpoints mergeMode="replace">4000</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.700"></armor>
+    <armor mergeMode="replace" type="Hack" value="0.1500"></armor>
+    <protoaction>
+      <name>RangedAttack</name>
+      <damage mergeMode="replace" type="Pierce">16.000000</damage>
+    </protoaction>
+    <protoaction>
+      <name>FlyingUnitAttack</name>
+      <damage mergeMode="replace" type="Pierce">16.000000</damage>
+    </protoaction>
+  </unit>
+  <unit name="AsgardianHillFort">
+    <initialhitpoints mergeMode="replace">2000</initialhitpoints>
+    <maxhitpoints mergeMode="replace">4000</maxhitpoints>
+    <armor mergeMode="replace" type="Hack" value="0.700"></armor>
+    <armor mergeMode="replace" type="Hack" value="0.1500"></armor>
+    <protoaction>
+      <name>RangedAttack</name>
+      <damage mergeMode="replace" type="Pierce">20.000000</damage>
+    </protoaction>
+    <protoaction>
+      <name>FlyingUnitAttack</name>
+      <damage mergeMode="replace" type="Pierce">20.000000</damage>
+    </protoaction>
+  </unit>
+  
+  
+  
+  
+  
+  
+  <!-- add campaign heroes(a copy of them, so we can balance them if needed, eg without KnockoutDeath and adding costs) -->
+  
+  
+  <unit name="Amanra_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_UNIT_AMANRA_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_AMANRA_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_AMANRA_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\amanra_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\amanra\amanra.xml</animfile>
+    <soundsetfile>spc\vo\amanra\amanra.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>250.0000</initialhitpoints>
+    <maxhitpoints>250.0000</maxhitpoints>
+    <trainpoints>30.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <unitregen>1.0000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>5.3000</maxvelocity>
+    <rechargetime>12.0000</rechargetime>
+    <los>20.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Gold">400.0000</cost>
+    <cost resourcetype="Favor">6.0000</cost>
+    <armor type="Hack" value="0.5000">
+    </armor>
+    <armor type="Pierce" value="0.5000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>HasDefaultAttack</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>handattack_jumpattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>0.800000</rof>
+      <damage type="Divine">10.000000</damage>
+      <damagebonus type="MythUnit">6.000000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>0.750000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>JumpAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damagebonus type="MythUnit">1.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <minrange>3.000000</minrange>
+      <maxrange>9.000000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+  </unit>
+  
+  <unit name="StatueMajorGod_SkirmishSerp" mergeMode="add">
+    <displaynameid>STR_BLD_STATUE_MAJOR_GOD_NAME</displaynameid>
+    <rollovertextid>STR_BLD_STATUE_MAJOR_GOD_LR</rollovertextid>
+    <editornameid>STR_BLD_STATUE_MAJOR_GOD_EDT_NAME</editornameid>
+    <icon>resources\spc\static_color\buildings\statue_major_god_icon.png</icon>
+    <animfile culture="greek">greek\buildings\statue_major_god\statue_major_god_greek.xml</animfile>
+    <animfile culture="egyptian">egyptian\buildings\statue_major_god\statue_major_god_egyptian.xml</animfile>
+    <animfile culture="norse">norse\buildings\statue_major_god\statue_major_god_norse.xml</animfile>
+    <animfile culture="atlantean">atlantean\buildings\statue_major_god\statue_major_god_atlantean.xml</animfile>
+    <soundsetfile>egyptian\sfx\buildings\monument_to_villagers.xml</soundsetfile>
+    <obstructionradiusx>1.0000</obstructionradiusx>
+    <obstructionradiusz>1.0000</obstructionradiusz>
+    <impacttype>Stone</impacttype>
+    <screenshakeondestruction>0.300</screenshakeondestruction>
+    <movementtype>land</movementtype>
+    <initialhitpoints>5000.0000</initialhitpoints>
+    <maxhitpoints>5000.0000</maxhitpoints>
+    <buildpoints>600.0000</buildpoints>
+    <buildlimit>1</buildlimit>
+    <populationcount>1</populationcount>
+    <maxvelocity>0.0000</maxvelocity>
+    <displayedrange>20.0000</displayedrange>
+    <los>9.0000</los>
+    <cost resourcetype="Wood">500.0000</cost>
+    <cost resourcetype="Gold">500.0000</cost>
+    <armor type="Hack" value="0.5500">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.1000">
+    </armor>
+    <unittype>LogicalTypeMinimapFilterEconomic</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>Building</unittype>
+    <unittype>CountsTowardEconomicScore</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeTartarianGateValidOverlapPlacement</unittype>
+    <unittype>LogicalTypeBuildingThatCanBeEmpowered</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>NoIdleActions</flag>
+    <flag>DisplayRange</flag>
+    <command row="1" column="1">CancelBuilding</command>
+    <command row="3" column="5">Delete</command>
+    <protoaction>
+      <name>AutoGather</name>
+      <rate type="Favor">0.20000</rate>
+    </protoaction>
+  </unit>
+  
+  <unit name="VillagerEgyptian">
+    <flag mergeMode="add">AbilitiesOnBothPages</flag>
+    <train mergeMode="add" row="0" column="0">StatueMajorGod</train>
+  </unit>
+  <unit name="VillagerAtlantean">
+    <flag mergeMode="add">AbilitiesOnBothPages</flag>
+    <train mergeMode="add">StatueMajorGod</train>
+  </unit>
+  
+  
+  
+  <unit name="Lampades">
+    <protoaction>
+      <name>TransfigurationAttack</name>
+      <!-- <onhiteffect mergeMode='replace' type='MutateNature'/> -->
+      <onhiteffect mergeMode='remove' type='MutateNature' proto="Chicken"/>
+      <onhiteffect type="MutateNature" proto="TestingDummyObject">
+      </onhiteffect>
+    </protoaction>
+  </unit>
+  
+  
+  
+</protomods>
+

@@ -1,0 +1,106 @@
+<abilitiesmods>
+  
+  <!-- see also PharaohImplodeWithCooldown in test mod folder -->
+  
+  <!-- it seems "shadekic" from "super unit overlord" mod found out that simply adding <actioncommand>true</actioncommand> to the ability here -->
+   <!-- already makes units use godpowers directly, without the need of an unitaction (but unitactions are required for automatic use of course) -->
+    <!-- aber auch damit werden die "costs" in den godpowers ignoriert -->
+    <!-- <ability>Implode<rof>10</rof><actioncommand>true</actioncommand></ability> -->
+  
+  <!-- info: laut slush sind actioncommand abilities buggy wenn man sie hinter eine tech packt, werden dennoch im ui angezeigt aber nicht nutzbar -->
+  
+    <!-- abilities and commands can only be shown at the military UI page, while techs/train are on Economic page, so they can not be shown on same page. -->
+  <!-- man kann ability (ohne zielen/auto) aber auch via command oder tech (consolecommand) auslösen lassen  -->
+    <!-- <effect type="ConsoleCommand">doAbilityInSelected("StatueAnyPower_TransformAb_Serp")</effect> -->
+     <!-- auch ohne dass ability sichtbar ist.  -->
+    <!-- alternativ um beides anzuzeigen braucht die unit (MilitaryUIDefault ist optional): -->
+    <!-- <flag>ForceSecondPage</flag> -->
+    <!-- <flag>MilitaryUIDefault</flag> -->
+    <!-- <unittype>MilitaryUnit</unittype> -->
+    
+  
+  <hersir>
+    <!-- <ability mergeMode="add">AbilityLampadesChaoticRealignment<chargetimeasrof>1</chargetimeasrof></ability> -->
+    <!-- <ability mergeMode="add">FightOwnUnit_Serp<noautocast>true</noautocast><chargetimeasrof>1</chargetimeasrof></ability> -->
+    
+    <!-- <ability mergeMode="add">AbilitySerpTest<noautocast>true</noautocast></ability> -->
+    <ability mergeMode="add">AbilityLampadesTransfiguration<auxchargetimeasrof>1</auxchargetimeasrof></ability>    
+    
+    <ability mergeMode="add">EnemySettlementPower_Serp<noautocast>true</noautocast></ability>
+    
+  </hersir>
+  
+  
+  
+  <statuemajorgod_skirmishserp mergeMode="add">
+    <ability>FightOwnUnit_Serp<noautocast>true</noautocast><chargetimeasrof>1</chargetimeasrof></ability>
+  
+    <ability>AbilitySerpTest<noautocast>true</noautocast></ability>
+    
+    <!-- <ability>AbilityLampadesChaoticRealignment<chargetimeasrof>1</chargetimeasrof></ability> -->
+    <ability>AbilityLampadesTransfiguration<auxchargetimeasrof>1</auxchargetimeasrof></ability>
+    <!-- <ability>AbilityGuardianBolt_SkirmishSerp<noautocast>true</noautocast></ability> -->
+    
+  </statuemajorgod_skirmishserp>
+  
+  
+  
+  <kastor_SkirmishSerp mergeMode="add">
+    <ability>AbilityKastorStun<chargetimeasrof>1</chargetimeasrof></ability>
+    <ability>AbilityKastorCharisma<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </kastor_SkirmishSerp>
+  
+  <amanra_SkirmishSerp mergeMode="add">
+    <ability>AbilityAmanra<chargetimeasrof>1</chargetimeasrof></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </amanra_SkirmishSerp>
+  <kemsyt_SkirmishSerp mergeMode="add">
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>AbilityScorpionMan<chargetimeasrof>1</chargetimeasrof></ability>
+    <ability>PassiveLifesteal<tech>CrimsonLinen</tech><alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </kemsyt_SkirmishSerp>
+  <theris_SkirmishSerp mergeMode="add">
+    <ability>AbilityAnubite<chargetimeasrof>1</chargetimeasrof></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </theris_SkirmishSerp>
+  <guardian_SkirmishSerp mergeMode="add">
+    <ability>AbilityGuardian<chargetimeasrof>1</chargetimeasrof></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </guardian_SkirmishSerp>
+  
+  <brokk_SkirmishSerp mergeMode="add">
+    <ability>AbilityBrokk<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>AbilityDwarven<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </brokk_SkirmishSerp>
+  <eitri_SkirmishSerp mergeMode="add">
+    <ability>AbilityEitri<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>AbilityDwarven<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </eitri_SkirmishSerp>
+  
+  <Reginleif_SkirmishSerp mergeMode="add">
+    <ability>AbilityReginleifHeal<actioncommand>true</actioncommand></ability>
+    <!-- <ability>AbilityReginleifSeidr<alwaysdisabledingrid>1</alwaysdisabledingrid></ability> -->
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </Reginleif_SkirmishSerp>
+  <Ornlu_SkirmishSerp mergeMode="add">
+    <ability>AbilityFenrisWolfBrood<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveNaturesEyes<tech>EyesInTheForest</tech><alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </Ornlu_SkirmishSerp>
+  <KingFolstag_SkirmishSerp mergeMode="add">
+    <ability>AbilityKingFolstagFrigidBreath<chargetimeasrof>1</chargetimeasrof></ability>
+    <ability>AbilityKingFolstagFreezeTitan<auxchargetimeasrof>1</auxchargetimeasrof></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveDivineImmunity<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </KingFolstag_SkirmishSerp>
+  
+</abilitiesmods>

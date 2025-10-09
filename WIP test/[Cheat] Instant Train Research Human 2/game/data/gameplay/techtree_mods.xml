@@ -1,0 +1,133 @@
+<techtreemods>
+
+  
+  
+  <!-- the tech is added in proto.xml to the TownCenter -->
+   <!-- it is done via a tech you have to research, because I think the AI will never research techs added by mods, especially when set to NeverAutoResearch. -->
+    <!-- This way it only applies to humans who researched this -->
+   <!-- YPForceUnapply is making the effects revert as soon as the tech is set to unobtainable again (does not work on all kind of effects and not if amount was set to 0) -->
+   <!-- to the type="techAll" we could also add ignoreageups="" if wanted -->
+  <tech name="InstantTrainAndResearch_Serp">
+    <status>OBTAINABLE</status>
+    <displaynameid>STR_EDT_FAST</displaynameid>
+    <icon>resources\front_end\Dropdown_Arrow\Dropdown_Arrow_Right_Double.png</icon>
+    <researchpoints>0.1000</researchpoints>
+    <flag>NeverAutoResearch</flag>
+    <flag>YPForceUnapply</flag>
+    <effects>
+    
+      <effect type="Data" amount="0.01" subtype="ResearchPoints" relativity="Percent">
+        <target type="techAll" excludetypes="HeroPromotion|ResearchableCommand">
+        </target>
+      </effect>
+      <effect type="Data" amount="0.01" subtype="TrainPoints" relativity="Percent">
+        <target type="ProtoUnit">Unit</target>
+      </effect>
+      
+      <!-- add several other effects (copy pasted from StoryGeneral) -->
+      
+      <effect type="Data" action="Build" amount="1.50" subtype="WorkRate" unittype="TownCenter" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Build" amount="5.50" subtype="WorkRate" unittype="Building" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Build" amount="5.50" subtype="WorkRate" unittype="TownCenter" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractInfantry</target>
+      </effect>
+      <effect type="Data" action="Build" amount="5.50" subtype="WorkRate" unittype="Building" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractInfantry</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="WoodResource" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="AbstractFarm" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="Huntable" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="Herdable" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="NonConvertableHerdable" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="BerryBush" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="GoldResource" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" action="Gather" amount="5.50" subtype="WorkRate" unittype="Temple" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" amount="5.50" subtype="CarryCapacity" resource="Food" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" amount="5.50" subtype="CarryCapacity" resource="Wood" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" amount="5.50" subtype="CarryCapacity" resource="Gold" relativity="BasePercent">
+        <target type="ProtoUnit">EconomicUpgraded</target>
+      </effect>
+      <effect type="Data" amount="5.60" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">AbstractVillager</target>
+      </effect>
+      <effect type="Data" amount="5.60" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">Building</target>
+      </effect>
+      <effect type="Data" amount="5.20" subtype="BuildingWorkRate" relativity="BasePercent">
+        <target type="ProtoUnit">MilitaryBuilding</target>
+      </effect>
+      <effect type="Data" amount="-0.20" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      <effect type="Data" amount="-0.20" subtype="ArmorVulnerability" armortype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      <effect type="Data" amount="-0.20" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      <effect type="Data" amount="1.30" allactions="1" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      <effect type="Data" amount="1.30" allactions="1" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">Building</target>
+      </effect>
+      
+      
+      
+      <!-- make it toggleable (if you dont want this, simply remove this effect) -->
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandAdd" tech="Revert_InstantTrainAndResearch_Serp" row="2" column="3" relativity="Assign">
+        <target type="ProtoUnit">TownCenter</target>
+      </effect>
+      
+
+
+      
+    </effects>
+  </tech>
+  
+  
+  <tech name="Revert_InstantTrainAndResearch_Serp">
+    <status>OBTAINABLE</status>
+    <displaynameid>STR_EDT_NORMAL</displaynameid>
+    <icon>resources\front_end\Dropdown_Arrow\Dropdown_Arrow_Left_Double.png</icon>
+    <researchpoints>0.1000</researchpoints>
+    <flag>NeverAutoResearch</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="CommandRemove" tech="Revert_InstantTrainAndResearch_Serp" relativity="Assign">
+        <target type="ProtoUnit">TownCenter</target>
+      </effect>
+      <effect type="TechStatus" status="unobtainable">InstantTrainAndResearch_Serp</effect>
+      <effect type="TechStatus" status="obtainable">InstantTrainAndResearch_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  
+  
+  
+</techtreemods>

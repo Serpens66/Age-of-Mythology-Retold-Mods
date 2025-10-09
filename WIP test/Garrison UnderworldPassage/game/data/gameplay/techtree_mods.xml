@@ -1,0 +1,22 @@
+<techtreemods>
+
+  <tech name="HeroicAgeApollo">
+    <effects>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">HadesShade_UnderworldPassage_Serp</target>
+      </effect>
+
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="UnderworldPassage" amount="1.0" relativity="Absolute">
+      </effect>
+      <effect mergeMode="add" type="Data" subtype="GodPower" power="UnderworldPassage_Serp" amount="1.0" cooldown="90" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      
+    </effects>    
+  </tech>
+  
+    
+  
+</techtreemods>

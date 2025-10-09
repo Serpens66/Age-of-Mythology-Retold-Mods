@@ -1,0 +1,11 @@
+<protomods>
+  
+
+  <!-- Revert_InstantTrainAndResearch_Serp is added via tech to make it toggleable -->
+  <unit name="TownCenter">
+    <tech mergeMode="add" row="2" column="3">InstantTrainAndResearch_Serp</tech>
+  </unit>
+  
+  
+  
+</protomods>

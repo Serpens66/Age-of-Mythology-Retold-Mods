@@ -1,0 +1,165 @@
+<powers>
+  <power name="AbilityEmpower" type="UnitAction">
+    <displaynameid>STR_ABILITY_EMPOWER</displaynameid>
+    <rolloverid>STR_ABILITY_EMPOWER_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\empower_abllity_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>Building</abstractplacementtargettype>
+    <unitaction>Empower</unitaction>
+    <cursortype>Ankh</cursortype>
+  </power>
+  <power name="AbilityConvertAnimal" type="UnitAction">
+    <displaynameid>STR_ABILITY_CONVERT_ANIMAL</displaynameid>
+    <rolloverid>STR_ABILITY_CONVERT_ANIMAL_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\priest_ability_convert_animal_icon.png</icon>
+    <placement enemy="" allownature="" natureonly="">Unit</placement>
+    <abstractplacementtargettype>Huntable</abstractplacementtargettype>
+    <unitaction>Convert</unitaction>
+    <cursortype>Ankh</cursortype>
+  </power>
+  <power name="AbilityEgyptianHeal" type="UnitAction">
+    <displaynameid>STR_ABILITY_HEAL</displaynameid>
+    <rolloverid>STR_ABILITY_HEAL_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\heal_ability_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>LogicalTypeHealed</abstractplacementtargettype>
+    <unitaction>Heal</unitaction>
+    <cursortype>Heal</cursortype>
+  </power>
+  <power name="PassiveHeka" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_HEKA</displaynameid>
+    <rolloverid>STR_ABILITY_HEKA_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\heka_ability_icon.png</icon>
+  </power>
+  <power name="AbilitySphinx" type="UnitAction">
+    <displaynameid>STR_ABILITY_SPHINX</displaynameid>
+    <rolloverid>STR_ABILITY_SPHINX_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\sphinx_ability_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>All</abstractplacementtargettype>
+    <unitaction>AoEAttack</unitaction>
+  </power>
+  <power name="AbilityAnubite" type="UnitAction">
+    <displaynameid>STR_ABILITY_ANUBITE</displaynameid>
+    <rolloverid>STR_ABILITY_ANUBITE_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\anubite_ability_icon.png</icon>
+    <placement enemy="" allowgroundtarget="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>MythUnit</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <rangeindicator range="2.0" speed="0.2">Circle</rangeindicator>
+    <unitaction>JumpAttack</unitaction>
+  </power>
+  <power name="AbilityScarab" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SCARAB</displaynameid>
+    <rolloverid>STR_ABILITY_SCARAB_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\scarab_ability_icon.png</icon>
+  </power>
+  <power name="AbilityPetsuchos" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_PETSUCHOS</displaynameid>
+    <rolloverid>STR_ABILITY_PETSUCHOS_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\petsuchos_ability_icon.png</icon>
+  </power>
+  <power name="RocLand" type="UnitAction">
+    <displaynameid>STR_ABILITY_ROC</displaynameid>
+    <rolloverid>STR_ABILITY_ROC_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\roc_ability_icon.png</icon>
+    <activetime>4</activetime>
+    <radius>5.0</radius>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>Roc</abstractplacementtargettype>
+    <unitaction>DelayedTransform</unitaction>
+    <allowduringnorush>1</allowduringnorush>
+  </power>
+  <power name="RocTakeoff" type="UnitAction">
+    <displaynameid>STR_ABILITY_ROC_LANDED</displaynameid>
+    <rolloverid>STR_ABILITY_ROC_LANDED_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\roc_ability_icon.png</icon>
+    <activetime>4</activetime>
+    <radius>5.0</radius>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>RocLanded</abstractplacementtargettype>
+    <unitaction>DelayedTransform</unitaction>
+    <allowduringnorush>1</allowduringnorush>
+  </power>
+  <power name="AbilityScorpionMan" type="UnitAction">
+    <displaynameid>STR_ABILITY_SCORPION_MAN</displaynameid>
+    <rolloverid>STR_ABILITY_SCORPION_MAN_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\scorpion_man_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <unitaction>ChargedHandAttack</unitaction>
+  </power>
+  <power name="AbilityMummy" type="UnitAction">
+    <displaynameid>STR_ABILITY_MUMMY</displaynameid>
+    <rolloverid>STR_ABILITY_MUMMY_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\mummy_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <rangeindicator range="3.0" speed="0.2">Circle</rangeindicator>
+    <unitaction>ReincarnationAttack</unitaction>
+  </power>
+  <power name="AbilityAvenger" type="UnitAction">
+    <displaynameid>STR_ABILITY_AVENGER</displaynameid>
+    <rolloverid>STR_ABILITY_AVENGER_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\avenger_ability_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>All</abstractplacementtargettype>
+    <unitaction>AoEAttack</unitaction>
+  </power>
+  <power name="AbilityWarTurtle" type="UnitAction">
+    <displaynameid>STR_ABILITY_WAR_TURTLE</displaynameid>
+    <rolloverid>STR_ABILITY_WAR_TURTLE_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\war_turtle_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>LogicalTypeShipNotHero</abstractplacementtargettype>
+    <unitaction>BuckAttack</unitaction>
+  </power>
+  <power name="AbilityPhoenix" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_PHOENIX</displaynameid>
+    <rolloverid>STR_ABILITY_PHOENIX_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\phoenix_ability_icon.png</icon>
+  </power>
+  <power name="AbilityPhoenixEgg" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_PHOENIX_EGG</displaynameid>
+    <rolloverid>STR_ABILITY_PHOENIX_EGG_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\phoenix_ability_icon.png</icon>
+  </power>
+  <power name="PassiveDivineShield" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_DIVINE_SHIELD</displaynameid>
+    <rolloverid>STR_ABILITY_DIVINE_SHIELD_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\divine_shield_ability_icon.png</icon>
+  </power>
+  <power name="PassiveMandjet" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_MANDJET</displaynameid>
+    <rolloverid>STR_ABILITY_MANDJET_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\mandjet_ability_icon.png</icon>
+  </power>
+  <power name="PassiveDevotees" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_DEVOTEES</displaynameid>
+    <rolloverid>STR_ABILITY_DEVOTEES_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\devotees_ability_icon.png</icon>
+  </power>
+  <power name="PassiveSolarBarque" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SOLAR_BARQUE</displaynameid>
+    <rolloverid>STR_ABILITY_SOLAR_BARQUE_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\kebenit_ability_icon.png</icon>
+  </power>
+  <power name="PassiveFuneralBarge" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_FUNERAL_BARGE</displaynameid>
+    <rolloverid>STR_ABILITY_FUNERAL_BARGE_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\war_barge_ability_icon.png</icon>
+  </power>
+  <power name="PassiveSellSword" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SELLSWORD</displaynameid>
+    <rolloverid>STR_ABILITY_SELLSWORD_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\sellsword_ability_icon.png</icon>
+  </power>
+  <power name="PassiveDeathlyDonative" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_DEATHLY_DONATIVE</displaynameid>
+    <rolloverid>STR_ABILITY_DEATHLY_DONATIVE_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\deathly_donative_ability_icon.png</icon>
+  </power>
+</powers>

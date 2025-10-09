@@ -1,0 +1,380 @@
+<techtreemods>
+
+
+
+  <!-- effect CreateUnit can currently not create units with generator which has NotCommandable flag -->
+
+  <!-- Info: -->
+   <!-- ich glaube Volatile flag bedeutet, dass es nicht erforscht werden soll, sondern sobald es Obtainable ist, -->
+    <!-- wird die prerequs geprüft und sobald die wahr ist, wirds ausgeführt (evlt mit delay wenn man will) -->
+    <!-- Wenn man zusätzlich noch Persistent dazu packt, dann kanns mehrfach ausgeführt werden, -->
+     <!-- aber immer nur wenn die prereqs einmal unwahr und dann wieder wahr wird. -->
+      <!-- AH hier kann man MultipleActivation flag nutzen, dann wird tech alle delay sekunden immer wieder ausgeführt, bis die prereq erfüllt ist -->
+      <!-- wobei ich glaube durch <delay> wird immer wieder nach delay ausgeführt, solange die prereqs wahr sind. -->
+   <!-- alternativ geht scheinbar mit demselben effekt auch researchpoints=0 genutzt werden kann, -->
+    <!-- das wird dann auch nach obtainable auf active gesetzt, sobald prereqs wahr sind -->
+    <!-- wobei ich das in der praxis noch nicht so wirklich zum Laufen bekommt habe -->
+  
+  <!-- mit volatile+prereq+MultipleActivation+delay kann man auch eine tech erstellen, welche zb einfach immer alle 10 minuten läuft oderso -->
+   <!-- endlos loop, dazu einfach eine prereq nehmen die niemals erfüllt sein kann. -->
+  
+  <!-- delay zeit startet NACHDEM die prereqs gecheckt und true sind. -->
+   <!-- initialdelay wird nur bei der erstmaligen ausführung der tech genutzt, danach immer die Zahl bei delay. -->
+   <!-- Wobei dazu wohl auch die flag <flag>DelayedFirstActivation</flag> dabei sein muss -->
+  
+  
+  <!-- YPForceUnapply flag means, that all direct effects listed here are reverted, as soon as the tech is set unobtainable -->
+     <!-- this is executed everytime the tech is set to unobtainable! even if it was not yet active (researched) again -->
+  <!-- <flag>Reversible</flag> kann man auch verwenden, das prüft dann die prereqs -->
+    <!-- wobei man hier techstatus status="Active" als prereqs eher vergessen kann, da auch ein setzen auf unobtainable das anscheinend nicht reverted -->
+      <!-- obowhl es tatsächlich nicht mehr als Active gilt, aber das reverten wird halt einfach nicht gemacht...(von dev bestätigt, dass techstatus und Reversible nicht zsm funzt) -->
+  
+  
+  <!-- man kann tech effect auch zb zeitlich begrenzt mit powers/abilities auslösen, siehe eclipse power usw (oder ability <power name="deChimuManeuver" type="GeneralEffect"> in powers.xml von AoE3DE) -->
+  
+  
+  <!-- tested by: TooIndecisiveToPickAUserName: -->
+  <!-- As far as I can tell, in the context of technology mods in campaigns (scenaros with a starting age): -->
+  <!-- To get changes to properly appear/propagate/whatever in a campaign map, you do have to start the map over again from the campaign menu, you can't load an existing save and/or restart. -->
+  <!-- Based on the major god, starting age, and minor god(s) you setup in the scenario editor, when you load the mission it will go through and for any "past" age/minor god, it will go through the effects and apply them, with the one difference from normal being that any (non-age) tech which is marked as "obtainable" will immediately be applied as if it had been researched. -->
+  <!-- I'm not actually sure what <flag>IgnoreForUIAgeAvailabity</flag> does, since it doesn't do the thing I thought it did. -->
+  <!-- <status>OBTAINABLE</status> does work, but unless a <techage>... value is specified, the technology defaults to being an Archaic Age tech (so it will be automatically researched if the scenario data has the starting age as newer than that) -->
+
+  
+  <!-- Trigger/Rules script Code kann man wohl zur Not auch über das allgemeine random map script zufügen, sodass es überall aktiv ist, -->
+   <!-- Slush soll das in seinem randomizer Mod wohl gemacht haben, evtl. mal reingucken wie das geht und ob das kompatibel zu -->
+    <!-- anderen mods ist usw. -->
+   <!-- Rules Code kann dann zb so wie in aotg aussehen: \game\data\trigger\aotg\seasons.xs womit zb alle Zeit X zufällig ein Waldfeuer ausbricht -->
+  <!-- Durch scripte hätte man VIEL mehr Möglichkeiten Einfluss auf das Spiel zu nehmen. -->
+  
+  
+  <!-- BasePercent vs Percent: -->
+  <!-- Lurker: "Base percent adds the value on the base stats of the units, percent is exponental and adds numerical value to the sum of other multipliers that increased the value." -->
+  <!-- Eg Hitpoints is 750 and we use amount 3 two times with BasePercent: 750 + ((3-1)*750) + ((3-1)*750) = 3750 -->
+   <!-- Or with amount 2 and 0.9: 750 + ((2-1)*750) + ((0.9-1)*750) = 1425 -->
+  <!-- Absolute fügt amount absolut hinzu -->
+  <!-- Assign geht nur einmal einen Wert zuordnen, nochmal Assig macht nichts. Override geht beleibig oft zuordnen, egal ob vorher Assign oder Override verwendet wurde -->
+  
+  <!-- subtype="ArmorVulnerability" funzt nicht mit Assign/Override, nur mit BasePercent/Percent, wobei diese sich komisch auswirken negativer wert erhöht rüstung -->
+    
+  <!-- Savegames: -->
+   <!-- techtree änderungen wirken sich auf savegames aus. -->
+    <!-- aber Volatile Obtainable techs deren prereqs sofort erfüllt sind, klappen irgendwie nicht. -->
+     <!-- (nur wenns im spielverlauf Obtainable gesetzt wird) -->
+     <!-- bzw. es geht auch mit sofort Obtainable, aber dann darf die prereqs nicht sofort beim laden erfüllt sein, sondern muss erfüllt werden. -->
+     <!-- wobei eine tech <status>OBTAINABLE</status> wohl teils ihre prereq prüft während es noch im ladebbildschirm ist, wenn man typecount darin machen will, dann crasht das spiel (bei neuem Spiel passiert das nicht) -->
+        <!-- auch mit delay/initialdelay und DelayedFirstActivation wird prereq so früh geprüft. -->
+       <!-- wenn ich heroicage als ziel habe und heroic save lade, passiert nichts. aber wenn ich dann in mythic gehe, dann löst es aus. -->
+     <!-- es FUNKTIONIERT aber offenbar ohne prereqs (und Obtainable), auch wenn die actions dann evtl. im ladebildschirm ausgeführt werden, zumindest die hitpoints erhöhen klappt so. -->
+       <!-- daher alles wass immer aktiv sein soll, mit einer Obtainable Volatile tech ohne prereqs starten, dann klappt es immer -->
+       
+     <!-- Volatile techs are executed for every player, including Nature!! -->
+      <!-- (like trigger from anno).  -->
+     <!-- So indeed if executed for player1 is only checks units/effects units from player1. -->
+      <!-- But if executed from view of nature, it checks nature stuff! -->
+      
+      <!-- (specificage prüft "mindestens erreicht") -->
+       
+
+      <!-- OnHitEffectRate + Absolute addiert hinzu, während OnHitEffect+Assign halt diesen Prozentwert (0.3 ist 30%) an LifeSteal zufügt -->
+
+    
+    <!-- auch all="true" funzt leider nicht, vermutlich nur in hardcodeden Fällen wie ShareLos und TextMessage... -->
+    
+    
+      <!-- <KBStat kbStat='enemyUnitsKilled' value='2' operator='gte' /> -->
+        <!-- aus aoe3de funzt in retold nicht mehr laut dev -->
+    <!-- aber folgendes geht wohl noch in prereqs: -->
+    <!-- Culture/civilzation  damit könnte man ne tech nur erlauben, wenn man grieche ist zb. -->
+     <!-- <prereqs> -->
+     <!-- <Culture> -->
+      <!-- <cultureName>Greek</cultureName> -->
+     <!-- </Culture> -->
+    <!-- <Civilization> -->
+      <!-- <civName>Zeus</civName> -->
+      <!-- <civName>Hades</civName> -->
+    <!-- </Civilization> -->
+    <!-- </prereqs> -->
+    <!-- (Nature/Default prüfen klappt damit leider nicht. angeblich ists MotherNature ABER Nature kann auch jede andere Civ sein, kann vom Mapersteller definiert werden und ist auch bei random maps wohl oft so. ja zb auf der random map unterwelt ist nature Hades) -->
+    <!-- und alle prereqs außer typecount werden leider nicht als tooltip angezeigt, stattdessen ist tech nicht sichtbar, wenn nicht erfüllt -->
+    
+    
+    <!-- delete löschen einer unit geht auch über hitpoints ändern, sodass kleinergleich 0 -->
+    
+    
+    <!-- das hier funzt, wenn ausgeführt in unit UI (zb in tech in unit ui) -->
+    <!-- <effect type="ConsoleCommand">setSquadMode("Line")</effect> -->
+    <!-- akzeptiert wohl diesen commands wie unitcommands und das wären laut def: consolefuncs.cpp, consolefuncsui.cpp or consolefuncstech.cpp -->
+     <!-- dh zb die ganzen commands die mit "tr" anfangen sind nicht supported -->
+      <!-- <effect type="ConsoleCommand">castGodPower("Rain")</effect> geht nur,wenn man diese godpower auch aktuell oben in der liste hat -->
+    <!-- es geht sonst auch <effect type ='CreatePower' protoPower='Rain' /> aber das führt sofort aus, geht also nur mit placeanywhere powers -->
+        <!-- (habs auch nicht hinbekommen irgendwie bei skip placement und CreatePower dafür zu sorgen, dass ein abstracttype oderso getroffen wird) -->
+    
+    <!-- funzt halbwegs: -->
+    <!-- <effect type="Data" amount="1.00" subtype="SetCivilization" civ="Loki" relativity="Assign"> -->
+      <!-- <target type="Player"> -->
+      <!-- </target> -->
+    <!-- </effect> -->
+    <!-- aber schaltet nicht alles korrekt frei (fügt buttons hinzu, aber enabled nicht) und entfernt/disabled vorheriges auch nicht korrekt -->
+    
+    
+    
+    <!-- StoryModeGeneral is only active if the Story-Difficulty was chosen (not always in campaign) -->
+    
+    
+    <!-- randomness: -->
+      <!-- <effect type='RandomTech' select='1' status='active'> -->
+        <!-- <tech>randomtech1</tech> -->
+        <!-- <tech>randomtech2</tech> -->
+        <!-- <tech>randomtech3</tech> -->
+      <!-- </effect> -->
+    
+    <!-- so muss es aussehen, ermöglicht aber offenbar kein training von mehreen units aufeinmal -->
+    <!-- <effect type="Data" amount="10.0" subtype="BlockTrainCount" unitType="VillagerGreek" unitType2="TownCenter" relativity="Override"> -->
+      <!-- <target type="Player"> -->
+      <!-- </target> -->
+    <!-- </effect> -->
+    <!-- Alters or adds single-block training data (i.e. the one used by Russians) for a given ProtoUnit. -->
+    
+    
+    <!-- man könnte ne neue tech anbieten um gatherlimit für farms/fish zu eröhen: -->
+    <!-- <effect type="Data" amount="4.00" subtype="GathererLimit" relativity="Absolute"> -->
+      <!-- <target type="ProtoUnit">AbstractFarm</target> -->
+      <!-- <target type="ProtoUnit">FishResource</target> -->
+    <!-- </effect> -->
+    
+    
+    
+    <!-- einen techstatus auf "active" zu ändern, führt die effects sofort aus, ohne delay(?) ohne prereqs zu prüfen. -->
+    <!-- obtainable macht es erforschbar (wenn nicht volatile) und instant erforscht wenn researchpoints=0 sind. delay geht hier wohl. -->
+    
+    <!-- techstatus active hat meistens auch zeitgleich intern den techstatus obtainable. -->
+     <!-- soll heißen wenn wir als prereqs den techstatus "obtainable" verlangen, dann ist das meistens auch true wenn tech zurzeit "active" ist -->
+     <!-- Umgehen kann man das wohl bei Volatilen techs die auch Reversible flag haben. dort wird intern das obtainable entfernt, sobald sie active sind -->
+    
+    
+    <!-- New Minor Gods Age Up tech: -->
+      <!-- I just tested around with this. Seems there are some requirements for it to work. The ones I found: -->
+      <!-- 1) You also have to add your ageup tech to the minor_gods.xml (works additive in the normal way) -->
+      <!-- 2) Seems to be required to add it to the TownCenter (VillageCenter/CitadelCenter) -->
+      <!-- 3) The effects have to include the "SetAge" effect with the next age -->
+      <!-- 4) Most likely also needs the AgeUpgrade flag -->
+      <!-- Adding the tech to the towncenter is still quite tricky, because I think the order matters here, since they all use the same slot in the UI. So if we remove ClassicalAgeAthena/hermes/Ares and add the replacement via additive modding or via CommandAdd, it is added on the bottom, which results in my test that only SecretsOfTheTitans is shown on the UI slot -.- -->
+    <!-- open UI : <effect type="ConsoleCommand">uiAgeUpFromAnywhere()</effect> -->
+    
+    
+    <!-- SetOnTechResearchedTech kann man glaube ich eine tech active setzen, sobald ein techtype erforscht wurde (geht auch einfach "bei jeder tech" siehe freyr). -->
+     <!-- ThorDwarfSpawn hat dazu auch  <flag>InfiniteTech</flag> <flag>IgnoreIfAutoActivated</flag> gesetzt, was interessant sein könnte -->
+    
+    
+    <!-- AI KI tech research: -->
+    <!-- Die tech muss CountsTowardMilitaryScore bzw. Economy als flag haben, dann erforscht auch die KI die Tech. -->
+     <!-- macht die KI aber wohl erst, wenn es sich das leisten kann und alle prioritäten im ai script erledgit sind oderso -->
+      <!-- (oder halt in AI scripts, wohl mit xsEnableRule oderso, aber das nutze ich ja nicht) -->
+    
+    <!-- game scheint auch vor menü zu crashen, wenn man in einer tech effect verkettung als prereqs techstatus Active hat -->
+     <!-- und in den effects dann den techstatus dieser Tech auf unobtainable+Obtainable setzt -->
+      <!-- (kann auch an tech endlos loop liegen, trotz delay?) -->
+    
+    
+    <!-- Abilities werden durch techs einmal durch ActionEnable aktiviert, wenn es eine unitaction ist (proto/tactic (wenn darin kein active=0 steht, ists schon aktiv) -->
+     <!-- und/oder auch in abilities.xml selbst, wenn bei der abilitiy ein <tech> eintrag dabei ist (ist nur die frage ob man das wieder rückgängig machen kann?) -->
+    
+    <!-- effect auf alle spieler/objekte zu packen geht glaub ich nicht im techtree, aber über godpower, zb Rain (egyptian.godpowers) -->
+     <!-- damit dürfte auch effect auf Nature settlement gehen -->
+      <!-- powerplayerrelation=Player/Enemy/EnemyNotMotherNature/Ally/All/Any (bei Any ists auch Nature) -->
+    
+  
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- bei manchen sachen hilfts wohl auch n delay zuzufügen, bei anderen schadets.. -->
+  <tech name="AlwaysStuff_GameplaySerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">StatueMajorGod_SkirmishSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="15.00" subtype="GodPowerBlockRadius" relativity="Absolute">
+        <target type="ProtoUnit">StatueMajorGod_SkirmishSerp</target>
+      </effect>
+      
+      <!-- test -->
+      <!-- <effect mergeMode="add" type="CreateUnit" unit="PharaohNewKingdom" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+      
+      <!-- <effect type="TechStatus" status="obtainable">PharaohFirstSpawn</effect> -->
+      
+      <!-- test -->
+      <effect type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Troll</target>
+      </effect>
+      
+      <!-- test to see UI from Nature/Enemy/Ally -->
+      <effect type="TechStatus" status="active">Oracle</effect>
+      
+      <effect type="Data" subtype="GodPower" power="TartarianGate" amount="1.0" cooldown="10" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      
+      
+      <effect type="TechStatus" status="obtainable">IsNature_Serp</effect>
+      
+      
+    </effects>
+  </tech>
+  
+  
+  <!-- find conditions which can only be true for nature player... -->
+   <!-- currently only "Tree" seems to be save? Huntable=Seth, NAtureClass+Gold=Norse -->
+    <!-- (see my mod code for is nature/huamn) -->
+  <tech name="IsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <initialdelay>0.5000</initialdelay>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <typecount unit="Tree" count="20.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="Huntable" count="10.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="GoldResource" count="1.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="NatureClass" count="10.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="Nature" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+      
+    </effects>
+  </tech>
+  
+  
+  <!-- alternativer alter ansatz um etwas für alle zu machen: -->
+  <!-- wichtig zu wissen: wenn ich darin direkt CreateUnit mache, dann spawnen die nicht, weils vermutlich zu früh ausgeführt wird. -->
+   <!-- daher entweder dafür direkt die OBTAINABLE Volatile version nehmen, oder es wie beim PharaohFirstSpawn machen -->
+  <!-- <tech name="ArchaicAgeWeakenUnits"> -->
+    <!-- <effects> -->
+      <!-- <effect mergeMode="add" type="TechStatus" status="active">ArchaicAgeGeneral_Serp</effect> -->
+    <!-- </effects>     -->
+  <!-- </tech> -->
+  <!-- <tech name="ArchaicAgeGeneral_Serp"> -->
+    <!-- <status>UNOBTAINABLE</status> -->
+    <!-- <flag>HideAllNotifications</flag> -->
+    <!-- <effects> -->
+      
+    <!-- </effects> -->
+  <!-- </tech> -->
+  
+  
+  
+    
+    <!-- ############################# -->
+    
+
+  
+  <!-- enable new Heroes -->
+  
+  <tech name="ArchaicAgeEgyptian">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Amanra_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  <tech name="ClassicalAgeEgyptian">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Theris_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  <tech name="HeroicAgeEgyptian">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Kemsyt_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  <tech name="MythicAgeEgyptian">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Guardian_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  
+  <tech name="ArchaicAgeNorse">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Brokk_SkirmishSerp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Eitri_SkirmishSerp</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Troll_Predator_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="VeterancyEnable" relativity="Absolute">
+        <target type="ProtoUnit">Hersir</target>
+      </effect>
+      
+      
+    </effects>    
+  </tech>
+  <tech name="ClassicalAgeNorse">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Reginleif_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  <tech name="HeroicAgeNorse">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Ornlu_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  <tech name="MythicAgeNorse">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">KingFolstag_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  
+  
+  
+  <tech name="ArchaicAgeAtlantean">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Kastor_SkirmishSerp</target>
+      </effect>
+    </effects>    
+  </tech>
+  
+  <tech name="ArchaicAgeGreek">
+    <effects>
+    
+      
+    </effects>    
+  </tech>
+  
+
+  
+    
+  
+</techtreemods>

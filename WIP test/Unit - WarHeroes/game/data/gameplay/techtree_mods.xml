@@ -1,0 +1,346 @@
+<techtreemods>
+  
+
+      <!-- <effect mergeMode="add" type="Data" amount="1.00" subtype="EnableDodge" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      <!-- <effect mergeMode="add" type="Data" amount="90.00" subtype="DodgeChance" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="CanDodgeAttacks" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractWandlerUnitSerp</target> -->
+      <!-- </effect> -->
+  
+  
+
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- bei manchen sachen hilfts wohl auch n delay zuzufügen, bei anderen schadets.. -->
+  <tech name="AlwaysStuff_WarHeroSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+            
+      <effect mergeMode="add" type="TechStatus" status="obtainable">RespawnWarHero_Serp</effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman1_WarHeroSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth1_WarHeroSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding1_WarHeroSerp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechLifeSteal1_WarHeroSerp</effect>
+      
+      <!-- test -->
+      <!-- <effect type="Data" subtype="GodPower" power="PowerHP" amount="1.0" cooldown="5" relativity="Absolute"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      
+    </effects>
+  </tech>
+  
+
+  
+  
+  <tech name="RespawnWarHero_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>10.0000</delay>
+    <initialdelay>1.0000</initialdelay>
+    <flag>Volatile</flag>
+    <flag>Persistent</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="AbstractTownCenter" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="AbstractWarHeroUnitAndEggSerp" count="1.00" state="aliveState" operator="lt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect mergeMode="add" type="CreateUnit" unit="WarHero_Serp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+      
+      <effect mergeMode="add" type="TextOutput">STR_MSG_PHARAOH</effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- ########################################################################################## -->
+  <!-- ########               ### -->
+  <!-- ########################################################################################## -->
+  
+  
+  <tech name="TechAntiHuman1_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman2_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiHuman2_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ClassicalAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman3_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiHuman3_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>HeroicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiHuman4_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiHuman4_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="HumanSoldier" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth1_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth2_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth2_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ClassicalAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth3_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth3_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>HeroicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiMyth4_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiMyth4_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_MYTH_UNIT</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_myth_unit.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="MythUnit" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding1_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding2_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding2_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ClassicalAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding3_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding3_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>HeroicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechAntiBuilding4_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechAntiBuilding4_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_BUILDING</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_building.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <flag>MythTech</flag>
+    <techage>MythicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" allactions="1" amount="2.0" subtype="DamageBonus" unittype="Building" relativity="Percent">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  
+  <tech name="TechAbilityJump_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <researchpoints>3.0000</researchpoints>
+    <icon>resources\spc\static_color\abilities\amanra_ability_icon.png</icon>
+    <flag>YPForceUnapply</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="JumpAttack" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="TechLifeSteal1_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <!-- OnHitEffectRate + Absolute addiert hinzu, während OnHitEffect+Assign halt diesen Prozentwert (0.3 ist 30%) an LifeSteal zufügt -->
+       <!-- aber an sich reichts immer OnHitEffectRate + Absolute zu verwenden -->
+      <effect type="Data" amount="0.05" subtype="OnHitEffectRate" allactions="1" effecttype="Lifesteal" targettype="Unit" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      
+      <!-- <effect type="Data" amount="1.00" subtype="UnitRegenRate" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractWarHeroUnitSerp</target> -->
+      <!-- </effect> -->
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechLifeSteal2_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechLifeSteal2_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" amount="0.05" subtype="OnHitEffectRate" allactions="1" effecttype="Lifesteal" targettype="Unit" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechLifeSteal3_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechLifeSteal3_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" amount="0.05" subtype="OnHitEffectRate" allactions="1" effecttype="Lifesteal" targettype="Unit" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechLifeSteal4_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechLifeSteal4_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" amount="0.05" subtype="OnHitEffectRate" allactions="1" effecttype="Lifesteal" targettype="Unit" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TechLifeSteal5_WarHeroSerp</effect>
+    </effects>
+  </tech>
+  <tech name="TechLifeSteal5_WarHeroSerp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_HUD_UNIT_TYPE_HUMAN_SOLDIER</displaynameid>
+    <icon>resources\shared\hud\unit_types\unit_type_human_soldier.png</icon>
+    <researchpoints>3.0000</researchpoints>
+    <techage>ArchaicAge</techage>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" amount="0.05" subtype="OnHitEffectRate" allactions="1" effecttype="Lifesteal" targettype="Unit" relativity="Absolute">
+        <target type="ProtoUnit">AbstractWarHeroUnitSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  
+  
+    
+  
+</techtreemods>

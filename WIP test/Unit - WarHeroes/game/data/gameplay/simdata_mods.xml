@@ -1,0 +1,135 @@
+<simdatabasemods>
+                          
+  <animxml file="spc\units\reginleif\reginleif.xml">
+
+    <animations>
+    
+                    <!-- "name": "JumpFly", -->
+                    <!-- "versioncount": 3, -->
+                    <!-- "versions": [{ -->
+                            <!-- "file": "spc\\units\\reginleif\\anim\\reginleif_heal_a", -->
+                            <!-- "duration": 0.53333 -->
+                        <!-- }, { -->
+                            <!-- "file": "spc\\units\\reginleif\\anim\\reginleif_heal_a", -->
+                            <!-- "duration": 0.8 -->
+                        <!-- }, { -->
+                            <!-- "file": "spc\\units\\reginleif\\anim\\reginleif_heal_a", -->
+                            <!-- "duration": 0.83333, -->
+                            <!-- "tags": [{ -->
+                                    <!-- "type": "SpecificSoundSet", -->
+                                    <!-- "position": 0.5, -->
+                                    <!-- "properties": ["checkVisible", "1", "set", "SwooshSword"] -->
+                                <!-- }] -->
+                        <!-- }] -->
+                <!-- }, { -->
+                    <!-- "name": "Charging", -->
+                    <!-- "versioncount": 1, -->
+                    <!-- "versions": [{ -->
+                            <!-- "file": "spc\\units\\reginleif\\anim\\reginleif_heal_a", -->
+                            <!-- "duration": 2.5, -->
+                            <!-- "tags": [{ -->
+                                    <!-- "type": "Attack", -->
+                                    <!-- "position": 0.3 -->
+                                <!-- }, { -->
+                                    <!-- "type": "SpecificSoundSet", -->
+                                    <!-- "position": 0.3, -->
+                                    <!-- "properties": ["checkVisible", "1", "set", "SonOfOsirisBolt"] -->
+                                <!-- }, { -->
+                                    <!-- "type": "particles", -->
+                                    <!-- "position": 0.05, -->
+                                    <!-- "properties": ["popcornfxName", "glow\\charging_glow_small.pkfx", "bone", "vfx_staff", "movewithbone", "1", "stopwithanim", "1", "adjustduration", "0"] -->
+                                <!-- }, { -->
+                                    <!-- "type": "particles", -->
+                                    <!-- "position": 0.0, -->
+                                    <!-- "properties": ["popcornfxName", "objects\\weapon_fx\\sword_swipe_hero.pkfx", "bone", "vfx_staff", "movewithbone", "1", "stopwithanim", "0", "adjustduration", "1"] -->
+                                <!-- }, { -->
+                                    <!-- "type": "particles", -->
+                                    <!-- "position": 0.3, -->
+                                    <!-- "properties": ["popcornfxName", "lightning\\son_of_osiris_charging_light.pkfx", "bone", "vfx_flash", "movewithbone", "0", "stopwithanim", "0", "adjustduration", "1"] -->
+                                <!-- }] -->
+                        <!-- }] -->
+      
+      <!-- vanilla: also causes error on startup?! -->
+      <!-- mergeMode="modify" does not work with the tags, because the game does not not which one we want to edit -->
+      <!-- <animinfo mergeMode="modify"> -->
+        <!-- <name>Heal</name> -->
+        <!-- <versioncount>1</versioncount> -->
+        <!-- <versions> -->
+          <!-- <version> -->
+            <!-- <file>spc\units\reginleif\anim\reginleif_heal_a</file> -->
+            <!-- <duration>2.26667</duration> -->
+            <!-- <tags mergeMode="replace"> -->
+              <!-- <tag> -->
+                <!-- <type>SpecificSoundSet</type> -->
+                <!-- <position>0.00000</position> -->
+                <!-- <properties> -->
+                  <!-- <checkvisible>1</checkvisible> -->
+                  <!-- <set>Heal</set> -->
+                <!-- </properties> -->
+              <!-- </tag> -->
+              <!-- <tag> -->
+                <!-- <type>particles</type> -->
+                <!-- <position>0.00000</position> -->
+                <!-- <properties> -->
+                  <!-- <popcornfxname>glow\valkyrie_heal.pkfx</popcornfxname> -->
+                  <!-- <bone>vfx_heal</bone> -->
+                  <!-- <movewithbone>1</movewithbone> -->
+                  <!-- <stopwithanim>0</stopwithanim> -->
+                  <!-- <adjustduration>1</adjustduration> -->
+                <!-- </properties> -->
+              <!-- </tag> -->
+              <!-- <tag> -->
+                <!-- <type>particles</type> -->
+                <!-- <position>0.66000</position> -->
+                <!-- <properties> -->
+                  <!-- <popcornfxname>glow\valkyrie_heal_pulse.pkfx</popcornfxname> -->
+                  <!-- <bone>vfx_heal</bone> -->
+                  <!-- <movewithbone>1</movewithbone> -->
+                  <!-- <stopwithanim>1</stopwithanim> -->
+                  <!-- <adjustduration>0</adjustduration> -->
+                <!-- </properties> -->
+              <!-- </tag> -->
+            <!-- </tags> -->
+          <!-- </version> -->
+        <!-- </versions> -->
+      <!-- </animinfo> -->
+      
+      
+      <animinfo mergeMode="add">
+        <name>Convert</name>
+        <versioncount>1</versioncount>
+        <versions>
+          <version>
+            <file>spc\units\reginleif\anim\reginleif_heal_a</file>
+            <duration>2.26666</duration>
+            <tags>
+              <tag>
+                <type>SpecificSoundSet</type>
+                <position>0.00000</position>
+                <properties>
+                  <checkvisible>1</checkvisible>
+                  <set>Converting</set>
+                </properties>
+              </tag>
+              <tag>
+                <type>particles</type>
+                <position>0.17</position>
+                <properties>
+                  <popcornfxname>glow\conversion_casting.pkfx</popcornfxname>
+                  <bone>vfx_convert</bone>
+                  <movewithbone>1</movewithbone>
+                  <stopwithanim>1</stopwithanim>
+                  <adjustduration>1</adjustduration>
+                </properties>
+              </tag>
+            </tags>
+          </version>
+        </versions>
+      </animinfo>
+      
+    </animations>
+    
+  </animxml>
+                        
+  
+</simdatabasemods>

@@ -1,0 +1,77 @@
+<tactics>
+  <action>
+    <name stringid="STR_ACTION_HAND">HandAttack</name>
+    <type>Attack</type>
+    <rate type="All">1.0</rate>
+    <attackaction>1</attackaction>
+    <handlogic>1</handlogic>
+    <anim>HandAttack</anim>
+    <onhiteffect type="Snare" duration="2" rate="0.85">
+    </onhiteffect>
+    <impacteffect>effects\impacts\crush</impacteffect>
+  </action>
+  <action>
+    <name stringid="STR_ACTION_TITAN">TitanAttack</name>
+    <type>Attack</type>
+    <rate type="AbstractTitan">1.0</rate>
+    <attackaction>1</attackaction>
+    <handlogic>1</handlogic>
+    <anim>TitanAttack</anim>
+    <onhiteffect type="Snare" duration="2" rate="0.85">
+    </onhiteffect>
+    <impacteffect>effects\impacts\crush</impacteffect>
+  </action>
+  <action>
+    <name stringid="STR_ACTION_CHARGE_HAND">ChargedHandAttack</name>
+    <type>Attack</type>
+    <rate type="HumanSoldier">1.0</rate>
+    <rate type="LogicalTypeMythUnitNotTitan">1.0</rate>
+    <rate type="LogicalTypeVillagerNotHero">1.0</rate>
+    <rate type="TradeUnit">1.0</rate>
+    <attackaction>1</attackaction>
+    <chargeaction>1</chargeaction>
+    <handlogic>1</handlogic>
+    <anim>ChargedHandAttack</anim>
+    <onhiteffect type="Snare" duration="2" rate="0.85">
+    </onhiteffect>
+    <impacteffect>effects\impacts\crush</impacteffect>
+  </action>
+  <action>
+    <name>FoundationDamageAura</name>
+    <type>AutoRangedModify</type>
+    <modifyabstracttype>Building</modifyabstracttype>
+    <forbidabstracttype>AbstractSettlement</forbidabstracttype>
+    <forbidunittype>Wonder</forbidunittype>
+    <forbidunittype>TitanGate</forbidunittype>
+    <persistent>1</persistent>
+    <modifytype>HealRate</modifytype>
+    <modifyamount>-500</modifyamount>
+    <maxrange>6</maxrange>
+    <targetenemy>1</targetenemy>
+    <targetunbuilt>1</targetunbuilt>
+    <nostack>1</nostack>
+  </action>
+  <action>
+    <name>WallDamageAura</name>
+    <type>AutoRangedModify</type>
+    <modifyabstracttype>AbstractWall</modifyabstracttype>
+    <persistent>1</persistent>
+    <modifytype>HealRate</modifytype>
+    <modifyamount>-700</modifyamount>
+    <maxrange>6</maxrange>
+    <targetenemy>1</targetenemy>
+    <nostack>1</nostack>
+  </action>
+  <action>
+    <name>TreeDamageAura</name>
+    <type>AutoRangedModify</type>
+    <modifyabstracttype>Tree</modifyabstracttype>
+    <persistent>1</persistent>
+    <modifytype>HealRate</modifytype>
+    <modifyamount>-700</modifyamount>
+    <maxrange>10</maxrange>
+    <targetnature>1</targetnature>
+    <nostack>1</nostack>
+  </action>
+  <tactic>Default<action priority="100">ChargedHandAttack</action><action priority="90">TitanAttack</action><action priority="80">HandAttack</action><action>FoundationDamageAura</action><action>WallDamageAura</action><action>TreeDamageAura</action><attacktype>LogicalTypeHandUnitsAttack</attacktype><autoattacktype>LogicalTypeHandUnitsAutoAttack</autoattacktype><attackresponsetype>LogicalTypeHandUnitsAttack</attackresponsetype><attackmovetype>AbstractWall</attackmovetype></tactic>
+</tactics>

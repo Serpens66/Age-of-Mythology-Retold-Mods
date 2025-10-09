@@ -1,0 +1,45 @@
+<powers>
+  
+  
+  
+  
+  
+  <!-- <power name="UnderworldPassage_Serp" type="TartarianGate" godpower=""> -->
+    <!-- <displaynameid>STR_POWER_UNDERWORLD_PASSAGE</displaynameid> -->
+    <!-- <rolloverid>STR_POWER_UNDERWORLD_PASSAGE_LR</rolloverid> -->
+    <!-- <icon>greek\static_color\god_powers\underworld_passage_icon.png</icon> -->
+    <!-- <placement disallowwatercast="" losprotounit="UnderworldPassageB_Serp" allowsnap="">Full</placement> -->
+    <!-- <minimapeventtime sendalertto="Ally">10.0</minimapeventtime> -->
+    <!-- <soundset type="StartSound" listenertype="AllExceptCaster">GodPowerStart</soundset> -->
+    <!-- <soundset type="StartSound" listenertype="IfOnScreenAll">UnderworldPassageSelect</soundset> -->
+    <!-- <soundset type="StartSound" listenertype="IfOnScreenAll" usesecondlocation="1">UnderworldPassageSelect</soundset> -->
+    <!-- <soundset type="ExistSound" listenertype="IfOnScreenAll" playdelay="20.0" positional="">UnderworldPassageExists</soundset> -->
+    <!-- <soundset type="ExistSound" listenertype="IfOnScreenAll" playdelay="20.0" positional="" usesecondlocation="1">UnderworldPassageExists</soundset> -->
+    <!-- <activetime>-1</activetime> -->
+    <!-- <radius>2.0</radius> -->
+    <!-- <powerplayerrelation>All</powerplayerrelation> -->
+    <!-- <terrainrumbling height="0.03" width="1.0" speed="25.0" fadetime="0.5"> -->
+    <!-- </terrainrumbling> -->
+    <!-- <cost>0.0</cost> -->
+    <!-- <repeatcost>100.0</repeatcost> -->
+    <!-- <spawnproto>HadesShade_UnderworldPassage_Serp</spawnproto> -->
+    <!-- <tartariangateproto>UnderworldPassageB_Serp</tartariangateproto> -->
+    <!-- <gatebirthproto>TartarianGateFlame</gatebirthproto> -->
+    <!-- <gateflameproto>TartarianGateFlame</gateflameproto> -->
+    <!-- <sinkholetime>4.0</sinkholetime> -->
+    <!-- <sinkholeshakestrength>0.08</sinkholeshakestrength> -->
+    <!-- <rumbletime>4.0</rumbletime> -->
+    <!-- <spawntimedelay>1.0</spawntimedelay> -->
+    <!-- <spawnintervalmin>1.0</spawnintervalmin> -->
+    <!-- <spawnintervalmax>3.0</spawnintervalmax> -->
+    <!-- <maxnumspawns>1</maxnumspawns> -->
+    <!-- <minthrowdistance>7.0</minthrowdistance> -->
+    <!-- <maxthrowdistance>9.0</maxthrowdistance> -->
+    <!-- <minthrowheight>1.0</minthrowheight> -->
+    <!-- <maxthrowheight>2.0</maxthrowheight> -->
+    <!-- <minthrowvelocity>12.0</minthrowvelocity> -->
+    <!-- <maxthrowvelocity>13.0</maxthrowvelocity> -->
+  <!-- </power> -->
+  
+  
+</powers>

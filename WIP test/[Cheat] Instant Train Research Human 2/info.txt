@@ -1,0 +1,8 @@
+(Additive Mod)
+- Adds a toggle-tech to the towncenter to enable/disable "instant train units" and "instant researches".
+- Was made with such a tech instead of directly applying, because AI does not research techs added by mods -> AI will not have instant train/research.
+
+Compatibility:
+Is incompatible with mods/game updates putting sth. else at the very same UI location in the TownCenter (row="2" column="3").
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

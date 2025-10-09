@@ -1,0 +1,6 @@
+(Additive Mod)
+- Adds the AutoScout flag to all military units, which adds an Auto Scout button in the lowest row of these units.
+
+Should work for every MilitaryUnit even ones added by mods/game updates.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

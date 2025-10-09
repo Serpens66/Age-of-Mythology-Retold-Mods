@@ -1,0 +1,67 @@
+<civsmods>
+
+  <!-- <civ> -->
+    <!-- <name>Thor</name> -->
+    <!-- <defg>TTEST</defg> -->
+    <!-- <startingresources> -->
+      <!-- <food>20000</food> -->
+      <!-- <wood>15000</wood> -->
+      <!-- <gold>10000</gold> -->
+    <!-- </startingresources> -->
+    <!-- <bountyresourceearning> -->
+      <!-- <bountytargetmultiplier type="All" resourcetype="Favor">0.5</bountytargetmultiplier> -->
+    <!-- </bountyresourceearning> -->
+  <!-- </civ> -->
+  
+  <!-- <civ> -->
+    <!-- <name>Thor</name> -->
+    <!-- <abc mergeMode="add">TEST</abc> -->
+  <!-- </civ> -->
+  
+  <!-- <civ> -->
+    <!-- <name>Odin</name> -->
+    <!-- <startingresources> -->
+      <!-- <food>20000</food> -->
+      <!-- <wood>15000</wood> -->
+      <!-- <gold>10000</gold> -->
+    <!-- </startingresources> -->
+    <!-- <bountyresourceearning> -->
+      <!-- <bountytargetmultiplier type="All" resourcetype="Favor">0.5</bountytargetmultiplier> -->
+    <!-- </bountyresourceearning> -->
+  <!-- </civ> -->
+  
+  <!-- <civ> -->
+    <!-- <name>Loki</name> -->
+    <!-- <startingresources> -->
+      <!-- <food>20000</food> -->
+      <!-- <wood>15000</wood> -->
+      <!-- <gold>10000</gold> -->
+    <!-- </startingresources> -->
+    <!-- <bountyresourceearning> -->
+      <!-- <bountytargetmultiplier type="All" resourcetype="Favor">0.5</bountytargetmultiplier> -->
+    <!-- </bountyresourceearning> -->
+  <!-- </civ> -->
+  
+  <!-- <civ> -->
+    <!-- <name>Freyr</name> -->
+    <!-- <startingresources> -->
+      <!-- <food>20000</food> -->
+      <!-- <wood>15000</wood> -->
+      <!-- <gold>10000</gold> -->
+    <!-- </startingresources> -->
+    <!-- <bountyresourceearning> -->
+      <!-- <bountytargetmultiplier type="All" resourcetype="Favor">0.5</bountytargetmultiplier> -->
+    <!-- </bountyresourceearning> -->
+  <!-- </civ> -->
+  
+  <!-- <civ> -->
+    <!-- <name>Set</name> -->
+    <!-- <startingresources> -->
+      <!-- <food>20000</food> -->
+      <!-- <wood>15000</wood> -->
+      <!-- <gold>10000</gold> -->
+    <!-- </startingresources> -->
+  <!-- </civ> -->
+    
+  
+</civsmods>

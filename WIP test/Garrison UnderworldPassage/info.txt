@@ -1,0 +1,12 @@
+(Additive Mod)
+- SkyPassage: Allows allied units to garrision
+- Makes the UnderWorldPassage work like the SkyPassage. So you can garrision units in it and release them on any other UnderWorldPassage.
+- Allows to recruit up to 10 Hades-Shades per Passage without poplimit at the UnderWorldPassage (to guard it, they are stronger near the Passage)
+- Increased hitpoints from the UnderWorldPassage a bit and made it repairable.
+- Therefore changes the costs and cooldown from the UnderWorldPassage-godpower to: 90 seconds. First 2 times free and every other +100 favor.
+
+Attention:
+- Works in new games and in savegames where you did not yet reached the HeroicAgeApollo.
+- AI can most likely not use the new UnderworldPassage and no clue how to additive mod the AI files..
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

@@ -1,0 +1,2 @@
+1.01:
+- fixed critical bug which made nearly endless strange problems: Was caused just because maxrange of an action was 0, which is not allowed by the game.

@@ -1,0 +1,705 @@
+<protomods>
+  
+  <!-- warcraft heroes: -->
+  
+  <!-- Orks Klingenmeister mit Rächer Anim: -->
+   <!-- Klingensturm, crit chance, windlauf (unsichtbar+schneller), spiegelbilder (gibts sowas?) -->
+   <!-- voodoo, Fernsicht?,Erdbeben?,Kettenblitz,Respawn,Stun-attack drumherum, schadenswelle, schadensaura -->
+  <!-- Menschen Ein Zwerg? -->
+   <!-- schnelle single Heilung (godpower?), unbesiegbarschild, Aura Rüstung für units, massenteleportation?, Eisregen, -->
+   <!-- Avatarmodus (größer und stärker), stun drumherum, Hammerwurf, Flammenschlag, -->
+  <!-- Untot evtl. Mumie oder skarabeus mit shading lila? -->
+   <!-- aura movementspeed and regen, frost nova, frost armor?, insect swarm, sleep (gibts n stun der bei attack beendet wird?) -->
+   <!-- vampir aura, passive return damage to enemy (shield?), untote beschwören (halt ohne Leichen), starker Area Spell der eigene auch trifft -->
+  <!-- Elfen Centaur? oder Nezha als Ilidan (kann auch wöhrend laufen schießen (dependunit) und macht feuerspur) -->
+    <!-- Blink (short teleport, unit Yazi), poison schuss, Feuerschild, Dodge, Demon-mode, aura ranged attacks, Sternfall (gewitter), -->
+    <!-- root, tree ants, aura dornenschaden (shield?), Mass Healing, -->
+  
+  
+  <!-- Taotie ist auch interessant in dem sinne, dass es mit <chargedmodify modifytype="Damage" applytype="Multiply">1.20</chargedmodify>  -->
+   <!-- AfterAction jedesmal wenn es die action ausführt, stärker wird, bis zu einem stack von 10. und diese charges verliert, wenn es die andere abilitiy macht -->
+  <!-- könnte auch ne interessante mechanik für helden sein, allerdings n levelsystem ist das leider eher nicht -->
+
+  <!-- um level anzuzeigen könnte man vllt lichteffekte oderso attachen, dessen anzahl das lvl anzeigt? -->
+   <!-- wobei ich nicht weiß ob attach bei lvl up geht, ginge vermutlich nur mit anim modding wie bei hydra mit den köpfen -->
+
+
+
+  <unit mergeMode="add" name="WarHero_Serp">
+    <displaynameid>STR_UNIT_REGINLEIF_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_REGINLEIF_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_REGINLEIF_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\reginleif_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\reginleif\reginleif.xml</animfile>
+    <!-- <animfile>mod\units\warheroserp.xml</animfile> -->
+    <soundsetfile>spc\vo\reginleif\reginleif.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>RangedCombative</unitaitype>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <autoattackrange>16.0000</autoattackrange>
+    <formationorder>1</formationorder>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>1000.0000</initialhitpoints>
+    <maxhitpoints>1000.0000</maxhitpoints>
+    <!-- <unitregen>1.0000</unitregen> -->
+    <!-- <unitregen idleTimeout="10">0.0000</unitregen> -->
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>5.0</maxvelocity>
+    <spawn type="dead" count="1">WarHeroPhoenixEgg_Serp</spawn>
+    
+    <rechargetime>5.0000</rechargetime>
+    <auxrechargetime>10.0000</auxrechargetime>
+    <buildpoints>40.0000</buildpoints>
+    <!-- <buildlimit>1</buildlimit> -->
+    <!-- <sharedbuildlimitunit>WarHero_Serp</sharedbuildlimitunit> -->
+    <!-- <sharedbuildlimitunittypes> -->
+      <!-- <unittype>AbstractWarHeroUnitSerp</unittype> -->
+    <!-- </sharedbuildlimitunittypes> -->
+    
+    <los>10.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <killreward resourcetype="Favor">25.0</killreward>
+    <armor type="Hack" value="0.1000">
+    </armor>
+    <armor type="Pierce" value="0.1000">
+    </armor>
+    <armor type="Crush" value="0.5000">
+    </armor>
+    
+    <veterancyranks>
+      <rank>
+        <totaldamage>10</totaldamage>
+        <StringID>STR_CHAT_TO_PLAYER_1</StringID>
+      </rank>
+      <!-- <rank> -->
+        <!-- <totaldamage>20</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_2</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>30</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_3</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>40</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_4</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>50</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_5</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>60</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_6</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>70</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_7</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>80</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_8</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>90</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_9</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>100</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_10</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>110</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_11</StringID> -->
+      <!-- </rank> -->
+      <!-- <rank> -->
+        <!-- <totaldamage>120</totaldamage> -->
+        <!-- <StringID>STR_CHAT_TO_PLAYER_12</StringID> -->
+      <!-- </rank> -->
+    </veterancyranks>
+    <veterancybonus>
+      <rank id="0">
+        <veterancymodify modifytype="MaxHP">1.1</veterancymodify>
+        <!-- <veterancymodify modifytype="NumProjectiles">1</veterancymodify> -->
+        <veterancymodify modifytype="VisualScale">0.1</veterancymodify>
+        <veterancymodify modifytype="Speed">1.1</veterancymodify>
+        <!-- <veterancymodify modifytype="ROF">1.1</veterancymodify> -->
+        <veterancymodify modifytype="ROF">0.95</veterancymodify>
+        <veterancymodify modifytype="Damage">1.1</veterancymodify>
+        <!-- <veterancymodify modifytype="RangeAbsolute">2.0</veterancymodify> -->
+        <veterancymodify modifytype="Range">1.1</veterancymodify>
+        <!-- die folgenden dinge funzen iwie leider nicht.. -->
+        <!-- <veterancymodify modifytype="LOS">10.0</veterancymodify> -->
+        <!-- <veterancymodify modifytype="LOSFactor">0.1</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Bounty">10.0</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Armor">2.0</veterancymodify> -->
+        <!-- <veterancymodify modifytype="RechargeTime">10.0</veterancymodify> -->
+        <!-- <veterancymodify modifytype="AbilityROF" ModifyProtoPower="AbilityVanishSmall_WarHeroSerp">10.0</veterancymodify> -->
+        <!-- <veterancymodify modifytype="ArmorSpecific" ModifyDamageType="Hack">2.0</veterancymodify> -->
+        <!-- <veterancymodify modifytype="ArmorSpecific" ModifyArmorType="Hack">2.0</veterancymodify> -->
+        <!-- UnitRegenRate gibts nicht.. -->
+        <!-- <veterancymodify modifytype="HealRate">0.0025</veterancymodify> -->
+      </rank>
+      <!-- <rank id="1"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.2</veterancymodify> -->
+        <!-- <veterancymodify modifytype="VisualScale">0.2</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Speed">1.2</veterancymodify> -->
+        <!-- <veterancymodify modifytype="ROF">0.90</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Damage">1.2</veterancymodify> -->
+        <!-- <veterancymodify modifytype="LOS">3.0</veterancymodify> -->
+        
+        <!-- <veterancymodify modifytype="ArmorSpecific" modifydmgtype="Hack">20.0</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="2"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.3</veterancymodify> -->
+        <!-- <veterancymodify modifytype="VisualScale">0.3</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Speed">1.3</veterancymodify> -->
+        <!-- <veterancymodify modifytype="ROF">0.85</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Damage">1.3</veterancymodify> -->
+        <!-- <veterancymodify modifytype="LOS">4.0</veterancymodify> -->
+        
+        <!-- <veterancymodify modifytype="ArmorSpecific" modifydmgtype="Hack">20.0</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="3"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.4</veterancymodify> -->
+        <!-- <veterancymodify modifytype="VisualScale">0.4</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Speed">1.4</veterancymodify> -->
+        <!-- <veterancymodify modifytype="ROF">0.8</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Damage">1.4</veterancymodify> -->
+        <!-- <veterancymodify modifytype="LOS">5.0</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="4"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.5</veterancymodify> -->
+        <!-- <veterancymodify modifytype="VisualScale">0.5</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Speed">1.5</veterancymodify> -->
+        <!-- <veterancymodify modifytype="ROF">0.75</veterancymodify> -->
+        <!-- <veterancymodify modifytype="Damage">1.5</veterancymodify> -->
+        <!-- <veterancymodify modifytype="LOS">6.0</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="5"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.5</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="6"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.5</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="7"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.5</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="8"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.5</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="9"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.5</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="10"> -->
+        <!-- <veterancymodify modifytype="MaxHP">1.5</veterancymodify> -->
+      <!-- </rank> -->
+      <!-- <rank id="11"> -->
+        <!-- <veterancymodify modifytype="MaxHP">10</veterancymodify> -->
+      <!-- </rank> -->
+      <includetypes>
+        <unittype>Unit</unittype>
+      </includetypes>
+    </veterancybonus>
+    
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>Unit</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>AbstractWarHeroUnitSerp</unittype>
+    <unittype>AbstractWarHeroUnitAndEggSerp</unittype>
+    
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MajorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>Hero</unittype>
+    
+    <tech row="2" column="0">TechAntiHuman1_WarHeroSerp</tech>
+    <tech row="2" column="0">TechAntiHuman2_WarHeroSerp</tech>
+    <tech row="2" column="0">TechAntiHuman3_WarHeroSerp</tech>
+    <tech row="2" column="0">TechAntiHuman4_WarHeroSerp</tech>
+    <tech row="2" column="1">TechAntiBuilding1_WarHeroSerp</tech>
+    <tech row="2" column="1">TechAntiBuilding2_WarHeroSerp</tech>
+    <tech row="2" column="1">TechAntiBuilding3_WarHeroSerp</tech>
+    <tech row="2" column="1">TechAntiBuilding4_WarHeroSerp</tech>
+    <tech row="2" column="2">TechAntiMyth1_WarHeroSerp</tech>
+    <tech row="2" column="2">TechAntiMyth2_WarHeroSerp</tech>
+    <tech row="2" column="2">TechAntiMyth3_WarHeroSerp</tech>
+    <tech row="2" column="2">TechAntiMyth4_WarHeroSerp</tech>
+    <tech row="2" column="3">TechLifeSteal1_WarHeroSerp</tech>
+    <tech row="2" column="3">TechLifeSteal2_WarHeroSerp</tech>
+    <tech row="2" column="3">TechLifeSteal3_WarHeroSerp</tech>
+    <tech row="2" column="3">TechLifeSteal4_WarHeroSerp</tech>
+    
+    <!-- <command row="2" column="5">Command_SwitchTactic_WarHeroSerp</command> -->
+    <!-- <tech row="2" column="5">ResetWandlerStats_Serp</tech> -->
+    
+    <flag>ForceSecondPage</flag>
+    <flag>MilitaryUIDefault</flag>
+    
+    <!-- test -->
+    <flag>AbilitiesOnBothPages</flag>
+    
+    <flag>ExperienceUnit</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CanAutoHeal</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>AutoCommandStartDisabled</flag>
+    <flag>AlwaysAllowOverPopCap</flag>
+    <flag>RangeIndicatorForAbilityCasting</flag>
+    
+    <!-- <flag>CastAbilitySelf</flag> -->
+    <!-- action <autocastbyself>1</autocastbyself> Allows actions set as charged actions, but which do not or cannot take an explicit enemy target, to be auto-activated if the unit has the CastAbilitySelf protoUnit flag set. -->
+      
+    
+    <!-- <flag>AutoAbilityStartDisabled</flag> -->
+    <!-- <flag>AuxAutoAbilityStartDisabled</flag> -->
+    
+    <!-- <flag>KnockoutDeath</flag> -->
+    
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>WarHero_serp.tactics</tactics>
+
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Hack">10.000000</damage>
+      <damage type="Pierce">10.000000</damage>
+      <damage type="Crush">10.000000</damage>
+      <damagebonus type="MythUnit">1.000000</damagebonus>
+      <maxrange>10.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+      
+      <!-- <projectile>ProjectileChainLightning</projectile> -->
+      <numberbounces>4</numberbounces>
+    </protoaction>
+    <protoaction>
+      <name>Heal</name>
+      <type>Heal</type>
+      <rate type="LogicalTypeHealed">1.00000</rate>
+      <maxrange>1.000000</maxrange>
+      <slowhealmultiplier>0.50</slowhealmultiplier>
+      <!-- <active>0</active> -->      
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>JumpAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damagebonus type="MythUnit">1.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <minrange>3.000000</minrange>
+      <maxrange>9.000000</maxrange>
+      <damageflags>Nature|Self|Enemy|Ally</damageflags>
+      <allydamagemultiplier>0.100000</allydamagemultiplier>
+      <!-- <active>0</active> -->
+      <rate type="All">1.0</rate>
+    </protoaction>
+    
+    <protoaction>
+      <name>ActionTroll_WarHeroSerp</name>
+      <rof>3.000000</rof>
+      <damage type="Pierce">45.000000</damage>
+      <damage type="Crush">300.000000</damage>
+      <damagebonus type="MythUnit">3.000000</damagebonus>
+      <damagebonus type="Hero">0.250000</damagebonus>
+      <damagearea>1.500000</damagearea>
+      <maxrange>14.000000</maxrange>
+      <damageflags>Nature|Self|Enemy|Ally</damageflags>
+      <!-- <allydamagemultiplier>0.100000</allydamagemultiplier> -->
+      <impacteffect>effects\impacts\crush</impacteffect>
+      <projectile>ProjectileBoulder</projectile>
+      <numberprojectiles>1</numberprojectiles>
+      <targetground>1</targetground>
+      <onhiteffect type="Throw" targetunittype="HumanSoldier">
+      </onhiteffect>
+      <onhiteffect type="Throw" targetunittype="LogicalTypeVillagerNotHero">
+      </onhiteffect>
+      <throw>1</throw>
+      <throwdistancemin>5.0</throwdistancemin>
+      <throwdistancemax>7.0</throwdistancemax>
+      <throwmaxheight>4.0</throwmaxheight>
+      <throwvelocity>15.0</throwvelocity>
+      <areasortmode>Directional</areasortmode>
+      <maxsizeclass>5</maxsizeclass>
+      <rate type="All">1.0</rate>
+    </protoaction>
+    
+    <protoaction>
+      <name>ChaosAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <onhiteffect type="StatModify" duration="30.000000">
+        <modify type="Chaos">1.000000</modify>
+      </onhiteffect>
+      <onhiteffect type="Attach" targetunittype="Unit" proto="VFXChaos" attachbone="vfx_top" duration="30.000000">
+      </onhiteffect>
+      <!-- <active>1</active> -->
+      <rate type="All">1.0</rate>
+    </protoaction>
+    <protoaction>
+      <name>TransfigurationAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <!-- <active>1</active> -->
+      <onhiteffect type="Mutate" proto="Chicken">
+      <!-- <onhiteffect type="MutateNature" proto="Chicken"> -->
+      </onhiteffect>
+      <rate type="All">1.0</rate>
+    </protoaction>
+    
+    
+    <protoaction>
+      <name>CastBolt_Serp</name>
+      <rof>2.000000</rof>
+      <maxrange>50.000000</maxrange>
+      <castpower>Bolt</castpower>
+      <castpowertargettype>Unit</castpowertargettype>
+      <type>Attack</type>
+      <rate type="LogicalTypeValidBoltTarget">1.0</rate>
+      <attackaction>1</attackaction>
+      <auxchargeaction>1</auxchargeaction>
+      <anim>RangedAttack</anim>
+      <!-- <active>0</active> -->
+      <rate type="All">1.0</rate>
+    </protoaction>
+    <protoaction>
+      <name>CastImplode_Serp</name>
+      <rof>2.000000</rof>
+      <maxrange>50.000000</maxrange>
+      <castpower>Implode</castpower>
+      <castpowertargettype>Unit</castpowertargettype>
+      <type>Attack</type>
+      <rate type="All">1.0</rate>
+      <attackaction>1</attackaction>
+      <chargeaction>1</chargeaction>
+      <anim>RangedAttack</anim>
+      <!-- <active>0</active> -->
+    </protoaction>
+    
+    <!-- <protoaction> -->
+      <!-- <name>AreaInvisibility</name> -->
+      <!-- <maxrange>20.0</maxrange> -->
+      <!-- <rate type="unit">1.0</rate> -->
+    <!-- </protoaction> -->
+    
+    <protoaction>
+      <name>ActionVanishSmall_WarHeroSerp</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <castpower>VanishSmall_WarHeroSerp</castpower>
+      <castpowertargettype>Unit</castpowertargettype>
+      <type>Attack</type>
+      <attackaction>1</attackaction>
+      <auxchargeaction>1</auxchargeaction>
+      <anim>RangedAttack</anim>
+      <!-- <active>0</active> -->
+      <rate type="All">1.0</rate>
+    </protoaction>
+    
+    
+    <protoaction>
+      <!-- rate ist in sekunden. wenn minrante nicht definiert ist wohl 0. -->
+       <!-- convertieren dauert dann ne zufällige zeit zwischen minrate und rate -->
+      <name>Convert</name>
+      <maxrange>5</maxrange>
+      <chargeaction>1</chargeaction>
+      <!-- <active>0</active> -->
+      
+      <!-- For Convert protoActions with CharmedConvert protoAction flag set, defines the lifespan in milliseconds of the generated unit after a successful charmed conversion, as well as the time in which target unit will remain stunned -->
+      <!-- ist offenbar einfach nur Stun ohne convert? ah es beschwört zudem eine kopie der unit -->
+      <!-- <CharmedConvert>1</CharmedConvert> -->
+      <!-- <TypedDuration type='All'>10000</TypedDuration> -->
+      
+      <rate type="LogicalTypeMythUnitNotTitan">200.000000</rate>
+      <rate type="HumanSoldier">100.000000</rate>
+      <rate type="TradeUnit">60.000000</rate>
+      <rate type="LogicalTypeVillagerNotHero">60.000000</rate>
+      <rate type="Building">400.000000</rate>
+      <minrate type="LogicalTypeMythUnitNotTitan">45.000000</minrate>
+      <minrate type="HumanSoldier">15.000000</minrate>
+      <minrate type="TradeUnit">9.000000</minrate>
+      <minrate type="LogicalTypeVillagerNotHero">9.000000</minrate>
+      <minrate type="Building">60.000000</minrate>
+      
+      <rate type="ArcticWolf">27.500000</rate>
+      <rate type="Aurochs">55.000000</rate>
+      <rate type="Baboon">25.000000</rate>
+      <rate type="Bear">35.000000</rate>
+      <rate type="Boar">45.000000</rate>
+      <rate type="Caribou">30.000000</rate>
+      <rate type="Chicken">25.000000</rate>
+      <rate type="Crocodile">35.000000</rate>
+      <rate type="CrownedCrane">25.000000</rate>
+      <rate type="Deer">30.000000</rate>
+      <rate type="Elephant">90.000000</rate>
+      <rate type="Elk">30.000000</rate>
+      <rate type="Gazelle">30.000000</rate>
+      <rate type="Giraffe">45.000000</rate>
+      <rate type="Hippopotamus">55.000000</rate>
+      <rate type="Hyena">25.000000</rate>
+      <rate type="Lion">25.000000</rate>
+      <rate type="Monkey">25.000000</rate>
+      <rate type="PolarBear">35.000000</rate>
+      <rate type="Rhinoceros">65.000000</rate>
+      <rate type="Walrus">55.000000</rate>
+      <rate type="WaterBuffalo">55.000000</rate>
+      <rate type="Wolf">27.500000</rate>
+      <rate type="Zebra">35.000000</rate>
+      <minrate type="ArcticWolf">27.500000</minrate>
+      <minrate type="Aurochs">55.000000</minrate>
+      <minrate type="Baboon">25.000000</minrate>
+      <minrate type="Bear">35.000000</minrate>
+      <minrate type="Boar">45.000000</minrate>
+      <minrate type="Caribou">30.000000</minrate>
+      <minrate type="Chicken">25.000000</minrate>
+      <minrate type="Crocodile">35.000000</minrate>
+      <minrate type="CrownedCrane">25.000000</minrate>
+      <minrate type="Deer">30.000000</minrate>
+      <minrate type="Elephant">90.000000</minrate>
+      <minrate type="Elk">30.000000</minrate>
+      <minrate type="Gazelle">30.000000</minrate>
+      <minrate type="Giraffe">45.000000</minrate>
+      <minrate type="Hippopotamus">55.000000</minrate>
+      <minrate type="Hyena">25.000000</minrate>
+      <minrate type="Lion">25.000000</minrate>
+      <minrate type="Monkey">25.000000</minrate>
+      <minrate type="PolarBear">35.000000</minrate>
+      <minrate type="Rhinoceros">65.000000</minrate>
+      <minrate type="Walrus">55.000000</minrate>
+      <minrate type="WaterBuffalo">55.000000</minrate>
+      <minrate type="Wolf">27.500000</minrate>
+      <minrate type="Zebra">35.000000</minrate>
+      <conversionprotoid srctype="ArcticWolf">ArcticWolfOfSet</conversionprotoid>
+      <conversionprotoid srctype="Aurochs">AurochsOfSet</conversionprotoid>
+      <conversionprotoid srctype="Baboon">BaboonOfSet</conversionprotoid>
+      <conversionprotoid srctype="Bear">BearOfSet</conversionprotoid>
+      <conversionprotoid srctype="Boar">BoarOfSet</conversionprotoid>
+      <conversionprotoid srctype="Caribou">CaribouOfSet</conversionprotoid>
+      <conversionprotoid srctype="Chicken">ChickenOfSet</conversionprotoid>
+      <conversionprotoid srctype="Crocodile">CrocodileOfSet</conversionprotoid>
+      <conversionprotoid srctype="CrownedCrane">CrownedCraneOfSet</conversionprotoid>
+      <conversionprotoid srctype="Deer">DeerOfSet</conversionprotoid>
+      <conversionprotoid srctype="Elephant">ElephantOfSet</conversionprotoid>
+      <conversionprotoid srctype="Elk">ElkOfSet</conversionprotoid>
+      <conversionprotoid srctype="Gazelle">GazelleOfSet</conversionprotoid>
+      <conversionprotoid srctype="Giraffe">GiraffeOfSet</conversionprotoid>
+      <conversionprotoid srctype="Hippopotamus">HippopotamusOfSet</conversionprotoid>
+      <conversionprotoid srctype="Hyena">HyenaOfSet</conversionprotoid>
+      <conversionprotoid srctype="Lion">LionOfSet</conversionprotoid>
+      <conversionprotoid srctype="Monkey">MonkeyOfSet</conversionprotoid>
+      <conversionprotoid srctype="PolarBear">PolarBearOfSet</conversionprotoid>
+      <conversionprotoid srctype="Rhinoceros">RhinocerosOfSet</conversionprotoid>
+      <conversionprotoid srctype="Walrus">WalrusOfSet</conversionprotoid>
+      <conversionprotoid srctype="WaterBuffalo">WaterBuffaloOfSet</conversionprotoid>
+      <conversionprotoid srctype="Wolf">WolfOfSet</conversionprotoid>
+      <conversionprotoid srctype="Zebra">ZebraOfSet</conversionprotoid>
+    </protoaction>
+    
+    
+    <protoaction>
+      <name>ActionSatyr_WarHeroSerp</name>
+      <rof>1.000000</rof>
+      <damage type="Pierce">20.000000</damage>
+      <damagebonus type="MythUnit">3.000000</damagebonus>
+      <damagebonus type="Hero">0.250000</damagebonus>
+      <maxrange>18.000000</maxrange>
+      <projectile>ProjectileSatyrSpearSpecialAttack</projectile>
+      <numberprojectiles>1</numberprojectiles>
+      <passthrough>1</passthrough>
+      <passthroughbuildings>1</passthroughbuildings>
+      <maxheight>2</maxheight>
+      <perfectaccuracy>1</perfectaccuracy>
+      <launchpoint>ChargeAttackLaunchPoint</launchpoint>
+      <damageflags>Nature|Enemy</damageflags>
+      <rate type="All">1.0</rate>
+    </protoaction>
+    
+    
+    <protoaction>
+      <name>ActionChironSPC_WarHeroSerp</name>
+      <rof>2.500000</rof>
+      <damage type="Pierce">40.000000</damage>
+      <damagebonus type="MythUnit">4.000000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>16.000000</maxrange>
+      <projectile>ProjectileArrowFlaming</projectile>
+      <numberprojectiles>3</numberprojectiles>
+      <volleymode>
+      </volleymode>
+      <rate type="All">1.0</rate>
+    </protoaction>
+    
+    <protoaction>
+      <name>LightningAttack</name>
+      <rof>2.500000</rof>
+      <!-- <rof>0.500000</rof> -->
+      <damage type="Divine">5.00000</damage>
+      <damagebonus type="MythUnit">4.000000</damagebonus>
+      <maxrange>18.000000</maxrange>
+      <numberbounces>4</numberbounces>
+    </protoaction>
+    
+    <!-- <protoaction> -->
+      <!-- <name>SwitchTactic</name> -->
+      <!-- <type>SwitchTactic</type> -->
+      <!-- <anim>Switch</anim> -->
+      <!-- <anim>RangedAttack</anim> -->
+      <!-- <chargeaction>1</chargeaction> -->
+      <!-- <rof>0.100000</rof> -->
+    <!-- </protoaction> -->
+    
+    
+    <!-- vermutlich AutoBoost mit ShieldPoints oder einfach armor erhöhen sinnvoller um Voodoo zu imitieren? -->
+    <protoaction>
+      <name>Bolster</name>
+      <type>Bolster</type>
+      <modifyamount>2.0</modifyamount>
+      <maxrange>20.0</maxrange>
+      <!-- <rate type="Building">1.0</rate> -->
+      <rate type="All">1.0</rate>
+      <!-- <anim>Bolster</anim> -->
+      <anim>Heal</anim>
+      <attackaction>1</attackaction>
+      <projectile>ProjectileChiwenLaser</projectile>
+      <modelattachment>vfx\water\chi_wen_bolster_target.xml</modelattachment>
+      <modelattachmentbone>bonethatdoesntexist</modelattachmentbone>
+      <charged>
+        <chargedmodify modifytype="ArmorSpecific" param="Pierce" applytype="Add">0.7500</chargedmodify>
+      </charged>
+      <charged>
+        <chargedmodify modifytype="ArmorSpecific" param="Hack" applytype="Add">0.7500</chargedmodify>
+      </charged>
+      <charged>
+        <chargedmodify modifytype="ArmorSpecific" param="Crush" applytype="Add">0.7500</chargedmodify>
+      </charged>
+    </protoaction>
+    
+  </unit>
+  
+  
+  
+    
+  <unit name="WarHeroPhoenixEgg_Serp">
+    <displaynameid>STR_UNIT_PHOENIX_EGG_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_PHOENIX_EGG_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_PHOENIX_EGG_SR</shortrollovertextid>
+    <icon>resources\egyptian\player_color\units\phoenix_egg_icon.png</icon>
+    <animfile>egyptian\units\myth\phoenix\phoenix_egg.xml</animfile>
+    <soundsetfile>egyptian\vo\phoenix_egg\phoenix_egg.xml</soundsetfile>
+    <obstructionradiusx>0.9900</obstructionradiusx>
+    <obstructionradiusz>0.9900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>Passive</unitaitype>
+    <movementtype>land</movementtype>
+    <initialhitpoints>400.0000</initialhitpoints>
+    <maxhitpoints>400.0000</maxhitpoints>
+    <weightclass>7</weightclass>
+    <populationcount>0</populationcount>
+    <los>16.0000</los>
+    <armor type="Hack" value="0.1000">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.0500">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeMythicMythUnit</unittype>
+    <unittype>Unit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>DisplayQueue</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>AbstractWarHeroUnitAndEggSerp</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>PushPlacement</flag>
+    <flag>NoIdleActions</flag>
+    
+    <!-- # removed via tech after upgrade to hero -->
+    <!-- <unittype>LogicalTypeValidBoltTarget</unittype> -->
+    <!-- <unittype>LogicalTypeValidMeteorTarget</unittype> -->
+    <!-- <unittype>LogicalTypeValidTornadoAttack</unittype> -->
+    <!-- <unittype>LogicalTypeEarthquakeAttack</unittype> -->
+    <!-- <unittype>LogicalTypeValidSpyTarget</unittype> -->
+    <!-- <unittype>LogicalTypeValidShockwaveTarget</unittype> -->
+    <!-- <unittype>LogicalTypeValidFrostTarget</unittype> -->
+    
+    <!-- # added after upgrade to hero via tech -->
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MajorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>Hero</unittype>
+    
+    <flag>ForceSecondPage</flag>
+    <flag>MilitaryUIDefault</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>AutoCommandStartDisabled</flag>
+    <flag>AlwaysAllowOverPopCap</flag>
+    <command row="3" column="5">Delete</command>
+    <!-- <tech row="2" column="0">TechCategoryStats_WarHeroSerp</tech> -->
+    <!-- <tech row="2" column="1">TechCategoryPassives_WarHeroSerp</tech> -->
+    <!-- <tech row="2" column="2">TechCategoryAutomaticAbilities_WarHeroSerp</tech> -->
+    <!-- <tech row="2" column="3">TechCategoryGodPowers_WarHeroSerp</tech> -->
+    <!-- <tech row="2" column="4"></tech> -->
+    <!-- <tech row="2" column="5">ResetWarHeroStats_Serp</tech> -->
+    <tactics>WarHerophoenix_egg_serp.tactics</tactics>
+  </unit>
+  
+  
+  
+  
+</protomods>

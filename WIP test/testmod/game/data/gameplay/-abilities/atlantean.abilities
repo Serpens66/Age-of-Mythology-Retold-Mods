@@ -1,0 +1,169 @@
+<powers>
+  <power name="AbilityCarnivoraDevour" type="UnitAction">
+    <displaynameid>STR_ABILITY_CARNIVORA_DEVOUR</displaynameid>
+    <rolloverid>STR_ABILITY_CARNIVORA_DEVOUR_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\carnivora_ability_devour_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <unitaction>Throw</unitaction>
+  </power>
+  <power name="AbilityWaterCarnivoraSink" type="UnitAction">
+    <displaynameid>STR_ABILITY_WATER_CARNIVORA_SINK</displaynameid>
+    <rolloverid>STR_ABILITY_WATER_CARNIVORA_SINK_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\water_carnivora_sink_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>Ship</abstractplacementtargettype>
+    <unitaction>ChargedHandAttack</unitaction>
+  </power>
+  <power name="AbilityCarnivoraPull" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_CARNIVORA_ENTRAP</displaynameid>
+    <rolloverid>STR_ABILITY_CARNIVORA_ENTRAP_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\carnivora_ability_entrap_icon.png</icon>
+  </power>
+  <power name="AbilityCaladriaBurstHeal" type="UnitAction">
+    <displaynameid>STR_ABILITY_CALADRIA_BURST_HEAL</displaynameid>
+    <rolloverid>STR_ABILITY_CALADRIA_BURST_HEAL_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\caladria_ability_burst_heal_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>LogicalTypeHealed</abstractplacementtargettype>
+    <unitaction>BurstHeal</unitaction>
+    <cursortype>Heal</cursortype>
+  </power>
+  <power name="AbilityCaladriaPacify" type="UnitAction">
+    <displaynameid>STR_ABILITY_CALADRIA_PACIFY</displaynameid>
+    <rolloverid>STR_ABILITY_CALADRIA_PACIFY_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\caladria_ability_pacify_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <abstractplacementtargettype>AnimalOfSet</abstractplacementtargettype>
+    <unitaction>Pacify</unitaction>
+  </power>
+  <power name="AbilityAutomaton" type="UnitAction">
+    <displaynameid>STR_ABILITY_AUTOMATON</displaynameid>
+    <rolloverid>STR_ABILITY_AUTOMATON_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\automaton_ability_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>Automaton</abstractplacementtargettype>
+    <unitaction>Heal</unitaction>
+    <cursortype>Repair</cursortype>
+  </power>
+  <power name="AbilityPromethean" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_PROMETHEAN</displaynameid>
+    <rolloverid>STR_ABILITY_PROMETHEAN_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\promethean_ability_icon.png</icon>
+  </power>
+  <power name="AbilitySatyr" type="UnitAction">
+    <displaynameid>STR_ABILITY_SATYR</displaynameid>
+    <rolloverid>STR_ABILITY_SATYR_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\satyr_ability_icon.png</icon>
+    <placement enemy="" allowgroundtarget="">Unit</placement>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <explicitlyrestrictedplacementtargettype>AbstractFlyingUnit</explicitlyrestrictedplacementtargettype>
+    <rangeindicator range="10.0" width="2.0">Arrow</rangeindicator>
+    <unitaction>ChargedRangedAttack</unitaction>
+  </power>
+  <power name="AbilityNereid" type="UnitAction">
+    <displaynameid>STR_ABILITY_NEREID</displaynameid>
+    <rolloverid>STR_ABILITY_NEREID_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\nereid_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>Building</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeShipNotHero</abstractplacementtargettype>
+    <unitaction>ChargedHandAttack</unitaction>
+  </power>
+  <power name="AbilityBehemoth" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_BEHEMOTH</displaynameid>
+    <rolloverid>STR_ABILITY_BEHEMOTH_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\behemoth_ability_icon.png</icon>
+  </power>
+  <power name="AbilityStymphalianBird" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_STYMPHALIAN_BIRD</displaynameid>
+    <rolloverid>STR_ABILITY_STYMPHALIAN_BIRD_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\stymphalian_bird_ability_icon.png</icon>
+  </power>
+  <power name="AbilityLampadesChaoticRealignment" type="UnitAction">
+    <displaynameid>STR_ABILITY_LAMPADES_CHAOTIC_REALIGNMENT</displaynameid>
+    <rolloverid>STR_ABILITY_LAMPADES_CHAOTIC_REALIGNMENT_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\lampades_ability_chaotic_realignment_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <abstractplacementtargettype>TradeUnit</abstractplacementtargettype>
+    <unitaction>ChaosAttack</unitaction>
+  </power>
+  <power name="AbilityLampadesTransfiguration" type="UnitAction">
+    <displaynameid>STR_ABILITY_LAMPADES_TRANSFIGURATION</displaynameid>
+    <rolloverid>STR_ABILITY_LAMPADES_TRANSFIGURATION_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\lampades_ability_transfiguration_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>TradeUnit</abstractplacementtargettype>
+    <unitaction>TransfigurationAttack</unitaction>
+  </power>
+  <power name="AbilityLampadesCausticity" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_LAMPADES_CAUSTICITY</displaynameid>
+    <rolloverid>STR_ABILITY_LAMPADES_CAUSTICITY_LR</rolloverid>
+    <icon>egyptian\static_color\abilities\scarab_ability_icon.png</icon>
+  </power>
+  <power name="AbilityCentimanus" type="UnitAction">
+    <displaynameid>STR_ABILITY_CENTIMANUS</displaynameid>
+    <rolloverid>STR_ABILITY_CENTIMANUS_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\centimanus_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>Hero</abstractplacementtargettype>
+    <abstractplacementtargettype>AbstractVillager</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitThrowable</abstractplacementtargettype>
+    <unitaction>ShockwaveAttack</unitaction>
+  </power>
+  <power name="AbilityArgus" type="UnitAction">
+    <displaynameid>STR_ABILITY_ARGUS</displaynameid>
+    <rolloverid>STR_ABILITY_ARGUS_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\argus_ability_icon.png</icon>
+    <placement enemy="" allowgroundtarget="">Unit</placement>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <rangeindicator range="4.0" speed="0.2">Circle</rangeindicator>
+    <unitaction>ChargedRangedAttack</unitaction>
+  </power>
+  <power name="AbilityTartarianSpawn" type="UnitAction">
+    <displaynameid>STR_ABILITY_TARTARIAN_SPAWN</displaynameid>
+    <rolloverid>STR_ABILITY_TARTARIAN_SPAWN_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\tartarian_spawn_ability_icon.png</icon>
+    <placement>Full</placement>
+    <unitaction>JumpAttack</unitaction>
+  </power>
+  <power name="PassiveSolarFlame" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SOLAR_FLAME</displaynameid>
+    <rolloverid>STR_ABILITY_SOLAR_FLAME_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\solar_flame_ability_icon.png</icon>
+  </power>
+  <power name="PassiveTemporalScaffolding" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_TEMPORAL_SCAFFOLDING</displaynameid>
+    <rolloverid>STR_ABILITY_TEMPORAL_SCAFFOLDING_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\manor_ability_icon.png</icon>
+  </power>
+  <power name="PassiveLush" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_LUSH</displaynameid>
+    <rolloverid>STR_ABILITY_LUSH_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\lush_ability_icon.png</icon>
+  </power>
+  <power name="PassiveSerratedBlades" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SERRATED_BLADES</displaynameid>
+    <rolloverid>STR_ABILITY_SERRATED_BLADES_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\serrated_blades_ability_icon.png</icon>
+  </power>
+  <power name="PassiveBattleFrenzy" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_BATTLE_FRENZY</displaynameid>
+    <rolloverid>STR_ABILITY_BATTLE_FRENZY_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\battle_frenzy_ability_icon.png</icon>
+  </power>
+  <power name="PassivePetrifiedFrame" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_PETRIFIED_FRAME</displaynameid>
+    <rolloverid>STR_ABILITY_PETRIFIED_FRAME_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\petrified_frame_ability_icon.png</icon>
+  </power>
+</powers>

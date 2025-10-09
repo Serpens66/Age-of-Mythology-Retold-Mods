@@ -1,0 +1,2 @@
+1.01:
+- made savegame compatible (previously the PreventsWallBuilding part worked only in new game)

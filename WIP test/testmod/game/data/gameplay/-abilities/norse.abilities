@@ -1,0 +1,239 @@
+<powers>
+  <power name="PassiveHamask" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_HAMASK</displaynameid>
+    <rolloverid>STR_ABILITY_HAMASK_LR</rolloverid>
+    <icon>norse\static_color\abilities\hamask_ability_icon.png</icon>
+  </power>
+  <power name="PassiveValhallasChosen" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_VALHALLAS_CHOSEN</displaynameid>
+    <rolloverid>STR_ABILITY_VALHALLAS_CHOSEN_LR</rolloverid>
+    <icon>norse\static_color\abilities\valhallas_chosen_ability_icon.png</icon>
+  </power>
+  <power name="PassiveNaturesEyes" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_NATURES_EYES</displaynameid>
+    <rolloverid>STR_ABILITY_NATURES_EYES_LR</rolloverid>
+    <icon>norse\static_color\abilities\natures_eyes_ability_icon.png</icon>
+  </power>
+  <power name="PassiveViking" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_VIKING</displaynameid>
+    <rolloverid>STR_ABILITY_VIKING_LR</rolloverid>
+    <icon>norse\static_color\abilities\viking_ability_icon.png</icon>
+  </power>
+  <power name="AbilityGullinbursti" type="UnitAction">
+    <displaynameid>STR_ABILITY_GULLINBURSTI</displaynameid>
+    <rolloverid>STR_ABILITY_GULLINBURSTI_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\gullinbursti_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>TradeUnit</abstractplacementtargettype>
+    <rangeindicator range="2.0">Cone</rangeindicator>
+    <unitaction>Gore</unitaction>
+  </power>
+  <power name="AbilityTroll" type="UnitAction">
+    <displaynameid>STR_ABILITY_TROLL</displaynameid>
+    <rolloverid>STR_ABILITY_TROLL_LR</rolloverid>
+    <icon>norse\static_color\abilities\troll_ability_icon.png</icon>
+    <placement enemy="" allowgroundtarget="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>EconomicUnit</abstractplacementtargettype>
+    <abstractplacementtargettype>Hero</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotFlying</abstractplacementtargettype>
+    <abstractplacementtargettype>AnimalOfSet</abstractplacementtargettype>
+    <rangeindicator range="1.5" speed="0.2">Circle</rangeindicator>
+    <unitaction>ChargedRangedAttack</unitaction>
+  </power>
+  <power name="AbilityEinheri" type="UnitAction">
+    <displaynameid>STR_ABILITY_EINHERI</displaynameid>
+    <rolloverid>STR_ABILITY_EINHERI_LR</rolloverid>
+    <icon>norse\static_color\abilities\einheri_ability_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>All</abstractplacementtargettype>
+    <unitaction>AutoBoost</unitaction>
+  </power>
+  <power name="AbilityValkyrie" type="UnitAction">
+    <displaynameid>STR_ABILITY_HEAL</displaynameid>
+    <rolloverid>STR_ABILITY_HEAL_LR</rolloverid>
+    <icon>norse\static_color\abilities\valkyrie_ability_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>LogicalTypeHealed</abstractplacementtargettype>
+    <unitaction>Heal</unitaction>
+  </power>
+  <power name="AbilityDraugr" type="UnitAction">
+    <displaynameid>STR_ABILITY_DRAUGR</displaynameid>
+    <rolloverid>STR_ABILITY_DRAUGR_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\draugr_ability_icon.png</icon>
+    <placement enemy="" allowgroundtarget="">Unit</placement>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <explicitlyrestrictedplacementtargettype>Hero</explicitlyrestrictedplacementtargettype>
+    <explicitlyrestrictedplacementtargettype>AbstractFlyingUnit</explicitlyrestrictedplacementtargettype>
+    <rangeindicator range="10.0">Cone</rangeindicator>
+    <unitaction>ChargedRangedAttack</unitaction>
+  </power>
+  <power name="AbilityBattleBoar" type="UnitAction">
+    <displaynameid>STR_ABILITY_BATTLE_BOAR</displaynameid>
+    <rolloverid>STR_ABILITY_BATTLE_BOAR_LR</rolloverid>
+    <icon>norse\static_color\abilities\battle_boar_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>TradeUnit</abstractplacementtargettype>
+    <unitaction>BuckAttack</unitaction>
+  </power>
+  <power name="AbilityMountainGiantBludgeon" type="UnitAction">
+    <displaynameid>STR_ABILITY_MOUNTAIN_GIANT_BLUDGEON</displaynameid>
+    <rolloverid>STR_ABILITY_MOUNTAIN_GIANT_BLUDGEON_LR</rolloverid>
+    <icon>norse\static_color\abilities\mountain_giant_ability_bludgeon_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>Building</abstractplacementtargettype>
+    <unitaction>ChargedHandAttack</unitaction>
+  </power>
+  <power name="AbilityMountainGiantDwarvenPunt" type="UnitAction">
+    <displaynameid>STR_ABILITY_MOUNTAIN_GIANT_DWARVEN_PUNT</displaynameid>
+    <rolloverid>STR_ABILITY_MOUNTAIN_GIANT_DWARVEN_PUNT_LR</rolloverid>
+    <icon>norse\static_color\abilities\mountain_giant_ability_dwarven_punt_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>VillagerDwarf</abstractplacementtargettype>
+    <unitaction>DwarvenPunt</unitaction>
+  </power>
+  <power name="AbilityMountainGiantPunt" type="UnitAction">
+    <displaynameid>STR_ABILITY_MOUNTAIN_GIANT_PUNT</displaynameid>
+    <rolloverid>STR_ABILITY_MOUNTAIN_GIANT_PUNT_LR</rolloverid>
+    <icon>norse\static_color\abilities\mountain_giant_ability_punt_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>AbstractInfantry</abstractplacementtargettype>
+    <abstractplacementtargettype>AbstractArcher</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <unitaction>Punt</unitaction>
+  </power>
+  <power name="AbilityMountainGiantFooty" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_MOUNTAIN_GIANT_FOOTY</displaynameid>
+    <rolloverid>STR_ABILITY_MOUNTAIN_GIANT_FOOTY_LR</rolloverid>
+    <icon>norse\static_color\abilities\mountain_giant_ability_footy_icon.png</icon>
+  </power>
+  <power name="AbilityFrostGiant" type="UnitAction">
+    <displaynameid>STR_ABILITY_FROST_GIANT</displaynameid>
+    <rolloverid>STR_ABILITY_FROST_GIANT_LR</rolloverid>
+    <icon>norse\static_color\abilities\frost_giant_ability_icon.png</icon>
+    <placement enemy="" allownature="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>TradeUnit</abstractplacementtargettype>
+    <abstractplacementtargettype>Huntable</abstractplacementtargettype>
+    <unitaction>FreezeAttack</unitaction>
+  </power>
+  <power name="AbilityKrakenThrow" type="UnitAction">
+    <displaynameid>STR_ABILITY_KRAKEN_THROW</displaynameid>
+    <rolloverid>STR_ABILITY_KRAKEN_THROW_LR</rolloverid>
+    <icon>norse\static_color\abilities\kraken_ability_throw_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <unitaction>Throw</unitaction>
+  </power>
+  <power name="AbilityKrakenCapsize" type="UnitAction">
+    <displaynameid>STR_ABILITY_KRAKEN_CAPSIZE</displaynameid>
+    <rolloverid>STR_ABILITY_KRAKEN_CAPSIZE_LR</rolloverid>
+    <icon>norse\static_color\abilities\kraken_ability_capsize_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>Ship</abstractplacementtargettype>
+    <unitaction>Capsize</unitaction>
+  </power>
+  <power name="AbilityRockGiantJotunmodr" type="UnitAction">
+    <displaynameid>STR_ABILITY_ROCK_GIANT_JOTUNMODR</displaynameid>
+    <rolloverid>STR_ABILITY_ROCK_GIANT_JOTUNMODR_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\rock_giant_ability_jotunmodr_icon.png</icon>
+    <placement>Self</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <rangeindicator range="6.0" speed="0.2">Circle</rangeindicator>
+    <unitaction>TauntAttack</unitaction>
+  </power>
+  <power name="AbilityRockGiantCavernousHunger" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_ROCK_GIANT_CAVERNOUS_HUNGER</displaynameid>
+    <rolloverid>STR_ABILITY_ROCK_GIANT_CAVERNOUS_HUNGER_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\rock_giant_ability_cavernous_hunger_icon.png</icon>
+  </power>
+  <power name="AbilityFireGiant" type="UnitAction">
+    <displaynameid>STR_ABILITY_FIRE_GIANT</displaynameid>
+    <rolloverid>STR_ABILITY_FIRE_GIANT_LR</rolloverid>
+    <icon>norse\static_color\abilities\fire_giant_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <unitaction>ChargedRangedAttack</unitaction>
+  </power>
+  <power name="AbilityFenrisWolfBrood" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_FENRIS_WOLF_BROOD</displaynameid>
+    <rolloverid>STR_ABILITY_FENRIS_WOLF_BROOD_LR</rolloverid>
+    <icon>norse\static_color\abilities\fenris_wolf_brood_ability_icon.png</icon>
+  </power>
+  <power name="AbilityJormunElver" type="UnitAction">
+    <displaynameid>STR_ABILITY_JORMUN_ELVER</displaynameid>
+    <rolloverid>STR_ABILITY_JORMUN_ELVER_LR</rolloverid>
+    <icon>norse\static_color\abilities\jormun_elver_ability_icon.png</icon>
+    <placement enemy="">Unit</placement>
+    <abstractplacementtargettype>NavalUnit</abstractplacementtargettype>
+    <rangeindicator range="7.0">Cone</rangeindicator>
+    <unitaction>ChargedHandAttack</unitaction>
+  </power>
+  <power name="AbilityNidhoggBlazingStrafe" type="UnitAction">
+    <displaynameid>STR_ABILITY_NIDHOGG_BLAZING_STRAFE</displaynameid>
+    <rolloverid>STR_ABILITY_NIDHOGG_BLAZING_STRAFE_LR</rolloverid>
+    <icon>norse\static_color\abilities\nidhogg_blazing_strafe_ability_icon.png</icon>
+    <placement enemy="" allowgroundtarget="">Unit</placement>
+    <abstractplacementtargettype>Unit</abstractplacementtargettype>
+    <abstractplacementtargettype>Building</abstractplacementtargettype>
+    <rangeindicator range="25.0" width="4.0">Arrow</rangeindicator>
+    <unitaction>BlazingStrafeAttack</unitaction>
+  </power>
+  <power name="AbilityNidhoggDivineProtection" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_NIDHOGG_DIVINE_PROTECTION</displaynameid>
+    <rolloverid>STR_ABILITY_NIDHOGG_DIVINE_PROTECTION_LR</rolloverid>
+    <icon>norse\static_color\abilities\nidhogg_ability_divine_protection_icon.png</icon>
+  </power>
+  <power name="AbilityFafnirAndvarisCurse" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_FAFNIR_ANDVARIS_CURSE</displaynameid>
+    <rolloverid>STR_ABILITY_FAFNIR_ANDVARIS_CURSE_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\fafnir_ability_andvaris_curse_icon.png</icon>
+  </power>
+  <power name="AbilityFafnirBillowingSmog" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_FAFNIR_BILLOWING_SMOG</displaynameid>
+    <rolloverid>STR_ABILITY_FAFNIR_BILLOWING_SMOG_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\fafnir_ability_billowing_smog_icon.png</icon>
+  </power>
+  <power name="PassiveSkadisBreath" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SKADIS_BREATH</displaynameid>
+    <rolloverid>STR_ABILITY_SKADIS_BREATH_LR</rolloverid>
+    <icon>norse\static_color\abilities\dreki_ability_icon.png</icon>
+  </power>
+  <power name="PassiveSkaldicInspiration" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_SKALDIC_INSPIRATION</displaynameid>
+    <rolloverid>STR_ABILITY_SKALDIC_INSPIRATION_LR</rolloverid>
+    <icon>norse\static_color\abilities\longboat_ability_icon.png</icon>
+  </power>
+  <power name="PassiveHealingSpring" type="GeneralEffect">
+    <displaynameid>STR_ABILITY_HEALING_SPRING</displaynameid>
+    <rolloverid>STR_ABILITY_HEALING_SPRING_LR</rolloverid>
+    <icon>norse\static_color\abilities\healing_spring_ability_icon.png</icon>
+  </power>
+  <power name="PassiveRansNet" type="UnitAction">
+    <displaynameid>STR_ABILITY_RANS_NET</displaynameid>
+    <rolloverid>STR_ABILITY_RANS_NET_LR</rolloverid>
+    <icon>norse_freyr\static_color\abilities\rans_net_ability_icon.png</icon>
+  </power>
+  <power name="AbilityFightYourOwnTroopsFavor_Serp" type="UnitAction">
+    <displaynameid>STR_ABILITY_LAMPADES_CHAOTIC_REALIGNMENT</displaynameid>
+    <rolloverid>STR_ABILITY_LAMPADES_CHAOTIC_REALIGNMENT_LR</rolloverid>
+    <icon>atlantean\static_color\abilities\lampades_ability_chaotic_realignment_icon.png</icon>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>HumanSoldier</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeVillagerNotHero</abstractplacementtargettype>
+    <abstractplacementtargettype>LogicalTypeMythUnitNotTitan</abstractplacementtargettype>
+    <abstractplacementtargettype>TradeUnit</abstractplacementtargettype>
+    <unitaction>ChaosAttack</unitaction>
+  </power>
+</powers>

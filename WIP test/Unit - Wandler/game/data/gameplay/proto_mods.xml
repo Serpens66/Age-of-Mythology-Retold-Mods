@@ -1,0 +1,1386 @@
+<protomods>
+  
+  
+  
+  <unit name="TownCenter">
+    <train mergeMode="remove" row="0" column="1">Ajax</train>
+    <train mergeMode="add" row="0" column="2">Ajax</train>
+    <train mergeMode="remove" row="0" column="2">Achilles</train>
+    <train mergeMode="add" row="0" column="1">Achilles</train>
+  </unit>
+  
+  
+  <!-- many stats are overriden in techtree file in ResetWandlerStats_Serp -->
+   <!-- but the values used here are releveant if techs use BasePercent, since it uses the values defined in proto -->
+    
+    
+  <!-- in a future patch the passives will be excluded from the "only up to 6" logic! -->
+   
+
+    
+    <!-- WICHTIG -->
+    <!-- um das 6 abilities problem zu umgehen: -->
+     <!-- forschungen gelten doch für jede wandler unit zeitgleich und man kann jederzeit -->
+      <!-- zwischen den wandler units hin und her wechseln (zb DelayedTranform oder besser Forschung zum Chooser -->
+       <!-- und dort hat man dann bei tech eine auswahl von bis zu ~18 versch. Spezialitäten) -->
+      <!-- kann man dann 1-2 nur mit nahkampfabilities machen, fernkampf, fliegen, godpower usw. -->
+       <!-- theoretisch könnte man die techs zum umwandeln noch kosten/zeitdauer geben, aber es soll ja schon sinn sein, dass man das 6 abilities problem umgeht. -->
+     <!-- deswegen dann zb erforschung von godpowers limitieren, dass man nur 1-2 oderso forschen kann, sonst braucht man n reset -->
+    <!-- oder ansonsten abilities sinnvoll aufteilen, denn durch mehr units sollten auch mehr cooldowns zur befügung stehen -->
+    
+    
+    <!-- buff/debuff abilities wie alle in nähe kriegen stats können komplett passiv sein, -->
+     <!-- aber sollten irgendeinen visuellen Effekt bei den betroffenen einheiten anzeigen, siehe evtl. arkatnos kriegsschrei AutoBoost -->
+    
+    <!-- Als untersch. Units (und abilities) brauchen wir vermutlich nur unterscheiden zwischen: -->
+     <!-- Nahkampf -->
+     <!-- Fernkampf -->
+     <!-- Fliegend -->
+     <!-- Wirtschaft empower wie pharao?(godpowers rain, Prosperity, gaiaforest, und lässt sich damit ja auch noch neues bauen) -->
+        <!-- EmpowerEnable -->
+        <!-- mit den godpowers kann man ja normale effekte wirken. und da kann man zb auch GathererLimit ändern,  -->
+         <!-- sodass zb 2 units Farmen oder Fische bearbeiten können. Wobei das doof ist, wenns temporär ist... -->
+          <!-- also vllt dauerhaft erforschbar ab Mythic? -->
+          <!-- vorübergehend DoubleTrainChance auf gewirkte gebäude -->
+     
+
+    <!-- InitialWandler_Serp noch in WeakenArachaigAge packen. -->
+     <!-- damagebonus noch in stats category -->
+     <!-- evtl. noch ne kategorie zum einheiten ausbilden/Gebäude bauen? -->
+
+    
+    <!-- Fähigkeiten die kein manuell brauchen: -->
+     <!-- Heal -->
+     <!-- Ei-Umwandlung (reinkarnation), bei der Stats nicht resettet werden (geht an sich auch mit flag SelfRespawn, aber löst tech aus, dass keiner mehr da ist und ohne ei. -->
+      <!-- ,  -->
+      <!-- PassiveSolarFlame (Projektil Feuerbälle die flächenschaden machen) -->
+      <!-- Kettenblitzangriff (andere action aktivieren, default deaktivieren) -->
+      <!-- PassiveVenomous wie ShaftsOfPlague (fügen divine hinzu) oder AbilityScorpionMan -->
+      <!-- NumberBounces -->
+      <!-- PassiveLifesteal  ThracianHorses (falls ich verbesserungen der fähigkeit einbauen will, einmal natürlich menge, aber sonst auch erst nur humans, dann auch myth, dann auch hero, dann auch building) -->
+      <!-- PassiveTemporalScaffolding erhöht baugeschwindigkeit in der nähe oder auch sammelrate -->
+    <!-- Scarab ability dass bei tot nochmal areadamage gemacht wird -->
+      <!-- FlamingWeapons / BronzeWeapons evlt als passive aura -->
+      <!-- beschwören von einheiten ChargedSpawn (je nach einheiten stärker langer oder kurzer cooldown) -->
+      <!-- TauntAttack (AbilityRockGiantJotunmodr) -->
+      <!-- Passiv allen Gegnern in der Nähe schaden zufügen (BillowingSmog, ist quasi eine negative healrate für gegner :D) -->
+      <!-- PassiveSkadisBreath (verlangsamt und friert schließlich ein, onhiteffect ProgFreeze) -->
+      <!-- Veterancy VeterancyEnable VeterancyBonus -->
+      <!-- wie manticore flächenschaden fernkampf -->
+      
+    <!-- KnockoutDeath flag als tech geben, dass man das aktivieren/deaktivieren kann? -->
+     <!-- wobei wenn deaktivierbar, testen was passiert wenn mans deaktiviert während down ist -->
+    <!-- Should NOT have the LogicalTypeNeededForVictory , so you loose if this is the only unit left (especially with KnockoutDeath!!) -->
+      <!-- während knockout gehen keine abilities und commands. Aber techs forschen geht weiter (wobei forschungs fortschritt nicht angezeigt wird) -->
+      
+      
+      <!-- Man kann auch Units buffen/debuffen, sowohl als Aura, als auch als UnitModify-ability/power oder weltweit als CreatePower-tech-effect eines GeneralEffect mit effects -->
+      <!-- für ability SelfModify über zeit, also quasi stärkere form für zeit x -->
+
+    
+    <!-- Beides sinnvoll aber passiv würde zur not reichen -->
+      <!-- stoßen/werfen/throw-shot/jumpattack/ChaosAttack/TransfigurationAttack -->
+      <!-- AbilityArgus (Säureattacke), AbilityCentimanus (ShockwaveAttack oder ABILITY_ARKANTOS_UBER) -->
+      <!-- AbilityCaladriaPacify (gegner in nähe verlangsamen, kann auch dauerhaft aktiv sein für x gegner in der nähe?) -->
+      <!-- AbilityKingFolstagFrigidBreath , AbilityFireKing -->
+      <!-- Restoration/FlamingWeapons/BronzeWeapons -->
+      <!-- ReincarnationAttack (Mummy) -->
+      <!-- AbilitySphinx/AbilityAvenger AoEAttack -->
+    
+    <!-- Fähigkeiten die manuell sein sollten: -->
+     <!-- Convert, Feuer speien wie Nidhog? -->
+    
+    
+    <!-- Godpowers, evlt kleiner: -->
+     <!-- godpowers über upgrade stärker machen geht vermutlich nicht, höchstens cooldown für alle abilities verringern? -->
+        <!-- <effect type="Data" amount="0.75" subtype="RechargeTime" relativity="BasePercent"> -->
+      <!-- vermutlich n cooldown von 5 oder gar 10 minuten, der dann reduziert werden kann. -->
+       <!-- ein held kann mehrere dieser fähigkeiten haben (ab MythicAge), aber der cooldown gilt halt für alle gleich -->
+     <!-- Earthquake/UNDERMINE, LightningStorm, Frost, tempest (hagelsturm), Inferno(Stampede),     -->
+      <!-- Meteor, Tornado, ShiftingSands/Vortex (eher sands), TartarianGate, Implode -->
+    
+    
+    <!-- unit zeitweise unsichtbar machen, indem mit tech flag VisibleOwnerOnly zugefügt wird? -->
+     <!-- das dann mehrfach erforschbar machen, mit delay natürlich, hält dann zb 15 sekunden oderso -->
+    <!-- evtl gibts auch Stealth actions? -->
+    
+    
+    <!-- LikeBonus (stat boni modify für unit basierend auf units in der nähe (=inverted)) geht  -->
+    <!-- zsm mit ModifyRateByType auch mit einer modifyratecap um max bonus festzulegen -->
+    
+    
+    
+    <!-- Um Action einer einzeln unit zu ändern (tactic) kann man Mechanik von Factory aus AoE3DE nutzen! -->
+       <!-- Dadurch kann man quasi von nah auf fernkampf wechseln, oder agressive/defensive haltung usw. -->
+       <!-- evtl noch testen was passiert wenn man merhere units selected hat während man den command ausführt -->
+     <!-- UND TESTEN ob dadurch auch andere abilities angezeigt werden, wenns unitactions sind, die dann nicht mehr in  -->
+      <!-- der neuen tactic drin sind?! wenn ja könnte man das auc h zum durchschalten der abilities nutzen -->
+       <!-- (aber vermutlich eher nicht, da es bestimmt einfach nur stumpf die ersten 6 abilities aus abilities.xml genommen werden, ja ist leider so) -->
+      <!-- proto_unit_command_mods.xml: -->
+      <!-- <protounitcommand mergeMode="add"> -->
+        <!-- <name>CommandGatherGold</name> -->
+        <!-- <icon>resources\shared\hud\command\market_buy_gold_icon.png</icon> -->
+        <!-- <displaynameid>STR_EFFECT_ENABLE</displaynameid> -->
+        <!-- <rollovertextid>STR_EFFECT_ENABLE</rollovertextid> -->
+        <!-- <command>unitSetTactic("TacticGatherGold")</command> -->
+      <!-- </protounitcommand> -->
+      <!-- <protounitcommand mergeMode="add"> -->
+        <!-- <name>CommandDefaultTactic</name> -->
+        <!-- <icon>resources\shared\hud\command\market_sell_gold_icon.png</icon> -->
+        <!-- <displaynameid>STR_EFFECT_ENABLE</displaynameid> -->
+        <!-- <rollovertextid>STR_EFFECT_ENABLE</rollovertextid> -->
+        <!-- <command>unitSetTactic("Default")</command> -->
+      <!-- </protounitcommand> -->
+      <!-- tactics file, add this line (just adding, not replacing anything): -->
+      <!-- <action> -->
+        <!-- <name>AutoGatherCoin</name> -->
+        <!-- <type>AutoGather</type> -->
+        <!-- <rate type="Gold">10.0</rate> -->
+        <!-- <persistent>1</persistent> -->
+      <!-- </action> -->
+      <!-- <tactic>TacticGatherGold<action>AutoGatherCoin</action></tactic> -->
+      <!-- in proto_mods_xml: -->
+      <!-- <unit name="SentryTower"> -->
+        <!-- <command mergeMode="add" row="2" column="2">CommandGatherGold</command> -->
+        <!-- <command mergeMode="add" row="2" column="1">CommandDefaultTactic</command> -->
+      <!-- </unit> -->
+    <!-- .. -->
+    <!-- in battle.xml formations kann man evlt auch eine tactic Zeile zufügen. Mal testen ob es als formation besser als als command ist, falls es klappt -->
+    <!-- .. -->
+    <!-- und es gibt jetzt auch eine unitaction SwitchTactic welche die verfuegbaren taktiken durchwechselt (ist dann aber auf nem ability slot, bzw. kann man natürlich auch mit doAbilityInSelected machen ) -->
+    
+    
+    <!-- Mutate ist auch interessant, aber denke ich eher nicht verwenden, weil HP wieder voll danach -->
+    
+    <!-- veterancyranks keyword sind auch numattacks und numkills gültig (neben totaldamage was in vanilla verwendet wird) -->
+    <!-- kann man wohl mit einem hex editor https://hexed.it/ in der .exe Datei nachschauen, indem man nach totaldamage sucht -->
+     <!-- und guckt welche strings in der nähe sind, die dazu passen könnten -->
+    <!-- als Veterancy stat boni sind möglich (ModifyType Constants): -->
+     <!-- MaxHP, VisualScale, NumProjectiles, Speed, Damage/DamageSpecific, LOS, Armor/ArmorSpecific,ROF,RechargeTime,HealRate,RangeAbsolute -->
+    
+    
+    
+    <!-- TODO: -->
+     <!-- gucken welche normalen game forschungen den wandler auch treffen könnten, -->
+      <!-- vermutlich am ehesten alle Hero/MajorHero Forschungen? Evlt verhindern wenn möglich -->
+     
+     
+     <!-- wenn ich noch mehr platz brauche, kann ich auch KAtegoriern in den Kategorien machen... -->
+      <!-- dann würde ich zu stats noch zufügen: Hitpoints, AntiHero, DivineDamage -->
+     
+    
+   <!-- Heal anim für Convert nutzen klappt leider nicht direkt warum auch immer.. -->
+   <!-- für neue animfile muss glaube ich auch die simdata.simjson angepasst werden? -->
+    <!-- darin dann Convert anim machen (einfach durch Heal ersetzen geht wohl nicht) -->
+     <!-- selbst überschreiben von spc\units\reginleif\reginleif.xml -->
+      <!-- hilft nicht, wenn man neueabschnitte zufügen will, die müssen wohl auch in simdata.. -->
+       <!-- darein muss dann denke ich auch ein sound -->
+    
+    
+  <!-- Limitierung auf x techs pro Kategorie (zb 1-2 godpowers) muss ich wohl über eine dummy unit machen, die spawned bei der tech -->
+   <!-- dem spieler gehört (damit typecount sie korrekt zählen kann), aber dennoch kein LOS hat und sonst nicht zählt -->
+  
+  
+  <!-- auch RechargeTime/AuxRechargeTime für units evlt ändenr? wobei rof einer ability bei einer unit sinnvoller wäre, -->
+   <!-- aber keine ahnung ob das geht.. mal PowerROF probieren -->
+  
+  
+  <!-- ATTENTION, setting maxrange=0 in any action BREAKS all abilities (why devs, why? that makes no sense!) -->
+  
+  <!-- theoretisch kann man für untersch. aussehen noch zu icon/animfile culture="greek" zufügen, aber das klappt weder bei den strings noch bei soundsetfile -->
+   <!-- weshalb das bei units wenig sinn macht. Dann lieber eigenständige unit draus machen oder eine allgemeine grafik nutzen, die zu jedem volk passt -->
+  
+  
+  <!-- man kann auch bei Tod einer Unit etwas spawnen: -->
+  <!-- <effect type="Data" amount="1.00" subtype="ModifySpawn" spawntype="Dead" proto="Leviathan" chance="0.10" relativity="Assign"> -->
+  <!-- zb ne Einheit, aber auch ein Boost BerserkDamageBoost geht wohl (nochmal gucken ob das auch mit tot von säureviechern zusammenhängt) -->
+   <!-- (zb bei Tod Implosion spawnen?) -->
+  
+
+  <!-- rock giant Taunt fähigeit? -->
+ 
+  <!-- für castpower mal command probieren.  -->
+  <!-- falls das gehen sollte, dann evtl. tech slots nach erforschen mit power command ersetzen? -->
+    <!-- geht, aber cooldown wird nicht angezeigt, sollte also nur zb. mit anderen abilities gemacht werden, an denen man den cooldown dann sieht -->
+    <!-- es geht sogar mehr als 6 abilities so zu starten, aber natürlich ohne toggle-option (und beschreibung wäre auch nicht gut, falls devs nochmal ne vernünftige beschriebung zu abilities packen) -->
+    <!-- daher am sinnvollsten erstmal nur für godpowers, wo es ok ist wenn alle sich 2 cooldowns teilen (bzw. 4 der ersten reihe können auch eigenen haben) -->
+      <!-- dazu wohl am ehesten einen AbilitiesOnBothPages helden machen mit tech-seite zuerst (aber nur godpower techs anzeigen) und dort dann nach entiwkclung -->
+       <!-- nur godpower commands anzeigen. besser: tech mit ConsoleCommand -->
+
+     <!--  für "placeanywhere" godpowers auch tech <effect type ='CreatePower' protoPower='Rain' /> nehmen (klappt nur mit powers die placeanywhere sind). -->
+      
+    
+    
+    <!-- evtl. rausfinden wie SentryTower bei WatchTower Entwicklung die Grafik ändert. Das könnte man dann evlt auch fürs Aussehen machen -->
+     <!-- des custom helden.. (simdata.simjson) -->
+      
+      
+  
+  <!-- mod machen der allen militärunits <flag>AutoScout</flag> gibt? -->
+   <!-- gucken wie das bei norse aussieht -->
+  
+  
+  <!-- man kann n command machen, der auch "unsichtbare" abilities auslösen kann, also welche die die zahl an 6 in abilities.xml überschreiten -->
+   <!-- <command>doAbilityInSelected("AbilityImplode_Serp")</command> -->
+   <!-- problem ist nur, dass weder Kosten noch researchtime hier sinnvoll ist, da mans bezahlt auch wenn nicht gecasted wird. -->
+   <!-- und cooldown wird auch nicht angezeigt. -->
+   <!-- Sinnvoll wäre daher nur: ohne Kosten und wenn mit cooldown, dann nur mit einem der mit anderen angezeigten abilities geteilt wird, -->
+    <!-- damit man anhhand dessen abschätzen kann, wenn es wieder geht (associatedpower verwenden ist nicht sinnvoll, weil dann ability nur geht wenn man die power auch oben in der leiste hat) -->
+  
+  
+  <!-- als Ability evtl auch mal sowas testen: (tech effect mit zeitlicher begrenzung): -->
+  <!-- <power name="deChimuManeuver" type="GeneralEffect"> -->
+    <!-- <displaynameid>80579</displaynameid> -->
+    <!-- <rolloverid>80580</rolloverid> -->
+    <!-- <timerrolloverid>80581</timerrolloverid> -->
+    <!-- <icon>resources\images\icons\abilities\ability_chimu_maneuver_lrg.png</icon> -->
+    <!-- <minimapeventtime sendalertto="none">1</minimapeventtime> -->
+    <!-- <activetime>8</activetime> -->
+    <!-- <effect type="MaximumVelocity" relativity="Absolute" amount="1"> -->
+      <!-- <target type="ProtoUnit">deIncaRunner</target> -->
+    <!-- </effect> -->
+    <!-- <effect type="CantBeSlowed"> -->
+      <!-- <target type="ProtoUnit">deIncaRunner</target> -->
+    <!-- </effect> -->
+    <!-- <effect type="CannotSnare"> -->
+      <!-- <target type="ProtoUnit">deIncaRunner</target> -->
+    <!-- </effect> -->
+    <!-- <effect type="BaseSpeedRunAnim"> -->
+      <!-- <target type="ProtoUnit">deIncaRunner</target> -->
+    <!-- </effect> -->
+    <!-- <messagealertplayerrelation>none</messagealertplayerrelation> -->
+    <!-- <placement forceonmap="1" ally="">unit</placement> -->
+    <!-- <allowduringnorush>1</allowduringnorush> -->
+    <!-- <startsoundset>BattlecryMedium</startsoundset> -->
+  <!-- </power> -->
+  
+
+  
+  <!-- DelayedTransform funktioniert als ability wohl nur für MilitaryUnit, wenn sie es nicht sind, bekommen units keine abilities. -->
+    <!-- (ForceSecondPage) -->
+  
+  
+  <!-- reliquien aufheben mit InitialWandler_Serp klappt noch nicht? -->
+  
+  
+  <!-- InitialWandler_Serp is the unit that spawns/respawns. AI can not handle the manual abilities and techs to upgrade this unit, -->
+   <!-- so we will give it some normal stats for a good hero based on reginleif, so the AI has no useless unit -->
+  <unit mergeMode="add" name="InitialWandler_Serp">
+    <displaynameid>STR_UNIT_REGINLEIF_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_REGINLEIF_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_REGINLEIF_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\reginleif_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\reginleif\reginleif.xml</animfile>
+    <soundsetfile>spc\vo\reginleif\reginleif.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>RangedCombative</unitaitype>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <autoattackrange>16.0000</autoattackrange>
+    <formationorder>1</formationorder>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>800.0000</initialhitpoints>
+    <maxhitpoints>800.0000</maxhitpoints>
+    <unitregen>1.5000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>4.3</maxvelocity>
+    <rechargetime>10.0000</rechargetime>
+    <auxrechargetime>60.0000</auxrechargetime>
+    <buildpoints>40.0000</buildpoints>
+    <!-- <buildlimit>1</buildlimit> -->
+    <!-- <sharedbuildlimitunit>Wandler_Serp</sharedbuildlimitunit> -->
+    <!-- <sharedbuildlimitunittypes> -->
+      <!-- <unittype>AbstractWandlerUnitSerp</unittype> -->
+      <!-- <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype> -->
+    <!-- </sharedbuildlimitunittypes> -->
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <armor type="Hack" value="0.3500">
+    </armor>
+    <armor type="Pierce" value="0.3500">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>Unit</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype>
+    
+    <!-- # only for chooser unit to act as a normal hero for AI (which does not tech the hero otherwise) -->
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MajorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>Hero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>RangeIndicatorForAbilityCasting</flag>
+    
+    <!-- test (not added to unit copies yet) -->
+    <!-- <flag>KnockoutDeath</flag> -->
+
+
+    
+    <command row="3" column="5">Delete</command>
+    <tech row="2" column="5">ResetWandlerStats_Serp</tech>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>initialwandler_serp.tactics</tactics>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Pierce">16.000000</damage>
+      <damagebonus type="MythUnit">7.000000</damagebonus>
+      <damagebonus type="SeaSnake">3.000000</damagebonus>
+      <damagebonus type="Serpent">3.000000</damagebonus>
+      <maxrange>17.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+    </protoaction>
+    <protoaction>
+      <name>Heal</name>
+      <type>Heal</type>
+      <rate type="LogicalTypeHealed">40.00000</rate>
+      <maxrange>12.000000</maxrange>
+      <slowhealmultiplier>0.50</slowhealmultiplier>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <!-- <protoaction> -->
+      <!-- <name>Build</name> -->
+      <!-- <type>Build</type> -->
+      <!-- <anim>Idle</anim> -->
+      <!-- <rate type="ShrineWandler_Serp">0.0</rate> -->
+      <!-- <maxrange>0.100000</maxrange> -->
+    <!-- </protoaction> -->
+    <protoaction>
+      <name>WandlerTransform_Serp</name>
+      <modifyduration>2000</modifyduration>
+      <modifyprotoid>Wandler_Serp</modifyprotoid>
+      <type>DelayedTransform</type>
+      <anim>Transform</anim>
+    </protoaction>
+  </unit>
+    
+    
+  <unit mergeMode="add" name="Wandler_Serp">
+    <!-- <displaynameid>STR_UNIT_REGINLEIF_NAME</displaynameid> -->
+    <displaynameid>STR_UNIT_SETNA_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_REGINLEIF_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_REGINLEIF_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\reginleif_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <!-- <animfile>mod\units\wandlerserp.xml</animfile> -->
+    <animfile>spc\units\reginleif\reginleif.xml</animfile>
+    <soundsetfile>spc\vo\reginleif\reginleif.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>RangedCombative</unitaitype>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <autoattackrange>16.0000</autoattackrange>
+    <formationorder>1</formationorder>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>1000.0000</initialhitpoints>
+    <maxhitpoints>1000.0000</maxhitpoints>
+    <unitregen>1.0000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>5.0</maxvelocity>
+    
+    <rechargetime>10.0000</rechargetime>
+    <auxrechargetime>60.0000</auxrechargetime>
+    <buildpoints>40.0000</buildpoints>
+    <!-- <buildlimit>1</buildlimit> -->
+    <!-- <sharedbuildlimitunit>Wandler_Serp</sharedbuildlimitunit> -->
+    <!-- <sharedbuildlimitunittypes> -->
+      <!-- <unittype>AbstractWandlerUnitSerp</unittype> -->
+      <!-- <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype> -->
+    <!-- </sharedbuildlimitunittypes> -->
+    
+    <los>10.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <killreward resourcetype="Favor">25.0</killreward>
+    <armor type="Hack" value="0.1000">
+    </armor>
+    <armor type="Pierce" value="0.1000">
+    </armor>
+    <armor type="Crush" value="0.5000">
+    </armor>
+    
+    <veterancyranks>
+      <rank>
+        <totaldamage>50</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>150</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>300</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>500</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>750</totaldamage>
+      </rank>
+    </veterancyranks>
+    <veterancybonus>
+      <rank id="0">
+        <veterancymodify modifytype="MaxHP">1.1000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">1</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.1</veterancymodify>
+      </rank>
+      <rank id="1">
+        <veterancymodify modifytype="MaxHP">1.2000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">2</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.2</veterancymodify>
+      </rank>
+      <rank id="2">
+        <veterancymodify modifytype="MaxHP">1.3000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">3</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.3</veterancymodify>
+      </rank>
+      <rank id="3">
+        <veterancymodify modifytype="MaxHP">1.4000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">4</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.4</veterancymodify>
+      </rank>
+      <rank id="4">
+        <veterancymodify modifytype="MaxHP">1.5000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">5</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.5</veterancymodify>
+      </rank>
+      <includetypes>
+        <unittype>Unit</unittype>
+      </includetypes>
+    </veterancybonus>
+    
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>Unit</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>AbstractWandlerUnitSerp</unittype>
+    <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype>
+    <unittype>AbstractWandlerUnitAndEggSerp</unittype>
+    
+    <!-- # removed via tech after upgrade to hero -->
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    
+    <!-- # added after upgrade to hero via tech -->
+    <!-- <unittype>LogicalTypeSharedHeroSelection</unittype> -->
+    <!-- <unittype>MajorHero</unittype> -->
+    <!-- <unittype>LogicalTypeFindMilitaryHero</unittype> -->
+    <!-- <unittype>Hero</unittype> -->
+
+    
+    
+    <tech row="2" column="0">TechCategoryStats_WandlerSerp</tech>
+    <tech row="2" column="1">TechCategoryPassives_WandlerSerp</tech>
+    <tech row="2" column="2">TechCategoryAutomaticAbilities_WandlerSerp</tech>
+    <tech row="2" column="3">TechCategoryGodPowers_WandlerSerp</tech>
+    <!-- <tech row="2" column="4"></tech> -->
+    <tech row="2" column="5">ResetWandlerStats_Serp</tech>
+    
+    
+    <flag>ForceSecondPage</flag>
+    <flag>MilitaryUIDefault</flag>
+    
+    <!-- test -->
+    <!-- <flag>AbilitiesOnBothPages</flag> -->
+    
+    <flag>ExperienceUnit</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CanAutoHeal</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>AutoCommandStartDisabled</flag>
+    <flag>AlwaysAllowOverPopCap</flag>
+    <flag>RangeIndicatorForAbilityCasting</flag>
+    
+    <!-- test -->
+    <!-- <flag>UnitTransformBuildLimit</flag> -->
+    <!-- <flag>KnockoutDeath</flag> -->
+    
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>wandler_serp.tactics</tactics>
+    <!-- <protoaction> -->
+      <!-- <name>Build</name> -->
+      <!-- <type>Build</type> -->
+      <!-- <anim>Idle</anim> -->
+      <!-- <rate type="ShrineWandler_Serp">0.0</rate> -->
+      <!-- <maxrange>0.100000</maxrange> -->
+    <!-- </protoaction> -->
+    <protoaction>
+      <name>WandlerTransform_Serp</name>
+      <modifyduration>2000</modifyduration>
+      <modifyprotoid>Wandler2_Serp</modifyprotoid>
+      <type>DelayedTransform</type>
+      <anim>Transform</anim>
+    </protoaction>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Hack">10.000000</damage>
+      <damage type="Pierce">10.000000</damage>
+      <damage type="Crush">10.000000</damage>
+      <damagebonus type="MythUnit">1.000000</damagebonus>
+      <maxrange>1.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+      <!-- <projectile>ProjectileChainLightning</projectile> -->
+      <!-- <numberbounces>4</numberbounces> -->
+    </protoaction>
+    <protoaction>
+      <name>Heal</name>
+      <type>Heal</type>
+      <rate type="LogicalTypeHealed">1.00000</rate>
+      <maxrange>1.000000</maxrange>
+      <slowhealmultiplier>0.50</slowhealmultiplier>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>JumpAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damagebonus type="MythUnit">1.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <minrange>3.000000</minrange>
+      <maxrange>9.000000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>Gore</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">50.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <coneareaangle>170.000000</coneareaangle>
+      <outerdamageareadistance>1.500000</outerdamageareadistance>
+      <outerdamageareafactor>0.900000</outerdamageareafactor>
+      <fulldamagemaintarget>1</fulldamagemaintarget>
+      <maxrange>0.100000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+      <maxsizeclass>6</maxsizeclass>      
+      <onhiteffect type="Stun" targetunittype="HumanSoldier" duration="4.00">
+      </onhiteffect>
+      <onhiteffect type="Stun" targetunittype="LogicalTypeVillagerNotHero" duration="4.00">
+      </onhiteffect>
+      <onhiteffect type="Stun" targetunittype="LogicalTypeMythUnitNotTitan" duration="4.00">
+      </onhiteffect>
+      <onhiteffect type="Stun" targetunittype="TradeUnit" duration="4.00">
+      </onhiteffect>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>ChaosAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <onhiteffect type="StatModify" duration="30.000000">
+        <modify type="Chaos">1.000000</modify>
+      </onhiteffect>
+      <onhiteffect type="Attach" targetunittype="Unit" proto="VFXChaos" attachbone="vfx_top" duration="30.000000">
+      </onhiteffect>
+      <active>1</active>
+    </protoaction>
+    <protoaction>
+      <name>TransfigurationAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <active>1</active>
+      <onhiteffect type="Mutate" proto="Chicken">
+      <!-- <onhiteffect type="MutateNature" proto="Chicken"> -->
+      </onhiteffect>
+    </protoaction>
+    
+    <!-- TODO Anstelle von Stoßen (Gore) lieber n range atttack machen, der mehrere feinde wegstößt -->
+    <!-- <protoaction> -->
+      <!-- <name>ChargedRangedAttack</name> -->
+      <!-- <rof>3.000000</rof> -->
+      <!-- <damage type="Pierce">45.000000</damage> -->
+      <!-- <damagebonus type="MythUnit">3.000000</damagebonus> -->
+      <!-- <damagebonus type="Hero">0.250000</damagebonus> -->
+      <!-- <damagearea>1.500000</damagearea> -->
+      <!-- <maxrange>14.000000</maxrange> -->
+      <!-- <damageflags>Nature|Enemy</damageflags> -->
+      <!-- <impacteffect>effects\impacts\crush</impacteffect> -->
+      <!-- <projectile>ProjectileBoulder</projectile> -->
+      <!-- <numberprojectiles>1</numberprojectiles> -->
+      <!-- <targetground>1</targetground> -->
+      <!-- <onhiteffect type="Throw" targetunittype="HumanSoldier"> -->
+      <!-- </onhiteffect> -->
+      <!-- <onhiteffect type="Throw" targetunittype="LogicalTypeVillagerNotHero"> -->
+      <!-- </onhiteffect> -->
+      <!-- <throw>1</throw> -->
+      <!-- <throwdistancemin>5.0</throwdistancemin> -->
+      <!-- <throwdistancemax>7.0</throwdistancemax> -->
+      <!-- <throwmaxheight>4.0</throwmaxheight> -->
+      <!-- <throwvelocity>15.0</throwvelocity> -->
+      <!-- <areasortmode>Directional</areasortmode> -->
+      <!-- <maxsizeclass>5</maxsizeclass> -->
+    <!-- </protoaction> -->
+    
+    <protoaction>
+      <name>CastBolt_Serp</name>
+      <rof>2.000000</rof>
+      <maxrange>50.000000</maxrange>
+      <castpower>Bolt</castpower>
+      <castpowertargettype>Unit</castpowertargettype>
+      <type>Attack</type>
+      <rate type="LogicalTypeValidBoltTarget">1.0</rate>
+      <attackaction>1</attackaction>
+      <auxchargeaction>1</auxchargeaction>
+      <anim>RangedAttack</anim>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>CastImplode_Serp</name>
+      <rof>2.000000</rof>
+      <maxrange>50.000000</maxrange>
+      <castpower>Implode</castpower>
+      <castpowertargettype>Unit</castpowertargettype>
+      <type>Attack</type>
+      <rate type="All">1.0</rate>
+      <attackaction>1</attackaction>
+      <chargeaction>1</chargeaction>
+      <anim>RangedAttack</anim>
+      <active>0</active>
+    </protoaction>
+    
+    <protoaction>
+      <!-- rate ist in sekunden. wenn minrante nicht definiert ist wohl 0. -->
+       <!-- convertieren dauert dann ne zufällige zeit zwischen minrate und rate -->
+      <name>Convert</name>
+      <maxrange>3</maxrange>
+      <rate type="LogicalTypeMythUnitNotTitan">200.000000</rate>
+      <rate type="HumanSoldier">100.000000</rate>
+      <rate type="TradeUnit">60.000000</rate>
+      <rate type="LogicalTypeVillagerNotHero">60.000000</rate>
+      <rate type="Building">400.000000</rate>
+      <minrate type="LogicalTypeMythUnitNotTitan">45.000000</minrate>
+      <minrate type="HumanSoldier">15.000000</minrate>
+      <minrate type="TradeUnit">9.000000</minrate>
+      <minrate type="LogicalTypeVillagerNotHero">9.000000</minrate>
+      <minrate type="Building">60.000000</minrate>
+      <chargeaction>1</chargeaction>
+      <active>0</active>
+      <rate type="ArcticWolf">27.500000</rate>
+      <rate type="Aurochs">55.000000</rate>
+      <rate type="Baboon">25.000000</rate>
+      <rate type="Bear">35.000000</rate>
+      <rate type="Boar">45.000000</rate>
+      <rate type="Caribou">30.000000</rate>
+      <rate type="Chicken">25.000000</rate>
+      <rate type="Crocodile">35.000000</rate>
+      <rate type="CrownedCrane">25.000000</rate>
+      <rate type="Deer">30.000000</rate>
+      <rate type="Elephant">90.000000</rate>
+      <rate type="Elk">30.000000</rate>
+      <rate type="Gazelle">30.000000</rate>
+      <rate type="Giraffe">45.000000</rate>
+      <rate type="Hippopotamus">55.000000</rate>
+      <rate type="Hyena">25.000000</rate>
+      <rate type="Lion">25.000000</rate>
+      <rate type="Monkey">25.000000</rate>
+      <rate type="PolarBear">35.000000</rate>
+      <rate type="Rhinoceros">65.000000</rate>
+      <rate type="Walrus">55.000000</rate>
+      <rate type="WaterBuffalo">55.000000</rate>
+      <rate type="Wolf">27.500000</rate>
+      <rate type="Zebra">35.000000</rate>
+      <minrate type="ArcticWolf">27.500000</minrate>
+      <minrate type="Aurochs">55.000000</minrate>
+      <minrate type="Baboon">25.000000</minrate>
+      <minrate type="Bear">35.000000</minrate>
+      <minrate type="Boar">45.000000</minrate>
+      <minrate type="Caribou">30.000000</minrate>
+      <minrate type="Chicken">25.000000</minrate>
+      <minrate type="Crocodile">35.000000</minrate>
+      <minrate type="CrownedCrane">25.000000</minrate>
+      <minrate type="Deer">30.000000</minrate>
+      <minrate type="Elephant">90.000000</minrate>
+      <minrate type="Elk">30.000000</minrate>
+      <minrate type="Gazelle">30.000000</minrate>
+      <minrate type="Giraffe">45.000000</minrate>
+      <minrate type="Hippopotamus">55.000000</minrate>
+      <minrate type="Hyena">25.000000</minrate>
+      <minrate type="Lion">25.000000</minrate>
+      <minrate type="Monkey">25.000000</minrate>
+      <minrate type="PolarBear">35.000000</minrate>
+      <minrate type="Rhinoceros">65.000000</minrate>
+      <minrate type="Walrus">55.000000</minrate>
+      <minrate type="WaterBuffalo">55.000000</minrate>
+      <minrate type="Wolf">27.500000</minrate>
+      <minrate type="Zebra">35.000000</minrate>
+      <conversionprotoid srctype="ArcticWolf">ArcticWolfOfSet</conversionprotoid>
+      <conversionprotoid srctype="Aurochs">AurochsOfSet</conversionprotoid>
+      <conversionprotoid srctype="Baboon">BaboonOfSet</conversionprotoid>
+      <conversionprotoid srctype="Bear">BearOfSet</conversionprotoid>
+      <conversionprotoid srctype="Boar">BoarOfSet</conversionprotoid>
+      <conversionprotoid srctype="Caribou">CaribouOfSet</conversionprotoid>
+      <conversionprotoid srctype="Chicken">ChickenOfSet</conversionprotoid>
+      <conversionprotoid srctype="Crocodile">CrocodileOfSet</conversionprotoid>
+      <conversionprotoid srctype="CrownedCrane">CrownedCraneOfSet</conversionprotoid>
+      <conversionprotoid srctype="Deer">DeerOfSet</conversionprotoid>
+      <conversionprotoid srctype="Elephant">ElephantOfSet</conversionprotoid>
+      <conversionprotoid srctype="Elk">ElkOfSet</conversionprotoid>
+      <conversionprotoid srctype="Gazelle">GazelleOfSet</conversionprotoid>
+      <conversionprotoid srctype="Giraffe">GiraffeOfSet</conversionprotoid>
+      <conversionprotoid srctype="Hippopotamus">HippopotamusOfSet</conversionprotoid>
+      <conversionprotoid srctype="Hyena">HyenaOfSet</conversionprotoid>
+      <conversionprotoid srctype="Lion">LionOfSet</conversionprotoid>
+      <conversionprotoid srctype="Monkey">MonkeyOfSet</conversionprotoid>
+      <conversionprotoid srctype="PolarBear">PolarBearOfSet</conversionprotoid>
+      <conversionprotoid srctype="Rhinoceros">RhinocerosOfSet</conversionprotoid>
+      <conversionprotoid srctype="Walrus">WalrusOfSet</conversionprotoid>
+      <conversionprotoid srctype="WaterBuffalo">WaterBuffaloOfSet</conversionprotoid>
+      <conversionprotoid srctype="Wolf">WolfOfSet</conversionprotoid>
+      <conversionprotoid srctype="Zebra">ZebraOfSet</conversionprotoid>
+      
+      
+    </protoaction>
+  </unit>
+  
+  
+  <unit mergeMode="add" name="Wandler2_Serp">
+    <!-- <displaynameid>STR_UNIT_REGINLEIF_NAME</displaynameid> -->
+    <displaynameid>STR_UNIT_GUARDIAN_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_REGINLEIF_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_REGINLEIF_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\reginleif_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <!-- <animfile>mod\units\wandlerserp.xml</animfile> -->
+    <animfile>spc\units\reginleif\reginleif.xml</animfile>
+    <soundsetfile>spc\vo\reginleif\reginleif.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>RangedCombative</unitaitype>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <autoattackrange>16.0000</autoattackrange>
+    <formationorder>1</formationorder>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>1000.0000</initialhitpoints>
+    <maxhitpoints>1000.0000</maxhitpoints>
+    <unitregen>1.0000</unitregen>
+    <weightclass>6</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>2</populationcount>
+    <maxvelocity>5.0</maxvelocity>
+    
+    <rechargetime>10.0000</rechargetime>
+    <auxrechargetime>60.0000</auxrechargetime>
+    <buildpoints>40.0000</buildpoints>
+    <!-- <buildlimit>1</buildlimit> -->
+    <!-- <sharedbuildlimitunit>Wandler_Serp</sharedbuildlimitunit> -->
+    <!-- <sharedbuildlimitunittypes> -->
+      <!-- <unittype>AbstractWandlerUnitSerp</unittype> -->
+      <!-- <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype> -->
+    <!-- </sharedbuildlimitunittypes> -->
+    
+    <los>10.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <killreward resourcetype="Favor">25.0</killreward>
+    <armor type="Hack" value="0.1000">
+    </armor>
+    <armor type="Pierce" value="0.1000">
+    </armor>
+    <armor type="Crush" value="0.5000">
+    </armor>
+    
+    <veterancyranks>
+      <rank>
+        <totaldamage>50</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>150</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>300</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>500</totaldamage>
+      </rank>
+      <rank>
+        <totaldamage>750</totaldamage>
+      </rank>
+    </veterancyranks>
+    <veterancybonus>
+      <rank id="0">
+        <veterancymodify modifytype="MaxHP">1.1000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">1</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.1</veterancymodify>
+      </rank>
+      <rank id="1">
+        <veterancymodify modifytype="MaxHP">1.2000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">2</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.2</veterancymodify>
+      </rank>
+      <rank id="2">
+        <veterancymodify modifytype="MaxHP">1.3000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">3</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.3</veterancymodify>
+      </rank>
+      <rank id="3">
+        <veterancymodify modifytype="MaxHP">1.4000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">4</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.4</veterancymodify>
+      </rank>
+      <rank id="4">
+        <veterancymodify modifytype="MaxHP">1.5000</veterancymodify>
+        <veterancymodify modifytype="NumProjectiles">5</veterancymodify>
+        <veterancymodify modifytype="VisualScale">0.5</veterancymodify>
+      </rank>
+      <includetypes>
+        <unittype>Unit</unittype>
+      </includetypes>
+    </veterancybonus>
+    
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>Unit</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>AbstractWandlerUnitSerp</unittype>
+    <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype>
+    <unittype>AbstractWandlerUnitAndEggSerp</unittype>
+    
+    
+    <!-- # removed via tech after upgrade to hero -->
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    
+    <!-- # added after upgrade to hero via tech -->
+    <!-- <unittype>LogicalTypeSharedHeroSelection</unittype> -->
+    <!-- <unittype>MajorHero</unittype> -->
+    <!-- <unittype>LogicalTypeFindMilitaryHero</unittype> -->
+    <!-- <unittype>Hero</unittype> -->
+    
+    <flag>ForceSecondPage</flag>
+    <flag>MilitaryUIDefault</flag>
+    
+    <flag>ExperienceUnit</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CanAutoHeal</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>SplitQueue</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>AutoCommandStartDisabled</flag>
+    <flag>AlwaysAllowOverPopCap</flag>
+    <flag>RangeIndicatorForAbilityCasting</flag>
+    <command row="3" column="5">Delete</command>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>wandler_serp.tactics</tactics>
+    <tech row="2" column="0">TechCategoryStats_WandlerSerp</tech>
+    <tech row="2" column="1">TechCategoryPassives_WandlerSerp</tech>
+    <tech row="2" column="2">TechCategoryAutomaticAbilities_WandlerSerp</tech>
+    <tech row="2" column="3">TechCategoryGodPowers_WandlerSerp</tech>
+    <!-- <tech row="2" column="4"></tech> -->
+    <tech row="2" column="5">ResetWandlerStats_Serp</tech>
+    
+    
+    
+    <!-- <flag>KnockoutDeath</flag> -->
+    
+    <!-- <protoaction> -->
+      <!-- <name>Build</name> -->
+      <!-- <type>Build</type> -->
+      <!-- <anim>Idle</anim> -->
+      <!-- <rate type="ShrineWandler_Serp">0.0</rate> -->
+      <!-- <maxrange>0.100000</maxrange> -->
+    <!-- </protoaction> -->
+    <protoaction>
+      <name>WandlerTransform_Serp</name>
+      <modifyduration>2000</modifyduration>
+      <modifyprotoid>Wandler_Serp</modifyprotoid>
+      <type>DelayedTransform</type>
+      <anim>Transform</anim>
+    </protoaction>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Hack">10.000000</damage>
+      <damage type="Pierce">10.000000</damage>
+      <damage type="Crush">10.000000</damage>
+      <damagebonus type="MythUnit">1.000000</damagebonus>
+      <maxrange>1.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+      <!-- <projectile>ProjectileChainLightning</projectile> -->
+      <!-- <numberbounces>4</numberbounces> -->
+    </protoaction>
+    <protoaction>
+      <name>Heal</name>
+      <type>Heal</type>
+      <rate type="LogicalTypeHealed">1.00000</rate>
+      <maxrange>1.000000</maxrange>
+      <slowhealmultiplier>0.50</slowhealmultiplier>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>JumpAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damagebonus type="MythUnit">1.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <minrange>3.000000</minrange>
+      <maxrange>9.000000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>Gore</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">50.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <damagearea>3.000000</damagearea>
+      <coneareaangle>170.000000</coneareaangle>
+      <outerdamageareadistance>1.500000</outerdamageareadistance>
+      <outerdamageareafactor>0.900000</outerdamageareafactor>
+      <fulldamagemaintarget>1</fulldamagemaintarget>
+      <maxrange>0.100000</maxrange>
+      <damageflags>Nature|Enemy</damageflags>
+      <maxsizeclass>6</maxsizeclass>      
+      <onhiteffect type="Stun" targetunittype="HumanSoldier" duration="4.00">
+      </onhiteffect>
+      <onhiteffect type="Stun" targetunittype="LogicalTypeVillagerNotHero" duration="4.00">
+      </onhiteffect>
+      <onhiteffect type="Stun" targetunittype="LogicalTypeMythUnitNotTitan" duration="4.00">
+      </onhiteffect>
+      <onhiteffect type="Stun" targetunittype="TradeUnit" duration="4.00">
+      </onhiteffect>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>ChaosAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <onhiteffect type="StatModify" duration="30.000000">
+        <modify type="Chaos">1.000000</modify>
+      </onhiteffect>
+      <onhiteffect type="Attach" targetunittype="Unit" proto="VFXChaos" attachbone="vfx_top" duration="30.000000">
+      </onhiteffect>
+      <active>1</active>
+    </protoaction>
+    <protoaction>
+      <name>TransfigurationAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>10.000000</maxrange>
+      <active>1</active>
+      <onhiteffect type="Mutate" proto="Chicken">
+      <!-- <onhiteffect type="MutateNature" proto="Chicken"> -->
+      </onhiteffect>
+    </protoaction>
+    
+    <!-- TODO Anstelle von Stoßen (Gore) lieber n range atttack machen, der mehrere feinde wegstößt -->
+    <!-- <protoaction> -->
+      <!-- <name>ChargedRangedAttack</name> -->
+      <!-- <rof>3.000000</rof> -->
+      <!-- <damage type="Pierce">45.000000</damage> -->
+      <!-- <damagebonus type="MythUnit">3.000000</damagebonus> -->
+      <!-- <damagebonus type="Hero">0.250000</damagebonus> -->
+      <!-- <damagearea>1.500000</damagearea> -->
+      <!-- <maxrange>14.000000</maxrange> -->
+      <!-- <damageflags>Nature|Enemy</damageflags> -->
+      <!-- <impacteffect>effects\impacts\crush</impacteffect> -->
+      <!-- <projectile>ProjectileBoulder</projectile> -->
+      <!-- <numberprojectiles>1</numberprojectiles> -->
+      <!-- <targetground>1</targetground> -->
+      <!-- <onhiteffect type="Throw" targetunittype="HumanSoldier"> -->
+      <!-- </onhiteffect> -->
+      <!-- <onhiteffect type="Throw" targetunittype="LogicalTypeVillagerNotHero"> -->
+      <!-- </onhiteffect> -->
+      <!-- <throw>1</throw> -->
+      <!-- <throwdistancemin>5.0</throwdistancemin> -->
+      <!-- <throwdistancemax>7.0</throwdistancemax> -->
+      <!-- <throwmaxheight>4.0</throwmaxheight> -->
+      <!-- <throwvelocity>15.0</throwvelocity> -->
+      <!-- <areasortmode>Directional</areasortmode> -->
+      <!-- <maxsizeclass>5</maxsizeclass> -->
+    <!-- </protoaction> -->
+    
+    <protoaction>
+      <name>CastBolt_Serp</name>
+      <rof>2.000000</rof>
+      <maxrange>50.000000</maxrange>
+      <castpower>Bolt</castpower>
+      <castpowertargettype>Unit</castpowertargettype>
+      <type>Attack</type>
+      <rate type="LogicalTypeValidBoltTarget">1.0</rate>
+      <attackaction>1</attackaction>
+      <auxchargeaction>1</auxchargeaction>
+      <anim>RangedAttack</anim>
+      <active>0</active>
+    </protoaction>
+    <protoaction>
+      <name>CastImplode_Serp</name>
+      <rof>2.000000</rof>
+      <maxrange>50.000000</maxrange>
+      <castpower>Implode</castpower>
+      <castpowertargettype>Unit</castpowertargettype>
+      <type>Attack</type>
+      <rate type="All">1.0</rate>
+      <attackaction>1</attackaction>
+      <chargeaction>1</chargeaction>
+      <anim>RangedAttack</anim>
+      <active>0</active>
+    </protoaction>
+    
+    <protoaction>
+      <!-- rate ist in sekunden. wenn minrante nicht definiert ist wohl 0. -->
+       <!-- convertieren dauert dann ne zufällige zeit zwischen minrate und rate -->
+      <name>Convert</name>
+      <maxrange>3</maxrange>
+      <rate type="LogicalTypeMythUnitNotTitan">200.000000</rate>
+      <rate type="HumanSoldier">100.000000</rate>
+      <rate type="TradeUnit">60.000000</rate>
+      <rate type="LogicalTypeVillagerNotHero">60.000000</rate>
+      <rate type="Building">400.000000</rate>
+      <minrate type="LogicalTypeMythUnitNotTitan">45.000000</minrate>
+      <minrate type="HumanSoldier">15.000000</minrate>
+      <minrate type="TradeUnit">9.000000</minrate>
+      <minrate type="LogicalTypeVillagerNotHero">9.000000</minrate>
+      <minrate type="Building">60.000000</minrate>
+      <chargeaction>1</chargeaction>
+      <active>0</active>
+      <rate type="ArcticWolf">27.500000</rate>
+      <rate type="Aurochs">55.000000</rate>
+      <rate type="Baboon">25.000000</rate>
+      <rate type="Bear">35.000000</rate>
+      <rate type="Boar">45.000000</rate>
+      <rate type="Caribou">30.000000</rate>
+      <rate type="Chicken">25.000000</rate>
+      <rate type="Crocodile">35.000000</rate>
+      <rate type="CrownedCrane">25.000000</rate>
+      <rate type="Deer">30.000000</rate>
+      <rate type="Elephant">90.000000</rate>
+      <rate type="Elk">30.000000</rate>
+      <rate type="Gazelle">30.000000</rate>
+      <rate type="Giraffe">45.000000</rate>
+      <rate type="Hippopotamus">55.000000</rate>
+      <rate type="Hyena">25.000000</rate>
+      <rate type="Lion">25.000000</rate>
+      <rate type="Monkey">25.000000</rate>
+      <rate type="PolarBear">35.000000</rate>
+      <rate type="Rhinoceros">65.000000</rate>
+      <rate type="Walrus">55.000000</rate>
+      <rate type="WaterBuffalo">55.000000</rate>
+      <rate type="Wolf">27.500000</rate>
+      <rate type="Zebra">35.000000</rate>
+      <minrate type="ArcticWolf">27.500000</minrate>
+      <minrate type="Aurochs">55.000000</minrate>
+      <minrate type="Baboon">25.000000</minrate>
+      <minrate type="Bear">35.000000</minrate>
+      <minrate type="Boar">45.000000</minrate>
+      <minrate type="Caribou">30.000000</minrate>
+      <minrate type="Chicken">25.000000</minrate>
+      <minrate type="Crocodile">35.000000</minrate>
+      <minrate type="CrownedCrane">25.000000</minrate>
+      <minrate type="Deer">30.000000</minrate>
+      <minrate type="Elephant">90.000000</minrate>
+      <minrate type="Elk">30.000000</minrate>
+      <minrate type="Gazelle">30.000000</minrate>
+      <minrate type="Giraffe">45.000000</minrate>
+      <minrate type="Hippopotamus">55.000000</minrate>
+      <minrate type="Hyena">25.000000</minrate>
+      <minrate type="Lion">25.000000</minrate>
+      <minrate type="Monkey">25.000000</minrate>
+      <minrate type="PolarBear">35.000000</minrate>
+      <minrate type="Rhinoceros">65.000000</minrate>
+      <minrate type="Walrus">55.000000</minrate>
+      <minrate type="WaterBuffalo">55.000000</minrate>
+      <minrate type="Wolf">27.500000</minrate>
+      <minrate type="Zebra">35.000000</minrate>
+      <conversionprotoid srctype="ArcticWolf">ArcticWolfOfSet</conversionprotoid>
+      <conversionprotoid srctype="Aurochs">AurochsOfSet</conversionprotoid>
+      <conversionprotoid srctype="Baboon">BaboonOfSet</conversionprotoid>
+      <conversionprotoid srctype="Bear">BearOfSet</conversionprotoid>
+      <conversionprotoid srctype="Boar">BoarOfSet</conversionprotoid>
+      <conversionprotoid srctype="Caribou">CaribouOfSet</conversionprotoid>
+      <conversionprotoid srctype="Chicken">ChickenOfSet</conversionprotoid>
+      <conversionprotoid srctype="Crocodile">CrocodileOfSet</conversionprotoid>
+      <conversionprotoid srctype="CrownedCrane">CrownedCraneOfSet</conversionprotoid>
+      <conversionprotoid srctype="Deer">DeerOfSet</conversionprotoid>
+      <conversionprotoid srctype="Elephant">ElephantOfSet</conversionprotoid>
+      <conversionprotoid srctype="Elk">ElkOfSet</conversionprotoid>
+      <conversionprotoid srctype="Gazelle">GazelleOfSet</conversionprotoid>
+      <conversionprotoid srctype="Giraffe">GiraffeOfSet</conversionprotoid>
+      <conversionprotoid srctype="Hippopotamus">HippopotamusOfSet</conversionprotoid>
+      <conversionprotoid srctype="Hyena">HyenaOfSet</conversionprotoid>
+      <conversionprotoid srctype="Lion">LionOfSet</conversionprotoid>
+      <conversionprotoid srctype="Monkey">MonkeyOfSet</conversionprotoid>
+      <conversionprotoid srctype="PolarBear">PolarBearOfSet</conversionprotoid>
+      <conversionprotoid srctype="Rhinoceros">RhinocerosOfSet</conversionprotoid>
+      <conversionprotoid srctype="Walrus">WalrusOfSet</conversionprotoid>
+      <conversionprotoid srctype="WaterBuffalo">WaterBuffaloOfSet</conversionprotoid>
+      <conversionprotoid srctype="Wolf">WolfOfSet</conversionprotoid>
+      <conversionprotoid srctype="Zebra">ZebraOfSet</conversionprotoid>
+      
+      
+    </protoaction>
+  </unit>
+  
+  
+  <!-- has no buildpoints which makes it instantly fully built, which is what we want (but can also use autobuild like asgarth) -->
+  <!-- <unit name="ShrineWandler_Serp"> -->
+    <!-- <displaynameid>STR_BLD_ARMORY_NAME</displaynameid> -->
+    <!-- <rollovertextid>STR_BLD_ARMORY_LR</rollovertextid> -->
+    <!-- <shortrollovertextid>STR_BLD_ARMORY_SR</shortrollovertextid> -->
+    <!-- <icon culture="greek">resources\spc\static_color\buildings\shrine_greek_icon.png</icon> -->
+    <!-- <icon culture="egyptian">resources\spc\static_color\buildings\shrine_egyptian_icon.png</icon> -->
+    <!-- <icon culture="norse">resources\spc\static_color\buildings\shrine_norse_icon.png</icon> -->
+    <!-- <icon culture="atlantean">resources\spc\static_color\buildings\shrine_atlantean_icon.png</icon> -->
+    <!-- <animfile>spc\buildings\shrine\shrine.xml</animfile> -->
+    <!-- <soundsetfile>spc\sfx\buildings\shrine.xml</soundsetfile> -->
+    <!-- <obstructionradiusx>2.0000</obstructionradiusx> -->
+    <!-- <obstructionradiusz>2.0000</obstructionradiusz> -->
+    <!-- <allowedheightvariance>4.0000</allowedheightvariance> -->
+    <!-- <impacttype>Stone</impacttype> -->
+    <!-- <movementtype>land</movementtype> -->
+    <!-- <initialhitpoints>10.0000</initialhitpoints> -->
+    <!-- <maxhitpoints>10.0000</maxhitpoints> -->
+    <!-- <buildlimit>1</buildlimit> -->
+    <!-- <los>9.0000</los> -->
+    <!-- <armor type="Hack" value="0.0000"> -->
+    <!-- </armor> -->
+    <!-- <armor type="Pierce" value="0.0000"> -->
+    <!-- </armor> -->
+    <!-- <armor type="Crush" value="0.0000"> -->
+    <!-- </armor> -->
+    <!-- <unittype>LogicalTypeHandUnitsAutoAttack</unittype> -->
+    <!-- <unittype>LogicalTypeBuildingsNotWalls</unittype> -->
+    <!-- <unittype>LogicalTypeRangedUnitsAutoAttack</unittype> -->
+    <!-- <unittype>LogicalTypeVillagersAttack</unittype> -->
+    <!-- <unittype>LogicalTypeHandUnitsAttack</unittype> -->
+    <!-- <unittype>LogicalTypeRangedUnitsAttack</unittype> -->
+    <!-- <unittype>BuildingClass</unittype> -->
+    <!-- <unittype>Building</unittype> -->
+    <!-- <unittype>LogicalTypeEarthquakeAttack</unittype> -->
+    <!-- <unittype>LogicalTypeAffectedByRestoration</unittype> -->
+    <!-- <unittype>LogicalTypeValidMeteorTarget</unittype> -->
+    <!-- <unittype>LogicalTypeValidTornadoAttack</unittype> -->
+    <!-- <unittype>LogicalTypeTartarianGateValidOverlapPlacement</unittype> -->
+    <!-- <unittype>LogicalTypeMinimapFilterEconomic</unittype> -->
+    <!-- <unittype>LogicalTypeBuildingThatCanBeEmpowered</unittype> -->
+    <!-- <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype> -->
+    <!-- <unittype>LogicalTypeBuildingSmall</unittype> -->
+    <!-- <tech row="3" column="0">TechCategoryStats_WandlerSerp</tech> -->
+    <!-- <tech row="3" column="1">TechCategoryPassives_WandlerSerp</tech> -->
+    <!-- <tech row="3" column="2">TechCategoryAutomaticAbilities_WandlerSerp</tech> -->
+    <!-- <tech row="3" column="3">TechCategoryGodPowers_WandlerSerp</tech> -->
+    <!-- <tech row="3" column="4">ResetWandlerStats_Serp</tech> -->
+    <!-- <command row="3" column="5">Delete</command> -->
+    <!-- <flag>ObscuresUnits</flag> -->
+    <!-- <flag>NonAutoFormedUnit</flag> -->
+    <!-- <flag>Immoveable</flag> -->
+    <!-- <flag>Doppled</flag> -->
+    <!-- <flag>NoIdleActions</flag> -->
+    <!-- <flag>CollidesWithProjectiles</flag> -->
+    <!-- <flag>SelectWithObstruction</flag> -->
+    <!-- <flag>PaintTextureWhenPlacing</flag> -->
+    <!-- <flag>FlattenGround</flag> -->
+    <!-- <flag>DynamicUpdate</flag> -->
+  <!-- </unit> -->
+  
+  
+  <unit name="WandlerPhoenixEgg_Serp">
+    <displaynameid>STR_UNIT_PHOENIX_EGG_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_PHOENIX_EGG_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_PHOENIX_EGG_SR</shortrollovertextid>
+    <icon>resources\egyptian\player_color\units\phoenix_egg_icon.png</icon>
+    <animfile>egyptian\units\myth\phoenix\phoenix_egg.xml</animfile>
+    <soundsetfile>egyptian\vo\phoenix_egg\phoenix_egg.xml</soundsetfile>
+    <obstructionradiusx>0.9900</obstructionradiusx>
+    <obstructionradiusz>0.9900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>Passive</unitaitype>
+    <movementtype>land</movementtype>
+    <initialhitpoints>400.0000</initialhitpoints>
+    <maxhitpoints>400.0000</maxhitpoints>
+    <weightclass>7</weightclass>
+    <populationcount>0</populationcount>
+    <los>16.0000</los>
+    <armor type="Hack" value="0.1000">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.0500">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeMythicMythUnit</unittype>
+    <unittype>Unit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>DisplayQueue</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>AbstractWandlerUnitAndEggInitialSerp</unittype>
+    <unittype>AbstractWandlerUnitAndEggSerp</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>PushPlacement</flag>
+    <flag>NoIdleActions</flag>
+    <!-- # removed via tech after upgrade to hero -->
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <!-- # added after upgrade to hero via tech -->
+    <!-- <unittype>LogicalTypeSharedHeroSelection</unittype> -->
+    <!-- <unittype>MajorHero</unittype> -->
+    <!-- <unittype>LogicalTypeFindMilitaryHero</unittype> -->
+    <!-- <unittype>Hero</unittype> -->
+    <flag>ForceSecondPage</flag>
+    <flag>MilitaryUIDefault</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>AutoCommandStartDisabled</flag>
+    <flag>AlwaysAllowOverPopCap</flag>
+    <command row="3" column="5">Delete</command>
+    <tech row="2" column="0">TechCategoryStats_WandlerSerp</tech>
+    <tech row="2" column="1">TechCategoryPassives_WandlerSerp</tech>
+    <tech row="2" column="2">TechCategoryAutomaticAbilities_WandlerSerp</tech>
+    <tech row="2" column="3">TechCategoryGodPowers_WandlerSerp</tech>
+    <!-- <tech row="2" column="4"></tech> -->
+    <tech row="2" column="5">ResetWandlerStats_Serp</tech>
+    <tactics>wandlerphoenix_egg_serp.tactics</tactics>
+  </unit>
+  
+  
+</protomods>

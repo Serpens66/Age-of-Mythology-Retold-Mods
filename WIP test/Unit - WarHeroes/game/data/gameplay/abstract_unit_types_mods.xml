@@ -1,0 +1,4 @@
+<abstractunittypesmods>
+  <abstractunittype mergeMode="add">AbstractWarHeroUnitSerp</abstractunittype>
+  <abstractunittype mergeMode="add">AbstractWarHeroUnitAndEggSerp</abstractunittype>
+</abstractunittypesmods>

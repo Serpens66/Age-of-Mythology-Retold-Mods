@@ -1,0 +1,46 @@
+<tactics>
+  <action>
+    <name stringid="STR_ACTION_HAND">HandAttack</name>
+    <type>Attack</type>
+    <rate type="All">1.0</rate>
+    <attackaction>1</attackaction>
+    <handlogic>1</handlogic>
+    <anim>HandAttack</anim>
+    <onhiteffect type="Snare" duration="2" rate="0.85">
+    </onhiteffect>
+    <impacteffect>effects\impacts\hack</impacteffect>
+  </action>
+  <action>
+    <name>IncreaseDamageFenris_Serp</name>
+    <type>AutoRangedModify</type>
+    <modifyprotoid>FenrisWolfBrood</modifyprotoid>
+    <!-- <modifyprotoid>Berserk</modifyprotoid> -->
+    <persistent>1</persistent>
+    <!-- <modifytype>DamageSpecific</modifytype> -->
+    <!-- <modifydamagetype>Hack</modifydamagetype> -->
+    <!-- <modifyexponent>1.0</modifyexponent> -->
+    <!-- <modifybase>1.0</modifybase> -->
+    
+    
+    <maxrange>25</maxrange>
+    <persistent>1</persistent>
+    <modifytype>Damage</modifytype>
+    <modifymultiplier>1.20</modifymultiplier>
+    
+  </action>
+  <action>
+    <name>IncreaseSpeedFenris_Serp</name>
+    <type>AutoRangedModify</type>
+    <modifyprotoid>FenrisWolfBrood</modifyprotoid>
+    <persistent>1</persistent>
+    <modifytype>Speed</modifytype>
+    <maxrange>25</maxrange>
+    <!-- <modifyexponent>1.0</modifyexponent> -->
+    <!-- <modifybase>1.0</modifybase> -->
+    
+    
+    <modifymultiplier>1.25</modifymultiplier>
+    
+  </action>
+  <tactic>Default<action priority="100">HandAttack</action><action>IncreaseDamageFenris_Serp</action><action>IncreaseSpeedFenris_Serp</action><attacktype>LogicalTypeHandUnitsAttack</attacktype><autoattacktype>LogicalTypeHandUnitsAutoAttack</autoattacktype><attackresponsetype>LogicalTypeHandUnitsAttack</attackresponsetype></tactic>
+</tactics>

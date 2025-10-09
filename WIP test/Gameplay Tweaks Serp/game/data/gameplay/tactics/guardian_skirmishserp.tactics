@@ -1,0 +1,26 @@
+<tactics>
+  <action>
+    <name stringid="STR_ACTION_HAND">HandAttack</name>
+    <type>Attack</type>
+    <rate type="All">1.0</rate>
+    <attackaction>1</attackaction>
+    <handlogic>1</handlogic>
+    <anim>HandAttack</anim>
+    <onhiteffect type="Snare" duration="2" rate="0.85">
+    </onhiteffect>
+    <impacteffect>effects\impacts\crush</impacteffect>
+  </action>
+  <action>
+    <name stringid="STR_ACTION_CHARGE_HAND">ChargedHandAttack</name>
+    <type>Attack</type>
+    <rate type="Unit">1.0</rate>
+    <attackaction>1</attackaction>
+    <chargeaction>1</chargeaction>
+    <handlogic>1</handlogic>
+    <anim>ChargedHandAttack</anim>
+    <impacteffect>effects\impacts\crush</impacteffect>
+    <castpower>AbilityGuardianBolt_SkirmishSerp</castpower>
+    <castpowertargettype>Unit</castpowertargettype>
+  </action>
+  <tactic>Default<action priority="100">ChargedHandAttack</action><action priority="90">HandAttack</action><attacktype>LogicalTypeHandUnitsAttack</attacktype><autoattacktype>LogicalTypeHandUnitsAutoAttack</autoattacktype><attackresponsetype>LogicalTypeHandUnitsAttack</attackresponsetype></tactic>
+</tactics>
