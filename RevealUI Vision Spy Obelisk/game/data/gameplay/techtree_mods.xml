@@ -1,0 +1,36 @@
+<techtreemods>
+  
+  <tech name="AlwaysStuff_VisionSpySerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>3.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <!-- Enable OracleRevealEnemyUI Vision spell from Seth -->
+      <effect type="Data" action="OracleRevealEnemyUI" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">VisionRevealer</target>
+      </effect>
+      <!-- for SpyEye/Obelisk we added the relevant part to protounit -->
+      <effect type="Data" action="OracleRevealEnemyUI" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">SpyEye</target>
+      </effect>
+      <effect type="Data" action="OracleRevealEnemyUI" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">Obelisk</target>
+      </effect>
+      
+      <!-- testing the godpowers -->
+      <!-- <effect type="Data" subtype="GodPower" power="Spy" amount="1.0" cooldown="10" relativity="Absolute"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" subtype="GodPower" power="Vision" amount="1.0" cooldown="10" relativity="Absolute"> -->
+        <!-- <target type="Player"> -->
+        <!-- </target> -->
+      <!-- </effect> -->
+      
+    </effects>
+  </tech>
+  
+  
+</techtreemods>

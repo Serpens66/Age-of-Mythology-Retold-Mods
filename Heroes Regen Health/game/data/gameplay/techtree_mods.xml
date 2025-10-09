@@ -1,0 +1,30 @@
+<techtreemods>
+
+
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- bei manchen sachen hilfts wohl auch n delay zuzufügen, bei anderen schadets.. -->
+  
+  <!-- This overwrites the UnitRegenRate for every hero (doing relativity="Absolute" afterwards adds on top of this value without problems, eg. HeroicRenewal) -->
+  <!-- Some heroes have no regen, others have regen of 1 and some campaign hereoes have regen of 2 in vanilla. So I think 1.5 for all is fine. -->
+        
+  <tech name="AlwaysStuff_HeroRegenSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <effect type="Data" amount="1.50" subtype="UnitRegenRate" relativity="Assign">
+        <target type="ProtoUnit">Hero</target>
+      </effect>
+    </effects>
+  </tech>
+  
+
+  
+
+  
+    
+  
+</techtreemods>

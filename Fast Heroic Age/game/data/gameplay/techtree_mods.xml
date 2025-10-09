@@ -1,0 +1,151 @@
+<techtreemods>
+
+
+  <!-- My thought was, we could simply reduce the costs and ResearchPoints to 0 (which auto-researches them) here and then revert it automatically. -->
+   <!-- but unfortunately the game is not able to revert it.. with percent it multiplies with 0 and to revert it divides by 0, which obviously does not work... -->
+    <!-- relativity=Assign/Override and Absolute seems not to be reverted at all.. or have the same problem of infinite (both Percent/BasePercent have the infinite problem) -->
+   <!-- That means we can not set the values to 0. For Costs its ok to set it to ~1 instead. -->
+    <!-- But for ResearchPoints the game devs had the fantastic idea to only allow auto-research for everything that is obtainable by setting the value to exactly 0.. -->
+     <!-- which can not be reverted... so no auto-research possible (or at least no revert of it..) -->
+      <!-- Only option would be to Assign 0 without revert and then use Override to set it to a new fixed value. But then all techs will have the exact same research time.. -->
+      <!-- So auto-research does not work, but we will make all techs faster/cheaper as long as you are in the previous age.. better than nothing.. -->
+  
+   <!-- YPForceUnapply flag means, that all direct effects listed here are reverted, as soon as the tech is set unobtainable again -->
+   <!-- <flag>Reversible</flag> kann man auch verwenden, das prüft dann die prereqs -->
+    <!-- hat aber dasselbe problem mit */0 -->
+    
+  <tech name="FreeAgeUp_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>YPForceUnapply</flag>
+    <effects>
+      <effect type="Data" amount="0.001" subtype="ResearchPoints" relativity="Percent">
+        <target type="techAll" ignoreageups="" excludetypes="HeroPromotion|ResearchableCommand">
+        </target>
+      </effect>
+      
+      <effect type="Data" amount="0.001" subtype="Cost" resource="Food" relativity="Percent">
+        <target type="techAll" ignoreageups="" excludetypes="HeroPromotion|ResearchableCommand">
+        </target>
+      </effect>
+      <effect type="Data" amount="0.001" subtype="Cost" resource="Gold" relativity="Percent">
+        <target type="techAll" ignoreageups="" excludetypes="HeroPromotion|ResearchableCommand">
+        </target>
+      </effect>
+      <effect type="Data" amount="0.001" subtype="Cost" resource="Wood" relativity="Percent">
+        <target type="techAll" ignoreageups="" excludetypes="HeroPromotion|ResearchableCommand">
+        </target>
+      </effect>
+      <effect type="Data" amount="0.001" subtype="Cost" resource="Favor" relativity="Percent">
+        <target type="techAll" ignoreageups="" excludetypes="HeroPromotion|ResearchableCommand">
+        </target>
+      </effect>
+      
+      <effect type="Data" amount="0.001" subtype="Cost" resource="Food" relativity="Percent">
+        <target type="techWithFlag">AgeUpgrade</target>
+      </effect>
+      <effect type="Data" amount="0.001" subtype="Cost" resource="Gold" relativity="Percent">
+        <target type="techWithFlag">AgeUpgrade</target>
+      </effect>
+      <effect type="Data" amount="0.001" subtype="Cost" resource="Wood" relativity="Percent">
+        <target type="techWithFlag">AgeUpgrade</target>
+      </effect>
+      <effect type="Data" amount="0.001" subtype="ResearchPoints" relativity="Percent">
+        <target type="techWithFlag">AgeUpgrade</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- dont use mergeMode="add" for ArchaicAgeGeneral_Serp, because we may add it in several mods and to not add it multiple times, we want it to default to modify if it already exists -->
+  <tech name="ArchaicAgeGeneral_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <effects>
+      <effect  mergeMode="add" type="TechStatus" status="active">FreeAgeUp_Serp</effect>
+    </effects>
+  </tech>
+  <!-- add our ArchaicAgeGeneral_Serp to ArchaicAgeWeakenUnits, to have it executed for everyone (assuming also every future civ will activate ArchaicAgeWeakenUnits) -->
+  <!-- there is no ArchaicAgeGeneral in the vanilla game.. so we create or own, based on ArchaicAgeWeakenUnits (because this is executed for everyone). -->
+   <!-- we can not use ArchaicAgeWeakenUnits directly, because the effects of it are reverted as soon as reaching classical. -->
+    <!-- that means we wont have ArchaicAgeGeneral_Serp active anymore then, but I think the effects of ArchaicAgeGeneral_Serp should stay -->
+  <tech name="ArchaicAgeWeakenUnits">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">ArchaicAgeGeneral_Serp</effect>
+    </effects>    
+  </tech>
+  
+  
+  <!-- Remove the FreeAgeUp_Serp effect when reaching this age -->
+  <!-- <tech name="ClassicalAgeGeneral"> -->
+  <tech name="HeroicAgeGeneral">
+  <!-- <tech name="MysticAgeGeneral"> -->
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="unobtainable">FreeAgeUp_Serp</effect>
+      
+      <!-- YPForceUnapply sucks HARD! excludetypes are ignored, which makes HeroPromotion|ResearchableCommand overpriced -->
+       <!-- so we have to make them normal again.. -->
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="ResearchPoints" relativity="Percent">
+        <target type="techType">HeroPromotion</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Food" relativity="Percent">
+        <target type="techType">HeroPromotion</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Gold" relativity="Percent">
+        <target type="techType">HeroPromotion</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Wood" relativity="Percent">
+        <target type="techType">HeroPromotion</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Favor" relativity="Percent">
+        <target type="techType">HeroPromotion</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="ResearchPoints" relativity="Percent">
+        <target type="techType">ResearchableCommand</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Food" relativity="Percent">
+        <target type="techType">ResearchableCommand</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Gold" relativity="Percent">
+        <target type="techType">ResearchableCommand</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Wood" relativity="Percent">
+        <target type="techType">ResearchableCommand</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.001" subtype="Cost" resource="Favor" relativity="Percent">
+        <target type="techType">ResearchableCommand</target>
+      </effect>
+      
+    </effects>    
+  </tech>
+  
+  
+  
+  <!-- #################################################################################################### -->
+  <!-- alternative hardcoded code could look like this for every minor god.  And every tech that is related to it should get researchpoints=0 to autoresearch them -->
+   <!-- So I think the general code above is much better -->
+  <!-- <tech name="ClassicalAgeAthena"> -->
+    <!-- <cost resourcetype="Food">0.0000</cost> -->
+    <!-- <cost resourcetype="Gold">0.0000</cost> -->
+    <!-- <cost resourcetype="Wood">0.0000</cost> -->
+    <!-- <researchpoints>0.1000</researchpoints> -->
+    <!-- <prereqs mergeMode="remove"> -->
+    <!-- </prereqs> -->
+  <!-- </tech> -->
+  <!-- <tech name="ClassicalAgeHermes"> -->
+    <!-- <cost resourcetype="Food">0.0000</cost> -->
+    <!-- <cost resourcetype="Gold">0.0000</cost> -->
+    <!-- <cost resourcetype="Wood">0.0000</cost> -->
+    <!-- <researchpoints>0.1000</researchpoints> -->
+    <!-- <prereqs mergeMode="remove"> -->
+    <!-- </prereqs> -->
+  <!-- </tech> -->
+  <!-- <tech name="ClassicalAgeAres"> -->
+    <!-- <cost resourcetype="Food">0.0000</cost> -->
+    <!-- <cost resourcetype="Gold">0.0000</cost> -->
+    <!-- <cost resourcetype="Wood">0.0000</cost> -->
+    <!-- <researchpoints>0.1000</researchpoints> -->
+    <!-- <prereqs mergeMode="remove"> -->
+    <!-- </prereqs> -->
+  <!-- </tech> -->
+    
+  
+</techtreemods>

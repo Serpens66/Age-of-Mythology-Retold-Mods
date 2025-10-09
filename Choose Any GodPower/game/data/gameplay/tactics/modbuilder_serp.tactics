@@ -1,0 +1,48 @@
+<tactics>
+  <action>
+    <name stringid="STR_ACTION_BUILD">Build</name>
+    <type>Build</type>
+    <anim>Build</anim>
+    <maxrange>0.2</maxrange>
+    <rate type="Building">1.0</rate>
+    <typedmaxrange type="Dock">2.0</typedmaxrange>
+    <typedanim type="AbstractFarm">Sow</typedanim>
+    <typedanim type="Excavation">Dig</typedanim>
+    <typedanim type="DigPile">Dig</typedanim>
+  </action>
+  <action>
+    <name stringid="STR_ACTION_REPAIR">Repair</name>
+    <type>Repair</type>
+    <anim>Build</anim>
+    <maxrange>0.2</maxrange>
+    <typedmaxrange type="Dock">2.0</typedmaxrange>
+    <rate type="AbstractWall">0.2500</rate>
+    <rate type="Building">0.5000</rate>
+  </action>
+  <action>
+    <name stringid="STR_ACTION_GATHER">Gather</name>
+    <type>Gather</type>
+    <maxrange>0.5</maxrange>
+    <typedmaxrange type="Dropsite">1.0</typedmaxrange>
+    <rate type="Temple">0.2</rate>
+  </action>
+  <action>
+    <name>HeroGlowOnSelf</name>
+    <type>Modify</type>
+    <persistent>1</persistent>
+    <!-- <modelattachment>vfx\glow\legend_glow_strong.xml</modelattachment> -->
+    <modelattachment>vfx\glow\hero_glow.xml</modelattachment>
+    <ModifySelfOnly>1</ModifySelfOnly>
+    <modelattachmentbone>spine</modelattachmentbone>
+  </action>
+  
+  <tactic>Default
+    <action>Build</action>
+    <action>Repair</action>
+    <action>Gather</action>
+    <action>HeroGlowOnSelf</action>
+    <attackresponsetype>LogicalTypeVillagersAttackResponse</attackresponsetype>
+  </tactic>
+
+  
+</tactics>

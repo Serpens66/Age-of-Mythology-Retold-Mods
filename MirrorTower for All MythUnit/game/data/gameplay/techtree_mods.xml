@@ -1,0 +1,137 @@
+<techtreemods>
+
+  <tech name="AlwaysStuff_MirrorSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">HeroicEnableMirror_Serp</effect>
+      <!-- allow everyone to build it (otherwise they can not build on the construction site..) -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" proto="MirrorTower" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">AbstractVillager</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" proto="MirrorTower" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">LogicalTypeNorseSoldierThatBuilds</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- writing it like this instead of using HeroicAgeGeneral, to also affect savegames which are already Classical or higher -->
+  <tech mergeMode="add" name="HeroicEnableMirror_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>HeroicAge</specificage>
+    </prereqs>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- ################################################################# -->
+  <!-- add MirrorTower to most vanilla techs which affect SentryTower -->
+  
+  <tech name="LightningGeneral">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="BuildPoints" relativity="BasePercent">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="ArchaicAgeEgyptian">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="100.00" subtype="cost" resource="Gold" relativity="Override">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.00" subtype="cost" resource="Wood" relativity="Override">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- at best we would simply replace the current SentryTower entries with AbstractTower -->
+   <!-- but doing this at best compatible to other mods and game updates tinkering with the numbers is nearly impossible -->
+    <!-- (because to replace/remove we have to define the exact amount values, which fails as soon as these get changed) -->
+    <!-- (adding AbstractTower without removing SentryTower would result in 2 times buff for SentryTower) -->
+  <tech name="BallistaTower">
+    <effects>
+      <effect mergeMode="add" type="Data" allactions="1" amount="1.33" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.50" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="ArchaicAgeNorse">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="50.00" subtype="cost" resource="Wood" relativity="Assign">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="810.0" subtype="Hitpoints" relativity="Assign">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="Safeguard">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.25" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="GuardTower">
+    <effects>
+      <effect mergeMode="add" type="Data" allactions="1" amount="1.25" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.35" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="Crenellations">
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="2.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="RelicTowerOfSestus" type="Normal">
+    <effects>
+      <effect mergeMode="add" type="Data" allactions="1" amount="0.40" subtype="DamageBonus" unittype="MythUnit" relativity="Absolute">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- Helios gets some additional buffs for MirrorTower as compensation -->
+  <tech name="MythicAgeHelios">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="BuildLimit" relativity="Absolute">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.1" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">MirrorTower</target>
+      </effect>
+    </effects>
+  </tech>
+    
+  
+</techtreemods>

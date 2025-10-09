@@ -1,0 +1,8 @@
+(Additive Mod)
+- Relics, Settlements and KingOfTheHill Treasury are guarded by slowly respawning mythic units fitting to the highest age and map (80%) or random ones (20% or if map type can not be detected, based on trees).
+- Especially Norse players will profit from this, since they can fight for favor without attacking a player.
+- Settle the settlements or destroy the flags near relics/KotH to stop the spawning.
+- AI might have a little more trouble, since it sends single villagers/heroes to settlements/relics and losses the first small armies, but after a few attempts it usually defeats them.
+- Do not choose a too small map, otherwise it might happen they can attack your start settlement.
+
+If you want to report bugs or feedback, write to User "serp66" in the official "Age of Empires" discord channel.

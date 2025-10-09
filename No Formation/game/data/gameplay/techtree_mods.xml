@@ -1,0 +1,103 @@
+<techtreemods>
+  
+  <!-- Adding/Removing the AutoFormedUnit flag to make all MilitaryUnit ignore formation/use formation -->
+  <!-- (this way they move eg. like villagers) -->
+  
+  
+  
+  <!-- Problem with adding a tech to toggle with CommandAdd: -->
+   <!-- techs refuse to display on units with second page, like all military from Norse player ... -->
+  <!-- Workaround: Instead of adding the tech in visible rows, we will make it invisible (row 255)  -->
+   <!-- and use a command instead , which then will make the tech being researched... -->
+   
+   <!-- new techniques used in this mod (never used in vanilla): -->
+    <!-- ConsoleCommand: <effect type="ConsoleCommand">setSquadMode("Line")</effect>  -->
+    <!-- Command in proto_unit_command_mods: <command>researchTechInSelected("Remove_NonAutoFormedUnit_Serp")</command> -->
+   
+
+  <!-- with an OBTAINABLE+Volatile tech we can start our tech code on new games and on savegames for every civ.  -->
+   <!-- the OBTAINABLE+Volatile tech can not handle prereqs good, so we will change status from other techs in it which will do the prereqs code -->
+  <!-- we use Volatile techs with specificage (instead of adding tickle tech to eg. ClassicalAgeGeneral) to have it compatible to savegames enabling this mod -->
+  <!-- needs the delay for whatever reason to work properly for new and savegames -->
+  <tech mergeMode="add" name="Always_AddNoFormationSerp">
+    <status>OBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <effects>
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" command="CNonAutoFormedUnit_Serp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+    
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="NonAutoFormedUnit_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Remove_NonAutoFormedUnit_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  
+  
+  <tech name="NonAutoFormedUnit_Serp">
+    <status>OBTAINABLE</status>
+    <displaynameid>STR_EDT_FORMCOMNDS</displaynameid>
+		<rollovertextid>STR_EFFECT_ENABLE</rollovertextid>
+    <icon>mod_icons\formation_check.png</icon>
+    <researchpoints>0.1000</researchpoints>
+    <flag>NeverAutoResearch</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      
+      <!-- no clue if there is a command to set squadmode to nothing, tested: "" , nothing, "NoFormation" , "Default", -1   -->
+      <!-- <effect type="ConsoleCommand">setSquadMode("")</effect> -->
+      
+
+      <effect type="Data" amount="0.00" subtype="ProtoUnitFlag" flag="AutoFormedUnit" relativity="Absolute">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" command="CNonAutoFormedUnit_Serp" relativity="Assign">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" command="CRemove_NonAutoFormedUnit_Serp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="Remove_NonAutoFormedUnit_Serp">
+    <status>OBTAINABLE</status>
+    <displaynameid>STR_EDT_FORMCOMNDS</displaynameid>
+		<rollovertextid>STR_EFFECT_DISABLE</rollovertextid>
+    <icon>mod_icons\formation_stop.png</icon>
+    <researchpoints>0.1000</researchpoints>
+    <flag>NeverAutoResearch</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+    
+      <!-- we can set the squadmode to Line to trigger a visible effect immediately after hitting the button... -->
+       <!-- but maybe someone does not want this formation? Ah and it is no immediate effect it it is already Line.. -->
+      <!-- <effect type="ConsoleCommand">setSquadMode("Line")</effect> -->
+      
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="AutoFormedUnit" relativity="Absolute">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>      
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" command="CRemove_NonAutoFormedUnit_Serp" relativity="Assign">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" command="CNonAutoFormedUnit_Serp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+    
+  
+</techtreemods>

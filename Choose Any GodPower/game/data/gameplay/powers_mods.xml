@@ -1,0 +1,107 @@
+<powersmod>
+	
+  
+  <!-- adjust few vanilla godpowers to fit also for other civs -->
+  <!-- Ragnarok: every Villager allowed -->
+  <power name="Ragnarok" type="SwapUnit" godpower="">
+    <abstracttype mergeMode="add" swapto="HeroOfRagnarok">AbstractVillager</abstracttype>
+  </power>
+  <!-- SonOfOsiris: Every Hero allowed (Pharao respawns anyway, so does not really matter) -->
+  <power name="SonOfOsiris" type="SwapUnit" godpower="">
+		<abstractplacementtargettype mergeMode="add">Hero</abstractplacementtargettype>
+    <abstracttype mergeMode="add" swapto="SonOfOsiris">Hero</abstracttype>
+    <explicitlyrestrictedplacementtargettype mergeMode="add">EconomicUnit</explicitlyrestrictedplacementtargettype>
+  </power>
+  
+  
+  <!-- Alternative to Valor for non-atlantean civs -->
+  <!-- without "activetime" the modify lasts forever -->
+   <!-- having at least one time "nostackignorepuid" makes sure you can not target the same unit again -->
+    <!-- small radius to only hit single unit. found no other way (there is also type="SingleUnit", but modelattachment does not work there) -->
+  <!-- to use it as godpower with cooldown, it seems one also have to do the "PowerMaxUses" effect to make it unlimited uses -->
+    <!-- VFXHeroBirth is not played, dont know how to make it work -->
+    <!-- DamageBonus (against MythUnit) is unfortunately no valid ModifyType, so not possible to change it with unitmodify =/ -->
+  <power name="Valor_Other_Serp" type="UnitModify" godpower="">
+    <displaynameid>STR_POWER_VALOR</displaynameid>
+    <rolloverid>STR_POWER_VALOR_LR</rolloverid>
+    <icon>atlantean\static_color\god_powers\valor_icon.png</icon>
+    <unitmodify amount="1.25" apply="multiply" nostackignorepuid="">MaxHP</unitmodify>
+    <unitmodify amount="1.1" apply="multiply" nostackignorepuid="">Damage</unitmodify>
+    <unitmodify amount="1.01" apply="multiply" nostackignorepuid="">GatherRate</unitmodify>
+    <unitmodify amount="1.1" apply="multiply" nostackignorepuid="">BuildRate</unitmodify>
+    <unitmodify amount="1.0" apply="add" nostackignorepuid="">RangeAbsolute</unitmodify>
+    <unitmodify amount="0.07" apply="add" nostackignorepuid="">VisualScale</unitmodify>
+    <powerplayerrelation>Player</powerplayerrelation>
+    <radius>0.1</radius>
+    <placement ally="">Unit</placement>
+    <abstractplacementtargettype>All</abstractplacementtargettype>
+    <abstractattacktargettype>Unit</abstractattacktargettype>
+    <explicitlyrestrictedattacktargettype>Hero</explicitlyrestrictedattacktargettype>
+    <explicitlyrestrictedattacktargettype>Ship</explicitlyrestrictedattacktargettype>
+    <explicitlyrestrictedattacktargettype>MythUnit</explicitlyrestrictedattacktargettype>
+    <explicitlyrestrictedattacktargettype>AbstractTitan</explicitlyrestrictedattacktargettype>
+    <explicitlyrestrictedattacktargettype>Resource</explicitlyrestrictedattacktargettype>
+    <minimapeventtime sendalertto="Ally">10.0</minimapeventtime>
+    <soundset type="StartSound" listenertype="AllExceptCaster">GodPowerStart</soundset>
+    <soundset type="StartSound" listenertype="Caster">BirthHero</soundset>
+
+    <!-- <modelattachment>vfx\glow\hero_glow.xml</modelattachment> -->
+    <modelattachment>vfx\glow\hero_glow_ring.xml</modelattachment>
+    <!-- <modelattachment>vfx\glow\legend_glow_strong.xml</modelattachment> -->
+    <modelattachmentbone>spine</modelattachmentbone>
+    
+    <!-- <largesfxprotoid>VFXHeroBirth</largesfxprotoid> -->
+    <!-- <smallsfxprotoid>VFXHeroBirth</smallsfxprotoid> -->
+    <effectproto>VFXHeroBirth</effectproto>
+    <!-- <vfxproto>VFXHeroBirth</vfxproto> -->
+    
+    <cost>1.0</cost>
+    <repeatcost>1.0</repeatcost>
+    
+  </power>
+  
+  <!-- japanese: -->
+   <!-- adjust ShrineOfTheHunt and Shogun -->
+   <!-- easiest, without creating new units, is to simply convert culture unit/building to japanese unit/building -->
+   
+  <!-- SwapUnit from buildings which have DynamicUpdate Flag often does not work properly -->
+  <!-- RemoveDynamicUpdateDropsite_Serp is done in techtree fiel, effect does not wotk in SwapUnit power. -->
+  <power name="ShrineOfTheHunt" type="SwapUnit" godpower="">
+    
+    <!-- <effect type="TechActivate"> -->
+      <!-- <target type="Tech">RemoveDynamicUpdateDropsite_Serp</target> -->
+    <!-- </effect> -->
+    
+    <abstractplacementtargettype mergeMode="add">Dropsite</abstractplacementtargettype>
+    <abstracttype mergeMode="add" swapto="ShrineOfTheHunt">Dropsite</abstracttype>
+    <explicitlyrestrictedplacementtargettype mergeMode="add">AbstractTownCenter</explicitlyrestrictedplacementtargettype>
+
+    <!-- <effect type="UpdateVisuals" unittype="Dropsite"> -->
+      <!-- <target type="Player"> -->
+      <!-- </target> -->
+    <!-- </effect> -->
+    <!-- <effect type="UpdateVisual" unittype="Dropsite"> -->
+      <!-- <target type="Player"> -->
+      <!-- </target> -->
+    <!-- </effect> -->
+    <!-- <effect type="UpdateVisuals" unittype="ShrineOfTheHunt"> -->
+      <!-- <target type="Player"> -->
+      <!-- </target> -->
+    <!-- </effect> -->
+    <!-- <effect type="UpdateVisual" unittype="ShrineOfTheHunt"> -->
+      <!-- <target type="Player"> -->
+      <!-- </target> -->
+    <!-- </effect> -->
+    
+  </power>
+
+  <power name="Shogun" type="SwapUnit" godpower="">
+    <abstractplacementtargettype mergeMode="add">Hero</abstractplacementtargettype>
+    <abstracttype mergeMode="add" swapto="Shogun">Hero</abstracttype>
+    <explicitlyrestrictedplacementtargettype mergeMode="add">EconomicUnit</explicitlyrestrictedplacementtargettype>
+    <explicitlyrestrictedplacementtargettype mergeMode="add">AbstractPharaoh</explicitlyrestrictedplacementtargettype>
+  </power>
+ 
+ 
+  
+</powersmod>

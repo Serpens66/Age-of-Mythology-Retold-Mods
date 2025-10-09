@@ -1,0 +1,10 @@
+(Additive Mod)
+- doubles the resource amount from all resource sources (unittype=Resource)
+
+The code is written in a way, that it should also affects all resource sources added by game updates or other mods, so no update should be needed.
+And it does not hardcode a fixed value, it multiplies them, so it can stack if you use other mods modifying it.
+
+Known issues:
+- when loading a savegame where this mod was not yet active in, most resources will show their progress bar forever. But this is no problem for new games.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

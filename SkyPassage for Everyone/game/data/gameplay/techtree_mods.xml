@@ -1,0 +1,44 @@
+<techtreemods>
+
+  <tech name="AlwaysStuff_SkyPassage_LowHealth_Serp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">SkyPassage_LowHealth_Serp</target>
+      </effect>
+      <!-- allow everyone to build it (otherwise they can not build on the construction site..) -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" proto="SkyPassage_LowHealth_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">AbstractVillager</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" proto="SkyPassage_LowHealth_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">LogicalTypeNorseSoldierThatBuilds</target>
+      </effect>
+      <effect type="TechStatus" status="obtainable">Disable_SkyPassage_LowHealth_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- disable again if playing Oranos -->
+  <tech mergeMode="add" name="Disable_SkyPassage_LowHealth_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <Civilization>
+        <civName>Oranos</civName>
+      </Civilization>
+    </prereqs>
+    <effects>
+      <effect type="Data" amount="0.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">SkyPassage_LowHealth_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+    
+  
+</techtreemods>

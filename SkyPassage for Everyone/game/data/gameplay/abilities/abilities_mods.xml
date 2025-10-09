@@ -1,0 +1,5 @@
+<abilitiesmods>
+  <skypassage_lowhealth_serp>
+    <ability>SkyPassageDeploy<actioncommand>1</actioncommand><notcastable>true</notcastable></ability>
+  </skypassage_lowhealth_serp>
+</abilitiesmods>

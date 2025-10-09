@@ -1,0 +1,48 @@
+<techtreemods>
+
+
+  <!-- adjusting ModifyTargetLimit for AreaHeal seems not to work..(also ModifyAmount is not what we are looking for) so we have to do it in proto_mods.xml -->
+   <!-- but also increasing this value via tech does not work, so it stay at 2 units if I set this in proto. -->
+    <!-- we can only compensate this with faster healing -->
+  
+  <!-- using AbstractSocketedTownCenter to only affect the owns build on settlements -->
+  
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- bei manchen sachen hilfts wohl auch n delay zuzufügen, bei anderen schadets.. -->
+  <tech name="AlwaysStuff_AreaHealTCSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" action="AreaHeal" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractSocketedTownCenter</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="AreaHeal" amount="4.0" subtype="ModifyRate" relativity="Percent">
+        <target type="ProtoUnit">AbstractSocketedTownCenter</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="FortifiedTownCenter">
+    <effects>
+      <effect mergeMode="add" type="Data" action="AreaHeal" amount="3.0" subtype="ModifyRate" relativity="Percent">
+        <target type="ProtoUnit">AbstractSocketedTownCenter</target>
+      </effect>
+    </effects>    
+  </tech>
+  
+  <!-- compensation, double rate again for this research (it normally enables autoheal at 1/s for all units nearby) -->
+  <tech name="FeastsOfRenown">
+    <effects>
+      <effect mergeMode="add" type="Data" action="AreaHeal" amount="2.0" subtype="ModifyRate" relativity="Percent">
+        <target type="ProtoUnit">AbstractSocketedTownCenter</target>
+      </effect>
+    </effects>
+  </tech>
+  
+    
+  
+</techtreemods>

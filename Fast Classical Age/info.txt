@@ -1,0 +1,11 @@
+(Additive Mod)
+- Allows you to kind of start the game in the Classical Age, by reducing the costs and researchtime of all previous techs and the AgeUp to ~1 (you still have to build the required buildings to age up).
+- The mod is written in a way that it should work for all major/minor gods, also ones added by other mods/game updates. So no update of the mod needed.
+
+Attention:
+- Only works for new started games, not savegames
+- Only enable ONE of my "Fast Age" mods at once, otherwise the techs wont be cheap/fast
+- As soon as reaching the Classical Age, all tech costs/times are reverted back to default, so make sure to research every tech from previous ages first. (Unfortunately the devs added "auto-research" in a way (researchpoints=0), that makes it impossible to revert the auto-research (divide by 0) after reaching the wanted age, so I can not add this)
+
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

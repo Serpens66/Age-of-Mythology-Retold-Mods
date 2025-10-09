@@ -1,0 +1,33 @@
+<!-- no favor gain for norse by attacking the Spawners itself -->
+<!-- can not add bountytargetmultiplier AbstractGuard_Serp to reduce gain when fighting against them, because we mostly did not create new units -->
+ <!-- so it would affect vanilla units also from other players -->
+<civsmods>
+  <civ>
+    <name>Thor</name>
+    <bountyresourceearning>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner1_Serp</excludedtarget>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner2_Serp</excludedtarget>
+    </bountyresourceearning>
+  </civ>
+  <civ>
+    <name>Odin</name>
+    <bountyresourceearning>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner1_Serp</excludedtarget>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner2_Serp</excludedtarget>
+    </bountyresourceearning>
+  </civ>
+  <civ>
+    <name>Loki</name>
+    <bountyresourceearning>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner1_Serp</excludedtarget>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner2_Serp</excludedtarget>
+    </bountyresourceearning>
+  </civ>
+  <civ>
+    <name>Freyr</name>
+    <bountyresourceearning>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner1_Serp</excludedtarget>
+      <excludedtarget mergeMode="add">AbstractGuardSpawner2_Serp</excludedtarget>
+    </bountyresourceearning>
+  </civ>
+</civsmods>

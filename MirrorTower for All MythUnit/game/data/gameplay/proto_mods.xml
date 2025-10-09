@@ -1,0 +1,61 @@
+<protomods>
+
+  <!-- ein versuch sentrytwoer per command in MirrorTower umzuwandeln, aber buttons reagieren nicht, auch nicht in house umwandeln geht -->
+   <!-- und auch VillagerGreek zu VillagerAtlantean geht nciht, button taucht nichtmal auf.. -->
+    <!-- keine ahung... -->
+  <!-- mit Ability DelayedTransform gehts, aber ability wird nicht angezeigt sobald auch nur eine tech im turm ist,  -->
+  <!--  selbst wenns ne andere position ist und auch trotz ForceSecondPage... -->
+  
+  <!-- Daher Lösung jetzt: -->
+   <!-- Dem Turm ein "Baumenü" mit weiteren Türmen zufügen, die als Baustelle platziert werden können! -->
+    <!-- das klappt, aber man muss jeder einheit die es bauen können soll den train eintrag zufügen .. was es schonmal inkompatibel zu neuen Völkern macht... -->
+
+  <!-- note: -->
+   <!-- maxrange is not allowed to be 0, it breaks alot of stuff, especially abilities, if any maxrange is 0... -->
+
+  <!-- add "building MirrorTower" to the SentryTower Menu, because there is enough space left  -->
+    <!-- (while villagers dont have much space and also other mods may add buildings there, which is always incompatible  -->
+    <!-- if two mods occupy the same slot.. so only reason to add it here is to maintain better compatibility to other mods and game updates) -->
+  <unit name="SentryTower">
+    <train row="1" column="0">SentryTower</train>
+    <train row="1" column="1">MirrorTower</train>
+    <!-- build action needed to allow placing the construction site -->
+     <!-- in theory we even could allow SentryTower to actually build it :D -->
+    <protoaction>
+      <name>Build</name>
+      <type>Build</type>
+      <rate type="Building">0.000000</rate>
+      <maxrange>0.001</maxrange>
+      <!-- <rate type="Building">1.000000</rate> -->
+      <!-- <maxrange>10.2</maxrange> -->
+    </protoaction>
+  </unit>
+  
+  <!-- add damage multiplier against MythUnit to MirrorTower -->
+  <!-- and change damagetype to Divine and reduce stats a bit, because we will make it be affected by Tower researches -->
+  <unit name="MirrorTower">
+    <initialhitpoints mergeMode="modify">900.0000</initialhitpoints>
+    <maxhitpoints mergeMode="modify">900.0000</maxhitpoints>
+    <protoaction>
+      <name>BeamAttack</name>
+      <damage mergeMode="remove" type="Pierce"/>
+      <damage mergeMode="add" type="Divine">10.000000</damage>
+      <damagebonus mergeMode="add" type="MythUnit">7.000000</damagebonus>
+      <damagebonus mergeMode="add" type="AbstractTitan">10.000000</damagebonus>
+      <maxrange mergeMode="modify">20.000000</maxrange>
+      <numberbounces mergeMode="add">5</numberbounces>
+    </protoaction>
+    
+    <!-- allow to place more construction sites also from the mirror tower itself -->
+    <train row="1" column="0">SentryTower</train>
+    <train row="1" column="1">MirrorTower</train>
+    <protoaction>
+      <name>Build</name>
+      <type>Build</type>
+      <rate type="Building">0.000000</rate>
+      <maxrange>0.001</maxrange>
+    </protoaction>
+    
+  </unit>
+  
+</protomods>

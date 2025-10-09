@@ -1,0 +1,29 @@
+<protomods>
+  
+  <!-- in vanilla we already have: -->
+  <!-- <protoaction> -->
+    <!-- <name>AreaHeal</name> -->
+    <!-- <maxrange>20</maxrange> -->
+    <!-- <modifyamount>1.0</modifyamount> -->
+    <!-- <slowhealmultiplier>0.50</slowhealmultiplier> -->
+  <!-- </protoaction> -->
+  
+   <!-- (without mentioning "mergeMode" with additive modding it defaults to "modify" if it already exists, otherwise it uses "add" -->
+     <!-- luckily it automatically detects the protoaction AreaHeal to change, because I don't know a sytax for this. It does not work yet in the major_gods.xml (always the first civ is changed there) -->
+     
+  <!-- here in proto we only add the limitiation of 2 units at once, because I did not find a way to change this via tech (without modifytargetlimit it is unlimited) -->
+    <!-- it gets enabled and multiplied with 4 (to have 4/s) in techtree file -->
+  <unit name="TownCenter">
+    <protoaction>
+      <name>AreaHeal</name>
+      <modifytargetlimit>2</modifytargetlimit>
+    </protoaction>
+  </unit>
+  <unit name="CitadelCenter">
+    <protoaction>
+      <name>AreaHeal</name>
+      <modifytargetlimit>2</modifytargetlimit>
+    </protoaction>
+  </unit>
+  
+</protomods>

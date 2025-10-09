@@ -1,0 +1,3517 @@
+<techtreemods>
+  
+  
+  
+  
+  <!-- The map type (checking kind of trees) can only be done from view of Nature and I don't know how to transfer this info to the players. -->
+   <!-- This would only be important if the PlentyVaultKOTH spawns guards, since it can change owner to player. -->
+   <!-- But instead we will spawn a spawnhelper always owned by nature next to PlentyVaultKOTH, so all spawns are only done by nature, so it is fine that only nature knows the map type -->
+  
+   
+
+
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- bei manchen sachen hilfts wohl auch n delay zuzufügen, bei anderen schadets.. -->
+  <tech name="AlwaysStuff_GuardsSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>2.0000</delay>
+    <flag>DelayedFirstActivation</flag>    
+    <effects>
+      <!-- test, show UI from everyone -->
+      <!-- <effect type="TechStatus" status="active">Oracle</effect> -->
+      
+      
+      <effect type="TechStatus" status="obtainable">ClassicalAgeGeneral_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">HeroicAgeGeneral_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">MythicAgeGeneral_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">WonderAgeGeneral_GuardsSerp</effect>
+      
+      <effect type="TechStatus" status="obtainable">IsNature_GuardsSerp</effect>
+      
+            
+    </effects>
+  </tech>
+  
+
+  
+  
+  <!-- ################################################################################################################# -->
+  <!-- ################################################################################################################# -->
+  
+  <!-- Start -->
+  
+  <tech name="SuperSlowTrainIn3_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <delay>3.0000</delay>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <effect type="TechStatus" status="active">SuperSlowTrain_GuardsSerp</effect>
+      <effect type="TechStatus" status="unobtainable">SuperSlowTrainIn3_GuardsSerp</effect>
+    </effects>
+  </tech>
+  
+  <!-- super slow train. in AdjustUnitsNature_GuardsSerp we made it super slow already as default, so its enough to revert InstantTrain_GuardsSerp -->
+  <tech name="SuperSlowTrain_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="TechStatus" status="unobtainable">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+
+  <!-- instant train, to spawn most at once eg on age up -->
+   <!-- for whatever reason this only affects the new units on ageup, not the old ones from previous age?! but is ok -->
+  <tech name="InstantTrain_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>YPForceUnapply</flag>
+    <effects>
+      <effect type="Data" amount="0.00001" subtype="TrainPoints" relativity="Percent">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      <effect type="TechStatus" status="obtainable">SuperSlowTrainIn3_GuardsSerp</effect>
+    </effects>
+  </tech>
+  
+  
+  
+  
+  <!-- does not work with allactions. but is ok, we dont have to disable it anymore, -->
+   <!--  because for whatever reason the queue does not block anymore , so we can continue production of all units -->
+  <tech name="DisableAllSpawns_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <!-- <effect type="Data" allactions="1" amount="0.00" subtype="ActionEnable" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" allactions="1" amount="0.00" subtype="ActionEnable" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target> -->
+      <!-- </effect> -->
+    </effects>
+  </tech>
+  
+  <!-- Enable/Disable spawn from units based on current highest age and map type -->
+  <!-- Norse -->
+  <tech name="NorseArchaicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>3.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <techstatus status="Active">IsNorseMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastArchaic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFimbulwinterWolfSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFimbulwinterWolfSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <!-- add a increasing delay here, just in case we are starting a map were we start at higher age, to ensure correct execution order -->
+  <tech name="NorseClassicalSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsNorseMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastClassical_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTrollSpawn_GuardsSerp</tech>
+        <tech>ActivateValkyrieSpawn_GuardsSerp</tech>
+        <tech>ActivateEinheriSpawn_GuardsSerp</tech>
+        <tech>ActivateDraugrSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTrollSpawn2_GuardsSerp</tech>
+        <tech>ActivateValkyrieSpawn2_GuardsSerp</tech>
+        <tech>ActivateEinheriSpawn2_GuardsSerp</tech>
+        <tech>ActivateDraugrSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="NorseHeroicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>7.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsNorseMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastHeroic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateBattleBoarSpawn_GuardsSerp</tech>
+        <tech>ActivateFrostGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateMountainGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateRockGiantSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateBattleBoarSpawn2_GuardsSerp</tech>
+        <tech>ActivateFrostGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateMountainGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateRockGiantSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="NorseMythicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsNorseMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastMythic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFireGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateFenrisWolfBroodSpawn_GuardsSerp</tech>
+        <tech>ActivateFafnirSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFireGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateFenrisWolfBroodSpawn2_GuardsSerp</tech>
+        <tech>ActivateFafnirSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <!-- Mediterran Greek/Atlantean -->
+  <tech name="MediterranArchaicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>3.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <techstatus status="Active">IsMediterranMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastArchaic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivatePrometheanOffspringSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivatePrometheanOffspringSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <!-- add a increasing delay here, just in case we are starting a map were we start at higher age, to ensure correct execution order -->
+  <tech name="MediterranClassicalSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsMediterranMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastClassical_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateMinotaurSpawn_GuardsSerp</tech>
+        <tech>ActivateCentaurSpawn_GuardsSerp</tech>
+        <tech>ActivateCyclopsSpawn_GuardsSerp</tech>
+        <tech>ActivatePrometheanSpawn_GuardsSerp</tech>
+        <tech>ActivateCaladriaSpawn_GuardsSerp</tech>
+        <tech>ActivateAutomatonSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateMinotaurSpawn2_GuardsSerp</tech>
+        <tech>ActivateCentaurSpawn2_GuardsSerp</tech>
+        <tech>ActivateCyclopsSpawn2_GuardsSerp</tech>
+        <tech>ActivatePrometheanSpawn2_GuardsSerp</tech>
+        <tech>ActivateCaladriaSpawn2_GuardsSerp</tech>
+        <tech>ActivateAutomatonSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="MediterranHeroicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>7.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsMediterranMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastHeroic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateManticoreSpawn_GuardsSerp</tech>
+        <tech>ActivateNemeanLionSpawn_GuardsSerp</tech>
+        <tech>ActivateHydraSpawn_GuardsSerp</tech>
+        <tech>ActivateSatyrSpawn_GuardsSerp</tech>
+        <tech>ActivateDryadSpawn_GuardsSerp</tech>
+        <tech>ActivateStymphalianBirdSpawn_GuardsSerp</tech>
+        <tech>ActivateBehemothSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateManticoreSpawn2_GuardsSerp</tech>
+        <tech>ActivateNemeanLionSpawn2_GuardsSerp</tech>
+        <tech>ActivateHydraSpawn2_GuardsSerp</tech>
+        <tech>ActivateSatyrSpawn2_GuardsSerp</tech>
+        <tech>ActivateDryadSpawn2_GuardsSerp</tech>
+        <tech>ActivateStymphalianBirdSpawn2_GuardsSerp</tech>
+        <tech>ActivateBehemothSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="MediterranMythicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsMediterranMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastMythic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateColossusSpawn_GuardsSerp</tech>
+        <tech>ActivateMedusaSpawn_GuardsSerp</tech>
+        <tech>ActivateChimeraSpawn_GuardsSerp</tech>
+        <tech>ActivateLampadesSpawn_GuardsSerp</tech>
+        <tech>ActivateCentimanusSpawn_GuardsSerp</tech>
+        <tech>ActivateArgusSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateColossusSpawn2_GuardsSerp</tech>
+        <tech>ActivateMedusaSpawn2_GuardsSerp</tech>
+        <tech>ActivateChimeraSpawn2_GuardsSerp</tech>
+        <tech>ActivateLampadesSpawn2_GuardsSerp</tech>
+        <tech>ActivateCentimanusSpawn2_GuardsSerp</tech>
+        <tech>ActivateArgusSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <!-- Underworld -->
+  <tech name="UnderworldArchaicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>3.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnderworldMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastArchaic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateShadePredatorSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateShadePredatorSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <!-- Underworld -->
+  <!-- add a increasing delay here, just in case we are starting a map were we start at higher age, to ensure correct execution order -->
+  <tech name="UnderworldClassicalSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnderworldMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastClassical_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateAnubiteSpawn_GuardsSerp</tech>
+        <tech>ActivatePrometheanSpawn_GuardsSerp</tech>
+        <tech>ActivateDraugrSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateAnubiteSpawn2_GuardsSerp</tech>
+        <tech>ActivatePrometheanSpawn2_GuardsSerp</tech>
+        <tech>ActivateDraugrSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="UnderworldHeroicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>7.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnderworldMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastHeroic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTaotieSpawn_GuardsSerp</tech>
+        <tech>ActivateOniSpawn_GuardsSerp</tech>
+        <tech>ActivateMummySpawn_GuardsSerp</tech>
+        <tech>ActivateLampadesSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTaotieSpawn2_GuardsSerp</tech>
+        <tech>ActivateOniSpawn2_GuardsSerp</tech>
+        <tech>ActivateMummySpawn2_GuardsSerp</tech>
+        <tech>ActivateLampadesSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+   <tech name="UnderworldMythicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnderworldMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastMythic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFireGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateMedusaSpawn_GuardsSerp</tech>
+        <tech>ActivatePhoenixSpawn_GuardsSerp</tech>
+        <tech>ActivateAsuraSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFireGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateMedusaSpawn2_GuardsSerp</tech>
+        <tech>ActivatePhoenixSpawn2_GuardsSerp</tech>
+        <tech>ActivateAsuraSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <!-- Sand -->
+  <tech name="SandArchaicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>3.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <techstatus status="Active">IsSandMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastArchaic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateSerpentPredatorSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateSerpentPredatorSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <!-- add a increasing delay here, just in case we are starting a map were we start at higher age, to ensure correct execution order -->
+  <tech name="SandClassicalSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsSandMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastClassical_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateAnubiteSpawn_GuardsSerp</tech>
+        <tech>ActivateSphinxSpawn_GuardsSerp</tech>
+        <tech>ActivateWadjetSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateAnubiteSpawn2_GuardsSerp</tech>
+        <tech>ActivateSphinxSpawn2_GuardsSerp</tech>
+        <tech>ActivateWadjetSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="SandHeroicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>7.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsSandMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastHeroic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateScarabSpawn_GuardsSerp</tech>
+        <tech>ActivatePetsuchosSpawn_GuardsSerp</tech>
+        <tech>ActivateScorpionManSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateScarabSpawn2_GuardsSerp</tech>
+        <tech>ActivatePetsuchosSpawn2_GuardsSerp</tech>
+        <tech>ActivateScorpionManSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="SandMythicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsSandMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastMythic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateMummySpawn_GuardsSerp</tech>
+        <tech>ActivateAvengerSpawn_GuardsSerp</tech>
+        <tech>ActivatePhoenixSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateMummySpawn2_GuardsSerp</tech>
+        <tech>ActivateAvengerSpawn2_GuardsSerp</tech>
+        <tech>ActivatePhoenixSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  
+  <!-- Japan -->
+  <tech name="JapanArchaicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>3.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <techstatus status="Active">IsJapanMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastArchaic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateKitsuneSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateKitsuneSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="JapanClassicalSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsJapanMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastClassical_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateWanyudoSpawn_GuardsSerp</tech>
+        <tech>ActivateJorogumoSpawn_GuardsSerp</tech>
+        <tech>ActivateKamaitachiSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateWanyudoSpawn2_GuardsSerp</tech>
+        <tech>ActivateJorogumoSpawn2_GuardsSerp</tech>
+        <tech>ActivateKamaitachiSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="JapanHeroicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>7.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsJapanMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastHeroic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTenguSpawn_GuardsSerp</tech>
+        <tech>ActivateRaijuSpawn_GuardsSerp</tech>
+        <tech>ActivateOniSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTenguSpawn2_GuardsSerp</tech>
+        <tech>ActivateRaijuSpawn2_GuardsSerp</tech>
+        <tech>ActivateOniSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="JapanMythicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsJapanMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastMythic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateAsuraSpawn_GuardsSerp</tech>
+        <tech>ActivateOnmorakiSpawn_GuardsSerp</tech>
+        <tech>ActivateShinigamiSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateAsuraSpawn2_GuardsSerp</tech>
+        <tech>ActivateOnmorakiSpawn2_GuardsSerp</tech>
+        <tech>ActivateShinigamiSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  
+  <!-- China -->
+  <tech name="ChinaArchaicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>3.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <techstatus status="Active">IsChinaMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastArchaic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFei_GuardsSerpSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFei_GuardsSerpSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="ChinaClassicalSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsChinaMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastClassical_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateQiLinSpawn_GuardsSerp</tech>
+        <tech>ActivateYaZiSpawn_GuardsSerp</tech>
+        <tech>ActivateQiongQiSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateQiLinSpawn2_GuardsSerp</tech>
+        <tech>ActivateYaZiSpawn2_GuardsSerp</tech>
+        <tech>ActivateQiongQiSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="ChinaHeroicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>7.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsChinaMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastHeroic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTaoWuSpawn_GuardsSerp</tech>
+        <tech>ActivateBaiHuSpawn_GuardsSerp</tech>
+        <tech>ActivateTaoTieSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTaoWuSpawn2_GuardsSerp</tech>
+        <tech>ActivateBaiHuSpawn2_GuardsSerp</tech>
+        <tech>ActivateTaoTieSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="ChinaMythicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsChinaMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastMythic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateQingLongSpawn_GuardsSerp</tech>
+        <tech>ActivateHunDunSpawn_GuardsSerp</tech>
+        <tech>ActivateZhuQueSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateQingLongSpawn2_GuardsSerp</tech>
+        <tech>ActivateHunDunSpawn2_GuardsSerp</tech>
+        <tech>ActivateZhuQueSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  
+  <!-- Random -->
+  <tech name="RandomArchaicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>3.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnknownMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastArchaic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFimbulwinterWolfSpawn_GuardsSerp</tech>
+        <tech>ActivatePrometheanOffspringSpawn_GuardsSerp</tech>
+        <tech>ActivateShadePredatorSpawn_GuardsSerp</tech>
+        <tech>ActivateSerpentPredatorSpawn_GuardsSerp</tech>
+        <tech>ActivateFei_GuardsSerpSpawn_GuardsSerp</tech>
+        <tech>ActivateKitsuneSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFimbulwinterWolfSpawn2_GuardsSerp</tech>
+        <tech>ActivatePrometheanOffspringSpawn2_GuardsSerp</tech>
+        <tech>ActivateShadePredatorSpawn2_GuardsSerp</tech>
+        <tech>ActivateSerpentPredatorSpawn2_GuardsSerp</tech>
+        <tech>ActivateFei_GuardsSerpSpawn2_GuardsSerp</tech>
+        <tech>ActivateKitsuneSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="RandomClassicalSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnknownMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastClassical_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTrollSpawn_GuardsSerp</tech>
+        <tech>ActivateValkyrieSpawn_GuardsSerp</tech>
+        <tech>ActivateEinheriSpawn_GuardsSerp</tech>
+        <tech>ActivateDraugrSpawn_GuardsSerp</tech>
+        <tech>ActivateMinotaurSpawn_GuardsSerp</tech>
+        <tech>ActivateCentaurSpawn_GuardsSerp</tech>
+        <tech>ActivateCyclopsSpawn_GuardsSerp</tech>
+        <tech>ActivateAnubiteSpawn_GuardsSerp</tech>
+        <tech>ActivateSphinxSpawn_GuardsSerp</tech>
+        <tech>ActivateWadjetSpawn_GuardsSerp</tech>
+        <tech>ActivatePrometheanSpawn_GuardsSerp</tech>
+        <tech>ActivateCaladriaSpawn_GuardsSerp</tech>
+        <tech>ActivateAutomatonSpawn_GuardsSerp</tech>
+        <tech>ActivateQiLinSpawn_GuardsSerp</tech>
+        <tech>ActivateYaZiSpawn_GuardsSerp</tech>
+        <tech>ActivateQiongQiSpawn_GuardsSerp</tech>
+        <tech>ActivateWanyudoSpawn_GuardsSerp</tech>
+        <tech>ActivateJorogumoSpawn_GuardsSerp</tech>
+        <tech>ActivateKamaitachiSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateTrollSpawn2_GuardsSerp</tech>
+        <tech>ActivateValkyrieSpawn2_GuardsSerp</tech>
+        <tech>ActivateEinheriSpawn2_GuardsSerp</tech>
+        <tech>ActivateDraugrSpawn2_GuardsSerp</tech>
+        <tech>ActivateMinotaurSpawn2_GuardsSerp</tech>
+        <tech>ActivateCentaurSpawn2_GuardsSerp</tech>
+        <tech>ActivateCyclopsSpawn2_GuardsSerp</tech>
+        <tech>ActivateAnubiteSpawn2_GuardsSerp</tech>
+        <tech>ActivateSphinxSpawn2_GuardsSerp</tech>
+        <tech>ActivateWadjetSpawn2_GuardsSerp</tech>
+        <tech>ActivatePrometheanSpawn2_GuardsSerp</tech>
+        <tech>ActivateCaladriaSpawn2_GuardsSerp</tech>
+        <tech>ActivateAutomatonSpawn2_GuardsSerp</tech>
+        <tech>ActivateQiLinSpawn2_GuardsSerp</tech>
+        <tech>ActivateYaZiSpawn2_GuardsSerp</tech>
+        <tech>ActivateQiongQiSpawn2_GuardsSerp</tech>
+        <tech>ActivateWanyudoSpawn2_GuardsSerp</tech>
+        <tech>ActivateJorogumoSpawn2_GuardsSerp</tech>
+        <tech>ActivateKamaitachiSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="RandomHeroicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>7.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnknownMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastHeroic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateBattleBoarSpawn_GuardsSerp</tech>
+        <tech>ActivateFrostGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateMountainGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateRockGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateManticoreSpawn_GuardsSerp</tech>
+        <tech>ActivateNemeanLionSpawn_GuardsSerp</tech>
+        <tech>ActivateHydraSpawn_GuardsSerp</tech>
+        <tech>ActivateScarabSpawn_GuardsSerp</tech>
+        <tech>ActivatePetsuchosSpawn_GuardsSerp</tech>
+        <tech>ActivateScorpionManSpawn_GuardsSerp</tech>
+        <tech>ActivateSatyrSpawn_GuardsSerp</tech>
+        <tech>ActivateDryadSpawn_GuardsSerp</tech>
+        <tech>ActivateStymphalianBirdSpawn_GuardsSerp</tech>
+        <tech>ActivateBehemothSpawn_GuardsSerp</tech>
+        <tech>ActivateTaoWuSpawn_GuardsSerp</tech>
+        <tech>ActivateBaiHuSpawn_GuardsSerp</tech>
+        <tech>ActivateTaoTieSpawn_GuardsSerp</tech>
+        <tech>ActivateTenguSpawn_GuardsSerp</tech>
+        <tech>ActivateRaijuSpawn_GuardsSerp</tech>
+        <tech>ActivateOniSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateBattleBoarSpawn2_GuardsSerp</tech>
+        <tech>ActivateFrostGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateMountainGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateRockGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateManticoreSpawn2_GuardsSerp</tech>
+        <tech>ActivateNemeanLionSpawn2_GuardsSerp</tech>
+        <tech>ActivateHydraSpawn2_GuardsSerp</tech>
+        <tech>ActivateScarabSpawn2_GuardsSerp</tech>
+        <tech>ActivatePetsuchosSpawn2_GuardsSerp</tech>
+        <tech>ActivateScorpionManSpawn2_GuardsSerp</tech>
+        <tech>ActivateSatyrSpawn2_GuardsSerp</tech>
+        <tech>ActivateDryadSpawn2_GuardsSerp</tech>
+        <tech>ActivateStymphalianBirdSpawn2_GuardsSerp</tech>
+        <tech>ActivateBehemothSpawn2_GuardsSerp</tech>
+        <tech>ActivateTaoWuSpawn2_GuardsSerp</tech>
+        <tech>ActivateBaiHuSpawn2_GuardsSerp</tech>
+        <tech>ActivateTaoTieSpawn2_GuardsSerp</tech>
+        <tech>ActivateTenguSpawn2_GuardsSerp</tech>
+        <tech>ActivateRaijuSpawn2_GuardsSerp</tech>
+        <tech>ActivateOniSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="RandomMythicSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsUnknownMap_GuardsSerp</techstatus>
+      <techstatus status="Active">IsNatureAtLeastMythic_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">DisableAllSpawns_GuardsSerp</effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFireGiantSpawn_GuardsSerp</tech>
+        <tech>ActivateFenrisWolfBroodSpawn_GuardsSerp</tech>
+        <tech>ActivateFafnirSpawn_GuardsSerp</tech>
+        <tech>ActivateColossusSpawn_GuardsSerp</tech>
+        <tech>ActivateMedusaSpawn_GuardsSerp</tech>
+        <tech>ActivateChimeraSpawn_GuardsSerp</tech>
+        <tech>ActivateMummySpawn_GuardsSerp</tech>
+        <tech>ActivateAvengerSpawn_GuardsSerp</tech>
+        <tech>ActivatePhoenixSpawn_GuardsSerp</tech>
+        <tech>ActivateLampadesSpawn_GuardsSerp</tech>
+        <tech>ActivateCentimanusSpawn_GuardsSerp</tech>
+        <tech>ActivateArgusSpawn_GuardsSerp</tech>
+        <tech>ActivateQingLongSpawn_GuardsSerp</tech>
+        <tech>ActivateHunDunSpawn_GuardsSerp</tech>
+        <tech>ActivateZhuQueSpawn_GuardsSerp</tech>
+        <tech>ActivateAsuraSpawn_GuardsSerp</tech>
+        <tech>ActivateOnmorakiSpawn_GuardsSerp</tech>
+        <tech>ActivateShinigamiSpawn_GuardsSerp</tech>
+      </effect>
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>ActivateFireGiantSpawn2_GuardsSerp</tech>
+        <tech>ActivateFenrisWolfBroodSpawn2_GuardsSerp</tech>
+        <tech>ActivateFafnirSpawn2_GuardsSerp</tech>
+        <tech>ActivateColossusSpawn2_GuardsSerp</tech>
+        <tech>ActivateMedusaSpawn2_GuardsSerp</tech>
+        <tech>ActivateChimeraSpawn2_GuardsSerp</tech>
+        <tech>ActivateMummySpawn2_GuardsSerp</tech>
+        <tech>ActivateAvengerSpawn2_GuardsSerp</tech>
+        <tech>ActivatePhoenixSpawn2_GuardsSerp</tech>
+        <tech>ActivateLampadesSpawn2_GuardsSerp</tech>
+        <tech>ActivateCentimanusSpawn2_GuardsSerp</tech>
+        <tech>ActivateArgusSpawn2_GuardsSerp</tech>
+        <tech>ActivateQingLongSpawn2_GuardsSerp</tech>
+        <tech>ActivateHunDunSpawn2_GuardsSerp</tech>
+        <tech>ActivateZhuQueSpawn2_GuardsSerp</tech>
+        <tech>ActivateAsuraSpawn2_GuardsSerp</tech>
+        <tech>ActivateOnmorakiSpawn2_GuardsSerp</tech>
+        <tech>ActivateShinigamiSpawn2_GuardsSerp</tech>
+      </effect>
+      <effect type="TechStatus" status="active">InstantTrain_GuardsSerp</effect>
+    </effects>
+  </tech>
+  
+  
+  
+  
+  
+  <tech name="IsNature_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <delay>0.5000</delay>
+    <initialdelay>0.5000</initialdelay>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="Active">IsNature_Serp</techstatus>
+    </prereqs>
+    <effects>
+      
+      <effect type="TechStatus" status="active">AdjustUnitsNature_GuardsSerp</effect>
+      
+      <effect type="TechStatus" status="obtainable">IsKotHMode_GuardsSerp</effect>
+      
+      <effect type="TechStatus" status="obtainable">IsNatureAtLeastArchaic_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNatureAtLeastClassical_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNatureAtLeastHeroic_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNatureAtLeastMythic_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNatureAtLeastWonder_GuardsSerp</effect>
+      
+      <!-- 20% chance for random spawn and 80% for map based spawn, if we are able to identify map -->
+      <effect type='RandomTech' select='1' status='active'>
+        <tech>CheckMapType_GuardsSerp</tech>
+        <tech>CheckMapType_GuardsSerp</tech>
+        <tech>CheckMapType_GuardsSerp</tech>
+        <tech>CheckMapType_GuardsSerp</tech>
+        <tech>IsUnknownMap_GuardsSerp</tech>
+      </effect>
+      
+      <effect type="TechStatus" status="obtainable">NorseArchaicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">NorseClassicalSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">NorseHeroicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">NorseMythicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">MediterranArchaicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">MediterranClassicalSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">MediterranHeroicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">MediterranMythicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">UnderworldArchaicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">UnderworldClassicalSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">UnderworldHeroicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">UnderworldMythicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">SandArchaicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">SandClassicalSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">SandHeroicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">SandMythicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">JapanArchaicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">JapanClassicalSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">JapanHeroicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">JapanMythicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">ChinaArchaicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">ChinaClassicalSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">ChinaHeroicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">ChinaMythicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">RandomArchaicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">RandomClassicalSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">RandomHeroicSpawn_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">RandomMythicSpawn_GuardsSerp</effect>
+            
+    </effects>
+  </tech>
+  
+  
+  
+  <tech name="AdjustUnitsNature_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <effects>
+      <!-- Adjustments to units owned by nature, so we do not have to make a copy of every single unit in proto (which would suck mega) -->
+      <!-- unfortunately there is no way to adjust stance (initialunitaistance) nor autoattackrange in techtree... -->
+       <!-- so we still have to do some adjustments in proto, but I think it is fine to do it to the original unit instead of a copy, -->
+        <!-- because the stance is overwritten by the players ingame settings anyways, at least for newly trained units. And having it at default at Defensive for units spawned by the map is never bad. -->
+       <!-- I did not notice any real difference setting aistancebasedistance and autoattackrange higher, so I thin it is fine to skip these and not mess with them (autoattackrange has an effect, but default is fine) -->
+      <!-- Also dynamicbuildlimitunittypes is not possible in techtree (only sharedbuildlimit), but we can handle the amount of units by controlling the trainpoints for an amount of time we define in techtree -->
+      <!-- Everything else like unittype, flags, populationcount and so on are done in techtree. -->
+      
+      
+      <effect type="Data" amount="0.00" subtype="PopulationCount" relativity="Override">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      
+      <!-- very slow train time *21 (average train time is like 20 sec, so average every 7 minutes spawning 2 units) -->
+      <!-- <effect type="Data" amount="30.0" subtype="TrainPoints" relativity="Percent"> -->
+      <effect type="Data" amount="21.0" subtype="TrainPoints" relativity="Percent">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="5.00" subtype="WanderDistance" relativity="Override">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="Wanders" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="ForceToNature" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="DoNotQueue" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeAgressiveNatureUnit" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      
+      
+      <!-- make normal damage against Heroes, so its not too easy to kill the guards with heroes -->
+      <effect type="Data" allactions="1" amount="1.0" subtype="DamageBonus" unittype="Hero" relativity="Override">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
+      
+      
+      
+    </effects>
+  </tech>
+  
+  <!-- at game start it belongs to nature, so also only nature will know this all times (and we put it behind IsNature_GuardsSerp, so no one else will know) -->
+  <tech name="IsKotHMode_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>Persistent</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <typecount unit="PlentyVaultKOTH" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <!-- offset is not based on the building, but based on the spawnpoint, which is next to the building -->
+      <!-- x negativer zu machen bewegt Flagge nach unten links und x positiver nach oben rechts -->
+      <!-- z größer zu machen bewegt nach oben links und z kleiner zu machen bewegt nach unten rechts -->
+      <!-- unten links.  -->
+      <effect type="CreateUnit" unit="DestroyableSpawnerVault1_GuardsSerp" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-15.00" y="0.00" z="8.50">
+          </offset>
+        </pattern>
+      </effect>
+      <!-- oben rechts -->
+      <effect type="CreateUnit" unit="DestroyableSpawnerVault1_GuardsSerp" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-2.00" y="0.00" z="7.5">
+          </offset>
+        </pattern>
+      </effect>
+      <!-- oben link -->
+      <effect type="CreateUnit" unit="DestroyableSpawnerVault2_GuardsSerp" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-9.50" y="0.00" z="15.00">
+          </offset>
+        </pattern>
+      </effect>
+      <!-- unten rechts -->
+      <effect type="CreateUnit" unit="DestroyableSpawnerVault2_GuardsSerp" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-8.00" y="0.00" z="1.00">
+          </offset>
+        </pattern>
+      </effect>
+
+      <effect type="TechStatus" status="obtainable">MakeSpawnerImmoveable_GuardsSerp</effect>
+      
+      <effect type="TechStatus" status="obtainable">KotHWonderSpawnMediterran_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">KotHWonderSpawnNorse_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">KotHWonderSpawnSand_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">KotHWonderSpawnUnderworld_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">KotHWonderSpawnChina_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">KotHWonderSpawnJapan_GuardsSerp</effect>
+      
+    </effects>
+  </tech>
+  
+  <tech name="MakeSpawnerImmoveable_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>5.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="Immoveable" relativity="Absolute">
+        <target type="ProtoUnit">DestroyableSpawnerVault1_GuardsSerp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="Immoveable" relativity="Absolute">
+        <target type="ProtoUnit">DestroyableSpawnerVault2_GuardsSerp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="KotHWonderSpawnMediterran_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="active">IsKotHMode_GuardsSerp</techstatus>
+      <techstatus status="active">IsNatureAtLeastWonder_GuardsSerp</techstatus>
+      <techstatus status="active">IsMediterranMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="TitanGaia_GuardsSerp" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <!-- is underworld -->
+  <tech name="KotHWonderSpawnUnderworld_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="active">IsKotHMode_GuardsSerp</techstatus>
+      <techstatus status="active">IsNatureAtLeastWonder_GuardsSerp</techstatus>
+      <techstatus status="active">IsUnderworldMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="TitanKronos_GuardsSerp" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="KotHWonderSpawnNorse_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="active">IsKotHMode_GuardsSerp</techstatus>
+      <techstatus status="active">IsNatureAtLeastWonder_GuardsSerp</techstatus>
+      <techstatus status="active">IsNorseMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="Nidhogg" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-3.00" y="0.00" z="3.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="CreateUnit" unit="KingFolstag_GuardsSerp" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="KotHWonderSpawnSand_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="active">IsKotHMode_GuardsSerp</techstatus>
+      <techstatus status="active">IsNatureAtLeastWonder_GuardsSerp</techstatus>
+      <techstatus status="active">IsSandMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="SonOfOsiris" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-4.00" y="0.00" z="4.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="CreateUnit" unit="SonOfOsiris" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-5.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="CreateUnit" unit="SonOfOsiris" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="KotHWonderSpawnChina_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="active">IsKotHMode_GuardsSerp</techstatus>
+      <techstatus status="active">IsNatureAtLeastWonder_GuardsSerp</techstatus>
+      <techstatus status="active">IsChinaMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="YingLong" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="CreateUnit" unit="YingLong" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-3.00" y="0.00" z="3.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="KotHWonderSpawnJapan_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <delay>9.0</delay>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <techstatus status="active">IsKotHMode_GuardsSerp</techstatus>
+      <techstatus status="active">IsNatureAtLeastWonder_GuardsSerp</techstatus>
+      <techstatus status="active">IsJapanMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="TitanYamataNoOrochi" generator="PlentyVaultKOTH">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- ########################################################################################## -->
+  <!-- ########################################################################################## -->
+  <!-- ########################################################################################## -->
+  
+  <!-- Start -->
+  <!-- also grant nature some tech upgrades, mostly for myth units, over time -->
+  
+  <tech name="IsNatureAtLeastArchaic_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <effects>
+      <effect type="TechStatus" status="active">ArchaicAgeWeakenUnits</effect>
+    </effects>
+  </tech>
+  <tech name="IsNatureAtLeastClassical_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <typecount unit="HelperNatureClassical_GuardsSerp" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">ClassicalAgeGeneral</effect>
+      <effect type="TechStatus" delay='900000' status="active">ThunderingHooves</effect>
+      <!-- Greek -->
+      <effect type="TechStatus" delay='900000' status="active">LabyrinthOfMinos</effect>
+      <effect type="TechStatus" delay='900000' status="active">SylvanLore</effect>
+      <effect type="TechStatus" delay='900000' status="active">WillOfKronos</effect>
+      <!-- Atlantean -->
+      <effect type="TechStatus" delay='900000' status="active">AlluvialClay</effect>
+      <effect type="TechStatus" delay='900000' status="active">HephaestusRevenge</effect>
+      <!-- Caladria has not pgrade I think -->
+      <!-- Egypt -->
+      <effect type="TechStatus" delay='900000' status="active">FeetOfTheJackal</effect>
+      <!-- Wadjet has no tech -->
+      <effect type="TechStatus" delay='900000' status="active">Criosphinx</effect>
+      <effect type="TechStatus" delay='1500000' status="active">Hieracosphinx</effect>
+      <!-- Norse -->
+      <effect type="TechStatus" delay='900000' status="active">Disablot</effect>
+      <effect type="TechStatus" delay='900000' status="active">Gjallarhorn</effect>
+      <effect type="TechStatus" delay='900000' status="active">CaveTroll</effect>
+      <effect type="TechStatus" delay='900000' status="active">Valgaldr</effect>
+      <!-- China -->
+      <effect type="TechStatus" delay='900000' status="active">QiLinsBlessing</effect>
+      <effect type="TechStatus" delay='900000' status="active">SonOfLoong</effect>
+      <effect type="TechStatus" delay='1500000' status="active">RageOfSlaughter</effect>
+      <effect type="TechStatus" delay='900000' status="active">SinisterDefiance</effect>
+      <!-- Japan -->
+      <effect type="TechStatus" delay='900000' status="active">WisdomOfNine</effect>
+      <effect type="TechStatus" delay='900000' status="active">WindSickles</effect>
+      <effect type="TechStatus" delay='900000' status="active">CondemnedSoul</effect>
+      <effect type="TechStatus" delay='900000' status="active">DeadlySnare</effect>
+    </effects>
+  </tech>
+  <tech name="IsNatureAtLeastHeroic_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <typecount unit="HelperNatureHeroic_GuardsSerp" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">HeroicAgeGeneral</effect>
+      <effect type="TechStatus" delay='900000' status="active">Ballistics</effect>
+      <effect type="TechStatus" delay='1500000' status="active">CrimsonLinen</effect>
+      <effect type="TechStatus" delay='2100000' status="active">OniMask</effect>
+      <!-- Greek -->
+      <!-- Manticore has not tech -->
+      <effect type="TechStatus" delay='900000' status="active">RoarOfOrthus</effect>
+      <effect type="TechStatus" delay='900000' status="active">ChthonicRites</effect>
+      <!-- Atlantean -->
+      <effect type="TechStatus" delay='900000' status="active">Gemini</effect>
+      <!-- Behemoth has no tech -->
+      <!-- StymphalianBird has no tech -->
+      <!-- Egypt -->
+      <effect type="TechStatus" delay='900000' status="active">Crocodilopolis</effect>
+      <!-- Scarab has no tech -->
+      <!-- ScorpionMan has no tech -->
+      <!-- Norse -->
+      <effect type="TechStatus" delay='900000' status="active">Rime</effect>
+      <effect type="TechStatus" delay='900000' status="active">Jotuns</effect>
+      <!-- BattleBoar has no tech -->
+      <effect type="TechStatus" delay='900000' status="active">GraniteMaw</effect>
+      <!-- China -->
+      <effect type="TechStatus" delay='900000' status="active">FrenziedDash</effect>
+      <effect type="TechStatus" delay='900000' status="active">BottomlessStomach</effect>
+      <!-- BaiHu has no tech -->
+      <!-- Japan -->
+      <effect type="TechStatus" delay='900000' status="active">AsceticPractices</effect>
+      <effect type="TechStatus" delay='900000' status="active">ThunderousPresence</effect>
+      <effect type="TechStatus" delay='900000' status="active">DeadlyRage</effect>
+    </effects>
+  </tech>
+  <!-- (there was an issue that this (IsNatureAtLeastMythic_GuardsSerp) did not fire correctly, which was related to setting the previous techs (eg. IsNatureAtLeastHeroic_GuardsSerp) to unobtainable. no clue why this causes issues, but its not needed) -->
+  <tech name="IsNatureAtLeastMythic_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <typecount unit="HelperNatureMythic_GuardsSerp" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">MythicAgeGeneral</effect>
+      <effect type="TechStatus" delay='900000' status="active">BurningPitch</effect>
+      <effect type="TechStatus" delay='900000' status="active">MonstrousRage</effect>
+      <effect type="TechStatus" delay='1200000' status="active">Celerity</effect>
+      <effect type="TechStatus" delay='1800000' status="active">MythicRejuvenation</effect>
+      <effect type="TechStatus" delay='2200000' status="active">FlamingBlood</effect>
+      <!-- Greek -->
+      <effect type="TechStatus" delay='900000' status="active">FlamesOfTyphon</effect>
+      <effect type="TechStatus" delay='900000' status="active">HandOfTalos</effect>
+      <effect type="TechStatus" delay='1500000' status="active">ShoulderOfTalos</effect>
+      <effect type="TechStatus" delay='900000' status="active">FaceOfTheGorgon</effect>
+      <!-- Atlantean -->
+      <effect type="TechStatus" delay='900000' status="active">GuardianOfIo</effect>
+      <effect type="TechStatus" delay='900000' status="active">Titanomachy</effect>
+      <effect type="TechStatus" delay='900000' status="active">AsperBlood</effect>
+      <!-- Egypt -->
+      <!-- Avenger has no tech -->
+      <effect type="TechStatus" delay='900000' status="active">AtefCrown</effect>
+      <!-- Phoenix has no tech -->
+      <!-- Norse -->
+      <!-- FenrisWolfBrood has no tech -->
+      <effect type="TechStatus" delay='900000' status="active">GraniteBlood</effect>
+      <!-- Fafnir has no tech -->
+      <!-- China -->
+      <effect type="TechStatus" delay='900000' status="active">RisingTide</effect>
+      <effect type="TechStatus" delay='900000' status="active">PowerOfChaos</effect>
+      <effect type="TechStatus" delay='900000' status="active">SongOfMidsummer</effect>
+      <!-- Japan -->
+      <effect type="TechStatus" delay='900000' status="active">RestlessArmy</effect>
+      <!-- Asura has no tech -->
+      <effect type="TechStatus" delay='900000' status="active">EternalHaunting</effect>
+
+    </effects>
+  </tech>
+  <tech name="IsNatureAtLeastWonder_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <prereqs>
+      <typecount unit="HelperNatureWonder_GuardsSerp" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" delay='300000' status="active">WonderAgeGeneral</effect>
+    </effects>
+  </tech>
+
+  
+  <!-- ############################################################################################ -->
+  <!-- ############################################################################################ -->
+  
+  <!-- Start -->
+  
+  <!-- Activate Spawn Techs, one copy of all for relics+KotH1, one for settlement+KotH2 -->
+   <!-- leider lässt sich modifytargetlimit wohl nicht per Tech ändern, um so die maxmial gespawnde Menge variabel zu ändern -->
+  <tech name="ActivateFimbulwinterWolfSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FimbulwinterWolfSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTrollSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TrollSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateValkyrieSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ValkyrieSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateEinheriSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="EinheriSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateDraugrSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="DraugrSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateBattleBoarSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="BattleBoarSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFrostGiantSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FrostGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMountainGiantSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MountainGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateRockGiantSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="RockGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFireGiantSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FireGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFenrisWolfBroodSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FenrisWolfBroodSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFafnirSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FafnirSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- Greek -->
+  <tech name="ActivateShadePredatorSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ShadePredatorSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMinotaurSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MinotaurSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCentaurSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CentaurSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCyclopsSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CyclopsSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateManticoreSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ManticoreSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateNemeanLionSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="NemeanLionSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateHydraSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="HydraSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateColossusSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ColossusSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMedusaSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MedusaSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateChimeraSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ChimeraSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- Egyptian -->
+  <tech name="ActivateSerpentPredatorSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="SerpentPredatorSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAnubiteSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AnubiteSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateSphinxSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="SphinxSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateWadjetSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="WadjetSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateScarabSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ScarabSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivatePetsuchosSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PetsuchosSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateScorpionManSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ScorpionManSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMummySpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MummySpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAvengerSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AvengerSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivatePhoenixSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PhoenixSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- Atlantean -->
+  <tech name="ActivatePrometheanOffspringSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PrometheanOffspringSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivatePrometheanSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PrometheanSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCaladriaSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CaladriaSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAutomatonSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AutomatonSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateSatyrSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="SatyrSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateDryadSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="DryadSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateStymphalianBirdSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="StymphalianBirdSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateBehemothSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="BehemothSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateLampadesSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="LampadesSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCentimanusSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CentimanusSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateArgusSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ArgusSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- Japanese: -->
+  <tech name="ActivateKitsuneSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="KitsuneSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateWanyudoSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="WanyudoSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateJorogumoSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="JorogumoSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateKamaitachiSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="KamaitachiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTenguSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TenguSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateRaijuSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="RaijuSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateOniSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="OniSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAsuraSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AsuraSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateOnmorakiSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="OnmorakiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateShinigamiSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ShinigamiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- Chinese -->
+  <tech name="ActivateFei_GuardsSerpSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="Fei_GuardsSerpSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateQiLinSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="QiLinSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateYaZiSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="YaZiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateQiongQiSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="QiongQiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTaoWuSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TaoWuSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateBaiHuSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="BaiHuSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTaoTieSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TaoTieSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateQingLongSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="QingLongSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateHunDunSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="HunDunSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateZhuQueSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ZhuQueSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+
+  
+  <!-- Heroes -->
+  <tech name="ActivateKingFolstag_GuardsSerpSpawn_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" action="KingFolstag_GuardsSerpSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner1_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- ## -->
+  
+  
+  <tech name="ActivateFimbulwinterWolfSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FimbulwinterWolfSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTrollSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TrollSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateValkyrieSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ValkyrieSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateEinheriSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="EinheriSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateDraugrSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="DraugrSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateBattleBoarSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="BattleBoarSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFrostGiantSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FrostGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMountainGiantSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MountainGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateRockGiantSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="RockGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFireGiantSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FireGiantSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFenrisWolfBroodSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FenrisWolfBroodSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateFafnirSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="FafnirSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- Greek -->
+  <tech name="ActivateShadePredatorSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ShadePredatorSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMinotaurSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MinotaurSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCentaurSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CentaurSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCyclopsSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CyclopsSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateManticoreSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ManticoreSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateNemeanLionSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="NemeanLionSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateHydraSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="HydraSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateColossusSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ColossusSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMedusaSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MedusaSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateChimeraSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ChimeraSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- Egyptian -->
+  <tech name="ActivateSerpentPredatorSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="SerpentPredatorSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAnubiteSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AnubiteSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateSphinxSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="SphinxSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateWadjetSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="WadjetSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateScarabSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ScarabSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivatePetsuchosSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PetsuchosSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateScorpionManSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ScorpionManSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateMummySpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="MummySpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAvengerSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AvengerSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivatePhoenixSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PhoenixSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- Atlantean -->
+  <tech name="ActivatePrometheanOffspringSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PrometheanOffspringSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivatePrometheanSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="PrometheanSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCaladriaSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CaladriaSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAutomatonSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AutomatonSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateSatyrSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="SatyrSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateDryadSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="DryadSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateStymphalianBirdSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="StymphalianBirdSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateBehemothSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="BehemothSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateLampadesSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="LampadesSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateCentimanusSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="CentimanusSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateArgusSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ArgusSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- Japanese: -->
+  <tech name="ActivateKitsuneSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="KitsuneSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateWanyudoSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="WanyudoSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateJorogumoSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="JorogumoSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateKamaitachiSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="KamaitachiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTenguSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TenguSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateRaijuSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="RaijuSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateOniSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="OniSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateAsuraSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="AsuraSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateOnmorakiSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="OnmorakiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateShinigamiSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ShinigamiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- Chinese -->
+  <tech name="ActivateFei_GuardsSerpSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="Fei_GuardsSerpSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateQiLinSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="QiLinSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateYaZiSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="YaZiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateQiongQiSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="QiongQiSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTaoWuSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TaoWuSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateBaiHuSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="BaiHuSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateTaoTieSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="TaoTieSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateQingLongSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="QingLongSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateHunDunSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="HunDunSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="ActivateZhuQueSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <effects>
+      <effect type="Data" action="ZhuQueSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+
+  
+  <!-- Heroes -->
+  <tech name="ActivateKingFolstag_GuardsSerpSpawn2_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>InfiniteTech</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" action="KingFolstag_GuardsSerpSpawn_GuardsSerp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuardSpawner2_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- ########################################################################################## -->
+  <!-- ########################################################################################## -->
+  <!-- ########################################################################################## -->
+  
+  <!-- Start -->
+  <!-- executed for all players, while only non-nature can advance ages. -->
+   <!-- it spawns in invisble helper unit that is ForceToNature. this way the nature can find out if at least one player reached the next age (and can get stronger) -->
+
+  <tech name="ClassicalAgeGeneral_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>ClassicalAge</specificage>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="HelperNatureClassical_GuardsSerp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeGeneral_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>HeroicAge</specificage>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="HelperNatureHeroic_GuardsSerp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeGeneral_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>MythicAge</specificage>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="HelperNatureMythic_GuardsSerp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="WonderAgeGeneral_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>WonderAge</specificage>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="HelperNatureWonder_GuardsSerp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+
+  <!-- ######################################################################### -->
+  <!-- ############# Get Map Type #################### -->
+  
+  <!-- Start -->
+  <!-- only Nature can succeed this check, cause other players do not own any trees. so only nature knows what kind of map is loaded!! -->
+  <!-- Adding Reversible flag to the map techs to make sure it sets them internally to "not obtainable" as soon as they are active, so IsUnknownMap_GuardsSerp can notice it correctly -->
+  
+
+  <tech name="CheckMapType_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsJapanMap_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNotJapanMap_GuardsSerp</effect>
+    </effects>
+  </tech>
+  
+  <!-- ganz wenige TreePine, thats why we check Japan first, so TreePine can be used for IsMediterranMap_GuardsSerp -->
+  <tech name="IsJapanMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>Reversible</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>OrPrereqs</flag>
+    <delay>0.1</delay>
+    <prereqs>
+      <typecount unit="TreePineBuddhist" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreePineBuddhistSnow" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeCherry" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeMaple" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreePineBrown" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+    
+    </effects>
+  </tech>
+  <tech name="IsMediterranMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>Reversible</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>OrPrereqs</flag>
+    <delay>0.1000</delay>
+    <prereqs>
+      <typecount unit="TreeOak" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeCypress" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeOakRound" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeOlive" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreePine" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+    
+    </effects>
+  </tech>
+  <tech name="IsNorseMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>Reversible</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>OrPrereqs</flag>
+    <delay>0.1000</delay>
+    <prereqs>
+      <typecount unit="TreePineSnow" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeCypressSnow" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeTundraSnow" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeTundra" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+    
+    </effects>
+  </tech>
+  <tech name="IsSandMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>Reversible</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>OrPrereqs</flag>
+    <delay>0.1</delay>
+    <prereqs>
+      <typecount unit="TreePalm" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeSavannah" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeSavannahOld" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeMarsh" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+    
+    </effects>
+  </tech>
+  <tech name="IsChinaMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>Reversible</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>OrPrereqs</flag>
+    <delay>0.1</delay>
+    <prereqs>
+      <typecount unit="TreePeach" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeGinkgo" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeGinkgoAutumn" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeBambooSingle" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeBamboo" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeMetasequoia" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeMetasequoiaAutumn" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreePear" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeWillow" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeChinesePine" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="TreeChinesePineDead" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+    
+    </effects>
+  </tech>
+  <tech name="IsUnderworldMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>Reversible</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <delay>0.1</delay>
+    <prereqs>
+      <typecount unit="TreeHades" count="5.00" state="aliveState" operator="gt">
+      </typecount>
+    </prereqs>
+    <effects>
+    
+    </effects>
+  </tech>
+  
+  <!-- Does not work to simply execute them with delay and make other unobtainable after one got active, because once set obtainable -->
+   <!-- and prereqs is true it seems it does not care anymore if it gets unobtainable during delay -->
+   <!-- So we will use this structure to make sure only one of them is set to active -->
+  <tech name="IsNotJapanMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <prereqs>
+      <techstatus status="obtainable">IsJapanMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsMediterranMap_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNotMediterranMap_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="IsNotMediterranMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <prereqs>
+      <techstatus status="obtainable">IsMediterranMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsNorseMap_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNotNorseMap_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="IsNotNorseMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <prereqs>
+      <techstatus status="obtainable">IsNorseMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsSandMap_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNotSandMap_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="IsNotSandMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <prereqs>
+      <techstatus status="obtainable">IsSandMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsChinaMap_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNotChinaMap_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="IsNotChinaMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <prereqs>
+      <techstatus status="obtainable">IsChinaMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsUnderworldMap_GuardsSerp</effect>
+      <effect type="TechStatus" status="obtainable">IsNotUnderworldMap_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="IsNotUnderworldMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <prereqs>
+      <techstatus status="obtainable">IsUnderworldMap_GuardsSerp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">IsUnknownMap_GuardsSerp</effect>
+    </effects>
+  </tech>
+  <tech name="IsUnknownMap_GuardsSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <effects>
+    
+    </effects>
+  </tech>
+  
+  
+  <!-- ########################################################################################################## -->
+  <!-- ########################################################################################################## -->
+  
+  <!-- Start -->
+  <!-- not tested yet if it is MP compatible (maybe desync?) -->
+  
+  <!-- Helper techs to find out which player is human/computer/nature -->
+  <!-- Copy paste all of the below techs into your mod. Do NOT add/change anything from there, also do not add effects (this way many mods can use the very same code without conflict)! -->
+   <!-- Instead use eg prereqs <techstatus status="active">IsHumanPlayer_Serp</techstatus> and so on in your own techs. -->
+   <!-- (use volatile flag if you want them to be executed as soon as prereqs is true ) -->
+  <!-- General Notes: -->
+   <!-- delay is done AFTER checking prereqs!  -->
+   <!-- checking prereqs techstatus=Obtainable is also true after tech was set to active (except for Reversible techs)! -->
+  <tech name="AlwaysCheckPlayers_Serp">
+    <status>OBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <flag>NeverAutoResearch</flag> 
+    <effects>
+      <effect type="TechStatus" status="obtainable">CheckIsHumanPlayer_Serp</effect>
+      <effect type="TechStatus" status="obtainable">CheckIsNature_Serp</effect>
+      <effect type="TechStatus" status="obtainable">DelayedCheckIsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- Add hidden research to every Unit and every Building, so we can for sure research it via ConsoleCommand on every map -->
+   <!-- prints a notification "Huamn is not ready for research" (even if only done for Unit) but still works, so its fine -->
+  <!-- We make use of the fact that AIs can not "select" anything. So if execting player can select and research in selection, it is a human -->
+  <tech name="CheckIsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">Unit</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">Building</target>
+      </effect>
+      <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+      <effect type="ConsoleCommand">uiSelectType("Building", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+    </effects>
+  </tech>
+  <tech name="Check2IsHumanPlayer_Serp">
+    <status>OBTAINABLE</status>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <researchpoints>0.1000</researchpoints>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="active">IsHumanPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- we need an extra tech that is never set to Obtainable, to be able to check in prereqs for IsComputerPlayer_Serp -->
+   <!-- techstatus=unobtainable. Because checking techstatus=Obtainable is also true after tech was set to active! -->
+    <!-- (another workaround for volatile techs would be to use the flag Reversible, which removes the internal obtainable if active) -->
+  <tech name="IsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- checking who is nature player. Instead of only checking typecount for Tree/Resource and so on (which could falsely mark a player, since also players can sometimes own these things) -->
+   <!-- we will spawn a ForceToNature helper object at any Nature thing in the world. Regardless who spawns it, it will be owned by Nature -->
+  <!-- Hint: normally nature does not research anything in the techtree. So to execute sth for Nature, you need a tech that has status Obtainable+delay (so similar to the AlwaysCheckPlayers_Serp tech. Beware currently an Obtainalbe+Volatile tech crashes on startup if it has a prereqs. so make your prereqs techs obtainable in such a AlwaysCheckPlayers_Serp tech instead)  -->
+    <!-- no prereqs in CheckIsNature_Serp, to execute it for everyone, so IsNature_Serp is set to Obtainable for everyone (so IsComputerPlayer_Serp can work) -->
+  <tech name="CheckIsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <!-- Nature does not work, but NatureClass -->
+      <effect type="CreateUnit" unit="BerryBush" generator="NatureClass">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-5.00" y="0.00" z="5.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="TechStatus" status="obtainable">IsNature_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="BerryBush" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+  </tech>
+  <!-- every player which has not IsHumanPlayer_Serp nor IsNature_Serp active after few more seconds, must be an AI -->
+   <!-- we need this extra tech DelayedCheckIsComputerPlayer_Serp, because prereqs are checked before the delay -->
+  <tech name="DelayedCheckIsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>3.0000</delay>
+    <initialdelay>3.0000</initialdelay>
+    <flag>Volatile</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <displaynameid>STR_EDT_PDA_CNTR_COMPUTER</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="unobtainable">IsHumanPlayer_Serp</techstatus>
+      <techstatus status="obtainable">IsNature_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="IsNotNaturePlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+  </tech>
+
+  
+  
+</techtreemods>

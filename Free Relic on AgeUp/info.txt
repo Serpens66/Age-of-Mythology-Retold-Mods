@@ -1,0 +1,6 @@
+(Additive Mod)
+- For every Age Up a random relic spawns near your temple (also one for Archaic Age, but not for WonderAge)
+
+Should work for every civ, also newly added ones without the need to update the mod.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

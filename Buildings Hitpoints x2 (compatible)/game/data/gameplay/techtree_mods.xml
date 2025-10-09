@@ -1,0 +1,96 @@
+<techtreemods>
+  
+  <!-- The code should work for all civs and buildings, also newly added ones by mods or game updates -->
+  
+  <!-- BasePercent vs Percent: -->
+  <!-- Lurker: "Base percent adds the value on the base stats of the units, percent is exponental and adds numerical value to the sum of other multipliers that increased the value." -->
+  <!-- Eg Hitpoints is 750 and we use amount 3 two times with BasePercent: 750 + ((3-1)*750) + ((3-1)*750) = 3750 -->
+   <!-- Or with amount 2 and 0.9: 750 + ((2-1)*750) + ((0.9-1)*750) = 1425 -->
+  
+   
+   <!-- Im Spiel wird bei HitPoints immer BasePercent verwendet, dh. der Standard HP Wert ist relevant. -->
+    <!-- Das erklärt warum die Devs in ArchaicAgeNorse Assign nehmen und nicht einfach 90%.  -->
+     <!-- Aber so riesen Auswirkung wird das eigentlich nicht haben.. -->
+      <!-- dennoch wäre es daher besser, dass wir es bei Assign belassen und unseren Multiplier dann danach ausführen (delay) -->
+  
+  
+  
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  
+  <!-- An extra tech with short delay, to be executed AFTER the ArchaicAgeNorse "Assign" hardcoded HP values to the buildings.. -->
+   <!-- ArmorVulnerability does not work with Assign/Override unfortunately.. so we add like 10% on top, not too much to make sure it does not reach 100% -->
+    <!-- ArmorVulnerability Percent/BasePercent 0.4500 mit amount=0.2 = 0.34 ... und 0.3 mit amount=-0.1 = 0.37 -->
+  <tech mergeMode="add" name="MultiplyBuildingHitPoints_Serp">
+    <status>OBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <effects>
+      
+      <effect type="Data" amount="3.0" subtype="Hitpoints" relativity="Percent">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      <effect type="Data" amount="3.0" action="RangedAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      
+      <effect type="Data" amount="2.0" subtype="Hitpoints" relativity="Percent">
+        <target type="ProtoUnit">AbstractTower</target>
+      </effect>
+      <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractTower</target>
+      </effect>
+      <effect type="Data" amount="2.0" action="RangedAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractTower</target>
+      </effect>
+      <effect type="Data" amount="2.0" action="FlyingUnitAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractTower</target>
+      </effect>
+      <effect type="Data" amount="2.0" action="HandAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractTower</target>
+      </effect>
+      <effect type="Data" amount="2.00" subtype="BuildLimit" relativity="Percent">
+        <target type="ProtoUnit">AbstractTower</target>
+      </effect>
+      
+      <effect type="Data" amount="2.0" subtype="Hitpoints" relativity="Percent">
+        <target type="ProtoUnit">AbstractWall</target>
+      </effect>
+      <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractWall</target>
+      </effect>
+      
+      <effect type="Data" amount="3.0" subtype="Hitpoints" relativity="Percent">
+        <target type="ProtoUnit">AbstractFortress</target>
+      </effect>
+      <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target type="ProtoUnit">AbstractFortress</target>
+      </effect>
+      <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
+        <target type="ProtoUnit">AbstractFortress</target>
+      </effect>
+      <effect type="Data" amount="3.0" action="RangedAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractFortress</target>
+      </effect>
+      <effect type="Data" amount="3.0" action="FlyingUnitAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractFortress</target>
+      </effect>
+      <effect type="Data" amount="3.0" action="HandAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
+        <target type="ProtoUnit">AbstractFortress</target>
+      </effect>
+      <effect type="Data" amount="1.50" subtype="BuildLimit" relativity="Percent">
+        <target type="ProtoUnit">AbstractFortress</target>
+      </effect>
+
+      
+    </effects>
+  </tech>
+ 
+    
+  
+</techtreemods>

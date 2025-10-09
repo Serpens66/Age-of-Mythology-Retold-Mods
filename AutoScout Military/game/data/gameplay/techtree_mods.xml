@@ -1,0 +1,24 @@
+<techtreemods>
+  
+
+  <!-- with an OBTAINABLE+Volatile tech we can start our tech code on new games and on savegames for every civ.  -->
+   <!-- the OBTAINABLE+Volatile tech can not handle prereqs good, so we will change status from other techs in it which will do the prereqs code -->
+  <!-- we use Volatile techs with specificage (instead of adding tickle tech to eg. ClassicalAgeGeneral) to have it compatible to savegames enabling this mod -->
+  <!-- needs the delay for whatever reason to work properly for new and savegames -->
+  <tech mergeMode="add" name="Always_AddAutoScoutSerp">
+    <status>OBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="AutoScout" relativity="Absolute">
+        <target type="ProtoUnit">MilitaryUnit</target>
+      </effect>
+    </effects>
+  </tech>
+  
+ 
+    
+  
+</techtreemods>

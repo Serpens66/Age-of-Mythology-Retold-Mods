@@ -1,0 +1,7 @@
+(Additive Mod)
+- All heroes regenerate 1.5 health per second (overwrites any vanilla value via tech, so for some its an upgrade from 0 or 1, for others a downgrade from 2)
+- researching "Heroic Renewal" tech from Atlantean adds 1.5 health/s on top.
+
+Should work on every hero unit, regardless if from a mod, campaign or game update, since it is applied via a tech for everyone as soon as the game is started.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

@@ -1,0 +1,39 @@
+<protomods>
+  
+  <!-- Make the SentryTower be build on top of WalletConnector like we can build TownCenters on Settlements -->
+  
+  
+  <!-- placementfile wall.xml only limits building near goldmines, we dont want that. -->
+  <!-- and make WallConnector a Socket type (not needed I think, but should not hurt?) -->
+  <unit name="WallConnector">
+    <unittype mergeMode="add">Socket</unittype>
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  <unit name="WallMedium">
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  <unit name="WallLong">
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  <unit name="WallShort">
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  
+  <!-- Limitations I found out while testing socketing: -->
+  <!-- when using the flag UpgradeSocket in the Tower, the socket (WallConnector) requires ForceToNature flag, which makes it owned by nature. -->
+   <!-- UpgradeSocket is luckily only needed if the socket building is bigger in size. But for Tower+Wall its not needed, so we can make it work also without ForceToNature -->
+  <!-- nonsocketplaceprotoid can not be the name of the unit we are currently in. So SentryTower can not have SentryTower as nonsocketplaceprotoid ... so we may need a copy of it. And to prevent having 2 different towers built which could cause update conflicts, we will instead put this copy to place into the wall menu as ability to place. -->
+    <!-- wait .. for whatever reason it now suddenly also works to place the tower as nonsocketplaceprotoid (maybe also because of missing UpdateSocket?) -->
+  <!-- Without PlaceSocketWhenPlacing flag the wall is removed and the tower placed. With it, the wall stays so we will have both at the same position (qhich actually looks quite nice) -->
+  <!-- With RevertToSocketAtZeroHitpoints when the tower is destroyed, that wall appears again, but as a construction site. and when build up again, the placement for another tower on top works a bit different, so better dont use this. -->
+  
+  <unit name="SentryTower">
+    <socketunittype mergeMode="add">WallConnector</socketunittype>
+    <nonsocketplaceprotoid mergeMode="add">SentryTower</nonsocketplaceprotoid>
+    <flag mergeMode="add">SnapPlacement</flag>
+    <flag mergeMode="add">PlaceSocketWhenPlacing</flag>
+  </unit>
+    
+
+  
+</protomods>

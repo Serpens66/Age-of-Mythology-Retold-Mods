@@ -1,0 +1,3886 @@
+<techtreemods>
+
+  <!-- This mod needs update if (or incompatible to mods which do): -->
+   <!-- new powers/major/minor gods are added -->
+   <!-- cooldown of power is changed (is in vanilla in minor god tech, we copied it to our GrantX techs) -->
+   
+
+
+  <!-- wait ~5 seconds, so the IsNature_Serp and so on checks are done -->
+  <!-- we can not use prereqs in this AlwaysStuff tech (can crash and fail because its checked before delay) -->
+  <tech name="AlwaysStuff_AnyPower_Serp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>Volatile</flag>
+    <delay>5.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      
+      <effect type="TechStatus" status="obtainable">ModBuilderRespawn_Serp</effect>
+      
+      <effect type="TechStatus" status="obtainable">GrantBolt_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantSentinel_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantLure_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantRain_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantProsperity_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantVision_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantDwarvenMine_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantGreatHunt_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantSpy_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantGullinbursti_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantDeconstruction_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantShockwave_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantGaiaForest_Serp</effect>
+      
+      <effect type="TechStatus" status="obtainable">GrantThePeachBlossomSpring_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantCreation_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantProsperousSeeds_Serp</effect>
+      
+      <effect type="TechStatus" status="obtainable">GrantSolarShield_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantKusanagi_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GrantNewMoon_Serp</effect>
+      
+      <!-- for manual switching ages. is also done automatically now -->
+      <effect type="TechStatus" status="obtainable">StatueArchaicToClassic_AnyPower_Serp</effect>
+      <effect type="TechStatus" status="obtainable">StatueClassicToHeroic_AnyPower_Serp</effect>
+      <effect type="TechStatus" status="obtainable">StatueHeroicToMythic_AnyPower_Serp</effect>
+      <effect type="TechStatus" status="obtainable">StatueMythicToArchaic_AnyPower_Serp</effect>
+      
+      <effect type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+    <!-- we have to remove DynamicUpdate from Dropsites to allow the SwapUnit GodPower ShrineOfTheHunt to work on them correctly (otherwise they will be invisible and not doing their action) -->
+    <!-- I also tried effect UpdateVisuals in godpower, but this did not help -->
+    <!-- As far as I know it is not a problem to remove DynamicUpdate, it will just cause the graphics to update frequently, while they mostly dont need to do it -->
+  <!-- only solves it for Dropsites built after researching this, because others already stopped updating, while removing DynamicUpdate makes them not stop updating -->
+  <!-- so we have to make this active from the start of the game, not when the player chose the Shrine power... -->
+   <!-- (aging up also makes them show up, but not spawn deers, so one time update is not enough, so we have to remove DynamicUpdate) -->
+  <tech name="RemoveDynamicUpdateDropsite_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>YPForceUnapply</flag>
+    <effects>
+      <effect type="Data" amount="0.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Assign">
+        <target type="ProtoUnit">Dropsite</target>
+      </effect>
+    </effects>
+  </tech>
+  
+
+   <!-- instead of ability transform, its even easier to simply remove/add tech commands to change the options. -->
+    <!-- ability would only be needed if we dont want to change every instance of an object. but for this AnyPower-Statue its ok to change every instance, since there is only one -->
+   <!-- with space left for the 5th civ -->
+  <tech name="StatueArchaicToClassic_AnyPower_Serp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_AGE_CLASSICAL</displaynameid>
+    <icon>resources\shared\static_color\technologies\classical_age_icon.png</icon>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <flag>InfiniteTech</flag>
+    <effects>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantLure_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSentinel_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantBolt_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantRain_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantProsperity_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantVision_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantDwarvenMine_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantGreatHunt_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSpy_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantGullinbursti_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantDeconstruction_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantShockwave_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantGaiaForest_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantThePeachBlossomSpring_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantCreation_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantProsperousSeeds_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSolarShield_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantKusanagi_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantNewMoon_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantRestoration_Serp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantCeaseFire_Serp" row="1" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantPestilence_Serp" row="2" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="0" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantPlagueOfSerpents_Serp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantEclipse_Serp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantShiftingSands_Serp" row="2" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="1" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantForestFire_Serp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantHealingSpring_Serp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantUndermine_Serp" row="2" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantAsgardianBastion_Serp" row="3" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantValor_Serp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantCarnivora_Serp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSpiderLair_Serp" row="2" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantLightningWeapons_Serp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantEarthWall_Serp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantVanish_Serp" row="2" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantShrineOfTheHunt_Serp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantGoshinboku_Serp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSwampland_Serp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <!-- manual age switching -->
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="StatueArchaicToClassic_AnyPower_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="StatueClassicToHeroic_AnyPower_Serp" row="3" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+
+      
+    </effects>
+  </tech>
+  <tech name="StatueClassicToHeroic_AnyPower_Serp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_AGE_HEROIC</displaynameid>
+    <icon>resources\shared\static_color\technologies\heroic_age_icon.png</icon>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <flag>InfiniteTech</flag>
+    <effects>     
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantRestoration_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantCeaseFire_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantPestilence_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantPlagueOfSerpents_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantEclipse_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantShiftingSands_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantForestFire_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantHealingSpring_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantUndermine_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantAsgardianBastion_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantValor_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantCarnivora_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSpiderLair_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantLightningWeapons_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantEarthWall_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantVanish_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantShrineOfTheHunt_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantGoshinboku_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSwampland_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantBronze_Serp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantUnderworldPassage_Serp" row="1" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantCurse_Serp" row="2" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="0" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantCitadel_Serp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantLocustSwarm_Serp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantAncestors_Serp" row="2" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="1" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantFlamingWeapons_Serp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantFrost_Serp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantWalkingWoods_Serp" row="2" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantTempest_Serp" row="3" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantChaos_Serp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantHesperidesTree_Serp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantTraitor_Serp" row="2" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="3" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantForestProtection_Serp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantDroughtLand_Serp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantVenomBeast_Serp" row="2" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="4" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantShogun_Serp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSmitingGust_Serp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantThunderBurst_Serp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="5" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      
+      
+      <!-- manual age switching -->
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="StatueClassicToHeroic_AnyPower_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="StatueHeroicToMythic_AnyPower_Serp" row="3" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  <tech name="StatueHeroicToMythic_AnyPower_Serp">
+    <status>UNOBTAINABLE</status><displaynameid>STR_AGE_MYTHIC</displaynameid>
+    <icon>resources\shared\static_color\technologies\mythic_age_icon.png</icon>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <flag>InfiniteTech</flag>
+    <effects>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantBronze_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantUnderworldPassage_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantCurse_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantCitadel_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantLocustSwarm_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantAncestors_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantFlamingWeapons_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantFrost_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantWalkingWoods_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantTempest_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantChaos_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantHesperidesTree_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantTraitor_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantForestProtection_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantDroughtLand_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantVenomBeast_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantShogun_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSmitingGust_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantThunderBurst_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantPlentyVault_Serp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantLightningStorm_Serp" row="1" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantEarthquake_Serp" row="2" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="0" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSonOfOsiris_Serp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantTornado_Serp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantMeteor_Serp" row="2" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="1" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantNidhogg_Serp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantRagnarok_Serp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantFimbulwinter_Serp" row="2" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantInferno_Serp" row="3" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantTartarianGate_Serp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantVortex_Serp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantImplode_Serp" row="2" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="3" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantGreatFlood_Serp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantYinglongsWrath_Serp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantBlazingPrairie_Serp" row="2" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="4" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSacredGate_Serp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantDragonTyphoon_Serp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantDivineSlash_Serp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="5" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      
+      
+      <!-- manual age switching -->
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="StatueHeroicToMythic_AnyPower_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="StatueMythicToArchaic_AnyPower_Serp" row="3" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  <tech name="StatueMythicToArchaic_AnyPower_Serp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_AGE_ARCHAIC</displaynameid>
+    <icon>resources\shared\static_color\technologies\archaic_age_icon.png</icon>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <flag>InfiniteTech</flag>
+    <effects>      
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantPlentyVault_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantLightningStorm_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantEarthquake_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSonOfOsiris_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantTornado_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantMeteor_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantNidhogg_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantRagnarok_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantFimbulwinter_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantInferno_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantTartarianGate_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantVortex_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantImplode_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantGreatFlood_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantYinglongsWrath_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantBlazingPrairie_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantSacredGate_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantDragonTyphoon_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="GrantDivineSlash_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantLure_Serp" row="0" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSentinel_Serp" row="1" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantBolt_Serp" row="2" column="0" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="0" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantRain_Serp" row="0" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantProsperity_Serp" row="1" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantVision_Serp" row="2" column="1" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="rrrrrrrr" row="3" column="1" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target> -->
+      <!-- </effect> -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantDwarvenMine_Serp" row="0" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantGreatHunt_Serp" row="1" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSpy_Serp" row="2" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantGullinbursti_Serp" row="3" column="2" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantDeconstruction_Serp" row="0" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantShockwave_Serp" row="1" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantGaiaForest_Serp" row="2" column="3" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantThePeachBlossomSpring_Serp" row="0" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantCreation_Serp" row="1" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantProsperousSeeds_Serp" row="2" column="4" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantSolarShield_Serp" row="0" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantKusanagi_Serp" row="1" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="GrantNewMoon_Serp" row="2" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+      
+      <!-- manual age switching -->
+      <effect type="Data" amount="1.00" subtype="CommandRemove" tech="StatueMythicToArchaic_AnyPower_Serp" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="StatueArchaicToClassic_AnyPower_Serp" row="3" column="5" relativity="Assign">
+        <target type="ProtoUnit">StatueAnyPower_Archaic_Serp</target>
+      </effect>
+      
+    </effects>
+  </tech>
+  
+  
+  <!-- ############################## -->
+  <!-- ArchaicAge -->
+  <!-- ############################## -->
+  
+  <tech name="ArchaicAgeZeus">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Bolt" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantBolt_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeHades">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Sentinel" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSentinel_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgePoseidon">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Lure" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantLure_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeRa">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Rain" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantRain_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeIsis">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Prosperity" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantProsperity_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeSet">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Vision" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantVision_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeThor">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="DwarvenMine" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantDwarvenMine_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeOdin">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="GreatHunt" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantGreatHunt_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeLoki">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Spy" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSpy_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeFreyr">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Gullinbursti" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantGullinbursti_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeKronos">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Deconstruction" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantDeconstruction_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeOranos">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Shockwave" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantShockwave_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeGaia">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="GaiaForest" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantGaiaForest_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="ArchaicAgeFuxi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="ThePeachBlossomSpring" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantThePeachBlossomSpring_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeNuwa">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Creation" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantCreation_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeShennong">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="ProsperousSeeds" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantProsperousSeeds_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="ArchaicAgeAmaterasu">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="SolarShield" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSolarShield_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeSusanoo">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Kusanagi" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantKusanagi_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeTsukuyomi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="NewMoon" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantNewMoon_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  
+  <tech name="GrantBolt_Serp">
+    <displaynameid>STR_POWER_BOLT</displaynameid>
+    <rollovertextid>STR_POWER_BOLT_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\bolt_icon.png</icon>
+    <flag>NeverAutoResearch</flag>
+    <status>UNOBTAINABLE</status>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Bolt" amount="1.0" cooldown="90" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantBolt_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantBolt_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantSentinel_Serp">
+    <displaynameid>STR_POWER_SENTINEL</displaynameid>
+    <rollovertextid>STR_POWER_SENTINEL_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\sentinel_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Sentinel" amount="1.0" cooldown="90.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>  
+  <tech name="AI_GrantSentinel_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSentinel_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantLure_Serp">
+    <displaynameid>STR_POWER_LURE</displaynameid>
+    <rollovertextid>STR_POWER_LURE_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\lure_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Lure" amount="1.0" cooldown="60.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantLure_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantLure_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantRain_Serp">
+    <displaynameid>STR_POWER_RAIN</displaynameid>
+    <rollovertextid>STR_POWER_RAIN_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\rain_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Rain" amount="1.0" cooldown="90.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantRain_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantRain_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantProsperity_Serp">
+    <displaynameid>STR_POWER_PROSPERITY</displaynameid>
+    <rollovertextid>STR_POWER_PROSPERITY_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\prosperity_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Prosperity" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantProsperity_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantProsperity_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantVision_Serp">
+    <displaynameid>STR_POWER_VISION</displaynameid>
+    <rollovertextid>STR_POWER_VISION_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\vision_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Vision" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantVision_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantVision_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantDwarvenMine_Serp">
+    <displaynameid>STR_POWER_DWARVEN_MINE</displaynameid>
+    <rollovertextid>STR_POWER_DWARVEN_MINE_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\dwarven_mine_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="DwarvenMine" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantDwarvenMine_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantDwarvenMine_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantGreatHunt_Serp">
+    <displaynameid>STR_POWER_GREAT_HUNT</displaynameid>
+    <rollovertextid>STR_POWER_GREAT_HUNT_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\great_hunt_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="GreatHunt" amount="1.0" cooldown="90.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantGreatHunt_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantGreatHunt_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantSpy_Serp">
+    <displaynameid>STR_POWER_SPY</displaynameid>
+    <rollovertextid>STR_POWER_SPY_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\spy_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Spy" amount="1.0" cooldown="30.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantSpy_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSpy_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantGullinbursti_Serp">
+    <displaynameid>STR_POWER_GULLINBURSTI</displaynameid>
+    <rollovertextid>STR_POWER_GULLINBURSTI_LR</rollovertextid>
+    <icon>resources\norse_freyr\static_color\god_powers\gullinbursti_icon_age1.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Gullinbursti" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantGullinbursti_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantGullinbursti_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantDeconstruction_Serp">
+    <displaynameid>STR_POWER_DECONSTRUCTION</displaynameid>
+    <rollovertextid>STR_POWER_DECONSTRUCTION_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\deconstruction_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Deconstruction" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantDeconstruction_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantDeconstruction_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantShockwave_Serp">
+    <displaynameid>STR_POWER_SHOCKWAVE</displaynameid>
+    <rollovertextid>STR_POWER_SHOCKWAVE_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\shockwave_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Shockwave" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantShockwave_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantShockwave_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantGaiaForest_Serp">
+    <displaynameid>STR_POWER_GAIA_FOREST</displaynameid>
+    <rollovertextid>STR_POWER_GAIA_FOREST_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\gaia_forest_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="GaiaForest" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantGaiaForest_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantGaiaForest_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- chinese -->
+  <tech name="GrantThePeachBlossomSpring_Serp">
+    <displaynameid>STR_POWER_THE_PEACH_BLOSSOM_SPRING</displaynameid>
+    <rollovertextid>STR_POWER_THE_PEACH_BLOSSOM_SPRING_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\the_peach_blossom_spring_power_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="ThePeachBlossomSpring" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantThePeachBlossomSpring_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantThePeachBlossomSpring_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantCreation_Serp">
+    <displaynameid>STR_POWER_CREATION</displaynameid>
+    <rollovertextid>STR_POWER_CREATION_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\creation_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Creation" amount="1.0" cooldown="90.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantCreation_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantCreation_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantProsperousSeeds_Serp">
+    <displaynameid>STR_POWER_PROSPEROUS_SEEDS</displaynameid>
+    <rollovertextid>STR_POWER_PROSPEROUS_SEEDS_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\prosperous_seeds_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="ProsperousSeeds" amount="1.0" cooldown="30.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantProsperousSeeds_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantProsperousSeeds_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- japanes -->
+  <tech name="GrantSolarShield_Serp">
+    <displaynameid>STR_POWER_SOLAR_SHIELD</displaynameid>
+    <rollovertextid>STR_POWER_SOLAR_SHIELD_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\solar_shield_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="SolarShield" amount="1.0" cooldown="45.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantSolarShield_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSolarShield_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantKusanagi_Serp">
+    <displaynameid>STR_POWER_KUSANAGI</displaynameid>
+    <rollovertextid>STR_POWER_KUSANAGI_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\kusanagi_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Kusanagi" amount="1.0" cooldown="90.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantKusanagi_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantKusanagi_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantNewMoon_Serp">
+    <displaynameid>STR_POWER_NEW_MOON</displaynameid>
+    <rollovertextid>STR_POWER_NEW_MOON_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\new_moon_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="NewMoon" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsArchaic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantNewMoon_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantNewMoon_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="RemovePowerTechsArchaic_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="unobtainable">GrantBolt_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSentinel_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantLure_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantRain_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantProsperity_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantVision_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantDwarvenMine_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantGreatHunt_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSpy_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantGullinbursti_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantDeconstruction_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantShockwave_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantGaiaForest_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantThePeachBlossomSpring_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantCreation_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantProsperousSeeds_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSolarShield_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantKusanagi_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantNewMoon_Serp</effect>
+      <!-- automatic switch to next age -->
+      <effect type="TechStatus" status="active">StatueArchaicToClassic_AnyPower_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- ############################## -->
+  <!-- ClassicalAge -->
+  <!-- ############################## -->
+  
+  <tech name="ClassicalAgeGeneral">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantCeaseFire_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantPestilence_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantRestoration_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantPlagueOfSerpents_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantEclipse_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantShiftingSands_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantForestFire_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantHealingSpring_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantUndermine_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantAsgardianBastion_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantValor_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantCarnivora_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantSpiderLair_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantLightningWeapons_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantEarthWall_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantVanish_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantShrineOfTheHunt_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantGoshinboku_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantSwampland_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="ClassicalAgeAthena">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Restoration" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantRestoration_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeHermes">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="CeaseFire" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantCeaseFire_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeAres">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Pestilence" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantPestilence_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeAnubis">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="PlagueOfSerpents" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantPlagueOfSerpents_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeBast">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Eclipse" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantEclipse_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgePtah">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="ShiftingSands" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantShiftingSands_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeFreyja">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="ForestFire" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantForestFire_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeForseti">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="HealingSpring" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantHealingSpring_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeHeimdall">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Undermine" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantUndermine_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeUllr">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="AsgardianBastion" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantAsgardianBastion_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgePrometheus">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Valor" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantValor_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeOceanus">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Carnivora" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantCarnivora_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeLeto">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="SpiderLair" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSpiderLair_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="ClassicalAgeChiyou">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="LightningWeapons" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantLightningWeapons_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeHoutu">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="EarthWall" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantEarthWall_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeXuannu">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Vanish" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantVanish_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="ClassicalAgeMinakatatomi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="ShrineOfTheHunt" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantShrineOfTheHunt_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeAmeNoUzume">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Goshinboku" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantGoshinboku_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ClassicalAgeInariOkami">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Swampland" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSwampland_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="GrantRestoration_Serp">
+    <displaynameid>STR_POWER_RESTORATION</displaynameid>
+    <rollovertextid>STR_POWER_RESTORATION_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\restoration_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Restoration" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantRestoration_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantRestoration_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantCeaseFire_Serp">
+    <displaynameid>STR_POWER_CEASE_FIRE</displaynameid>
+    <rollovertextid>STR_POWER_CEASE_FIRE_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\ceasefire_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="CeaseFire" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantCeaseFire_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantCeaseFire_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantPestilence_Serp">
+    <displaynameid>STR_POWER_PESTILENCE</displaynameid>
+    <rollovertextid>STR_POWER_PESTILENCE_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\pestilence_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Pestilence" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantPestilence_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantPestilence_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantPlagueOfSerpents_Serp">
+    <displaynameid>STR_POWER_PLAGUE_OF_SERPENTS</displaynameid>
+    <rollovertextid>STR_POWER_PLAGUE_OF_SERPENTS_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\plague_of_serpents_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="PlagueOfSerpents" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantPlagueOfSerpents_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantPlagueOfSerpents_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantEclipse_Serp">
+    <displaynameid>STR_POWER_ECLIPSE</displaynameid>
+    <rollovertextid>STR_POWER_ECLIPSE_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\eclipse_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Eclipse" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantEclipse_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantEclipse_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantShiftingSands_Serp">
+    <displaynameid>STR_POWER_SHIFTING_SANDS</displaynameid>
+    <rollovertextid>STR_POWER_SHIFTING_SANDS_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\shifting_sands_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="ShiftingSands" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantShiftingSands_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantShiftingSands_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantForestFire_Serp">
+    <displaynameid>STR_POWER_FOREST_FIRE</displaynameid>
+    <rollovertextid>STR_POWER_FOREST_FIRE_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\forest_fire_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="ForestFire" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantForestFire_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantForestFire_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantHealingSpring_Serp">
+    <displaynameid>STR_POWER_HEALING_SPRING</displaynameid>
+    <rollovertextid>STR_POWER_HEALING_SPRING_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\healing_spring_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="HealingSpring" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantHealingSpring_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantHealingSpring_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantUndermine_Serp">
+    <displaynameid>STR_POWER_UNDERMINE</displaynameid>
+    <rollovertextid>STR_POWER_UNDERMINE_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\undermine_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Undermine" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantUndermine_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantUndermine_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantAsgardianBastion_Serp">
+    <displaynameid>STR_POWER_ASGARDIAN_BASTION</displaynameid>
+    <rollovertextid>STR_POWER_ASGARDIAN_BASTION_LR</rollovertextid>
+    <icon>resources\norse_freyr\static_color\god_powers\asgardian_bastion_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="AsgardianBastion" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantAsgardianBastion_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantAsgardianBastion_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantValor_Serp">
+    <displaynameid>STR_POWER_VALOR</displaynameid>
+    <rollovertextid>STR_POWER_VALOR_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\valor_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GiveValorAtlantean_Serp</effect>
+      <effect type="TechStatus" status="obtainable">GiveValorOther_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active (this way we can check if it is obtainable, which then means it did not went active) -->
+  <tech name="GiveValorAtlantean_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <flag>Reversible</flag>
+    <prereqs>
+      <Culture>
+        <cultureName>Atlantean</cultureName>
+      </Culture>
+    </prereqs>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Valor" amount="1.0" cooldown="30.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+    </effects>
+  </tech>
+  <!-- prereqs are checked before the delay is executed, so we need this helper tech to first wait a second to give Valor if the player is Atlantean -->
+  <tech name="GiveValorOther_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <flag>DelayedFirstActivation</flag>
+    <delay>1.0</delay>
+    <effects>
+      <effect type="TechStatus" status="obtainable">GiveValorOtherFinal_Serp</effect>
+    </effects>
+  </tech>
+  <!-- after the second, we can check if Atlantean tech was executed or not and give the alternative. -->
+  <!-- there is no check "is not active", instead we have to check obtainable, while the tech itself has Reversible flag, which means it is not in obtainable anymore as soon as set to active. -->
+  <tech name="GiveValorOtherFinal_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="obtainable">GiveValorAtlantean_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Valor_Other_Serp" amount="1.0" cooldown="30.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <!-- the alternative needs this for whatever reason to get unlimited with cooldown (otherwise its single-use) -->
+      <effect type="Data" subtype="PowerMaxUses" protopower="Valor_Other_Serp" amount="-1.0" relativity="Assign">
+        <target type="Player">
+        </target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantValor_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantValor_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantCarnivora_Serp">
+    <displaynameid>STR_POWER_CARNIVORA</displaynameid>
+    <rollovertextid>STR_POWER_CARNIVORA_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\carnivora_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Carnivora" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantCarnivora_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantCarnivora_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantSpiderLair_Serp">
+    <displaynameid>STR_POWER_SPIDER_LAIR</displaynameid>
+    <rollovertextid>STR_POWER_SPIDER_LAIR_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\spider_lair_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="SpiderLair" amount="1.0" cooldown="60.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantSpiderLair_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSpiderLair_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="GrantLightningWeapons_Serp">
+    <displaynameid>STR_POWER_LIGHTNING_WEAPONS</displaynameid>
+    <rollovertextid>STR_POWER_LIGHTNING_WEAPONS_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\lightning_weapons_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="LightningWeapons" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantLightningWeapons_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantLightningWeapons_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantEarthWall_Serp">
+    <displaynameid>STR_POWER_EARTH_WALL</displaynameid>
+    <rollovertextid>STR_POWER_EARTH_WALL_LR2</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\earth_wall_power_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="EarthWall" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantEarthWall_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantEarthWall_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantVanish_Serp">
+    <displaynameid>STR_POWER_VANISH</displaynameid>
+    <rollovertextid>STR_POWER_VANISH_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\vanish_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Vanish" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantVanish_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantVanish_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- japanese -->
+  <tech name="GrantShrineOfTheHunt_Serp">
+    <displaynameid>STR_POWER_SHRINE_OF_THE_HUNT</displaynameid>
+    <rollovertextid>STR_POWER_SHRINE_OF_THE_HUNT_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\shrine_of_the_hunt_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="ShrineOfTheHunt" amount="1.0" cooldown="90.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <!-- <effect type="TechStatus" status="active">RemoveDynamicUpdateDropsite_Serp</effect> -->
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantShrineOfTheHunt_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantShrineOfTheHunt_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantGoshinboku_Serp">
+    <displaynameid>STR_POWER_GOSHINBOKU</displaynameid>
+    <rollovertextid>STR_POWER_GOSHINBOKU_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\goshinboku_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Goshinboku" amount="1.0" cooldown="90.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantGoshinboku_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantGoshinboku_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantSwampland_Serp">
+    <displaynameid>STR_POWER_SWAMPLAND</displaynameid>
+    <rollovertextid>STR_POWER_SWAMPLAND_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\swampland_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Swampland" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsClassic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantSwampland_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSwampland_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="RemovePowerTechsClassic_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="unobtainable">GrantCeaseFire_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantPestilence_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantRestoration_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantPlagueOfSerpents_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantEclipse_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantShiftingSands_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantForestFire_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantHealingSpring_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantUndermine_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantAsgardianBastion_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantValor_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantCarnivora_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSpiderLair_Serp</effect>
+      
+      <effect type="TechStatus" status="unobtainable">GrantLightningWeapons_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantEarthWall_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantVanish_Serp</effect>
+      
+      <effect type="TechStatus" status="unobtainable">GrantShrineOfTheHunt_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantGoshinboku_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSwampland_Serp</effect>
+      
+      <!-- automatic switch to next age -->
+      <effect type="TechStatus" status="active">StatueClassicToHeroic_AnyPower_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- ############################## -->
+  <!-- HeroicAge -->
+  <!-- ############################## -->
+  
+  <tech name="HeroicAgeGeneral">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantBronze_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantUnderworldPassage_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantCurse_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantCitadel_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantLocustSwarm_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantAncestors_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantFlamingWeapons_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantFrost_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantWalkingWoods_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantTempest_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantChaos_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantHesperidesTree_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantTraitor_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantForestProtection_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantDroughtLand_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantVenomBeast_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantShogun_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantSmitingGust_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantThunderBurst_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="HeroicAgeDionysus">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Bronze" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantBronze_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeApollo">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="UnderworldPassage" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantUnderworldPassage_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeAphrodite">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Curse" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantCurse_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeSekhmet">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Citadel" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantCitadel_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeSobek">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="LocustSwarm" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantLocustSwarm_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeNephthys">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Ancestors" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantAncestors_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeBragi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="FlamingWeapons" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantFlamingWeapons_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeSkadi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Frost" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantFrost_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeNjord">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="WalkingWoods" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantWalkingWoods_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeAegir">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Tempest" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantTempest_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeHyperion">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Chaos" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantChaos_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeTheia">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="HesperidesTree" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantHesperidesTree_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeRheia">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Traitor" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantTraitor_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="HeroicAgeGoumang">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="ForestProtection" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantForestProtection_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeNuba">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="DroughtLand" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantDroughtLand_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeRushou">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="VenomBeast" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantVenomBeast_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="HeroicAgeHachiman">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Shogun" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantShogun_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeFujin">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="SmitingGust" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSmitingGust_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="HeroicAgeRaijin">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="ThunderBurst" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantThunderBurst_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantBronze_Serp">
+    <displaynameid>STR_POWER_BRONZE</displaynameid>
+    <rollovertextid>STR_POWER_BRONZE_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\bronze_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Bronze" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantBronze_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantBronze_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantUnderworldPassage_Serp">
+    <displaynameid>STR_POWER_UNDERWORLD_PASSAGE</displaynameid>
+    <rollovertextid>STR_POWER_UNDERWORLD_PASSAGE_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\underworld_passage_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="UnderworldPassage" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantUnderworldPassage_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantUnderworldPassage_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantCurse_Serp">
+    <displaynameid>STR_POWER_CURSE</displaynameid>
+    <rollovertextid>STR_POWER_CURSE_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\curse_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Curse" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantCurse_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantCurse_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantCitadel_Serp">
+    <displaynameid>STR_POWER_CITADEL</displaynameid>
+    <rollovertextid>STR_POWER_CITADEL_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\citadel_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Citadel" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantCitadel_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantCitadel_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantLocustSwarm_Serp">
+    <displaynameid>STR_POWER_LOCUST_SWARM</displaynameid>
+    <rollovertextid>STR_POWER_LOCUST_SWARM_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\locust_swarm_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="LocustSwarm" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantLocustSwarm_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantLocustSwarm_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantAncestors_Serp">
+    <displaynameid>STR_POWER_ANCESTORS</displaynameid>
+    <rollovertextid>STR_POWER_ANCESTORS_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\ancestors_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Ancestors" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantAncestors_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantAncestors_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantFlamingWeapons_Serp">
+    <displaynameid>STR_POWER_FLAMING_WEAPONS</displaynameid>
+    <rollovertextid>STR_POWER_FLAMING_WEAPONS_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\flaming_weapons_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="FlamingWeapons" amount="1.0" cooldown="210.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantFlamingWeapons_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantFlamingWeapons_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantFrost_Serp">
+    <displaynameid>STR_POWER_FROST</displaynameid>
+    <rollovertextid>STR_POWER_FROST_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\frost_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Frost" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantFrost_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantFrost_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantWalkingWoods_Serp">
+    <displaynameid>STR_POWER_WALKING_WOODS</displaynameid>
+    <rollovertextid>STR_POWER_WALKING_WOODS_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\walking_woods_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="WalkingWoods" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantWalkingWoods_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantWalkingWoods_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantTempest_Serp">
+    <displaynameid>STR_POWER_TEMPEST</displaynameid>
+    <rollovertextid>STR_POWER_TEMPEST_LR</rollovertextid>
+    <icon>resources\norse_freyr\static_color\god_powers\tempest_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Tempest" amount="1.0" cooldown="150.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantTempest_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantTempest_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantChaos_Serp">
+    <displaynameid>STR_POWER_CHAOS</displaynameid>
+    <rollovertextid>STR_POWER_CHAOS_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\chaos_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Chaos" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantChaos_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantChaos_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantHesperidesTree_Serp">
+    <displaynameid>STR_POWER_HESPERIDES_TREE</displaynameid>
+    <rollovertextid>STR_POWER_HESPERIDES_TREE_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\hesperides_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="HesperidesTree" amount="1.0" cooldown="60.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantHesperidesTree_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantHesperidesTree_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantTraitor_Serp">
+    <displaynameid>STR_POWER_TRAITOR</displaynameid>
+    <rollovertextid>STR_POWER_TRAITOR_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\traitor_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Traitor" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantTraitor_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantTraitor_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="GrantForestProtection_Serp">
+    <displaynameid>STR_POWER_FOREST_PROTECTION</displaynameid>
+    <rollovertextid>STR_POWER_FOREST_PROTECTION_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\forest_protection_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="ForestProtection" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantForestProtection_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantForestProtection_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantDroughtLand_Serp">
+    <displaynameid>STR_POWER_DROUGHT_LAND</displaynameid>
+    <rollovertextid>STR_POWER_DROUGHT_LAND_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\drought_land_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="DroughtLand" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantDroughtLand_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantDroughtLand_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantVenomBeast_Serp">
+    <displaynameid>STR_POWER_VENOM_BEAST</displaynameid>
+    <rollovertextid>STR_POWER_VENOM_BEAST_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\venom_beast_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="VenomBeast" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantVenomBeast_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantVenomBeast_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- jap -->
+  <tech name="GrantShogun_Serp">
+    <displaynameid>STR_POWER_SHOGUN</displaynameid>
+    <rollovertextid>STR_POWER_SHOGUN_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\shogun_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Shogun" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantShogun_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantShogun_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantSmitingGust_Serp">
+    <displaynameid>STR_POWER_SMITING_GUST</displaynameid>
+    <rollovertextid>STR_POWER_SMITING_GUST_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\smiting_gust_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="SmitingGust" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantSmitingGust_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSmitingGust_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantThunderBurst_Serp">
+    <displaynameid>STR_POWER_THUNDER_BURST</displaynameid>
+    <rollovertextid>STR_POWER_THUNDER_BURST_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\thunder_burst_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="ThunderBurst" amount="1.0" cooldown="120.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsHeroic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantThunderBurst_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantThunderBurst_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="RemovePowerTechsHeroic_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="unobtainable">GrantBronze_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantUnderworldPassage_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantCurse_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantCitadel_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantLocustSwarm_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantAncestors_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantFlamingWeapons_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantFrost_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantWalkingWoods_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantTempest_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantChaos_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantHesperidesTree_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantTraitor_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantForestProtection_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantDroughtLand_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantVenomBeast_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantShogun_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSmitingGust_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantThunderBurst_Serp</effect>
+      <!-- automatic switch to next age -->
+      <effect type="TechStatus" status="active">StatueHeroicToMythic_AnyPower_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- ############################## -->
+  <!-- MythicAge -->
+  <!-- ############################## -->
+  
+  <tech name="MythicAgeGeneral">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantPlentyVault_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantLightningStorm_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantEarthquake_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantSonOfOsiris_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantTornado_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantMeteor_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantNidhogg_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantRagnarok_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantFimbulwinter_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantInferno_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantTartarianGate_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantVortex_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantImplode_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantGreatFlood_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantYinglongsWrath_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantBlazingPrairie_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantSacredGate_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantDragonTyphoon_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">GrantDivineSlash_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="MythicAgeHephaestus">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="PlentyVault" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantPlentyVault_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeHera">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="LightningStorm" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantLightningStorm_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeArtemis">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Earthquake" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantEarthquake_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeOsiris">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="SonOfOsiris" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSonOfOsiris_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeHorus">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Tornado" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantTornado_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeThoth">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Meteor" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantMeteor_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeHel">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Nidhogg" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantNidhogg_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeBaldr">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Ragnarok" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantRagnarok_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeTyr">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Fimbulwinter" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantFimbulwinter_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeVidar">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Inferno" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantInferno_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeHekate">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="TartarianGate" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantTartarianGate_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeHelios">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Vortex" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantVortex_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeAtlas">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="Implode" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantImplode_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="MythicAgeGonggong">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="GreatFlood" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantGreatFlood_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeHuangdi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="YinglongsWrath" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantYinglongsWrath_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeZhurong">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="BlazingPrairie" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantBlazingPrairie_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="MythicAgeOkuninushi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="SacredGate" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantSacredGate_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeWatatsumi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="DragonTyphoon" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantDragonTyphoon_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="MythicAgeTakemikazuchi">
+    <effects>
+      <effect mergeMode="remove" type="Data" subtype="GodPower" power="DivineSlash" amount="1.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">AI_GrantDivineSlash_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="GrantPlentyVault_Serp">
+    <displaynameid>STR_POWER_PLENTY</displaynameid>
+    <rollovertextid>STR_POWER_PLENTY_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\plenty_vault_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="PlentyVault" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantPlentyVault_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantPlentyVault_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantLightningStorm_Serp">
+    <displaynameid>STR_POWER_LIGHTNING_STORM</displaynameid>
+    <rollovertextid>STR_POWER_LIGHTNING_STORM_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\lightning_storm_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="LightningStorm" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantLightningStorm_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantLightningStorm_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantEarthquake_Serp">
+    <displaynameid>STR_POWER_EARTHQUAKE</displaynameid>
+    <rollovertextid>STR_POWER_EARTHQUAKE_LR</rollovertextid>
+    <icon>resources\greek\static_color\god_powers\earthquake_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Earthquake" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantEarthquake_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantEarthquake_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantSonOfOsiris_Serp">
+    <displaynameid>STR_POWER_SON_OSIRIS</displaynameid>
+    <rollovertextid>STR_POWER_SON_OSIRIS_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\son_of_osiris_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="SonOfOsiris" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantSonOfOsiris_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSonOfOsiris_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantTornado_Serp">
+    <displaynameid>STR_POWER_TORNADO</displaynameid>
+    <rollovertextid>STR_POWER_TORNADO_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\tornado_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Tornado" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantTornado_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantTornado_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantMeteor_Serp">
+    <displaynameid>STR_POWER_METEOR</displaynameid>
+    <rollovertextid>STR_POWER_METEOR_LR</rollovertextid>
+    <icon>resources\egyptian\static_color\god_powers\meteor_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Meteor" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantMeteor_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantMeteor_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantNidhogg_Serp">
+    <displaynameid>STR_POWER_NIDHOGG</displaynameid>
+    <rollovertextid>STR_POWER_NIDHOGG_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\nidhogg_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Nidhogg" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantNidhogg_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantNidhogg_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantRagnarok_Serp">
+    <displaynameid>STR_POWER_RAGNAROK</displaynameid>
+    <rollovertextid>STR_POWER_RAGNAROK_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\ragnarok_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Ragnarok" amount="1.0" cooldown="300.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantRagnarok_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantRagnarok_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantFimbulwinter_Serp">
+    <displaynameid>STR_POWER_FIMBULWINTER</displaynameid>
+    <rollovertextid>STR_POWER_FIMBULWINTER_LR</rollovertextid>
+    <icon>resources\norse\static_color\god_powers\fimbulwinter_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Fimbulwinter" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantFimbulwinter_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantFimbulwinter_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantInferno_Serp">
+    <displaynameid>STR_POWER_INFERNO</displaynameid>
+    <rollovertextid>STR_POWER_INFERNO_LR</rollovertextid>
+    <icon>resources\norse_freyr\static_color\god_powers\inferno_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Inferno" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantInferno_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantInferno_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantTartarianGate_Serp">
+    <displaynameid>STR_POWER_TARTARIAN_GATE</displaynameid>
+    <rollovertextid>STR_POWER_TARTARIAN_GATE_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\tartarian_gate_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="TartarianGate" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantTartarianGate_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantTartarianGate_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantVortex_Serp">
+    <displaynameid>STR_POWER_VORTEX</displaynameid>
+    <rollovertextid>STR_POWER_VORTEX_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\vortex_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Vortex" amount="1.0" cooldown="60.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantVortex_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantVortex_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantImplode_Serp">
+    <displaynameid>STR_POWER_IMPLODE</displaynameid>
+    <rollovertextid>STR_POWER_IMPLODE_LR</rollovertextid>
+    <icon>resources\atlantean\static_color\god_powers\implode_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="Implode" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantImplode_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantImplode_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="GrantGreatFlood_Serp">
+    <displaynameid>STR_POWER_GREAT_FLOOD</displaynameid>
+    <rollovertextid>STR_POWER_GREAT_FLOOD_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\great_flood_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="GreatFlood" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantGreatFlood_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantGreatFlood_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantYinglongsWrath_Serp">
+    <displaynameid>STR_POWER_YINGLONGS_WRATH</displaynameid>
+    <rollovertextid>STR_POWER_YINGLONGS_WRATH_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\yinglongs_wrath_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="YinglongsWrath" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantYinglongsWrath_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantYinglongsWrath_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantBlazingPrairie_Serp">
+    <displaynameid>STR_POWER_BLAZING_PRAIRIE</displaynameid>
+    <rollovertextid>STR_POWER_BLAZING_PRAIRIE_LR</rollovertextid>
+    <icon>resources\chinese\static_color\god_powers\blazing_prairie.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="BlazingPrairie" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantBlazingPrairie_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantBlazingPrairie_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- jap -->
+  <tech name="GrantSacredGate_Serp">
+    <displaynameid>STR_POWER_SACRED_GATE</displaynameid>
+    <rollovertextid>STR_POWER_SACRED_GATE_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\sacred_gate_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="SacredGate" amount="1.0" cooldown="240.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantSacredGate_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantSacredGate_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantDragonTyphoon_Serp">
+    <displaynameid>STR_POWER_DRAGON_TYPHOON</displaynameid>
+    <rollovertextid>STR_POWER_DRAGON_TYPHOON_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\dragon_typhoon_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="DragonTyphoon" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantDragonTyphoon_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantDragonTyphoon_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="GrantDivineSlash_Serp">
+    <displaynameid>STR_POWER_DIVINE_SLASH</displaynameid>
+    <rollovertextid>STR_POWER_DIVINE_SLASH_LR</rollovertextid>
+    <icon>resources\japanese\static_color\god_powers\divine_slash_icon.png</icon>
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <researchpoints>0.1000</researchpoints>
+    <effects>
+      <effect type="Data" subtype="GodPower" power="DivineSlash" amount="1.0" cooldown="180.0" relativity="Absolute">
+        <target type="Player">
+        </target>
+      </effect>
+      <effect type="TechStatus" status="active">RemovePowerTechsMythic_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="AI_GrantDivineSlash_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">GrantDivineSlash_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="RemovePowerTechsMythic_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="unobtainable">GrantPlentyVault_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantLightningStorm_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantEarthquake_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSonOfOsiris_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantTornado_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantMeteor_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantNidhogg_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantRagnarok_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantFimbulwinter_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantInferno_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantTartarianGate_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantVortex_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantImplode_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantGreatFlood_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantYinglongsWrath_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantBlazingPrairie_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantSacredGate_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantDragonTyphoon_Serp</effect>
+      <effect type="TechStatus" status="unobtainable">GrantDivineSlash_Serp</effect>
+      <!-- automatic switch to next age -->
+      <effect type="TechStatus" status="active">StatueMythicToArchaic_AnyPower_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- ########################################################################################################## -->
+  <!-- ########################################################################################################## -->
+  <!-- ########################################################################################################## -->
+  
+  <!-- shared code , do not change, will be used in several mods -->
+  
+  <tech name="ModBuilderRespawn_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>60.0000</delay>
+    <flag>Volatile</flag>
+    <flag>Persistent</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="Active">IsHumanPlayer_Serp</techstatus>
+      <typecount unit="AbstractTownCenter" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="ModBuilder_Serp" count="1.00" state="aliveState" operator="lt">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="ModBuilder_Serp" generator="AbstractTownCenter">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="0.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- ########################################################################################################## -->
+  
+  <!-- not tested yet if it is MP compatible (maybe desync?) -->
+  
+  <!-- Helper techs to find out which player is human/computer/nature -->
+  <!-- Copy paste all of the below techs into your mod. Do NOT add/change anything from there, also do not add effects (this way many mods can use the very same code without conflict)! -->
+   <!-- Instead use eg prereqs <techstatus status="active">IsHumanPlayer_Serp</techstatus> and so on in your own techs. -->
+   <!-- (use volatile flag if you want them to be executed as soon as prereqs is true ) -->
+  <!-- General Notes: -->
+   <!-- delay is done AFTER checking prereqs!  -->
+   <!-- checking prereqs techstatus=Obtainable is also true after tech was set to active (except for Reversible techs)! -->
+  <tech name="AlwaysCheckPlayers_Serp">
+    <status>OBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <flag>NeverAutoResearch</flag> 
+    <effects>
+      <effect type="TechStatus" status="obtainable">CheckIsHumanPlayer_Serp</effect>
+      <effect type="TechStatus" status="obtainable">CheckIsNature_Serp</effect>
+      <effect type="TechStatus" status="obtainable">DelayedCheckIsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- Add hidden research to every Unit and every Building, so we can for sure research it via ConsoleCommand on every map -->
+   <!-- prints a notification "Huamn is not ready for research" (even if only done for Unit) but still works, so its fine -->
+  <!-- We make use of the fact that AIs can not "select" anything. So if execting player can select and research in selection, it is a human -->
+  <tech name="CheckIsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">Unit</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">Building</target>
+      </effect>
+      <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+      <effect type="ConsoleCommand">uiSelectType("Building", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+    </effects>
+  </tech>
+  <tech name="Check2IsHumanPlayer_Serp">
+    <status>OBTAINABLE</status>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <researchpoints>0.1000</researchpoints>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="active">IsHumanPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- we need an extra tech that is never set to Obtainable, to be able to check in prereqs for IsComputerPlayer_Serp -->
+   <!-- techstatus=unobtainable. Because checking techstatus=Obtainable is also true after tech was set to active! -->
+    <!-- (another workaround for volatile techs would be to use the flag Reversible, which removes the internal obtainable if active) -->
+  <tech name="IsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- checking who is nature player. Instead of only checking typecount for Tree/Resource and so on (which could falsely mark a player, since also players can sometimes own these things) -->
+   <!-- we will spawn a ForceToNature helper object at any Nature thing in the world. Regardless who spawns it, it will be owned by Nature -->
+  <!-- Hint: normally nature does not research anything in the techtree. So to execute sth for Nature, you need a tech that has status Obtainable+delay (so similar to the AlwaysCheckPlayers_Serp tech. Beware currently an Obtainalbe+Volatile tech crashes on startup if it has a prereqs. so make your prereqs techs obtainable in such a AlwaysCheckPlayers_Serp tech instead)  -->
+    <!-- no prereqs in CheckIsNature_Serp, to execute it for everyone, so IsNature_Serp is set to Obtainable for everyone (so IsComputerPlayer_Serp can work) -->
+  <tech name="CheckIsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <!-- Nature does not work, but NatureClass -->
+      <effect type="CreateUnit" unit="BerryBush" generator="NatureClass">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-5.00" y="0.00" z="5.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="TechStatus" status="obtainable">IsNature_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="BerryBush" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+  </tech>
+  <!-- every player which has not IsHumanPlayer_Serp nor IsNature_Serp active after few more seconds, must be an AI -->
+   <!-- we need this extra tech DelayedCheckIsComputerPlayer_Serp, because prereqs are checked before the delay -->
+  <tech name="DelayedCheckIsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>3.0000</delay>
+    <initialdelay>3.0000</initialdelay>
+    <flag>Volatile</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <displaynameid>STR_EDT_PDA_CNTR_COMPUTER</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="unobtainable">IsHumanPlayer_Serp</techstatus>
+      <techstatus status="obtainable">IsNature_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="IsNotNaturePlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+  </tech>
+  
+  
+  
+    
+  
+</techtreemods>

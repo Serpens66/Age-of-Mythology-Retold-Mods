@@ -1,0 +1,2 @@
+1.01:
+- made it work when loading savegames where the mod was not enabled from the start.

@@ -1,0 +1,54 @@
+<techtreemods>
+  
+  <!-- For Whatever reason the game crashes, if we do the TransformUnit to CitadelCenter in any other age than the WonderAge ?! -->
+   <!-- no clue why.. but we want to add it to WonderAge anyways -->
+    <!-- (delay in Volatile tech solves the crash) -->
+  
+  <!-- I think <flag>Volatile</flag> makes the tech check the prereqs as soon as it is obtainable (so does not need research) -->
+  
+  
+  <tech name="WonderAgeGeneral">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">TownCenterToCitadel_Serp</effect>
+      <effect mergeMode="add" type="TechStatus" status="obtainable">ExtraStrongCitadelForSekhmet_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- transform all TownCenter to CitadelCenter as long as their is still a TownCenter and you still have the Wonder -->
+   <!-- (this tech is needed to also transform newly built ones) -->
+  <tech name="TownCenterToCitadel_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>0.500</delay>
+    <flag>Volatile</flag>
+    <flag>Persistent</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <prereqs>
+      <typecount unit="TownCenter" count="0.00" state="aliveState" operator="gt">
+      </typecount>
+      <typecount unit="Wonder" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+      <specificage>MythicAge</specificage>
+    </prereqs>
+    <effects>
+      <effect type="TransformUnit" fromprotoid="TownCenter" toprotoid="CitadelCenter">
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- Sekhmet gets as compensation (he has the Citadel godpower) twice as many Hitpoints for AbstractTownCenter (includes CitadelCenter) -->
+  <tech name="ExtraStrongCitadelForSekhmet_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <techstatus status="Active">HeroicAgeSekhmet</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="Data" amount="2.00" subtype="Hitpoints" relativity="Percent">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+    </effects>
+  </tech>
+  
+</techtreemods>

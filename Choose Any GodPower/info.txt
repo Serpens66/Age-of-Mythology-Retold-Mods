@@ -1,0 +1,21 @@
+(Additive Mod)
+- AgeUp does not grant a godpower, instead you can research one of any godpower fitting to the age, regardless of chosen god or culture.
+- You get a respawning Mod-Villager (called "Mod Manager") who can build the Major God Statue to research these godpowers. He can also pray at any temple for small amount of Favor.
+- AI will still get the normal godpowers
+- Son of Osiris spell can be casted on any hero. 
+- Ragnarok affects every type of villager. 
+- Alternative Power for "Valor" (Heroes) for non-atlantean civs: It does not transform to hero, but increases the Stats of the selected unit (+25% MaxHP, +10% Damage, +1% GatherRate, +10% BuildRate, +1 Range, little bit bigger and glow ring. Unfortunately not possible to add damagebonus against MythUnit this way..).
+- Chinese "Creation" will only summon the chinese clay villagers, which are limited to to build in common buildings only.
+- japanese "ShrineOfTheHunt" can also be casted on all Dropsites (except Towncenter)
+- japanese "Shogun" can be also casted on all heroes (except AbstractPharaoh and EconomicUnit)
+
+Compatibility:
+This mod needs update and is incompatible to mods/game updates which do:
+- add new powers/major/minor gods (new powers will not be researchable and the powers on ageup not removed)
+- change the godpower a god provides
+- change the cooldown of a power
+Its not a gamebreaker if you have such mods enabled, but best load this mod after them.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.
+
+v1.05

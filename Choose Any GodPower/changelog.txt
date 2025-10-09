@@ -1,0 +1,29 @@
+1.01:
+- Added alternative Power for "Valor" (Heroes) for non-atlantean civs. It does not transform to hero, but increases the Stats of the selected unit (+25% MaxHP, +10% Damage, +1% GatherRate, +10% BuildRate, +1 Range, little bit bigger and glow ring. Unfortunately not possible to add damagebonus against MythUnit this way..).
+1.02:
+- Added chinese godpowers
+- added button to manually switch ages
+1.03:
+- fixed bug that choosing Vanish as godpower did not disable choosing other powers.
+1.04:
+- added chinese skin for MajorGodStatue
+1.05:
+- adjust cooldowns (to be again in line with vanilla) for:
+- SpiderLair from 90 to 60 
+- LightningWeapons from 120 to 240
+- EarthWall from 90 to 120
+- Vanish from 180 to 150
+- Citadel from 30 to 120
+- ForestProtection from 120 to 180
+- DroughtLand from 90 to 240
+- VenomBeast from 180 to 240
+- Vortex from 120 to 60
+- GreatFlood from 120 to 240
+- YinglongsWrath from 90 to 240
+- BlazingPrairie from 180 to 300
+- relocate the delete and swtich age button in god statue (to have space for japanese powers)
+- add japanese powers
+- japanese "ShrineOfTheHunt" can also be casted on all Dropsites (except Towncenter)
+- japanese "Shogun" can be also casted on all heroes (except AbstractPharaoh and EconomicUnit)
+1.06:
+- minor fix (CheckIsNature more securely spawn a berry bush)

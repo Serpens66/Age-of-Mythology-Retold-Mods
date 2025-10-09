@@ -1,0 +1,113 @@
+<protomods>
+
+  <!-- note: -->
+   <!-- maxrange is not allowed to be 0, it breaks alot of stuff, especially abilities, if any maxrange is 0... -->
+    
+  <!-- remove DoNotAllowAlliedGarrison -->
+  <unit name="SkyPassage">
+    <flag>ShowGarrisonButton</flag>
+    <flag mergeMode="remove">DoNotAllowAlliedGarrison</flag>
+  </unit>
+    
+  <!-- add "building SkyPassage" to the SentryTower Menu, because there is enough space left  -->
+    <!-- (while villagers dont have much space and also other mods may add buildings there, which is always incompatible  -->
+    <!-- if two mods occupy the same slot.. so only reason to add it here is to maintain better compatibility to other mods and game updates) -->
+  <unit name="SentryTower">
+    <train row="1" column="0">SentryTower</train>
+    <!-- <train mergeMode="add" row="1" column="1">MirrorTower</train> -->
+    <train row="1" column="2">SkyPassage_LowHealth_Serp</train>
+    <!-- build action needed to allow placing the construction site -->
+     <!-- in theory we even could allow SentryTower to actually build it :D -->
+    <protoaction>
+      <name>Build</name>
+      <type>Build</type>
+      <rate type="Building">0.000000</rate>
+      <maxrange>0.001</maxrange>
+      <!-- <rate type="Building">1.000000</rate> -->
+      <!-- <maxrange>10.2</maxrange> -->
+    </protoaction>
+  </unit>
+  
+  <!-- copy paste of SkyPassage from 6.10.2025 -->
+   <!-- with less health: 100 instead of 500 -->
+    <!-- and remove DoNotAllowAlliedGarrison -->
+  <unit name="SkyPassage_LowHealth_Serp">
+    <displaynameid>STR_BLD_SKY_PASSAGE_NAME</displaynameid>
+    <rollovertextid>STR_BLD_SKY_PASSAGE_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_SKY_PASSAGE_SR</shortrollovertextid>
+    <icon>resources\atlantean\static_color\buildings\sky_passage_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_sky_passage</minimapicon>
+    <animfile>atlantean\buildings\sky_passage\sky_passage.xml</animfile>
+    <soundsetfile>atlantean\sfx\buildings\sky_passage.xml</soundsetfile>
+    <obstructionradiusx>3.0000</obstructionradiusx>
+    <obstructionradiusz>3.0000</obstructionradiusz>
+    <impacttype>Stone</impacttype>
+    <movementtype>land</movementtype>
+    <initialhitpoints>100.0000</initialhitpoints>
+    <maxhitpoints>100.0000</maxhitpoints>
+    <buildpoints>30.0000</buildpoints>
+    <buildlimit>2.0000</buildlimit>
+    <maxcontained>100</maxcontained>
+    <los>12.0000</los>
+    <sharedselectionunittypes>
+      <unittype>SkyPassage</unittype>
+      <unittype>SkyPassageSPC</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Wood">25.0000</cost>
+    <cost resourcetype="Favor">8.0000</cost>
+    <armor type="Hack" value="0.4000">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.0500">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>Building</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>MilitaryBuilding</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeAffectedByCeaseFireBuildingSlow</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeTartarianGateValidOverlapPlacement</unittype>
+    <unittype>LogicalTypeMinimapFilterEconomic</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <unittype>LogicalTypeTeleporterBuilding</unittype>
+    <unittype>LogicalTypeValidForestProtectionPlacement</unittype>
+    <unittype>LogicalTypeBuildingThatConvertsConvertibles</unittype>
+    <hotkeycontext>SkyPassageAccel</hotkeycontext>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>HasGatherPoint</flag>
+    <flag>SharedGarrison</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>AllowAutoGarrison</flag>
+    <flag>NoIdleActions</flag>
+    <flag>GroupSelection</flag>
+    <flag>AutoCommandSingleUnit</flag>
+    <flag>AutoCommandStartDisabled</flag>
+    <flag>ShowGarrisonButton</flag>
+    <contain>LogicalTypeGarrisonInShips</contain>
+    <notcontain>TradeUnit</notcontain>
+    <command row="3" column="0">SetGatherPoint</command>
+    <command row="3" column="1">Eject</command>
+    <command row="3" column="5">Delete</command>
+  </unit>
+  
+  
+  
+</protomods>

@@ -1,0 +1,8 @@
+(Additive Mod)
+- Allows building up to 2 low health Sky Passages for every civ (construction placeable within UI from Sentry Tower!)
+- allow allied units to be garrisoned in any Sky Passage.
+
+Should work for every civ which can build the SentryTower, even ones added by mods or game updates.
+Is only incompatible to mods/updates adding buttons in the second line of SentryTower at the same position.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

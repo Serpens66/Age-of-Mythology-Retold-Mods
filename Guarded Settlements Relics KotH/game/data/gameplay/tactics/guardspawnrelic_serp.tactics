@@ -1,0 +1,947 @@
+<tactics>
+  <!-- if <maintaintrainpoints> is defined here, it overwrites the trainpoints from the unit. If not defined, the one from unit is used -->
+    <!-- we will use the one from the unit and alter it within techtree for nature player only -->
+  <!-- killontrain=0 is default -->
+   <!-- increasing the number in "rate" increases the number of units that is spawned at once. <Linear>1</Linear> also makes the number to increase each time starting from 1 until reaching the rate number -->
+  <!-- SingleUse makes sure it is only spawned once and KeepAlive makes sure that also no kind of internal reset makes it spawn again. -->
+   <!-- showqueuewhilewaiting=0/hidefromglobalqueue=1 makes it not show a global queue (just the object interal queue) -->
+   <!-- ein AbstractGuard_Serp als rate type geht leider nicht :D  -->
+  <!-- modifytargetlimit used to define the max amount of units spawned within maxrange -->
+   <!-- as soon the amount of units within maxrange gets lower, the spawn of another unit is started. -->
+    <!-- donotignoredead make this count also count dead but "still there" units, like dead deers being butchered -->
+  <!-- dont know what modifybase does, its used in vanilla for DeerSpawn -->
+  <!-- with modelattachment/modelattachmentbone/modelattachmenttimer we could add an effect for spawning, but the default effect is already fine -->
+  
+  <action>
+    <name>FimbulwinterWolfSpawn_GuardsSerp</name>
+    <rate type="FimbulwinterWolf_GuardsSerp">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>4</modifytargetlimit>
+    <exclusive>1</exclusive>
+    <!-- <modelattachment>vfx\glow\shrine_of_the_hunt_target.xml</modelattachment> -->
+    <!-- <modelattachmentbone>bonethatdoesntexist</modelattachmentbone> -->
+    <!-- <modelattachmenttimer>2500</modelattachmenttimer> -->
+  </action>
+  
+  <action>
+    <name>TrollSpawn_GuardsSerp</name>
+    <rate type="Troll">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ValkyrieSpawn_GuardsSerp</name>
+    <rate type="Valkyrie">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>EinheriSpawn_GuardsSerp</name>
+    <rate type="Einheri">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>DraugrSpawn_GuardsSerp</name>
+    <rate type="Draugr">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>BattleBoarSpawn_GuardsSerp</name>
+    <rate type="BattleBoar">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>FrostGiantSpawn_GuardsSerp</name>
+    <rate type="FrostGiant">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>MountainGiantSpawn_GuardsSerp</name>
+    <rate type="MountainGiant">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>RockGiantSpawn_GuardsSerp</name>
+    <rate type="RockGiant">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>FireGiantSpawn_GuardsSerp</name>
+    <rate type="FireGiant">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>FenrisWolfBroodSpawn_GuardsSerp</name>
+    <rate type="FenrisWolfBrood">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>FafnirSpawn_GuardsSerp</name>
+    <rate type="Fafnir">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <!-- Greek -->
+  <action>
+    <name>ShadePredatorSpawn_GuardsSerp</name>
+    <rate type="ShadePredator">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>4</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>MinotaurSpawn_GuardsSerp</name>
+    <rate type="Minotaur">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>CentaurSpawn_GuardsSerp</name>
+    <rate type="Centaur">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>CyclopsSpawn_GuardsSerp</name>
+    <rate type="Cyclops">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ManticoreSpawn_GuardsSerp</name>
+    <rate type="Manticore">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>NemeanLionSpawn_GuardsSerp</name>
+    <rate type="NemeanLion">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>HydraSpawn_GuardsSerp</name>
+    <rate type="Hydra">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ColossusSpawn_GuardsSerp</name>
+    <rate type="Colossus">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>MedusaSpawn_GuardsSerp</name>
+    <rate type="Medusa">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ChimeraSpawn_GuardsSerp</name>
+    <rate type="Chimera">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <!-- Egyptian -->
+  <action>
+    <name>SerpentPredatorSpawn_GuardsSerp</name>
+    <rate type="SerpentPredator_GuardsSerp">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>4</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>AnubiteSpawn_GuardsSerp</name>
+    <rate type="Anubite">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>SphinxSpawn_GuardsSerp</name>
+    <rate type="Sphinx">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>WadjetSpawn_GuardsSerp</name>
+    <rate type="Wadjet">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ScarabSpawn_GuardsSerp</name>
+    <rate type="Scarab">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>PetsuchosSpawn_GuardsSerp</name>
+    <rate type="Petsuchos">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ScorpionManSpawn_GuardsSerp</name>
+    <rate type="ScorpionMan">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>MummySpawn_GuardsSerp</name>
+    <rate type="Mummy">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>AvengerSpawn_GuardsSerp</name>
+    <rate type="Avenger">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>PhoenixSpawn_GuardsSerp</name>
+    <rate type="Phoenix">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <!-- Atlantean -->
+  <action>
+    <name>PrometheanOffspringSpawn_GuardsSerp</name>
+    <rate type="PrometheanOffspring">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>4</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>PrometheanSpawn_GuardsSerp</name>
+    <rate type="Promethean">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>CaladriaSpawn_GuardsSerp</name>
+    <rate type="Caladria">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>AutomatonSpawn_GuardsSerp</name>
+    <rate type="Automaton">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>SatyrSpawn_GuardsSerp</name>
+    <rate type="Satyr">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>DryadSpawn_GuardsSerp</name>
+    <rate type="Dryad">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>StymphalianBirdSpawn_GuardsSerp</name>
+    <rate type="StymphalianBird">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>BehemothSpawn_GuardsSerp</name>
+    <rate type="Behemoth">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>LampadesSpawn_GuardsSerp</name>
+    <rate type="Lampades">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>CentimanusSpawn_GuardsSerp</name>
+    <rate type="Centimanus">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ArgusSpawn_GuardsSerp</name>
+    <rate type="Argus">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <!-- Japanese -->
+  <action>
+    <name>KitsuneSpawn_GuardsSerp</name>
+    <rate type="Kitsune">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>4</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>WanyudoSpawn_GuardsSerp</name>
+    <rate type="Wanyudo">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>JorogumoSpawn_GuardsSerp</name>
+    <rate type="Jorogumo">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>KamaitachiSpawn_GuardsSerp</name>
+    <rate type="Kamaitachi">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>TenguSpawn_GuardsSerp</name>
+    <rate type="Tengu">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>RaijuSpawn_GuardsSerp</name>
+    <rate type="Raiju">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>OniSpawn_GuardsSerp</name>
+    <rate type="Oni">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>AsuraSpawn_GuardsSerp</name>
+    <rate type="Asura">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>OnmorakiSpawn_GuardsSerp</name>
+    <rate type="Onmoraki">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ShinigamiSpawn_GuardsSerp</name>
+    <rate type="Shinigami">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  
+  <!-- Chinese -->
+  <action>
+    <name>Fei_GuardsSerpSpawn_GuardsSerp</name>
+    <rate type="Fei_GuardsSerp">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>4</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>QiLinSpawn_GuardsSerp</name>
+    <rate type="QiLin">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>YaZiSpawn_GuardsSerp</name>
+    <rate type="YaZi">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>QiongQiSpawn_GuardsSerp</name>
+    <rate type="QiongQi">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>3</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>TaoWuSpawn_GuardsSerp</name>
+    <rate type="TaoWu">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>BaiHuSpawn_GuardsSerp</name>
+    <rate type="BaiHu">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>TaoTieSpawn_GuardsSerp</name>
+    <rate type="TaoTie">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>QingLongSpawn_GuardsSerp</name>
+    <rate type="QingLong">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>HunDunSpawn_GuardsSerp</name>
+    <rate type="HunDun">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  <action>
+    <name>ZhuQueSpawn_GuardsSerp</name>
+    <rate type="ZhuQue">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>1</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+
+  
+  <!-- Heroes -->
+  <action>
+    <name>KingFolstag_GuardsSerpSpawn_GuardsSerp</name>
+    <rate type="KingFolstag_GuardsSerp">2.0</rate>
+    <active>0</active>
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <maxrange>12.000000</maxrange>
+    <modifytargetlimit>2</modifytargetlimit>
+    <exclusive>1</exclusive>
+  </action>
+  
+  
+  <!-- <action> -->
+    <!-- <name>XXXXSpawn_GuardsSerp</name> -->
+    <!-- <rate type="XXXX">2.0</rate> -->
+    <!-- <active>0</active> -->
+    <!-- <type>Maintain</type> -->
+    <!-- <persistent>1</persistent> -->
+    <!-- <pausable>0</pausable> -->
+    <!-- <showqueuewhilewaiting>0</showqueuewhilewaiting> -->
+    <!-- <hidefromglobalqueue>1</hidefromglobalqueue> -->
+    <!-- <maxrange>12.000000</maxrange> -->
+    <!-- <modifytargetlimit>4</modifytargetlimit> -->
+    <!-- <exclusive>1</exclusive> -->
+  <!-- </action> -->
+  
+
+  
+  <tactic>Default
+    <action>FimbulwinterWolfSpawn_GuardsSerp</action>
+    <action>TrollSpawn_GuardsSerp</action>
+    <action>ValkyrieSpawn_GuardsSerp</action>
+    <action>EinheriSpawn_GuardsSerp</action>
+    <action>DraugrSpawn_GuardsSerp</action>
+    <action>BattleBoarSpawn_GuardsSerp</action>
+    <action>FrostGiantSpawn_GuardsSerp</action>
+    <action>MountainGiantSpawn_GuardsSerp</action>
+    <action>RockGiantSpawn_GuardsSerp</action>
+    <action>FireGiantSpawn_GuardsSerp</action>
+    <action>FenrisWolfBroodSpawn_GuardsSerp</action>
+    <action>FafnirSpawn_GuardsSerp</action>
+    <action>ShadePredatorSpawn_GuardsSerp</action>
+    <action>MinotaurSpawn_GuardsSerp</action>
+    <action>CentaurSpawn_GuardsSerp</action>
+    <action>CyclopsSpawn_GuardsSerp</action>
+    <action>ManticoreSpawn_GuardsSerp</action>
+    <action>NemeanLionSpawn_GuardsSerp</action>
+    <action>HydraSpawn_GuardsSerp</action>
+    <action>ColossusSpawn_GuardsSerp</action>
+    <action>MedusaSpawn_GuardsSerp</action>
+    <action>ChimeraSpawn_GuardsSerp</action>
+    <action>SerpentPredatorSpawn_GuardsSerp</action>
+    <action>AnubiteSpawn_GuardsSerp</action>
+    <action>SphinxSpawn_GuardsSerp</action>
+    <action>WadjetSpawn_GuardsSerp</action>
+    <action>ScarabSpawn_GuardsSerp</action>
+    <action>PetsuchosSpawn_GuardsSerp</action>
+    <action>ScorpionManSpawn_GuardsSerp</action>
+    <action>MummySpawn_GuardsSerp</action>
+    <action>AvengerSpawn_GuardsSerp</action>
+    <action>PhoenixSpawn_GuardsSerp</action>
+    <action>PrometheanOffspringSpawn_GuardsSerp</action>
+    <action>PrometheanSpawn_GuardsSerp</action>
+    <action>CaladriaSpawn_GuardsSerp</action>
+    <action>AutomatonSpawn_GuardsSerp</action>
+    <action>SatyrSpawn_GuardsSerp</action>
+    <action>DryadSpawn_GuardsSerp</action>
+    <action>StymphalianBirdSpawn_GuardsSerp</action>
+    <action>BehemothSpawn_GuardsSerp</action>
+    <action>LampadesSpawn_GuardsSerp</action>
+    <action>CentimanusSpawn_GuardsSerp</action>
+    <action>ArgusSpawn_GuardsSerp</action>
+    <action>KitsuneSpawn_GuardsSerp</action>
+    <action>WanyudoSpawn_GuardsSerp</action>
+    <action>JorogumoSpawn_GuardsSerp</action>
+    <action>KamaitachiSpawn_GuardsSerp</action>
+    <action>TenguSpawn_GuardsSerp</action>
+    <action>RaijuSpawn_GuardsSerp</action>
+    <action>OniSpawn_GuardsSerp</action>
+    <action>AsuraSpawn_GuardsSerp</action>
+    <action>OnmorakiSpawn_GuardsSerp</action>
+    <action>ShinigamiSpawn_GuardsSerp</action>
+    <action>Fei_GuardsSerpSpawn_GuardsSerp</action>
+    <action>QiLinSpawn_GuardsSerp</action>
+    <action>YaZiSpawn_GuardsSerp</action>
+    <action>QiongQiSpawn_GuardsSerp</action>
+    <action>TaoWuSpawn_GuardsSerp</action>
+    <action>BaiHuSpawn_GuardsSerp</action>
+    <action>TaoTieSpawn_GuardsSerp</action>
+    <action>QingLongSpawn_GuardsSerp</action>
+    <action>HunDunSpawn_GuardsSerp</action>
+    <action>ZhuQueSpawn_GuardsSerp</action>
+
+    <!-- <action>XXXXSpawn_GuardsSerp</action> -->
+
+    <action>KingFolstag_GuardsSerpSpawn_GuardsSerp</action>
+  </tactic>
+</tactics>

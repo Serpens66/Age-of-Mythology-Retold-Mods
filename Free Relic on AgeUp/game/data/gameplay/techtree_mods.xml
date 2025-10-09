@@ -1,0 +1,108 @@
+<techtreemods>
+  
+  <!-- The code should work for all civs also newly added ones by mods or game updates, as long as they use the noral age up system -->
+  
+  <!-- specificage prereqs is a minimum, so ArchaicAge is always true, even while we are in MythicAge -->
+    
+  <!-- with an OBTAINABLE+Volatile tech we can start our tech code on new games and on savegames for every civ.  -->
+   <!-- the OBTAINABLE+Volatile tech can not handle prereqs good, so we will change status from other techs in it which will do the prereqs code -->
+  <!-- we use Volatile techs with specificage (instead of adding tickle tech to eg. ClassicalAgeGeneral) to have it compatible to savegames enabling this mod -->
+  <!-- needs the delay in StartSpawnRelicCode_Serp for whatever reason to work properly for new and savegames -->
+  <tech mergeMode="add" name="StartSpawnRelicCode_Serp">
+    <status>OBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">ArchaicSpawnRelic_Serp</effect>
+      <effect type="TechStatus" status="obtainable">ClassicalSpawnRelic_Serp</effect>
+      <effect type="TechStatus" status="obtainable">HeroicSpawnRelic_Serp</effect>
+      <effect type="TechStatus" status="obtainable">MythicSpawnRelic_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech mergeMode="add" name="ArchaicSpawnRelic_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>ArchaicAge</specificage>
+      <typecount unit="AbstractTemple" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="Relic" generator="AbstractTemple">
+        <pattern type="Scatter" speed="0.00" radius="2.00" quantity="1.00" minradius="1.00">
+          <offset x="-5.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech mergeMode="add" name="ClassicalSpawnRelic_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>ClassicalAge</specificage>
+      <typecount unit="AbstractTemple" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="Relic" generator="AbstractTemple">
+        <pattern type="Scatter" speed="0.00" radius="2.00" quantity="1.00" minradius="1.00">
+          <offset x="-5.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech mergeMode="add" name="HeroicSpawnRelic_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>HeroicAge</specificage>
+      <typecount unit="AbstractTemple" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="Relic" generator="AbstractTemple">
+        <pattern type="Scatter" speed="0.00" radius="2.00" quantity="1.00" minradius="1.00">
+          <offset x="-5.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+  <tech mergeMode="add" name="MythicSpawnRelic_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>1.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <prereqs>
+      <specificage>MythicAge</specificage>
+      <typecount unit="AbstractTemple" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="CreateUnit" unit="Relic" generator="AbstractTemple">
+        <pattern type="Scatter" speed="0.00" radius="2.00" quantity="1.00" minradius="1.00">
+          <offset x="-5.00" y="0.00" z="0.00">
+          </offset>
+        </pattern>
+      </effect>
+    </effects>
+  </tech>
+ 
+    
+  
+</techtreemods>

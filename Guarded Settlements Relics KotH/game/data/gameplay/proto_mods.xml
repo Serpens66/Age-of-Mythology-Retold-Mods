@@ -1,0 +1,1297 @@
+<protomods>
+  
+
+
+  
+<!-- FimbulwinterWolf,Troll,Valkyrie,Einheri,Draugr,BattleBoar,FrostGiant,MountainGiant,RockGiant,FireGiant,FenrisWolfBrood,Fafnir,ShadePredator,Minotaur,Centaur,Cyclops,Manticore,NemeanLion,Hydra,Colossus,Medusa,Chimera,SerpentPredator,Anubite,Sphinx,Wadjet,Scarab,Petsuchos,ScorpionMan,Mummy,Avenger,Phoenix,PrometheanOffspring,Promethean,Caladria,Automaton,Satyr,Dryad,StymphalianBird,Behemoth,Lampades,Centimanus,Argus,Kitsune,Wanyudo,Jorogumo,Kamaitachi,Tengu,Raiju,Oni,Asura,Onmoraki,Shinigami,Fei_GuardsSerp,QiLin,YaZi,QiongQi,TaoWu,BaiHu,TaoTie,QingLong,HunDun,ZhuQue -->
+  
+    
+  <!-- ForceToNature marker, to find out who is nature player -->
+  <unit name="HelperIsNature_GuardsSerp">
+    <displaynameid>STR_MOTHER_NATURE</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  <!-- marker that is spawned ForceToNature everytime a player reaches that age. Can be used for nature in techtree to get stronger through the player-ages -->
+  <unit name="HelperNatureClassical_GuardsSerp">
+    <displaynameid>STR_AGE_CLASSICAL</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  <unit name="HelperNatureHeroic_GuardsSerp">
+    <displaynameid>STR_AGE_HEROIC</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  <unit name="HelperNatureMythic_GuardsSerp">
+    <displaynameid>STR_AGE_MYTHIC</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  <unit name="HelperNatureWonder_GuardsSerp">
+    <displaynameid>STR_AGE_MYTHIC</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  
+  <!-- invisible helper unit that can be owned by a player, and produces units (for techtree), moveable to "walk" to desired destination -->
+   <!-- currently not used, switched to visible destroyable spawners instead -->
+  <unit name="InvisibleSpawner_GuardsSerp">
+    <displaynameid>STR_SPAWNTYPE_BIRTH</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <buildingworkrate>1.0000</buildingworkrate>
+    <populationcount>0</populationcount>
+    <trainpoints>1.0000</trainpoints>
+    <maxvelocity>50.0000</maxvelocity>
+    <flag>NoHPBar</flag>
+    <flag>RMCanRotate</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>VariationLocked</flag>
+    <flag>Invulnerable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NotSelectable</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>ForceToNature</flag>
+    <unittype>AbstractGuardSpawner1_Serp</unittype>
+    <tactics>guardspawnsettlement_serp.tactics</tactics>
+  </unit>
+  
+  
+  <!-- produces units (for techtree), moveable to "walk" to desired destination around PlentyVaultKOTH -->
+   <!-- important to give them flag Immoveable after spawning (otherwise they flee. one can also give them initialunitaistance PaSsive, but then for whatever reason they do not walk where they should after spawning) -->
+  <!-- 2 versions to be able to activate different spawns for them -->
+  <unit name="DestroyableSpawnerVault1_GuardsSerp">
+    <displaynameid>STR_SPAWNTYPE_BIRTH</displaynameid>
+    <rollovertextid>STR_BLD_TARTARIAN_GATE_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_TARTARIAN_GATE_LR</shortrollovertextid>
+    <icon>resources\spc\static_color\buildings\flag_icon.png</icon>
+    <animfile>shared\buildings\props\flag\flag_gatherpoint_military.xml</animfile>
+    <soundsetfile>atlantean\sfx\buildings\tartarian_gate.xml</soundsetfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <populationcount>0</populationcount>
+    <impacttype>Wood</impacttype>
+    <initialhitpoints>500000.0000</initialhitpoints>
+    <maxhitpoints>50000.0000</maxhitpoints>
+    <unitregen>0.0500</unitregen>
+    <trainpoints>1.0000</trainpoints>
+    <maxvelocity>50.0000</maxvelocity>
+    <los>30.0000</los>
+    <armor type="Hack" value="0.9000">
+    </armor>
+    <armor type="Pierce" value="0.9500">
+    </armor>
+    <armor type="Crush" value="0.1500">
+    </armor>
+    <killreward resourcetype="Favor">50.0</killreward>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>Building</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>MilitaryBuilding</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeBuildingsThatShoot</unittype>
+    <unittype>LogicalTypeBuildingSmall</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <unittype>AbstractGuardSpawner1_Serp</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>HasGatherPoint</flag>
+    <flag>DisplayRange</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>ForceToNature</flag>
+    <flag>AlwaysFullColorAsCursor</flag>
+    <tactics>guardspawnrelic_serp.tactics</tactics>
+  </unit>
+  <unit name="DestroyableSpawnerVault2_GuardsSerp">
+    <displaynameid>STR_SPAWNTYPE_BIRTH</displaynameid>
+    <rollovertextid>STR_BLD_TARTARIAN_GATE_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_TARTARIAN_GATE_LR</shortrollovertextid>
+    <icon>resources\spc\static_color\buildings\flag_icon.png</icon>
+    <animfile>shared\buildings\props\flag\flag_gatherpoint_military.xml</animfile>
+    <soundsetfile>atlantean\sfx\buildings\tartarian_gate.xml</soundsetfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <populationcount>0</populationcount>
+    <impacttype>Wood</impacttype>
+    <initialhitpoints>500000.0000</initialhitpoints>
+    <maxhitpoints>50000.0000</maxhitpoints>
+    <unitregen>0.0500</unitregen>
+    <trainpoints>1.0000</trainpoints>
+    <maxvelocity>50.0000</maxvelocity>
+    <los>30.0000</los>
+    <armor type="Hack" value="0.9000">
+    </armor>
+    <armor type="Pierce" value="0.9500">
+    </armor>
+    <armor type="Crush" value="0.1500">
+    </armor>
+    <killreward resourcetype="Favor">50.0</killreward>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>Building</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>MilitaryBuilding</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeBuildingsThatShoot</unittype>
+    <unittype>LogicalTypeBuildingSmall</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <unittype>AbstractGuardSpawner2_Serp</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>HasGatherPoint</flag>
+    <flag>DisplayRange</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>ForceToNature</flag>
+    <flag>AlwaysFullColorAsCursor</flag>
+    <tactics>guardspawnrelic_serp.tactics</tactics>
+  </unit>
+  
+  <!-- visible spawner that is spawned once for relics. this will spawn units, instead that the relic itself spawns them, to: -->
+    <!-- 1) not make the spawn moveable (relics are moveable) -->
+    <!-- 2) keep some spwan positions even after all relics/settlements are taken -->
+   <!-- maybe make this only destructable afer all relics are taken and Mythic Age was reached? -->
+  <unit name="DestroyableSpawnerRelic_GuardsSerp">
+    <displaynameid>STR_SPAWNTYPE_BIRTH</displaynameid>
+    <rollovertextid>STR_BLD_TARTARIAN_GATE_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_TARTARIAN_GATE_LR</shortrollovertextid>
+    <icon>resources\spc\static_color\buildings\flag_icon.png</icon>
+    <animfile>shared\buildings\props\flag\flag_gatherpoint_military.xml</animfile>
+    <soundsetfile>atlantean\sfx\buildings\tartarian_gate.xml</soundsetfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <populationcount>0</populationcount>
+    <movementtype>air</movementtype>
+    <impacttype>Wood</impacttype>
+    <initialhitpoints>20000.0000</initialhitpoints>
+    <maxhitpoints>20000.0000</maxhitpoints>
+    <unitregen>0.0500</unitregen>
+    <trainpoints>1.0000</trainpoints>
+    <los>30.0000</los>
+    <armor type="Hack" value="0.9000">
+    </armor>
+    <armor type="Pierce" value="0.9500">
+    </armor>
+    <armor type="Crush" value="0.1500">
+    </armor>
+    <killreward resourcetype="Favor">25.0</killreward>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>Building</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>MilitaryBuilding</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeBuildingsThatShoot</unittype>
+    <unittype>LogicalTypeBuildingSmall</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <unittype>AbstractGuardSpawner1_Serp</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>HasGatherPoint</flag>
+    <flag>DisplayRange</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>ForceToNature</flag>
+    <flag>AlwaysFullColorAsCursor</flag>
+    <tactics>guardspawnrelic_serp.tactics</tactics>
+  </unit>
+  
+  
+  <!-- PlentyVaultKOTH will spawn nothing, except a helper spawner (CreateUnit in techtree). to make sure the spawner is always owned by nature, while PlentyVaultKOTH can convert to player -->
+   <!-- Instead of using a tactics to spawn the DestroyableSpawnerVault1_GuardsSerp, we will instead remove the flag NotCommandable (may be fixed with another update), -->
+    <!-- which makes us able to spawn the helper via techtree CreateUnit. This has the advantage that we can spawn eg 4 of them  -->
+     <!-- one on each edge of the PlentyVaultKOTH, which makes it look much better than with one spawner -->
+   <!-- And I think adding AutoGatherTeam is also a good change -->
+  <unit name="PlentyVaultKOTH">
+    <protoaction>
+      <name>AutoGather</name>
+      <AutoGatherTeam>1</AutoGatherTeam>
+    </protoaction>
+    <flag mergeMode="remove">NotCommandable</flag>
+  </unit>
+  
+  <unit name="Settlement">
+    <tactics>guardspawnsettlement_serp.tactics</tactics>
+    <unittype mergeMode="add">AbstractGuardSpawner2_Serp</unittype>
+  </unit>
+  
+  <unit name="Relic">
+    <tactics>spawnerspawn_guardserp.tactics</tactics>
+  </unit>
+  
+
+  
+  
+  <!-- unfortunately there is no way to adjust stance (initialunitaistance), aistancebasedistance nor autoattackrange in techtree... -->
+   <!-- so we still have to do some adjustments in proto, but I think it is fine to do it to the original unit instead of a copy, -->
+    <!-- because the stance is overwritten by the players ingame settings anyways, at least for newly trained units. And having it at default at Defensive for units spawned by the map is never bad. -->
+   <!-- I did not notice any real difference setting aistancebasedistance and autoattackrange higher, so I think it is fine to skip these and not mess with them -->
+   <!-- Also dynamicbuildlimitunittypes is not possible in techtree (only sharedbuildlimit), but we can handle the amount of units by Maintain action modifytargetlimit -->
+    <!-- in addition just adding dynamicbuildlimitunittypes without a buildlimit does nothing on its own, so we can add it and then add the buildlimit in techtree only to nature units -->
+  <!-- Everything else like unittype, flags, populationcount and so on are done in techtree. -->
+  
+  <!-- From a few units we still should make a copy, eg. FimbulwinterWolf should not be Defensive -->
+  <unit name="FimbulwinterWolf_GuardsSerp">
+    <displaynameid>STR_UNIT_FIMBULWINTER_WOLF_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_FIMBULWINTER_WOLF_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_FIMBULWINTER_WOLF_SR</shortrollovertextid>
+    <icon>resources\norse\player_color\units\fimbulwinter_wolf_icon.png</icon>
+    <animfile>norse\units\myth\fimbulwinter_wolf\fimbulwinter_wolf.xml</animfile>
+    <soundsetfile>norse\vo\fimbulwinter_wolf\fimbulwinter_wolf.xml</soundsetfile>
+    <trainpoints>10.0000</trainpoints>
+    <obstructionradiusx>0.9900</obstructionradiusx>
+    <obstructionradiusz>0.9900</obstructionradiusz>
+    <selectionradiusx>0.7500</selectionradiusx>
+    <selectionradiusz>1.0000</selectionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <weightclass>4</weightclass>
+    <maxvelocity>6.6000</maxvelocity>
+    <los>16.0000</los>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.7000">
+    </armor>
+    <armor type="Crush" value="0.8000">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeMythicMythUnit</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>MythUnit</unittype>
+    <unittype>AnimalPredator</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeMythUnitNotTitan</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidTraitorTarget</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeVillagersAttackResponse</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeFreezableMythUnit</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeMythUnitNotFlying</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>NotCommandable</flag>
+    <flag>NotDeleteable</flag>
+    <flag>CommonCommands</flag>
+    <flag>NeverCountDeathAsLoss</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>ExcludeFromMoveAllMilitary</flag>
+    <tactics>handattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.500000</rof>
+      <damage type="Hack">10.000000</damage>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <maxrange>0.500000</maxrange>
+    </protoaction>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype>AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Troll">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Draugr">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Valkyrie">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Einheri">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="BattleBoar">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="FrostGiant">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="MountainGiant">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  
+  <unit name="RockGiant">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="FireGiant">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="FenrisWolfBrood">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Fafnir">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <!-- Greek -->
+  <unit name="ShadePredator">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+    <trainpoints>10.0000</trainpoints>
+  </unit>
+  <unit name="Minotaur">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Centaur">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Cyclops">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Manticore">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="NemeanLion">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Hydra">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Colossus">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Medusa">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Chimera">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <!-- Egyptian -->
+  <unit name="SerpentPredator_GuardsSerp">
+    <displaynameid>STR_UNIT_SERPENT_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_SERPENT_LR</rollovertextid>
+    <editornameid>STR_UNIT_SERPENT_PREDATOR_EDT_NAME</editornameid>
+    <icon>resources\egyptian\player_color\units\serpent_icon.png</icon>
+    <animfile>egyptian\units\myth\serpent\serpent.xml</animfile>
+    <soundsetfile>egyptian\vo\serpent\serpent.xml</soundsetfile>
+    <trainpoints>10.0000</trainpoints>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <selectionradiusx>0.7500</selectionradiusx>
+    <selectionradiusz>1.5000</selectionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <aistancebasedistance>16</aistancebasedistance>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <weightclass>0</weightclass>
+    <maxvelocity>5.3000</maxvelocity>
+    <los>16.0000</los>
+    <armor type="Hack" value="0.1500">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.8000">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeVillagersAttackResponse</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>AnimalPredator</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeMythUnitNotTitan</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidTraitorTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeAgressiveNatureUnit</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>NotCommandable</flag>
+    <flag>Wanders</flag>
+    <flag>VisibleUnderFogIfNature</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>handattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.200000</rof>
+      <damage type="Hack">8.000000</damage>
+      <maxrange>0.500000</maxrange>
+    </protoaction>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype>AbstractGuard_Serp</unittype>
+    <wanderdistance>7.0000</wanderdistance>
+    <autoattackrange>16</autoattackrange>
+  </unit>
+  <unit name="Anubite">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Sphinx">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Wadjet">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Scarab">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Petsuchos">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="ScorpionMan">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Mummy">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Avenger">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Phoenix">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <!-- Atlantean -->
+  <unit name="PrometheanOffspring">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+    <trainpoints>10.0000</trainpoints>
+  </unit>
+  <unit name="Promethean">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Caladria">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Automaton">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Satyr">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Dryad">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="StymphalianBird">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Behemoth">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Lampades">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Centimanus">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Argus">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  
+  <!-- Japanese -->
+  <unit name="Kitsune">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Wanyudo">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Jorogumo">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Kamaitachi">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Tengu">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Raiju">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Oni">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Asura">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Onmoraki">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Shinigami">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  
+  <!-- Chinese -->
+  <!-- Fei without AreaInfect -->
+  <unit name="Fei_GuardsSerp">
+    <displaynameid>STR_UNIT_FEI_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_FEI_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_FEI_SR</shortrollovertextid>
+    <icon>resources\chinese\player_color\units\fei_icon.png</icon>
+    <animfile>chinese\units\myth\fei\fei.xml</animfile>
+    <soundsetfile>chinese\vo\fei\fei.xml</soundsetfile>
+    <trainpoints>10.0000</trainpoints>
+    <obstructionradiusx>0.7400</obstructionradiusx>
+    <obstructionradiusz>0.7400</obstructionradiusz>
+    <selectionradiusx>0.7500</selectionradiusx>
+    <selectionradiusz>1.0000</selectionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>75.0000</initialhitpoints>
+    <maxhitpoints>75.0000</maxhitpoints>
+    <weightclass>4</weightclass>
+    <maxvelocity>5.0000</maxvelocity>
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>Fei</unittype>
+      <unittype>FeiTailOfFei</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Food">60.0000</cost>
+    <cost resourcetype="Favor">8.0000</cost>
+    <armor type="Hack" value="0.1000">
+    </armor>
+    <armor type="Pierce" value="0.2500">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeHeroicMythUnit</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>MythUnit</unittype>
+    <unittype>LogicalTypeMythUnitNotTitan</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidTraitorTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeFreezableMythUnit</unittype>
+    <unittype>LogicalTypeMythUnitNotFlying</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>fei_guardsserp.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">9.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <damagebonus type="AbstractVillager">0.500000</damagebonus>
+      <maxrange>0.750000</maxrange>
+      <onhiteffect type="DamageOverTime" duration="5.000000">
+        <damage type="Divine">0.50000</damage>
+        <target attacktype="LogicalTypeLandMilitary">
+        </target>
+        <target attacktype="EconomicUnit">
+        </target>
+        <target attacktype="Huntable">
+        </target>
+        <target ignoretype="Hero">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+      </onhiteffect>
+      <onhiteffect type="Attach" proto="VFXPoison" duration="5.000000">
+        <target attacktype="LogicalTypeLandMilitary">
+        </target>
+        <target attacktype="EconomicUnit">
+        </target>
+        <target attacktype="Huntable">
+        </target>
+        <target ignoretype="Hero">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+      </onhiteffect>
+    </protoaction>
+  </unit>
+  <unit name="QiLin">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="YaZi">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="QiongQi">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="TaoWu">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="BaiHu">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="TaoTie">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="QingLong">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="HunDun">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="ZhuQue">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+
+  
+  
+  
+  <!-- Some special units for wonder age -->
+  <!-- not auto-spawned, but via CreateUnit effect at PlentyVaultKOTH in MythicAge -->
+  <unit name="SonOfOsiris">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="Nidhogg">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="YingLong">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="TitanYamataNoOrochi">
+    <initialunitaistance>Defensive</initialunitaistance>
+    <unittype mergeMode="add">AbstractGuard_Serp</unittype>
+  </unit>
+  <unit name="KingFolstag_GuardsSerp">
+    <displaynameid>STR_UNIT_KING_FOLSTAG_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_KING_FOLSTAG_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_KING_FOLSTAG_SR</shortrollovertextid>
+    <icon>resources\spc\player_color\units\king_folstag_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_hero_spc</minimapicon>
+    <animfile>spc\units\king_folstag\king_folstag.xml</animfile>
+    <soundsetfile>spc\vo\king_folstag\king_folstag.xml</soundsetfile>
+    <obstructionradiusx>0.9900</obstructionradiusx>
+    <obstructionradiusz>0.9900</obstructionradiusz>
+    <selectionradiusx>1.2500</selectionradiusx>
+    <selectionradiusz>1.2500</selectionradiusz>
+    <impacttype>Wood</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <autoattackrange>16.0000</autoattackrange>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>800.0000</initialhitpoints>
+    <maxhitpoints>800.0000</maxhitpoints>
+    <unitregen>2.0000</unitregen>
+    <weightclass>11</weightclass>
+    <maxcontained>1.0000</maxcontained>
+    <populationcount>5</populationcount>
+    <maxvelocity>4.3000</maxvelocity>
+    <rechargetime>20</rechargetime>
+    <auxrechargetime>60</auxrechargetime>
+    <los>16.0000</los>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <armor type="Hack" value="0.5500">
+    </armor>
+    <armor type="Pierce" value="0.5000">
+    </armor>
+    <armor type="Crush" value="0.8000">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeSharedHeroSelection</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>Unit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>MajorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>NotDeleteable</flag>
+    <flag>KnockoutDeath</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <contain external="1">LogicalTypePickable</contain>
+    <tactics>king_folstag.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>2.000000</rof>
+      <damage type="Hack">36.000000</damage>
+      <damage type="Crush">24.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Hero">0.500000</damagebonus>
+      <maxrange>0.500000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>FreezeAttack</name>
+      <rof>2.000000</rof>
+      <maxrange>4.000000</maxrange>
+      <projectile>ProjectileBallOfFireInvisible</projectile>
+      <onhiteffect type="Freeze" duration="20.000000" freezetype="default">
+      </onhiteffect>
+      <workonfrozenunits>0</workonfrozenunits>
+    </protoaction>
+    <protoaction>
+      <name>FreezeTitan</name>
+      <rof>2.000000</rof>
+      <maxrange>4.000000</maxrange>
+      <projectile>ProjectileBallOfFireInvisible</projectile>
+      <onhiteffect type="Freeze" duration="30.000000" freezetype="default">
+      </onhiteffect>
+      <workonfrozenunits>0</workonfrozenunits>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <rate type="LogicalTypePickable">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <rate type="AbstractTemple">1.00000</rate>
+      <maxrange>1</maxrange>
+    </protoaction>
+    
+    <initialunitaistance>Defensive</initialunitaistance>
+    <!-- <unittype>AbstractHeroGuard_Serp</unittype> -->
+    <unittype>AbstractGuard_Serp</unittype>
+    <trainpoints>60</trainpoints>
+  </unit>
+  
+  <!-- a bit less strong gaia spawning in Wonder Age next to the PlentyVaultKOTH -->
+   <!-- titan is spawned in WonderAge, which doubles attack+HP , so make it even less here in proto -->
+  <unit name="TitanGaia_GuardsSerp">
+    <displaynameid>STR_UNIT_GAIA_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_GAIA_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_GAIA_SR</shortrollovertextid>
+    <editornameid>STR_UNIT_GAIA_EDT_NAME</editornameid>
+    <icon>resources\spc\player_color\units\titan_gaia_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_titan</minimapicon>
+    <animfile>spc\units\gaia\gaia.xml</animfile>
+    <soundsetfile>spc\vo\titan_gaia\titan_gaia.xml</soundsetfile>
+    <obstructionradiusx>1.4900</obstructionradiusx>
+    <obstructionradiusz>1.4900</obstructionradiusz>
+    <impacttype>Titan</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>4.0000</turnrate>
+    <initialhitpoints>25000.0000</initialhitpoints>
+    <maxhitpoints>25000.0000</maxhitpoints>
+    <unitregen>1.0000</unitregen>
+    <weightclass>251</weightclass>
+    <maxvelocity>4.0000</maxvelocity>
+    <rechargetime>8.0</rechargetime>
+    <los>25.0000</los>
+    <armor type="Hack" value="0.7000">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.9000">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>Unit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>MythUnit</unittype>
+    <unittype>AbstractTitan</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeMythUnitNotFlying</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>BattleMusicTrigger</flag>
+    <flag>GivesLOSToAll</flag>
+    <flag>MinimapDisplayOnTop</flag>
+    <flag>CannotSnare</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <command row="3" column="0">Stop</command>
+    <command row="3" column="3">Patrol</command>
+    <command row="3" column="4">AttackMove</command>
+    <command row="3" column="5">Delete</command>
+    <tactics>titan.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>3.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damage type="Crush">100.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Building">5.000000</damagebonus>
+      <damagebonus type="AbstractTitan">20.000000</damagebonus>
+      <damagebonus type="HumanSoldier">2.000000</damagebonus>
+      <maxrange>2.000000</maxrange>
+      <damagearea>8.000000</damagearea>
+      <damageflags>Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>TitanAttack</name>
+      <rof>3.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damage type="Crush">100.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Building">5.000000</damagebonus>
+      <damagebonus type="AbstractTitan">20.000000</damagebonus>
+      <damagebonus type="HumanSoldier">2.000000</damagebonus>
+      <maxrange>5.000000</maxrange>
+      <damagearea>8.000000</damagearea>
+      <damageflags>Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>ChargedHandAttack</name>
+      <rof>3.000000</rof>
+      <damage type="Hack">200.000000</damage>
+      <damagearea>10.000000</damagearea>
+      <damageflags>Enemy</damageflags>
+      <maxrange>2.000000</maxrange>
+      <onhiteffect type="Throw" targetunittype="HumanSoldier">
+      </onhiteffect>
+      <onhiteffect type="Throw" targetunittype="LogicalTypeVillagerNotHero">
+      </onhiteffect>
+      <onhiteffect type="Throw" targetunittype="LogicalTypeMythUnitNotTitan">
+      </onhiteffect>
+      <throw>1</throw>
+      <impactforcemin>300.0f</impactforcemin>
+      <impactforcemax>600.0f</impactforcemax>
+      <impactlaunchangle>10.0</impactlaunchangle>
+      <areasortmode>Directional</areasortmode>
+    </protoaction>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <aistancebasedistance>16</aistancebasedistance>
+    <autoattackrange>20</autoattackrange>
+    <unittype>AbstractGuard_Serp</unittype>
+  </unit>
+  
+  <unit name="TitanKronos_GuardsSerp">
+    <displaynameid>STR_UNIT_KRONOS_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_KRONOS_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_KRONOS_SR</shortrollovertextid>
+    <editornameid>STR_UNIT_KRONOS_EDT_NAME</editornameid>
+    <icon>resources\spc\player_color\units\titan_kronos_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_titan</minimapicon>
+    <animfile>spc\units\kronos\kronos.xml</animfile>
+    <soundsetfile>spc\vo\titan_kronos\titan_kronos.xml</soundsetfile>
+    <impacttype>Titan</impacttype>
+    <obstructionradiusx>1.4900</obstructionradiusx>
+    <obstructionradiusz>1.4900</obstructionradiusz>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>4.0000</turnrate>
+    <initialhitpoints>25000.0000</initialhitpoints>
+    <maxhitpoints>25000.0000</maxhitpoints>
+    <unitregen>1.0000</unitregen>
+    <weightclass>251</weightclass>
+    <rechargetime>8.0</rechargetime>
+    <maxvelocity>4.0000</maxvelocity>
+    <los>25.0000</los>
+    <armor type="Hack" value="0.9000">
+    </armor>
+    <armor type="Pierce" value="0.9500">
+    </armor>
+    <armor type="Crush" value="0.9000">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>Unit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>MythUnit</unittype>
+    <unittype>AbstractTitan</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeMythUnitNotFlying</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>BattleMusicTrigger</flag>
+    <flag>DeleteConfirmation</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>GivesLOSToAll</flag>
+    <flag>MinimapDisplayOnTop</flag>
+    <flag>CannotSnare</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <command row="3" column="0">Stop</command>
+    <command row="3" column="3">Patrol</command>
+    <command row="3" column="4">AttackMove</command>
+    <command row="3" column="5">Delete</command>
+    <tactics>titan.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>3.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damage type="Crush">100.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Building">5.000000</damagebonus>
+      <damagebonus type="AbstractTitan">20.000000</damagebonus>
+      <damagebonus type="HumanSoldier">2.000000</damagebonus>
+      <maxrange>2.000000</maxrange>
+      <damagearea>8.000000</damagearea>
+      <damageflags>Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>TitanAttack</name>
+      <rof>3.000000</rof>
+      <damage type="Hack">100.000000</damage>
+      <damage type="Crush">100.000000</damage>
+      <damagebonus type="MythUnit">2.000000</damagebonus>
+      <damagebonus type="Building">5.000000</damagebonus>
+      <damagebonus type="AbstractTitan">20.000000</damagebonus>
+      <damagebonus type="HumanSoldier">2.000000</damagebonus>
+      <maxrange>5.000000</maxrange>
+      <damagearea>8.000000</damagearea>
+      <damageflags>Enemy</damageflags>
+    </protoaction>
+    <protoaction>
+      <name>ChargedHandAttack</name>
+      <rof>3.000000</rof>
+      <damage type="Hack">200.000000</damage>
+      <damagearea>10.000000</damagearea>
+      <damageflags>Enemy</damageflags>
+      <maxrange>2.000000</maxrange>
+      <onhiteffect type="Throw" targetunittype="HumanSoldier">
+      </onhiteffect>
+      <onhiteffect type="Throw" targetunittype="LogicalTypeVillagerNotHero">
+      </onhiteffect>
+      <onhiteffect type="Throw" targetunittype="LogicalTypeMythUnitNotTitan">
+      </onhiteffect>
+      <throw>1</throw>
+      <impactforcemin>300.0f</impactforcemin>
+      <impactforcemax>600.0f</impactforcemax>
+      <impactlaunchangle>10.0</impactlaunchangle>
+      <areasortmode>Directional</areasortmode>
+    </protoaction>
+    <initialunitaistance>Defensive</initialunitaistance>
+    <aistancebasedistance>16</aistancebasedistance>
+    <autoattackrange>20</autoattackrange>
+    <unittype>AbstractGuard_Serp</unittype>
+  </unit>
+  
+  
+  
+  
+  
+</protomods>

@@ -1,0 +1,5 @@
+<abstractunittypesmods>
+  <abstractunittype mergeMode="add">AbstractGuard_Serp</abstractunittype>
+  <abstractunittype mergeMode="add">AbstractGuardSpawner1_Serp</abstractunittype>
+  <abstractunittype mergeMode="add">AbstractGuardSpawner2_Serp</abstractunittype>
+</abstractunittypesmods>

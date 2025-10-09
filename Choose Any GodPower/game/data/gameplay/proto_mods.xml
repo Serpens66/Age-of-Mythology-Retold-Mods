@@ -1,0 +1,192 @@
+<protomods>
+  
+
+  
+  
+  <unit name="StatueAnyPower_Archaic_Serp">
+    <displaynameid>STR_GOD_POWERS</displaynameid>
+    <rollovertextid>STR_BLD_STATUE_MAJOR_GOD_NAME</rollovertextid>
+    <editornameid>STR_GOD_POWERS</editornameid>
+    <icon>resources\spc\static_color\buildings\statue_major_god_icon.png</icon>
+    <animfile culture="greek">greek\buildings\statue_major_god\statue_major_god_greek.xml</animfile>
+    <animfile culture="egyptian">egyptian\buildings\statue_major_god\statue_major_god_egyptian.xml</animfile>
+    <animfile culture="norse">norse\buildings\statue_major_god\statue_major_god_norse.xml</animfile>
+    <animfile culture="atlantean">atlantean\buildings\statue_major_god\statue_major_god_atlantean.xml</animfile>
+    <animfile culture="chinese">chinese\buildings\statue_major_god\statue_major_god_chinese.xml</animfile>
+    <animfile culture="japanese">japanese\buildings\statue_major_god\statue_major_god_japanese.xml</animfile>
+    <soundsetfile>egyptian\sfx\buildings\monument_to_villagers.xml</soundsetfile>
+    <obstructionradiusx>1.0000</obstructionradiusx>
+    <obstructionradiusz>1.0000</obstructionradiusz>
+    <impacttype>Stone</impacttype>
+    <screenshakeondestruction>0.300</screenshakeondestruction>
+    <movementtype>land</movementtype>
+    <initialhitpoints>1000.0000</initialhitpoints>
+    <maxhitpoints>1000.0000</maxhitpoints>
+    <buildpoints>50.0000</buildpoints>
+    <buildlimit>1</buildlimit>
+    <maxvelocity>0.0000</maxvelocity>
+    <displayedrange>20.0000</displayedrange>
+    <los>9.0000</los>
+    <cost resourcetype="Wood">10.0000</cost>
+    <armor type="Hack" value="0.5500">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.1000">
+    </armor>
+    <tech row="0" column="0">GrantLure_Serp</tech>
+    <tech row="1" column="0">GrantSentinel_Serp</tech>
+    <tech row="2" column="0">GrantBolt_Serp</tech>
+    <!-- <tech row="3" column="0"></tech> -->
+    <tech row="0" column="1">GrantRain_Serp</tech>
+    <tech row="1" column="1">GrantProsperity_Serp</tech>
+    <tech row="2" column="1">GrantVision_Serp</tech>
+    <!-- <tech row="3" column="1"></tech> -->
+    <tech row="0" column="2">GrantDwarvenMine_Serp</tech>
+    <tech row="1" column="2">GrantGreatHunt_Serp</tech>
+    <tech row="2" column="2">GrantSpy_Serp</tech>
+    <tech row="3" column="2">GrantGullinbursti_Serp</tech>
+    <tech row="0" column="3">GrantDeconstruction_Serp</tech>
+    <tech row="1" column="3">GrantShockwave_Serp</tech>
+    <tech row="2" column="3">GrantGaiaForest_Serp</tech>
+    <!-- <tech row="3" column="3"></tech> -->
+    <tech row="0" column="4">GrantThePeachBlossomSpring_Serp</tech>
+    <tech row="1" column="4">GrantCreation_Serp</tech>
+    <tech row="2" column="4">GrantProsperousSeeds_Serp</tech>
+    <!-- <tech row="3" column="4"></tech> -->
+    <tech row="0" column="5">GrantSolarShield_Serp</tech>
+    <tech row="1" column="5">GrantKusanagi_Serp</tech>
+    <tech row="2" column="5">GrantNewMoon_Serp</tech>
+    <!-- <tech row="3" column="5"></tech> -->
+    <tech row="3" column="5">StatueArchaicToClassic_AnyPower_Serp</tech>
+    <unittype>LogicalTypeMinimapFilterEconomic</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>Building</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeTartarianGateValidOverlapPlacement</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>NoIdleActions</flag>
+    <flag>UseSharedBuildLimit</flag>
+    <command row="1" column="1">CancelBuilding</command>
+    <command row="3" column="0">Delete</command>
+    <initialresource resourcetype="Favor">1.0000</initialresource>
+    <flag>PrayableTo</flag>
+    <flag>HideResourceInventory</flag>
+    <flag>UnlimitedSupply</flag>
+  </unit>
+  
+  
+  <!-- ########################################################### -->
+  
+  <!-- ModBuilder_Serp is shared code , do not change, will be used in several mods -->
+   <!-- other mods will have the very same unit, but with different train building entry. this will be correctly merged if multiple are active -->
+  <!-- animfile needs pray animation, soundsetfile can not use different culture ... -->
+  <unit name="ModBuilder_Serp">
+    <displaynameid>STR_MY_MODS</displaynameid>
+    <rollovertextid>STR_MY_MODS</rollovertextid>
+    <shortrollovertextid>STR_MY_MODS</shortrollovertextid>
+    <editornameid>STR_MY_MODS</editornameid>
+    <icon culture="greek">resources\greek\player_color\units\villager_greek_icon.png</icon>
+    <icon culture="egyptian">resources\egyptian\player_color\units\villager_egyptian_icon.png</icon>
+    <icon culture="norse">resources\norse\player_color\units\villager_norse_icon.png</icon>
+    <icon culture="atlantean">resources\atlantean\player_color\units\villager_atlantean_icon.png</icon>
+    <icon culture="chinese">resources\chinese\player_color\units\villager_chinese_icon.png</icon>
+    <icon culture="japanese">resources\japanese\player_color\units\villager_japanese_icon.png</icon>
+    <animfile culture="greek">greek\units\economic\villager_greek\villager_greek.xml</animfile>
+    <animfile culture="egyptian">egyptian\units\economic\villager_egyptian\villager_egyptian.xml</animfile>
+    <!-- <animfile culture="norse">norse\units\economic\villager_norse\villager_norse.xml</animfile> -->
+    <!-- <animfile culture="atlantean">atlantean\units\economic\villager_atlantean\villager_atlantean.xml</animfile> -->
+    <animfile culture="chinese">chinese\units\economic\villager_chinese\villager_chinese.xml</animfile>
+    <!-- <animfile culture="japanese">japanese\units\economic\villager_japanese\villager_japanese.xml</animfile> -->
+    <soundsetfile>greek\vo\villager_greek\villager_greek.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>Civilian</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>550.0000</initialhitpoints>
+    <maxhitpoints>550.0000</maxhitpoints>
+    <trainpoints>15.0000</trainpoints>
+    <buildlimit>1</buildlimit>
+    <weightclass>4</weightclass>
+    <populationcount>0</populationcount>
+    <maxvelocity>3.8000</maxvelocity>
+    <carrycapacity resourcetype="Favor">1.0000</carrycapacity>
+    <los>14.0000</los>
+    <armor type="Hack" value="0.2500">
+    </armor>
+    <armor type="Pierce" value="0.3500">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeMinimapFilterEconomic</unittype>
+    <unittype>LogicalTypeEasySelectAvoid</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>Unit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>EconomicUnit</unittype>
+    <unittype>Hero</unittype>
+    <unittype>AffectedByTownBell</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    
+		<train row="0" column="0">StatueAnyPower_Archaic_Serp</train>
+    
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>AutoTrainable</flag>
+    <flag>HasDefaultAttack</flag>
+    <flag>NoIdleActions</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <command row="3" column="2">SeekShelter</command>
+    <command row="3" column="3">Repair</command>
+    <tactics>modbuilder_serp.tactics</tactics>
+    <protoaction>
+      <name>Build</name>
+      <rate type="Building">3.000000</rate>
+    </protoaction>
+    <protoaction>
+      <name>Repair</name>
+      <rate type="AbstractWall">1.0000</rate>
+      <rate type="Building">2.5000</rate>
+    </protoaction>
+    <protoaction>
+      <name>Gather</name>
+      <rate type="StatueAnyPower_Archaic_Serp">0.4</rate>
+      <rate type="Building">0.2</rate>
+    </protoaction>
+  </unit>
+  
+  
+  
+</protomods>

@@ -1,0 +1,2 @@
+v1.01:
+- fixed HeroPromotion techs costing insane amounts after reaching the fast age (vanilla bug.. added workaround...)

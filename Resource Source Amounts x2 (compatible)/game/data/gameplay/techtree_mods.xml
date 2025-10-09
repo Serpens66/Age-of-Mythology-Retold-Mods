@@ -1,0 +1,144 @@
+<techtreemods>
+  
+  
+    <!-- adding/removing these DynamicUpdate Flags is highly buggy and only works as intended (to not show the progress bar after increasing amounts) in very rare code situations, while it should work.. -->
+      <!-- for new games it only works with my ArchaicAgeGeneral_Serp workaround (to make it for all civs and game updates) -->
+    <!-- in theory using an OBTAINABLE Volatile tech should be superior, because it also works for savegames which had the mod not enabled before. -->
+     <!-- but for whatever reason the DynamicUpdate flag code does not work properly then, at least the progress bars are always shown and I see no way to fix it. -->
+   <!-- In the end we will have 2 different ways to activate tech "DoubleResources_Serp", one being ArchaicAgeGeneral_Serp when a new game i started -->
+    <!-- and the other is an OBTAINABLE Volatile tech that checks if DoubleResources_Serp was already done, and if not starts it (which will happen on savegame load) -->
+     <!-- this second version will alawys show progress bars, but it should be seldom enough that someone loads a savegame where this mod was not active yet on gamestart. -->
+  
+  
+    <!-- also adding: -->
+    <!-- <effect mergeMode="add" type="CreateUnit" unit="Huskarl" generator="AbstractTownCenter"> -->
+      <!-- <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00"> -->
+        <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+        <!-- </offset> -->
+      <!-- </pattern> -->
+    <!-- </effect> -->
+    <!-- into DoubleResources_Serp only makes units spawn when loading a savegame (which uses OBTAINABLE volatile tech), not when starting a new game ?! -->
+     <!-- most likely because it is too early to spawn units when this is executed? -->
+      <!-- yes that is the reason, see PharaohFirstSpawn example to spawn units (with delay or use the OBTAINABLE+Volatile tech) -->
+   <!-- But that also explains why the flags are behaving differently with a delay. -->
+    <!-- So the only situation where they work like I want them to work is when I remove the flags before the game is fully started?! -->
+  <!-- But with OBTAINABLE+Volatile without delay the multiply is executed twice for whatever reason on new game, but never on loading a game. -->
+    <!-- just with my ArchaicAgeGeneral_Serp it seems to hit the correct timing -->
+      <!-- and also OBTAINABLE+Volatile + <specificage>ArchaicAge</specificage> seems to work for new games .. but for whatever reason now without adding the flag back -.- (loading game does not multiply, because prereqs checking in OBTAINABLE is buggy as hell) -->
+      
+
+      
+   <!-- It only works with this ArchaicAgeGeneral_Serp code for whatever reason, so lets keep it (for new games) -->
+    <!-- add our ArchaicAgeGeneral_Serp to ArchaicAgeWeakenUnits, to have it executed for everyone (assuming ArchaicAgeWeakenUnits is added also for future civs) -->
+  <!-- there is no ArchaicAgeGeneral in the vanilla game.. so we create or own, based on ArchaicAgeWeakenUnits (because this is executed for everyone). -->
+   <!-- we can not use ArchaicAgeWeakenUnits directly, because the effects of it are reverted as soon as reaching classical. -->
+    <!-- that means we wont have ArchaicAgeGeneral_Serp active anymore then, but the effects of ArchaicAgeGeneral_Serp should stay -->
+  <tech name="ArchaicAgeWeakenUnits">
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">ArchaicAgeGeneral_Serp</effect>
+    </effects>    
+  </tech>
+  <tech name="ArchaicAgeGeneral_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">DoubleResources_Serp</effect>
+    </effects>
+  </tech>
+
+  <!-- Add a tech for savegame compatibility... -->
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+    <!-- checking in this OBTAINABLE Volatile tech techstatus UNOBTAINABLE seems to be fine, while Active does crash the game before reaching main menu .. -->
+    <!-- but it seems to be fine to have no prereqs here, because it seems making DoubleResources_Serp active two times, does not cause it to be executed multiple times. -->
+  <tech mergeMode="add" name="DoubleResourcesForSaves_Serp">
+    <status>OBTAINABLE</status>
+    <delay>2.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <effects>
+      <effect mergeMode="add" type="TechStatus" status="active">DoubleResources_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech mergeMode="add" name="DoubleResources_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <effects>
+    
+      <!-- Remove "DynamicUpdate/StartOnNoUpdate" flag for these resources before increasing the amounts and then add these flags again back. -->
+       <!-- Otherwise these resources will constantly show their progress bar, which really sucks.. -->
+       <!-- (animals dont have this flag, so dont have this problem) -->
+        <!-- (normal purpose of these is to always show progress bar of ressources which do not anymore contain the original amount) -->
+      <effect mergeMode="add" type="Data" amount="-1.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Absolute">
+        <target type="ProtoUnit">GoldResource</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-1.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Absolute">
+        <target type="ProtoUnit">Tree</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-1.00" subtype="ProtoUnitFlag" flag="StartOnNoUpdate" relativity="Absolute">
+        <target type="ProtoUnit">Tree</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="-1.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Absolute">
+        <target type="ProtoUnit">WildCrops</target>
+      </effect>
+      
+      <!-- Also trees are "HuntedResource", but multiplying a Food value of 0 with 2 is still 0, so its fine -->
+      <!-- Tree , GoldResource, WildCrops -->
+      <!-- I think we can use Resource target for everything, because 2*0==0 -->
+      
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="InventoryAmount" resource="Food" relativity="Percent">
+        <target type="ProtoUnit">Resource</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="CarryCapacity" resource="Food" relativity="Percent">
+        <target type="ProtoUnit">Resource</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="InventoryAmount" resource="Wood" relativity="Percent">
+        <target type="ProtoUnit">Resource</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="CarryCapacity" resource="Wood" relativity="Percent">
+        <target type="ProtoUnit">Resource</target>
+      </effect>
+      
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="InventoryAmount" resource="Gold" relativity="Percent">
+        <target type="ProtoUnit">Resource</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="2.00" subtype="CarryCapacity" resource="Gold" relativity="Percent">
+        <target type="ProtoUnit">Resource</target>
+      </effect>
+      
+      <effect mergeMode="add" type="TechStatus" status="obtainable">EnableUpdateFlagsAgain_Serp</effect>
+      
+    </effects>
+  </tech>
+  
+  
+  <!-- need to put the Enable in another delayed tech, otherwise the bars are still shown. -->
+   <!-- and for whatever reason when I put it into ClassicalAgeGeneral for test, adding th flag back did not work (no bar anymore) -->
+    <!-- but now it finally works.. -->
+  <tech mergeMode="add" name="EnableUpdateFlagsAgain_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>5.0000</delay>
+    <flag>HideAllNotifications</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>Volatile</flag>
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Absolute">
+        <target type="ProtoUnit">GoldResource</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Absolute">
+        <target type="ProtoUnit">Tree</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="StartOnNoUpdate" relativity="Absolute">
+        <target type="ProtoUnit">Tree</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Absolute">
+        <target type="ProtoUnit">WildCrops</target>
+      </effect>
+    </effects>
+  </tech>
+    
+  
+</techtreemods>

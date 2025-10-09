@@ -1,0 +1,4 @@
+(Additive Mod)
+- Adds passive income of favor for everyone, increasing every age (+6/minute, +18/m, +36/m, +60/m)
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

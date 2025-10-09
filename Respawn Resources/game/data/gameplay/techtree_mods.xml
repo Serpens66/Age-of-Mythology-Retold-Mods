@@ -1,0 +1,92 @@
+<techtreemods>
+
+
+  <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
+   <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- bei manchen sachen hilfts wohl auch n delay zuzufügen, bei anderen schadets.. -->
+  <tech name="AlwaysStuff_RegenNatureSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>3.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+      <!-- the respawn markers are using the animal grahipcs, but we make it smaller -->
+      <effect mergeMode="add" type="Data" amount="0.2" subtype="AdditionalScale" relativity="Override">
+        <target type="ProtoUnit">AbstractRespawnMarkerAnimal_Serp</target>
+      </effect>
+      
+      
+      <!-- <effect type="TechStatus" status="active">MakeTreesRespawn_Serp</effect> -->
+    </effects>
+  </tech>
+  
+  <!-- ##################################################################################################################### -->
+  <!-- ##################################################################################################################### -->
+  <!-- Attempt to make tree respawn code compatible for newly added trees.. but it does not work -->
+  
+  <!-- we could do all of the proto.xml Tree respawn code also in techtree EXCEPT decay=0. without decay=0 it is like ~5 seconds, which means it will show 2 stumps/trees -->
+    <!-- for 5 seconds... only reason to do it in techtree might be better compatibility for newly added trees -->
+     <!-- but that only works if we add the very same stump to all unittype=Tree that will always respawn the same tree (all trees will respawn as TreeOak) -->
+      <!-- I could make all vanilla trees that exist currently in proto and still do some stuff in techtree for all later added trees (that will respawn as TreeOak always) -->
+       <!-- but the problem is:  -->
+        <!-- 1) how affect in techtree only later added trees? Needs workaround with unittype (removing "Tree" in prot and add Tree_Serp, do in techtree stuff for "Tree" which wil laffect new trees only and then add back Tree for the Tree_Serp) -->
+        <!-- 2) to remove the "replacement" we have to define exactly what is written in there, also in techtree: -->
+          <!-- <effect type="Data" amount="0.00" subtype="ModifyReplacement" replacementtype="Dead" proto="StumpOak" relativity="Assign"> -->
+            <!-- <target type="ProtoUnit">Tree</target> -->
+          <!-- </effect> -->
+         <!-- But for newly added trees we can not know what kind of Stump they are using and stumps also have no unique unittype... -->
+          <!-- AND it also does not work with <target type="ProtoUnit">Tree</target> to remove the replacement multiple times! -->
+            <!-- if I do it once for StumpOak it works, if I do it once for StumpOakAutumn it also works. -->
+             <!-- But it does not work for any, if I do both ?! -->
+        <!-- That means it is impossible to make this work for all future added trees .. so simply stick to proto and only add current vanilla trees -->
+  <!-- <tech name="MakeTreesRespawn_Serp"> -->
+    <!-- <status>UNOBTAINABLE</status> -->
+    <!-- <flag>HideAllNotifications</flag> -->
+    <!-- <effects> -->
+      <!-- <effect type="Data" amount="0.00" subtype="ModifyReplacement" replacementtype="Dead" proto="StumpOak" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="0.00" subtype="ModifyReplacement" replacementtype="Dead" proto="StumpOakAutumn" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      
+      <!-- <effect type="Data" amount="1.00" subtype="ModifySpawn" spawntype="Dead" proto="StumpOak" skipplacementcheck="true" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="ForceNormalDeathAnim" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="0.00" subtype="ProtoUnitFlag" flag="StartOnNoUpdate" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      
+      
+      
+      <!-- <effect type="Data" amount="1.00" subtype="ModifySpawn" spawntype="Dead" proto="TreeOak" skipplacementcheck="true" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StumpOak</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="ForceNormalDeathAnim" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">StumpOak</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="0.00" subtype="ProtoUnitFlag" flag="StartOnNoUpdate" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">StumpOak</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="-1.00" subtype="UnitRegenRate" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">StumpOak</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="1200.0" subtype="Hitpoints" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">StumpOak</target> -->
+      <!-- </effect> -->
+      
+      <!-- testing -->
+      <!-- <effect type="Data" amount="10.0" subtype="Hitpoints" relativity="Override"> -->
+        <!-- <target type="ProtoUnit">StumpOak</target> -->
+      <!-- </effect> -->
+     
+    <!-- </effects> -->
+  <!-- </tech> -->
+    
+  
+</techtreemods>

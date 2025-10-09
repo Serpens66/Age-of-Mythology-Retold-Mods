@@ -1,0 +1,16 @@
+<protomods>
+  
+  <!-- VisionRevealer from Vision uses the orcale tactic, so it already includes this action, so we only have to enable it in techtree -->
+  
+  <unit name="SpyEye">
+    <tactics>oracle.tactics</tactics>
+    <!-- remove these two flags to make RevealUI work -->
+    <flag mergeMode="remove">NoUnitAI</flag>
+    <flag mergeMode="remove">NotAlive</flag>
+  </unit>
+  
+  <unit name="Obelisk">
+    <tactics>oracle.tactics</tactics>
+  </unit>
+  
+</protomods>
