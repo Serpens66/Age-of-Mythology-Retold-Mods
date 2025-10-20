@@ -13,9 +13,9 @@
     <!-- (while villagers dont have much space and also other mods may add buildings there, which is always incompatible  -->
     <!-- if two mods occupy the same slot.. so only reason to add it here is to maintain better compatibility to other mods and game updates) -->
   <unit name="SentryTower">
-    <train row="1" column="0">SentryTower</train>
+    <train row="2" column="0">SentryTower</train>
     <!-- <train mergeMode="add" row="1" column="1">MirrorTower</train> -->
-    <train row="1" column="2">SkyPassage_LowHealth_Serp</train>
+    <train row="2" column="2">SkyPassage_LowHealth_Serp</train>
     <!-- build action needed to allow placing the construction site -->
      <!-- in theory we even could allow SentryTower to actually build it :D -->
     <protoaction>

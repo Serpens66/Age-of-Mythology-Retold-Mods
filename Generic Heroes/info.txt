@@ -1,0 +1,12 @@
+(Additive Mod)
+- Adds one new hero unit comparable to the Hersir/Godi to: Greek (TownCenter), Egyptian (TownCenter) and Chinese (ImperialAcademy), based on infantry/archer units.
+- also adds an upgrade to hero button to the base units Peltast, Axeman and WuzuJavelineer.
+- Aim is to allow them to recruit unlimited amount of heroes, like the other cultures are able to, to counter mass myth-armies.
+- AI is not edited to train these units (because not additive possible), instead they will get one hero for free with a 12% chance on every recruitment of any HumanSoldier.
+
+Known Issue:
+- the animation for carrying relics does not work properly (keeps standing on the ground), but it still can be carried to temple.
+- unit icon uses white instead of player-colour
+- incompatible to mods/game updates which add a unit at the same location in UI (in this case use the upgrade command in the base unit)
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

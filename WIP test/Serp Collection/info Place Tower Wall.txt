@@ -1,7 +1,0 @@
-(Additive Mod)
-- Allows you to place a SentryTower on top of single walls (WallConnector)
-- removes the building restriction of walls (could not be placed too near to TownCenters and Goldmines)
-
-(I was not able to update my not good working previous version "Wall To Tower", so this is a new upload with much better solution)
-
-If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

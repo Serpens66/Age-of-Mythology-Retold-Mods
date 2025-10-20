@@ -1,9 +1,0 @@
-<unittypedatamods>
-  <!-- add AbstractSocketedTownCenter to the strings TownCenter, so it is displayed in tooltips -->
-  <unittypeentry mergeMode="add">
-    <unittype>AbstractSocketedTownCenter</unittype>
-    <displaynameid>STR_HUD_UNIT_TYPE_TOWN_CENTER</displaynameid>
-    <hidefromrollover>
-    </hidefromrollover>
-  </unittypeentry>
-</unittypedatamods>

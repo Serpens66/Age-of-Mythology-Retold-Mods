@@ -136,6 +136,8 @@
         <!-- <veterancymodify modifytype="RangeAbsolute">2.0</veterancymodify> -->
         <veterancymodify modifytype="Range">1.1</veterancymodify>
         <!-- die folgenden dinge funzen iwie leider nicht.. -->
+         <!-- (9.10.25 wurden folgende Optionen gefixt: DamageSpecific, ArmorSpecific , LOS, LOSFactor, Armor, ShieldRegenRate, and RegenRate -->
+         <!-- und zugefügt: adding Veterancy Ranks and modifying Veterancy include/exclude unitTypes through Tech effects) -->
         <!-- <veterancymodify modifytype="LOS">10.0</veterancymodify> -->
         <!-- <veterancymodify modifytype="LOSFactor">0.1</veterancymodify> -->
         <!-- <veterancymodify modifytype="Bounty">10.0</veterancymodify> -->

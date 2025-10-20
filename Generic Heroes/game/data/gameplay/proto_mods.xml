@@ -1,0 +1,418 @@
+<protomods>
+  
+  <!-- Generic Heroes -->
+  
+  <!-- make sure that all cultures have the abilitiy to recruit an unlimited amount of hero units to counter mass myth units. -->
+  <!-- Atlantean, Norse and Japanese already have enough heroes -->
+  <!-- and priests-only for egypt suck, so add a handattack hero for them -->
+
+  <!-- greek -->
+  
+  <unit name="TownCenter">
+    <train row="0" column="5">Peltast_Hero_Serp</train>
+  </unit>
+  <unit name="VillageCenter">
+    <train row="0" column="5">Peltast_Hero_Serp</train>
+  </unit>
+  <unit name="Peltast">
+    <command row="0" column="5">Peltast_To_Hero_Serp</command>
+  </unit>
+  <unit name="Peltast_Hero_Serp">
+    <displaynameid>STR_UNIT_PELTAST_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_GODI_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_JASON_SR</shortrollovertextid>
+    <!-- <icon>resources\greek\player_color\units\peltast_icon.png</icon> -->
+    <icon>resources\modserp\peltast_icon_hero.png</icon>
+    <animfile>greek\units\archery\peltast\peltast.xml</animfile>
+    <soundsetfile>greek\vo\peltast\peltast.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>RangedCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <trainpoints>15.5000</trainpoints>
+    <weightclass>4</weightclass>
+    <populationcount>3</populationcount>
+    <maxcontained>1.0000</maxcontained>
+    <maxvelocity>4.0000</maxvelocity>
+    <los>20.0000</los>
+    <cost resourcetype="Food">80.0000</cost>
+    <cost resourcetype="Gold">40.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>Ranged</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>Unit</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>AbstractArcher</unittype>
+    <unittype>ArcherLineUpgraded</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeAffectedBySunRay</unittype>
+    <unittype>Hero</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>MinorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeHealableHero</unittype>
+    <contain external="1">LogicalTypePickable</contain>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <flag>HeroNameSimple</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>rangedattack.tactics</tactics>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>1.250000</rof>
+      <damage type="Pierce">6.000000</damage>
+      <damagebonus type="MythUnit">5.500000</damagebonus>
+      <maxrange>17.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+      <impacteffect>effects\impacts\pierce_medium</impacteffect>
+      <onhiteffect active="0" type="DamageOverTime" duration="6.000000">
+        <damage type="Divine">0.2500000</damage>
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+      </onhiteffect>
+      <onhiteffect active="0" type="Attach" proto="VFXPoison" attachbone="spine" duration="6.000000">
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+      </onhiteffect>
+    </protoaction>
+    <protoaction>
+      <name>HeroRingOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow_ring.xml</modelattachment>
+    </protoaction>
+    <protoaction>
+      <name>HeroGlowOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow.xml</modelattachment>
+      <modelattachmentbone>Spine</modelattachmentbone>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <maxrange>1</maxrange>
+      <rate type="LogicalTypePickable">1.00000</rate>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <maxrange>1</maxrange>
+      <rate type="AbstractTemple">1.00000</rate>
+    </protoaction>
+  </unit>
+  
+  <!-- egypt -->
+  
+  <unit name="TownCenter">
+    <train row="0" column="5">Axeman_Hero_Serp</train>
+  </unit>
+  <unit name="VillageCenter">
+    <train row="0" column="5">Axeman_Hero_Serp</train>
+  </unit>
+  <unit name="Axeman">
+    <command row="0" column="5">Axeman_To_Hero_Serp</command>
+  </unit>
+  <!-- since priests are ranged, its fine if this is hand attack -->
+  <unit name="Axeman_Hero_Serp">
+    <displaynameid>STR_UNIT_AXEMAN_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_MURMILLO_HERO_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_JASON_SR</shortrollovertextid>
+    <!-- <icon>resources\egyptian\player_color\units\axeman_icon.png</icon> -->
+    <icon>resources\modserp\axeman_icon_hero.png</icon>
+    <animfile>egyptian\units\infantry\axeman\axeman.xml</animfile>
+    <soundsetfile>egyptian\vo\axeman\axeman.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <trainpoints>15.5000</trainpoints>
+    <weightclass>5</weightclass>
+    <populationcount>3</populationcount>
+    <maxcontained>1.0000</maxcontained>
+    <maxvelocity>4.3000</maxvelocity>
+    <los>16.0000</los>
+    <cost resourcetype="Food">80.0000</cost>
+    <cost resourcetype="Gold">40.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>Unit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>AbstractInfantry</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>Hero</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>MinorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeHealableHero</unittype>
+    <contain external="1">LogicalTypePickable</contain>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <flag>HeroNameSimple</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>handattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">6.000000</damage>
+      <damagebonus type="MythUnit">5.500000</damagebonus>
+      <maxrange>0.600000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>HeroRingOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow_ring.xml</modelattachment>
+    </protoaction>
+    <protoaction>
+      <name>HeroGlowOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow.xml</modelattachment>
+      <modelattachmentbone>Spine</modelattachmentbone>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <maxrange>1</maxrange>
+      <rate type="LogicalTypePickable">1.00000</rate>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <maxrange>1</maxrange>
+      <rate type="AbstractTemple">1.00000</rate>
+    </protoaction>
+  </unit>
+  
+  <!-- chinese -->
+  <unit name="ImperialAcademy">
+    <train row="0" column="4">WuzuJavelineer_Hero_Serp</train>
+  </unit>
+  <unit name="WuzuJavelineer">
+    <command row="0" column="5">WuzuJavelineer_To_Hero_Serp</command>
+  </unit>
+  <unit name="WuzuJavelineer_Hero_Serp">
+    <displaynameid>STR_UNIT_WUZU_JAVELINEER_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_GODI_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_JASON_SR</shortrollovertextid>
+    <!-- <icon>resources\chinese\player_color\units\wuzu_javelineer_icon.png</icon> -->
+    <icon>resources\modserp\wuzu_javelineer_icon_hero.png</icon>
+    <animfile>chinese\units\archery\wuzu_javelineer\wuzu_javelineer.xml</animfile>
+    <soundsetfile>chinese\vo\wuzu_javelineer\wuzu_javelineer.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <trainpoints>15.5000</trainpoints>
+    <weightclass>4</weightclass>
+    <populationcount>3</populationcount>
+    <maxcontained>1.0000</maxcontained>
+    <maxvelocity>4.7500</maxvelocity>
+    <los>18.0000</los>
+    <cost resourcetype="Food">80.0000</cost>
+    <cost resourcetype="Gold">40.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>Ranged</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>Unit</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>AbstractArcher</unittype>
+    <unittype>ArcherLineUpgraded</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>Hero</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>MinorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeHealableHero</unittype>
+    <contain external="1">LogicalTypePickable</contain>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <flag>HeroNameSimple</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>rangedattack.tactics</tactics>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>1.250000</rof>
+      <damage type="Pierce">6.000000</damage>
+      <damagebonus type="MythUnit">5.500000</damagebonus>
+      <maxrange>17.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+      <impacteffect>effects\impacts\pierce_medium</impacteffect>
+      <onhiteffect active="0" type="StatModify" duration="5.00000">
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+        <target ignoretype="AbstractTitan">
+        </target>
+        <modify type="ArmorSpecific" dmgtype="Pierce" applytype="Multiply" stack="">0.9900</modify>
+        <modify type="ArmorSpecific" dmgtype="Hack" applytype="Multiply" stack="">0.9900</modify>
+      </onhiteffect>
+      <onhiteffect active="0" type="Attach" proto="VFXScorchingFeathers" attachbone="spine" duration="5.000000">
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+        <target ignoretype="AbstractTitan">
+        </target>
+      </onhiteffect>
+    </protoaction>
+    <protoaction>
+      <name>HeroRingOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow_ring.xml</modelattachment>
+    </protoaction>
+    <protoaction>
+      <name>HeroGlowOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow.xml</modelattachment>
+      <modelattachmentbone>Spine</modelattachmentbone>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <maxrange>1</maxrange>
+      <rate type="LogicalTypePickable">1.00000</rate>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <maxrange>1</maxrange>
+      <rate type="AbstractTemple">1.00000</rate>
+    </protoaction>
+  </unit>
+  
+</protomods>

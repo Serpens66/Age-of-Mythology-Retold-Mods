@@ -1,3 +1,0 @@
-(Additive Mod)
-- All your TownCenters are transformed into CitadelCenters when reaching the WonderAge (newly build ones are also converted as long as you own the Wonder. If the wonder is lost, they will stay)
-- If you chose Sekhmet as minor god (the one with the Citadel godpower), your CitadelCenters will have twice the normal hitpoints as compensation.

@@ -8,6 +8,7 @@
   <!-- This overwrites the UnitRegenRate for every hero (doing relativity="Absolute" afterwards adds on top of this value without problems, eg. HeroicRenewal) -->
   <!-- Some heroes have no regen, others have regen of 1 and some campaign hereoes have regen of 2 in vanilla. So I think 1.5 for all is fine. -->
         
+  <!-- UnitRegenCombatMultiplier seems not to work? at least not displayed, also not for vanilla. so leave it out -->
   <tech name="AlwaysStuff_HeroRegenSerp">
     <status>OBTAINABLE</status>
     <flag>HideAllNotifications</flag>
@@ -18,6 +19,9 @@
       <effect type="Data" amount="1.50" subtype="UnitRegenRate" relativity="Assign">
         <target type="ProtoUnit">Hero</target>
       </effect>
+      <!-- <effect type="Data" amount="0.10" subtype="UnitRegenCombatMultiplier" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">Hero</target> -->
+      <!-- </effect> -->
     </effects>
   </tech>
   

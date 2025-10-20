@@ -1,0 +1,2 @@
+1.01:
+- moved the buttons in sentry tower one line down (3rd line), because some gods have their mythic upgrades at second line

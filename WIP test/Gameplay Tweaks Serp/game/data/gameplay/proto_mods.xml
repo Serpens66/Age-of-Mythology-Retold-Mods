@@ -198,16 +198,25 @@
    <!-- so instead we could better use "Command" (super tricky to make it work, finally succeeded, but other commands still dont work) -->
     <!-- or a tech that makes TransformUnit (which effects every unit of this kind currently on the map from the player) -->
    <!-- For a transform command to work you need:  -->
-    <!-- 1) command added to proto_unit_commands.xml, eg based on TransformToGate command. But you need an associatedtech (additive modding with proto_unit_command_mods.xml , so without the s ... ) -->
-    <!-- 2) the associatedtech also has to be added to techtree, see FanaticToHero as example and the tech should be named exactly like the command and set to active -->
+    <!-- 1) command added to proto_unit_commands.xml, eg based on TransformToGate command. (additive modding with proto_unit_command_mods.xml , so without the s ... ) -->
+    <!-- 2) For Costs you need an associatedtech which also has to be added to techtree, see FanaticToHero as example and the tech should be named exactly like the command and set to active -->
     <!-- 3) the transform in unit_transform.xml, see gate as example. command is not required. the tech here can (should?) be another tech, eg an age, but is not required -->
     <!-- 4) transformcommand in protounit is not required if we use uiTransformSelectedUnit() in proto_unit_commands.xml -->
-  <!-- Problem with transform command: -->
-   <!-- you can not do an endless cycle like Unit1 -> Unit2 -> Unit3 -> Unit1 -> Unit2 and so on. -->
+    <!-- 5) add the command to your unit with <command row="0" column="0">Axeman_To_Hero_Serp</command> -->
+  <!-- Problem with uiTransformSelectedUnit command: -->
+   <!-- The costs displayed are the ones for the tech, but substracted are also the costs for the unit it is tranformed into! -->
+      <!-- die Kosten der zielunit scheinen durch uiTransformSelectedUnit abgezogen zu werden und gibt keine methode das kostenlos zu machen? (außer zielunit hat keine kosten) uiTransformSelectedUnit(string protoName, bool forceFullyBuilt, int unitID, bool placementPlayer) -->
+      <!-- For TransformToGate the display of the Gate Costs seems to be hardcoded (not accessable it seems) somewhere, it is tied to the name "TransformToGate" regardless what the content of the command is. -->
+     <!-- (kann stattdessen das transformcommand system nehmen, mit transformselected wird nur cost von tech abgezogen.., aber da geht halt nur ein transformcommand pro unit) -->
+  <!-- Problem with Command (might be solved with <reusable>1</reusable>) -->
+  <!-- you can not do an endless cycle like Unit1 -> Unit2 -> Unit3 -> Unit1 -> Unit2 and so on. -->
     <!-- Because with the transform I guess the UnitID does not change and it remembers that it already did a Transform (eg to Unit2) -->
-     <!-- so every transform can only be exeucted once on the same unit...(or test <usemultiple></usemultiple> ?) -->
-
-
+     <!-- so every transform can only be exeucted once on the same unit...(or test <reusable>1</reusable> ?) -->
+  <!-- Alternatives: -->
+  <!-- DelayedTransform (see unit wandler mod) -->
+  <!-- OR command: instead of transformselected im command zu nutzen, nutzen wir nur transform. Das funktioniert auch ohne transformcommand in proto unit. -->
+   <!-- Und unterstützt mehrere transforms und nimmt als Kosten nur die der Tech. Das Ziel wird dann anhand von unit_transform datei gewählt, wo wir den command mit eintragen müssen -->
+     <!-- displayontarget funktioniert damit leider nicht, aber nicht so wild. optional noch researchonselected in command zufügen, damits für alle angewählten einheiten aufeinmal gemacht wird -->
 
   
    <!-- proto_unit_commands.xml additive modding is done with proto_unit_command_mods.xml (removed the s) -->

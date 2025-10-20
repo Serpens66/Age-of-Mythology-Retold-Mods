@@ -1,2 +1,0 @@
-1.01:
-- doubled healrate for researching "Feasts Of Renown" tech from Freyr/Aegir for TownCenters to compensate that everyone already has AreaHeal

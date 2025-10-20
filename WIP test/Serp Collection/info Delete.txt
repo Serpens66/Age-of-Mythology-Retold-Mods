@@ -1,8 +1,0 @@
-(UI Additive Mod)
-- replaces the command_delete icon (big red X, used for delete/cancel building) with a Skull icon from AoE2DE.
-- This way I do not always click this stupid button to "close the build menu" I'm used to from AoE2DE :D
-
-Also replaces the 4k version, but the skull is not 4k.
-
-
-If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

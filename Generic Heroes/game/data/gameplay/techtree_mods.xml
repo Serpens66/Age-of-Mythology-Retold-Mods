@@ -1,0 +1,422 @@
+<techtreemods>
+  
+  <!-- AI does not recruit newly added heroes and AI modding is not additive...  -->
+   <!-- so we will make the AI units automatically spawn the heros on recruitment of the base unit sometimes -->
+  
+  <tech name="Peltast_To_Hero_Serp" type="Normal">
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <cost resourcetype="Food">20.0000</cost>
+    <cost resourcetype="Gold">15.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <researchpoints>0.1000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <techtype>HeroPromotion</techtype>
+  </tech>
+  <tech name="Axeman_To_Hero_Serp" type="Normal">
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <cost resourcetype="Food">50.0000</cost>
+    <cost resourcetype="Gold">10.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <researchpoints>0.1000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <techtype>HeroPromotion</techtype>
+  </tech>
+  <tech name="WuzuJavelineer_To_Hero_Serp" type="Normal">
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <cost resourcetype="Food">15.0000</cost>
+    <cost resourcetype="Gold">30.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <researchpoints>0.1000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <techtype>HeroPromotion</techtype>
+  </tech>
+  
+  <tech name="AlwaysMassHeroes_Serp">
+    <status>OBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <flag>NeverAutoResearch</flag> 
+    <effects>
+      <effect type="TechStatus" status="obtainable">AI_SpawnHeroGreek_Serp</effect>
+      <effect type="TechStatus" status="obtainable">AI_SpawnHeroEgypt_Serp</effect>
+      <effect type="TechStatus" status="obtainable">AI_SpawnHeroChinese_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="AI_SpawnHeroGreek_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag> 
+    <prereqs>
+      <Culture>
+        <cultureName>Greek</cultureName>
+      </Culture>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="ModifySpawn" spawntype="Birth" proto="Peltast_Hero_Serp" chance="0.12" relativity="Absolute">
+        <target type="ProtoUnit">HumanSoldier</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="AI_SpawnHeroEgypt_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag> 
+    <prereqs>
+      <Culture>
+        <cultureName>Egyptian</cultureName>
+      </Culture>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="ModifySpawn" spawntype="Birth" proto="Axeman_Hero_Serp" chance="0.12" relativity="Absolute">
+        <target type="ProtoUnit">HumanSoldier</target>
+      </effect>
+    </effects>
+  </tech>
+  <tech name="AI_SpawnHeroChinese_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag> 
+    <prereqs>
+      <Culture>
+        <cultureName>Chinese</cultureName>
+      </Culture>
+      <techstatus status="Active">IsComputerPlayer_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="ModifySpawn" spawntype="Birth" proto="WuzuJavelineer_Hero_Serp" chance="0.12" relativity="Absolute">
+        <target type="ProtoUnit">HumanSoldier</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <!-- ############# -->
+  
+  <tech name="ArchaicAgeGreek">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Peltast_Hero_Serp</target>
+      </effect>
+      <effect type="TechStatus" status="active">Peltast_To_Hero_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeChinese">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">WuzuJavelineer_Hero_Serp</target>
+      </effect>
+      <effect type="TechStatus" status="active">WuzuJavelineer_To_Hero_Serp</effect>
+    </effects>
+  </tech>
+  <tech name="ArchaicAgeEgyptian">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="Enable" relativity="Absolute">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect type="TechStatus" status="active">Axeman_To_Hero_Serp</effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="ArchaicAgeWeakenUnits">
+    <effects>
+      <effect mergeMode="add" type="Data" allactions="1" amount="0.20" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">Peltast_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" allactions="1" amount="0.20" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">WuzuJavelineer_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" allactions="1" amount="0.20" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  
+  <!-- heroes get same upgrades like the base unit -->
+  
+  <!-- greek and chinese -->
+  <tech name="MediumArchers">
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">WuzuJavelineer_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="WuzuJavelineer_Hero_Serp" newname="STR_UNIT_MEDIUM_WUZU_JAVELINEER_NAME">
+      </effect>
+      
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">Peltast_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="Peltast_Hero_Serp" newname="STR_UNIT_MEDIUM_PELTAST_NAME">
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="HeavyArchers">
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">WuzuJavelineer_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="WuzuJavelineer_Hero_Serp" newname="STR_UNIT_HEAVY_WUZU_JAVELINEER_NAME">
+      </effect>
+      
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">Peltast_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="Peltast_Hero_Serp" newname="STR_UNIT_HEAVY_PELTAST_NAME">
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <tech name="ChampionArchers">
+    <effects>
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">WuzuJavelineer_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="WuzuJavelineer_Hero_Serp" newname="STR_UNIT_CHAMPION_WUZU_JAVELINEER_NAME">
+      </effect>
+      
+      <effect mergeMode="add" type="Data" action="RangedAttack" amount="1.0" subtype="MaximumRange" relativity="Absolute">
+        <target type="ProtoUnit">Peltast_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="Peltast_Hero_Serp" newname="STR_UNIT_CHAMPION_PELTAST_NAME">
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- egypt -->
+  
+  <tech name="ScallopedAxe">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.15" subtype="Damage" action="HandAttack" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="AxeOfVengeance">
+    <effects>
+      <effect mergeMode="add" type="Data" action="HandAttack" amount="2.00" subtype="Damagebonus" unittype="Building" relativity="Absolute">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="0.005" subtype="OnDamageModify" modifytype="Damage" relativity="Assign">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="MediumAxemen">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.10" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="HandAttack" amount="1.10" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="LOS" relativity="Absolute">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="Axeman_Hero_Serp" newname="STR_UNIT_MEDIUM_AXEMAN_NAME">
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="HeavyAxemen">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.15" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="HandAttack" amount="1.15" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="LOS" relativity="Absolute">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="Axeman_Hero_Serp" newname="STR_UNIT_HEAVY_AXEMAN_NAME">
+      </effect>
+    </effects>
+  </tech>
+  
+  <tech name="ChampionAxemen">
+    <effects>
+      <effect mergeMode="add" type="Data" amount="1.20" subtype="Hitpoints" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" action="HandAttack" amount="1.20" subtype="Damage" relativity="BasePercent">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="Data" amount="1.00" subtype="LOS" relativity="Absolute">
+        <target type="ProtoUnit">Axeman_Hero_Serp</target>
+      </effect>
+      <effect mergeMode="add" type="SetName" proto="Axeman_Hero_Serp" newname="STR_UNIT_CHAMPION_AXEMAN_NAME">
+      </effect>
+    </effects>
+  </tech>
+  
+  
+  <!-- ########################################################################  -->
+  
+    <!-- not tested yet if it is MP compatible (maybe desync?) -->
+  
+  <!-- Helper techs to find out which player is human/computer/nature -->
+  <!-- Copy paste all of the below techs into your mod. Do NOT add/change anything from there, also do not add effects (this way many mods can use the very same code without conflict)! -->
+   <!-- Instead use eg prereqs <techstatus status="active">IsHumanPlayer_Serp</techstatus> and so on in your own techs. -->
+   <!-- (use volatile flag if you want them to be executed as soon as prereqs is true ) -->
+  <!-- General Notes: -->
+   <!-- delay is done AFTER checking prereqs!  -->
+   <!-- checking prereqs techstatus=Obtainable is also true after tech was set to active (except for Reversible techs)! -->
+  <tech name="AlwaysCheckPlayers_Serp">
+    <status>OBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>   
+    <flag>NeverAutoResearch</flag> 
+    <effects>
+      <effect type="TechStatus" status="obtainable">CheckIsHumanPlayer_Serp</effect>
+      <effect type="TechStatus" status="obtainable">CheckIsNature_Serp</effect>
+      <effect type="TechStatus" status="obtainable">DelayedCheckIsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- Add hidden research to every Unit and every Building, so we can for sure research it via ConsoleCommand on every map -->
+   <!-- prints a notification "Huamn is not ready for research" (even if only done for Unit) but still works, so its fine -->
+  <!-- We make use of the fact that AIs can not "select" anything. So if execting player can select and research in selection, it is a human -->
+  <tech name="CheckIsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">Unit</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+        <target type="ProtoUnit">Building</target>
+      </effect>
+      <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+      <effect type="ConsoleCommand">uiSelectType("Building", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+    </effects>
+  </tech>
+  <tech name="Check2IsHumanPlayer_Serp">
+    <status>OBTAINABLE</status>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <researchpoints>0.1000</researchpoints>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="active">IsHumanPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- we need an extra tech that is never set to Obtainable, to be able to check in prereqs for IsComputerPlayer_Serp -->
+   <!-- techstatus=unobtainable. Because checking techstatus=Obtainable is also true after tech was set to active! -->
+    <!-- (another workaround for volatile techs would be to use the flag Reversible, which removes the internal obtainable if active) -->
+  <tech name="IsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+    </effects>
+  </tech>
+  
+  <!-- checking who is nature player. Instead of only checking typecount for Tree/Resource and so on (which could falsely mark a player, since also players can sometimes own these things) -->
+   <!-- we will spawn a ForceToNature helper object at any Nature thing in the world. Regardless who spawns it, it will be owned by Nature -->
+  <!-- Hint: normally nature does not research anything in the techtree. So to execute sth for Nature, you need a tech that has status Obtainable+delay (so similar to the AlwaysCheckPlayers_Serp tech. Beware currently an Obtainalbe+Volatile tech crashes on startup if it has a prereqs. so make your prereqs techs obtainable in such a AlwaysCheckPlayers_Serp tech instead)  -->
+    <!-- no prereqs in CheckIsNature_Serp, to execute it for everyone, so IsNature_Serp is set to Obtainable for everyone (so IsComputerPlayer_Serp can work) -->
+  <tech name="CheckIsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <!-- Nature does not work, but NatureClass -->
+      <effect type="CreateUnit" unit="BerryBush" generator="NatureClass">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-5.00" y="0.00" z="5.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="TechStatus" status="obtainable">IsNature_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="BerryBush" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>     
+      
+    </effects>
+  </tech>
+  <!-- every player which has not IsHumanPlayer_Serp nor IsNature_Serp active after few more seconds, must be an AI -->
+   <!-- we need this extra tech DelayedCheckIsComputerPlayer_Serp, because prereqs are checked before the delay -->
+  <tech name="DelayedCheckIsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>3.0000</delay>
+    <initialdelay>3.0000</initialdelay>
+    <flag>Volatile</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <displaynameid>STR_EDT_PDA_CNTR_COMPUTER</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="unobtainable">IsHumanPlayer_Serp</techstatus>
+      <techstatus status="obtainable">IsNature_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="IsNotNaturePlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+  </tech>
+  
+  
+</techtreemods>

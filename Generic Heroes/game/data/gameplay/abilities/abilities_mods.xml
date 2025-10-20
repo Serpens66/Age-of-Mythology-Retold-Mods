@@ -1,0 +1,15 @@
+<abilitiesmods>
+  <peltast_hero_serp>
+    <ability>PassiveVenomous<tech>ShaftsOfPlague</tech><alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSolarFlare<tech>SunRay</tech><alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </peltast_hero_serp>
+  <axeman_hero_serp>
+    <ability>PassiveDeathlyDonative<tech>FuneralRites</tech><alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </axeman_hero_serp>
+  <wuzujavelineer_hero_serp>
+    <ability>PassiveSearingPoint<tech>ScorchingFeathers</tech><alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+    <ability>PassiveSacredHands<alwaysdisabledingrid>1</alwaysdisabledingrid></ability>
+  </wuzujavelineer_hero_serp>
+</abilitiesmods>

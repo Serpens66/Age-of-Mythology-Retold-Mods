@@ -1,0 +1,10 @@
+<tacticsmods>
+  <action>
+    <name>CharismaSpeed</name>
+    <modifymultiplier>1.30</modifymultiplier>
+  </action>
+  <action>
+    <name>CharismaAttack</name>
+    <modifymultiplier>1.30</modifymultiplier>
+  </action>
+</tacticsmods>

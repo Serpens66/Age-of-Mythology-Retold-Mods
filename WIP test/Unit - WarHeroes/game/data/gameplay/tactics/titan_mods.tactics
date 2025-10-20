@@ -1,0 +1,17 @@
+<tacticsmods>
+  <!-- trees are destryoed, but not removed, so still blocking the path... -->
+  <action mergeMode="add">
+    <name>TreeDamageAura</name>
+    <type>AutoRangedModify</type>
+    <modifyabstracttype>Tree</modifyabstracttype>
+    <persistent>1</persistent>
+    <modifytype>HealRate</modifytype>
+    <modifyamount>-700</modifyamount>
+    <maxrange>10</maxrange>
+    <targetnature>1</targetnature>
+    <nostack>1</nostack>
+  </action>
+  <tactic>Default
+    <action mergeMode="add">TreeDamageAura</action>
+  </tactic>
+</tacticsmods>

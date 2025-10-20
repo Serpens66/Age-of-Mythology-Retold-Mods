@@ -1,9 +1,0 @@
-(Additive Mod)
-- Buffs the Mirror Tower: It makes Divine damage now (not blocked by armor), has a multiplier against Myth Units, has a chain attack and is affected by most techs which affect Sentry Towers (has a bit weaker stats than vanilla without those upgrades)
-- makes it available to build for all civs in Heroic Age (within UI from Sentry Tower!)
-- Helios can build a bit more towers, with a bit higher range and hitpoints as compensation.
-
-Should work for every civ which can build the SentryTower, even ones added by mods or game updates.
-Is only incompatible to mods/updates adding buttons in the second line of SentryTower.
-
-If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.
