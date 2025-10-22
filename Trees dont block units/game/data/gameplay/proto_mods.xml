@@ -1,0 +1,118 @@
+<protomods>
+  
+  <!-- unfortunaltey only possible by mentioning each tree one by one and not support mod/update trees automatically (see techtree file for explanation) -->
+  <!-- NonCollideable makes it not block units and buildings -->
+  <!-- NonSolid does not block units, but still blocks to build buildings -->
+  
+  <unit name="TreeCypress">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeCypressSnow">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeHades">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeGaia">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeMarsh">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeOak">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeOakAutumn">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeOakRound">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeOlive">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePalm">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePine">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePineDead">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePineSnow">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePineSnowBurning">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeSavannah">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeSavannahOld">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeTundra">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeTundraSnow">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePalmBurning">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePeach">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeGinkgo">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeGinkgoAutumn">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeBamboo">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeBambooSingle">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeMetasequoia">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeMetasequoiaAutumn">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePear">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeWillow">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeChinesePine">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeChinesePineDead">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePineBuddhist">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePineBuddhistSnow">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeCherry">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeMaple">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreePineBrown">
+    <flag>NonSolid</flag>
+  </unit>
+  <unit name="TreeCherryShrine">
+    <flag>NonSolid</flag>
+  </unit>
+
+  
+  
+</protomods>

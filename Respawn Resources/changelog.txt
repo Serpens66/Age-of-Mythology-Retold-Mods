@@ -1,0 +1,4 @@
+1.01:
+- add support for new chinese and japanese trees
+- add support for new chinese and japanese animals
+- also respawn berrybushes (20 minutes)

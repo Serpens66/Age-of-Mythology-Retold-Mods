@@ -157,11 +157,12 @@
       <!-- I just tested around with this. Seems there are some requirements for it to work. The ones I found: -->
       <!-- 1) You also have to add your ageup tech to the minor_gods.xml (works additive in the normal way) -->
       <!-- 2) Seems to be required to add it to the TownCenter (VillageCenter/CitadelCenter) -->
-      <!-- 3) The effects have to include the "SetAge" effect with the next age -->
+      <!-- 3) The effects have to include the "SetAge" effect with the next age (aktuelles age klappt nicht) -->
       <!-- 4) Most likely also needs the AgeUpgrade flag -->
       <!-- Adding the tech to the towncenter is still quite tricky, because I think the order matters here, since they all use the same slot in the UI. So if we remove ClassicalAgeAthena/hermes/Ares and add the replacement via additive modding or via CommandAdd, it is added on the bottom, which results in my test that only SecretsOfTheTitans is shown on the UI slot -.- -->
     <!-- open UI : <effect type="ConsoleCommand">uiAgeUpFromAnywhere()</effect> -->
-    
+    <!-- Wenn man mehr als 2 AgeUps obtainable macht, dann hat die Reihenfolge in der mans Obtainable macht keinen einfluss auf die Anzeige der 2 Auwahlmöglichkeiten -->
+     <!-- sondern entweder die Reihenfolge der Buttons im TownCenter oder die Reihenfolge im techtree oder alphabetisch oderso, jedenfalls immer gleiche priorität. -->
     
     <!-- SetOnTechResearchedTech kann man glaube ich eine tech active setzen, sobald ein techtype erforscht wurde (geht auch einfach "bei jeder tech" siehe freyr). -->
      <!-- ThorDwarfSpawn hat dazu auch  <flag>InfiniteTech</flag> <flag>IgnoreIfAutoActivated</flag> gesetzt, was interessant sein könnte -->

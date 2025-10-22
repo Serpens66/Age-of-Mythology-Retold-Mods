@@ -1,0 +1,33 @@
+<techtreemods>
+  <!-- adding the NonCollideable flag via proto works, but it does not work via tech for whatever reason (even not removing Collideable flag) -->
+   <!-- It does work for placing buildings though, but not for walking through (that only works if done in proto file) -->
+    <!-- So I assume for it to work it must be active from game start and not with the tech delay... -->
+   <!-- so only way to hardcode each tree in proto file... -->
+   
+  <!-- <tech mergeMode="add" name="AlwaysStuff_NoTreeUnitBlockSerp"> -->
+    <!-- <status>OBTAINABLE</status> -->
+    <!-- <delay>0.5000</delay> -->
+    <!-- <flag>HideAllNotifications</flag> -->
+    <!-- <flag>DelayedFirstActivation</flag> -->
+    <!-- <flag>Volatile</flag> -->
+    <!-- <effects> -->
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="NonCollideable" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="0.00" subtype="ProtoUnitFlag" flag="Collideable" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="-1.00" subtype="ProtoUnitFlag" flag="Collideable" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+      
+      
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="NonSolid" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">Tree</target> -->
+      <!-- </effect> -->
+    <!-- </effects> -->
+  <!-- </tech> -->
+ 
+    
+  
+</techtreemods>

@@ -1,0 +1,9 @@
+<tactics>
+  <action>
+    <name stringid="STR_ACTION_AUTO_GATHER">AutoGatherGold</name>
+    <type>AutoGather</type>
+    <persistent>1</persistent>
+    <addresourcestoinventory>1</addresourcestoinventory>
+  </action>
+  <tactic>Default<action>AutoGatherGold</action></tactic>
+</tactics>

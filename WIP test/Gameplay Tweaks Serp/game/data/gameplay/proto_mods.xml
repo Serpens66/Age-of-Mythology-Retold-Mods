@@ -211,7 +211,7 @@
   <!-- Problem with Command (might be solved with <reusable>1</reusable>) -->
   <!-- you can not do an endless cycle like Unit1 -> Unit2 -> Unit3 -> Unit1 -> Unit2 and so on. -->
     <!-- Because with the transform I guess the UnitID does not change and it remembers that it already did a Transform (eg to Unit2) -->
-     <!-- so every transform can only be exeucted once on the same unit...(or test <reusable>1</reusable> ?) -->
+     <!-- so every transform can only be exeucted once on the same unit...(or test <reusable></reusable> and usemultiple ?) -->
   <!-- Alternatives: -->
   <!-- DelayedTransform (see unit wandler mod) -->
   <!-- OR command: instead of transformselected im command zu nutzen, nutzen wir nur transform. Das funktioniert auch ohne transformcommand in proto unit. -->

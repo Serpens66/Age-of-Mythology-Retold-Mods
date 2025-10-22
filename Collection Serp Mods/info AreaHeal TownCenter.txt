@@ -1,0 +1,5 @@
+(Additive Mod)
+- TownCenters heal 2 nearby units with 4 HP/s (12 HP/s after Fortified Town Center was researched).
+- for researching "Feasts Of Renown" tech from Freyr/Aegir doubled healrate for TownCenters to compensate that everyone already has AreaHeal
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

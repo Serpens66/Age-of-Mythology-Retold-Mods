@@ -1,0 +1,840 @@
+<protomods>
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################   Start  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################   End  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################   Start  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################   End  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################   Start  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################   End  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################   Start  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################   End  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################  SkyPassage for Everyone Start  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  <!-- note: -->
+   <!-- maxrange is not allowed to be 0, it breaks alot of stuff, especially abilities, if any maxrange is 0... -->
+    
+  <!-- remove DoNotAllowAlliedGarrison -->
+  <unit name="SkyPassage">
+    <flag>ShowGarrisonButton</flag>
+    <flag mergeMode="remove">DoNotAllowAlliedGarrison</flag>
+  </unit>
+    
+  <!-- add "building SkyPassage" to the SentryTower Menu, because there is enough space left  -->
+    <!-- (while villagers dont have much space and also other mods may add buildings there, which is always incompatible  -->
+    <!-- if two mods occupy the same slot.. so only reason to add it here is to maintain better compatibility to other mods and game updates) -->
+  <unit name="SentryTower">
+    <train row="2" column="0">SentryTower</train>
+    <!-- <train mergeMode="add" row="1" column="1">MirrorTower</train> -->
+    <train row="2" column="2">SkyPassage_LowHealth_Serp</train>
+    <!-- build action needed to allow placing the construction site -->
+     <!-- in theory we even could allow SentryTower to actually build it :D -->
+    <protoaction>
+      <name>Build</name>
+      <type>Build</type>
+      <rate type="Building">0.000000</rate>
+      <maxrange>0.001</maxrange>
+      <!-- <rate type="Building">1.000000</rate> -->
+      <!-- <maxrange>10.2</maxrange> -->
+    </protoaction>
+  </unit>
+  
+  <!-- copy paste of SkyPassage from 6.10.2025 -->
+   <!-- with less health: 100 instead of 500 -->
+    <!-- and remove DoNotAllowAlliedGarrison -->
+  <unit name="SkyPassage_LowHealth_Serp">
+    <displaynameid>STR_BLD_SKY_PASSAGE_NAME</displaynameid>
+    <rollovertextid>STR_BLD_SKY_PASSAGE_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_SKY_PASSAGE_SR</shortrollovertextid>
+    <icon>resources\atlantean\static_color\buildings\sky_passage_icon.png</icon>
+    <minimapicon>ui\minimap\minimap_sky_passage</minimapicon>
+    <animfile>atlantean\buildings\sky_passage\sky_passage.xml</animfile>
+    <soundsetfile>atlantean\sfx\buildings\sky_passage.xml</soundsetfile>
+    <obstructionradiusx>3.0000</obstructionradiusx>
+    <obstructionradiusz>3.0000</obstructionradiusz>
+    <impacttype>Stone</impacttype>
+    <movementtype>land</movementtype>
+    <initialhitpoints>100.0000</initialhitpoints>
+    <maxhitpoints>100.0000</maxhitpoints>
+    <buildpoints>30.0000</buildpoints>
+    <buildlimit>2.0000</buildlimit>
+    <maxcontained>100</maxcontained>
+    <los>12.0000</los>
+    <sharedselectionunittypes>
+      <unittype>SkyPassage</unittype>
+      <unittype>SkyPassageSPC</unittype>
+    </sharedselectionunittypes>
+    <cost resourcetype="Wood">25.0000</cost>
+    <cost resourcetype="Favor">8.0000</cost>
+    <armor type="Hack" value="0.4000">
+    </armor>
+    <armor type="Pierce" value="0.9000">
+    </armor>
+    <armor type="Crush" value="0.0500">
+    </armor>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>Building</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>MilitaryBuilding</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>LogicalTypeAffectedByCeaseFireBuildingSlow</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeTartarianGateValidOverlapPlacement</unittype>
+    <unittype>LogicalTypeMinimapFilterEconomic</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <unittype>LogicalTypeTeleporterBuilding</unittype>
+    <unittype>LogicalTypeValidForestProtectionPlacement</unittype>
+    <unittype>LogicalTypeBuildingThatConvertsConvertibles</unittype>
+    <hotkeycontext>SkyPassageAccel</hotkeycontext>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>ObscuresUnits</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>SelectWithObstruction</flag>
+    <flag>PaintTextureWhenPlacing</flag>
+    <flag>FlattenGround</flag>
+    <flag>HasGatherPoint</flag>
+    <flag>SharedGarrison</flag>
+    <flag>HideGarrisonFlag</flag>
+    <flag>AllowAutoGarrison</flag>
+    <flag>NoIdleActions</flag>
+    <flag>GroupSelection</flag>
+    <flag>AutoCommandSingleUnit</flag>
+    <flag>AutoCommandStartDisabled</flag>
+    <flag>ShowGarrisonButton</flag>
+    <contain>LogicalTypeGarrisonInShips</contain>
+    <notcontain>TradeUnit</notcontain>
+    <command row="3" column="0">SetGatherPoint</command>
+    <command row="3" column="1">Eject</command>
+    <command row="3" column="5">Delete</command>
+  </unit>
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################  SkyPassage for Everyone End  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################  Generic Heroes Start  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  <!-- make sure that all cultures have the abilitiy to recruit an unlimited amount of hero units to counter mass myth units. -->
+  <!-- Atlantean, Norse and Japanese already have enough heroes -->
+  <!-- and priests-only for egypt suck, so add a handattack hero for them -->
+
+  <!-- greek -->
+  
+  <unit name="TownCenter">
+    <train row="0" column="5">Peltast_Hero_Serp</train>
+  </unit>
+  <unit name="VillageCenter">
+    <train row="0" column="5">Peltast_Hero_Serp</train>
+  </unit>
+  <unit name="Peltast">
+    <command row="0" column="5">Peltast_To_Hero_Serp</command>
+  </unit>
+  <unit name="Peltast_Hero_Serp">
+    <displaynameid>STR_UNIT_PELTAST_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_GODI_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_JASON_SR</shortrollovertextid>
+    <!-- <icon>resources\greek\player_color\units\peltast_icon.png</icon> -->
+    <icon>resources\modserp\peltast_icon_hero.png</icon>
+    <animfile>greek\units\archery\peltast\peltast.xml</animfile>
+    <soundsetfile>greek\vo\peltast\peltast.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Unarmoured</impacttype>
+    <unitaitype>RangedCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <trainpoints>15.5000</trainpoints>
+    <weightclass>4</weightclass>
+    <populationcount>3</populationcount>
+    <maxcontained>1.0000</maxcontained>
+    <maxvelocity>4.0000</maxvelocity>
+    <los>20.0000</los>
+    <cost resourcetype="Food">80.0000</cost>
+    <cost resourcetype="Gold">40.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>Ranged</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>Unit</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>AbstractArcher</unittype>
+    <unittype>ArcherLineUpgraded</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>LogicalTypeAffectedBySunRay</unittype>
+    <unittype>Hero</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>MinorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeHealableHero</unittype>
+    <contain external="1">LogicalTypePickable</contain>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <flag>HeroNameSimple</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>rangedattack.tactics</tactics>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>1.250000</rof>
+      <damage type="Pierce">6.000000</damage>
+      <damagebonus type="MythUnit">5.500000</damagebonus>
+      <maxrange>17.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+      <impacteffect>effects\impacts\pierce_medium</impacteffect>
+      <onhiteffect active="0" type="DamageOverTime" duration="6.000000">
+        <damage type="Divine">0.2500000</damage>
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+      </onhiteffect>
+      <onhiteffect active="0" type="Attach" proto="VFXPoison" attachbone="spine" duration="6.000000">
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+      </onhiteffect>
+    </protoaction>
+    <protoaction>
+      <name>HeroRingOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow_ring.xml</modelattachment>
+    </protoaction>
+    <protoaction>
+      <name>HeroGlowOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow.xml</modelattachment>
+      <modelattachmentbone>Spine</modelattachmentbone>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <maxrange>1</maxrange>
+      <rate type="LogicalTypePickable">1.00000</rate>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <maxrange>1</maxrange>
+      <rate type="AbstractTemple">1.00000</rate>
+    </protoaction>
+  </unit>
+  
+  <!-- egypt -->
+  
+  <unit name="TownCenter">
+    <train row="0" column="5">Axeman_Hero_Serp</train>
+  </unit>
+  <unit name="VillageCenter">
+    <train row="0" column="5">Axeman_Hero_Serp</train>
+  </unit>
+  <unit name="Axeman">
+    <command row="0" column="5">Axeman_To_Hero_Serp</command>
+  </unit>
+  <!-- since priests are ranged, its fine if this is hand attack -->
+  <unit name="Axeman_Hero_Serp">
+    <displaynameid>STR_UNIT_AXEMAN_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_MURMILLO_HERO_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_JASON_SR</shortrollovertextid>
+    <!-- <icon>resources\egyptian\player_color\units\axeman_icon.png</icon> -->
+    <icon>resources\modserp\axeman_icon_hero.png</icon>
+    <animfile>egyptian\units\infantry\axeman\axeman.xml</animfile>
+    <soundsetfile>egyptian\vo\axeman\axeman.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <trainpoints>15.5000</trainpoints>
+    <weightclass>5</weightclass>
+    <populationcount>3</populationcount>
+    <maxcontained>1.0000</maxcontained>
+    <maxvelocity>4.3000</maxvelocity>
+    <los>16.0000</los>
+    <cost resourcetype="Food">80.0000</cost>
+    <cost resourcetype="Gold">40.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>Unit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>AbstractInfantry</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>Hero</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>MinorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeHealableHero</unittype>
+    <contain external="1">LogicalTypePickable</contain>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <flag>HeroNameSimple</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>handattack.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <rof>1.000000</rof>
+      <damage type="Hack">6.000000</damage>
+      <damagebonus type="MythUnit">5.500000</damagebonus>
+      <maxrange>0.600000</maxrange>
+    </protoaction>
+    <protoaction>
+      <name>HeroRingOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow_ring.xml</modelattachment>
+    </protoaction>
+    <protoaction>
+      <name>HeroGlowOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow.xml</modelattachment>
+      <modelattachmentbone>Spine</modelattachmentbone>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <maxrange>1</maxrange>
+      <rate type="LogicalTypePickable">1.00000</rate>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <maxrange>1</maxrange>
+      <rate type="AbstractTemple">1.00000</rate>
+    </protoaction>
+  </unit>
+  
+  <!-- chinese -->
+  <unit name="ImperialAcademy">
+    <train row="0" column="4">WuzuJavelineer_Hero_Serp</train>
+  </unit>
+  <unit name="WuzuJavelineer">
+    <command row="0" column="5">WuzuJavelineer_To_Hero_Serp</command>
+  </unit>
+  <unit name="WuzuJavelineer_Hero_Serp">
+    <displaynameid>STR_UNIT_WUZU_JAVELINEER_NAME</displaynameid>
+    <rollovertextid>STR_UNIT_GODI_LR</rollovertextid>
+    <shortrollovertextid>STR_UNIT_JASON_SR</shortrollovertextid>
+    <!-- <icon>resources\chinese\player_color\units\wuzu_javelineer_icon.png</icon> -->
+    <icon>resources\modserp\wuzu_javelineer_icon_hero.png</icon>
+    <animfile>chinese\units\archery\wuzu_javelineer\wuzu_javelineer.xml</animfile>
+    <soundsetfile>chinese\vo\wuzu_javelineer\wuzu_javelineer.xml</soundsetfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <impacttype>Armoured</impacttype>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>land</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>90.0000</initialhitpoints>
+    <maxhitpoints>90.0000</maxhitpoints>
+    <trainpoints>15.5000</trainpoints>
+    <weightclass>4</weightclass>
+    <populationcount>3</populationcount>
+    <maxcontained>1.0000</maxcontained>
+    <maxvelocity>4.7500</maxvelocity>
+    <los>18.0000</los>
+    <cost resourcetype="Food">80.0000</cost>
+    <cost resourcetype="Gold">40.0000</cost>
+    <cost resourcetype="Favor">1.0000</cost>
+    <armor type="Hack" value="0.2000">
+    </armor>
+    <armor type="Pierce" value="0.2000">
+    </armor>
+    <armor type="Crush" value="0.9900">
+    </armor>
+    <unittype>LogicalTypeNeededForVictory</unittype>
+    <unittype>LogicalTypeHandUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeLandMilitary</unittype>
+    <unittype>LogicalTypeValidSPCUnitsDeadCondition</unittype>
+    <unittype>LogicalTypeGarrisonInShips</unittype>
+    <unittype>LogicalTypeRangedUnitsAutoAttack</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>LogicalTypeMinimapFilterMilitary</unittype>
+    <unittype>LogicalTypeValidBoltTarget</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeHealed</unittype>
+    <unittype>Ranged</unittype>
+    <unittype>CountsTowardMilitaryScore</unittype>
+    <unittype>Unit</unittype>
+    <unittype>MilitaryUnit</unittype>
+    <unittype>UnitClass</unittype>
+    <unittype>AbstractArcher</unittype>
+    <unittype>ArcherLineUpgraded</unittype>
+    <unittype>LogicalTypeConvertsHerds</unittype>
+    <unittype>LogicalTypeEarthquakeAttack</unittype>
+    <unittype>LogicalTypeValidMeteorTarget</unittype>
+    <unittype>LogicalTypeValidTornadoAttack</unittype>
+    <unittype>LogicalTypeValidShiftingSandsTarget</unittype>
+    <unittype>LogicalTypeParticipatesInBattlecries</unittype>
+    <unittype>LogicalTypeValidSpyTarget</unittype>
+    <unittype>LogicalTypeValidFrostTarget</unittype>
+    <unittype>LogicalTypeValidShockwaveTarget</unittype>
+    <unittype>Hero</unittype>
+    <unittype>HeroShadowUpgraded</unittype>
+    <unittype>MinorHero</unittype>
+    <unittype>LogicalTypeFindMilitaryHero</unittype>
+    <unittype>LogicalTypeHealableHero</unittype>
+    <contain external="1">LogicalTypePickable</contain>
+    <sharedselectionunittypes>
+      <unittype>LogicalTypeSharedHeroSelection</unittype>
+    </sharedselectionunittypes>
+    <flag>HeroNameSimple</flag>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>CorpseDecays</flag>
+    <flag>ShowGarrisonButton</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ObscuredByUnits</flag>
+    <flag>CommonCommands</flag>
+    <flag>MilitaryCommands</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <tactics>rangedattack.tactics</tactics>
+    <protoaction>
+      <name>RangedAttack</name>
+      <rof>1.250000</rof>
+      <damage type="Pierce">6.000000</damage>
+      <damagebonus type="MythUnit">5.500000</damagebonus>
+      <maxrange>17.000000</maxrange>
+      <projectile>ProjectileJavelinFlaming</projectile>
+      <impacteffect>effects\impacts\pierce_medium</impacteffect>
+      <onhiteffect active="0" type="StatModify" duration="5.00000">
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+        <target ignoretype="AbstractTitan">
+        </target>
+        <modify type="ArmorSpecific" dmgtype="Pierce" applytype="Multiply" stack="">0.9900</modify>
+        <modify type="ArmorSpecific" dmgtype="Hack" applytype="Multiply" stack="">0.9900</modify>
+      </onhiteffect>
+      <onhiteffect active="0" type="Attach" proto="VFXScorchingFeathers" attachbone="spine" duration="5.000000">
+        <target attacktype="Unit">
+        </target>
+        <target ignoretype="AbstractSiegeWeapon">
+        </target>
+        <target ignoretype="AbstractTitan">
+        </target>
+      </onhiteffect>
+    </protoaction>
+    <protoaction>
+      <name>HeroRingOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow_ring.xml</modelattachment>
+    </protoaction>
+    <protoaction>
+      <name>HeroGlowOnSelf</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\hero_glow.xml</modelattachment>
+      <modelattachmentbone>Spine</modelattachmentbone>
+    </protoaction>
+    <protoaction>
+      <name>Pickup</name>
+      <type>Pickup</type>
+      <maxrange>1</maxrange>
+      <rate type="LogicalTypePickable">1.00000</rate>
+    </protoaction>
+    <protoaction>
+      <name>DropOff</name>
+      <type>DropOff</type>
+      <maxrange>1</maxrange>
+      <rate type="AbstractTemple">1.00000</rate>
+    </protoaction>
+  </unit>
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################  Generic Heroes End  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################  AREAHEAL TOWNCENTER Start  ###################################################### -->
+  <!-- ############################################################################################################### -->
+  
+  
+  <!-- in vanilla we already have: -->
+  <!-- <protoaction> -->
+    <!-- <name>AreaHeal</name> -->
+    <!-- <maxrange>20</maxrange> -->
+    <!-- <modifyamount>1.0</modifyamount> -->
+    <!-- <slowhealmultiplier>0.50</slowhealmultiplier> -->
+  <!-- </protoaction> -->
+  
+   <!-- (without mentioning "mergeMode" with additive modding it defaults to "modify" if it already exists, otherwise it uses "add" -->
+     <!-- luckily it automatically detects the protoaction AreaHeal to change, because I don't know a sytax for this. It does not work yet in the major_gods.xml (always the first civ is changed there) -->
+     
+  <!-- here in proto we only add the limitiation of 2 units at once, because I did not find a way to change this via tech (without modifytargetlimit it is unlimited) -->
+    <!-- it gets enabled and multiplied with 4 (to have 4/s) in techtree file -->
+  <unit name="TownCenter">
+    <protoaction>
+      <name>AreaHeal</name>
+      <modifytargetlimit>2</modifytargetlimit>
+    </protoaction>
+  </unit>
+  <unit name="CitadelCenter">
+    <protoaction>
+      <name>AreaHeal</name>
+      <modifytargetlimit>2</modifytargetlimit>
+    </protoaction>
+  </unit>
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################  AREAHEAL TOWNCENTER End  ######################################################## -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################  MirrorTower for All MythUnit Start  ###################################################### -->
+  <!-- ############################################################################################################### -->
+  
+  
+  <!-- ein versuch sentrytwoer per command in MirrorTower umzuwandeln, aber buttons reagieren nicht, auch nicht in house umwandeln geht -->
+   <!-- und auch VillagerGreek zu VillagerAtlantean geht nciht, button taucht nichtmal auf.. -->
+    <!-- keine ahung... -->
+  <!-- mit Ability DelayedTransform gehts, aber ability wird nicht angezeigt sobald auch nur eine tech im turm ist,  -->
+  <!--  selbst wenns ne andere position ist und auch trotz ForceSecondPage... -->
+  
+  <!-- Daher Lösung jetzt: -->
+   <!-- Dem Turm ein "Baumenü" mit weiteren Türmen zufügen, die als Baustelle platziert werden können! -->
+    <!-- das klappt, aber man muss jeder einheit die es bauen können soll den train eintrag zufügen .. was es schonmal inkompatibel zu neuen Völkern macht... -->
+
+  <!-- note: -->
+   <!-- maxrange is not allowed to be 0, it breaks alot of stuff, especially abilities, if any maxrange is 0... -->
+
+  <!-- add "building MirrorTower" to the SentryTower Menu, because there is enough space left  -->
+    <!-- (while villagers dont have much space and also other mods may add buildings there, which is always incompatible  -->
+    <!-- if two mods occupy the same slot.. so only reason to add it here is to maintain better compatibility to other mods and game updates) -->
+  <unit name="SentryTower">
+    <train row="2" column="0">SentryTower</train>
+    <train row="2" column="1">MirrorTower</train>
+    <!-- build action needed to allow placing the construction site -->
+     <!-- in theory we even could allow SentryTower to actually build it :D -->
+    <protoaction>
+      <name>Build</name>
+      <type>Build</type>
+      <rate type="Building">0.000000</rate>
+      <maxrange>0.001</maxrange>
+      <!-- <rate type="Building">1.000000</rate> -->
+      <!-- <maxrange>10.2</maxrange> -->
+    </protoaction>
+  </unit>
+  
+  <!-- add damage multiplier against MythUnit to MirrorTower -->
+  <!-- and change damagetype to Divine and reduce stats a bit, because we will make it be affected by Tower researches -->
+  <unit name="MirrorTower">
+    <initialhitpoints mergeMode="modify">900.0000</initialhitpoints>
+    <maxhitpoints mergeMode="modify">900.0000</maxhitpoints>
+    <protoaction>
+      <name>BeamAttack</name>
+      <damage mergeMode="remove" type="Pierce"/>
+      <damage mergeMode="add" type="Divine">10.000000</damage>
+      <damagebonus mergeMode="add" type="MythUnit">7.000000</damagebonus>
+      <damagebonus mergeMode="add" type="AbstractTitan">10.000000</damagebonus>
+      <maxrange mergeMode="modify">20.000000</maxrange>
+      <numberbounces mergeMode="add">5</numberbounces>
+    </protoaction>
+    
+    <!-- allow to place more construction sites also from the mirror tower itself -->
+    <train row="2" column="0">SentryTower</train>
+    <train row="2" column="1">MirrorTower</train>
+    <protoaction>
+      <name>Build</name>
+      <type>Build</type>
+      <rate type="Building">0.000000</rate>
+      <maxrange>0.001</maxrange>
+    </protoaction>
+    
+  </unit>
+  
+  <!-- use a helper for the AISpawnMirror_Serp action and add it via tech to AbstractFortress and AbstractTownCenter, to also hit new buildings of this kind -->
+   <!-- dont know how to spawn with 1 HP, but still ok -->
+  <unit name="SpawnMirrorHelper_Serp">
+    <obstructionradiusx>0.2000</obstructionradiusx>
+    <obstructionradiusz>0.2000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <flag>Invulnerable</flag>
+    <flag>NoIdleActions</flag>
+    <flag>DoNotDieAtZeroHitpoints</flag>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSelectable</flag>
+    <flag>NotSearchable</flag>
+    <flag>NoTieToGround</flag>
+    <flag>NonCollideable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <tactics>dummy.tactics</tactics>
+    <protoaction>
+      <name>AISpawnMirror_Serp</name>
+      <rate type="MirrorTower">1.0</rate>
+      <active>1</active>
+      <type>Maintain</type>
+      <persistent>1</persistent>
+      <pausable>0</pausable>
+      <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+      <hidefromglobalqueue>1</hidefromglobalqueue>
+      <maxrange>5.000000</maxrange>
+      <modifytargetlimit>1</modifytargetlimit>
+      <exclusive>1</exclusive>
+      <maintaintrainpoints>30.0000</maintaintrainpoints>
+      <modelattachment>vfx\glow\shrine_of_the_hunt_target.xml</modelattachment>
+      <modelattachmentbone>bonethatdoesntexist</modelattachmentbone>
+      <modelattachmenttimer>2500</modelattachmenttimer>
+    </protoaction>
+  </unit>
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################  MirrorTower for All MythUnit End  ##################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################  Place Tower On Wall Start  #################################################### -->
+  <!-- ############################################################################################################### -->
+  
+  
+  <!-- Make the SentryTower be build on top of WalletConnector like we can build TownCenters on Settlements -->
+  
+  
+  <!-- placementfile wall.xml only limits building near goldmines, we dont want that. -->
+  <!-- and make WallConnector a Socket type (not needed I think, but should not hurt?) -->
+  <unit name="WallConnector">
+    <unittype mergeMode="add">Socket</unittype>
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  <unit name="WallMedium">
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  <unit name="WallLong">
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  <unit name="WallShort">
+    <placementfile mergeMode="remove">wall.xml</placementfile>
+  </unit>
+  
+  <!-- Limitations I found out while testing socketing: -->
+  <!-- when using the flag UpgradeSocket in the Tower, the socket (WallConnector) requires ForceToNature flag, which makes it owned by nature. -->
+   <!-- UpgradeSocket is luckily only needed if the socket building is bigger in size. But for Tower+Wall its not needed, so we can make it work also without ForceToNature -->
+  <!-- nonsocketplaceprotoid can not be the name of the unit we are currently in. So SentryTower can not have SentryTower as nonsocketplaceprotoid ... so we may need a copy of it. And to prevent having 2 different towers built which could cause update conflicts, we will instead put this copy to place into the wall menu as ability to place. -->
+    <!-- wait .. for whatever reason it now suddenly also works to place the tower as nonsocketplaceprotoid (maybe also because of missing UpdateSocket?) -->
+  <!-- Without PlaceSocketWhenPlacing flag the wall is removed and the tower placed. With it, the wall stays so we will have both at the same position (qhich actually looks quite nice) -->
+  <!-- With RevertToSocketAtZeroHitpoints when the tower is destroyed, that wall appears again, but as a construction site. and when build up again, the placement for another tower on top works a bit different, so better dont use this. -->
+  
+  <unit name="SentryTower">
+    <socketunittype mergeMode="add">WallConnector</socketunittype>
+    <nonsocketplaceprotoid mergeMode="add">SentryTower</nonsocketplaceprotoid>
+    <flag mergeMode="add">SnapPlacement</flag>
+    <flag mergeMode="add">PlaceSocketWhenPlacing</flag>
+  </unit>
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################  Place Tower On Wall End  ###################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################  RevealUI Vision Spy Obelisk Start  ################################################## -->
+  <!-- ############################################################################################################### -->
+  
+  
+  <!-- VisionRevealer from Vision uses the orcale tactic, so it already includes this action, so we only have to enable it in techtree -->
+  
+  <unit name="SpyEye">
+    <tactics>oracle.tactics</tactics>
+    <!-- remove these two flags to make RevealUI work -->
+    <flag mergeMode="remove">NoUnitAI</flag>
+    <flag mergeMode="remove">NotAlive</flag>
+  </unit>
+  
+  <unit name="Obelisk">
+    <tactics>oracle.tactics</tactics>
+  </unit>
+  
+  
+  <!-- ############################################################################################################### -->
+  <!-- ############################  RevealUI Vision Spy Obelisk End  #################################################### -->
+  <!-- ############################################################################################################### -->
+  <!-- ############################################################################################################### -->
+  
+  
+  <!-- #################################################################################################### -->
+  <!-- IsComputerPlayer_Serp IsNature_Serp IsHumanPlayer_Serp techs , used by multiple mods -->
+  <unit name="HelperIsNature_Serp">
+    <displaynameid>STR_MOTHER_NATURE</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  
+  <unit name="HelperIsHuman_Serp">
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  
+</protomods>

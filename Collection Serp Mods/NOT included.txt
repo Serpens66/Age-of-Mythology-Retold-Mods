@@ -1,0 +1,10 @@
+Mods from me (Serp) which are not included, because it depends on playstyle if they should be active or not:
+- Choose Any GodPower
+- Fast Classical Age
+- Fast Heroic Age
+- Fast Mythic Age
+- Passive Favor
+- Guarded Settlements Relics KotH
+- Major Heroes Buildlimit x3
+- Resource Source Amounts x2 (compatible)
+- Respawn Resources

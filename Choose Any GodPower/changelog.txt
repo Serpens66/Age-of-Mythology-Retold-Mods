@@ -27,3 +27,6 @@
 - japanese "Shogun" can be also casted on all heroes (except AbstractPharaoh and EconomicUnit)
 1.06:
 - minor fix (CheckIsNature more securely spawn a berry bush)
+1.07:
+- fix for Goshinboku, should now work like intended (did not respawn myth units)
+- improve check-human/computer code (previous did remove ability button from SkyPassage)

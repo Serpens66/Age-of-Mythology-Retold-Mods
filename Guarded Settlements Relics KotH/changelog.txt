@@ -1,0 +1,4 @@
+1.01:
+- improve check-human/computer code (previous did remove ability button from SkyPassage)
+1.02:
+- relics spawned nearby a temple do not spawn guards (eg. my Free Relic on Ageup mod)

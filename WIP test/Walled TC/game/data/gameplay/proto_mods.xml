@@ -1,6 +1,52 @@
 <protomods>
   
-
+  
+  <unit name="TacticHelper_EarthWallSerp">
+    <obstructionradiusx>0.2000</obstructionradiusx>
+    <obstructionradiusz>0.2000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <flag>Invulnerable</flag>
+    <flag>NoIdleActions</flag>
+    <flag>DoNotDieAtZeroHitpoints</flag>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSelectable</flag>
+    <flag>NotSearchable</flag>
+    <flag>NoTieToGround</flag>
+    <flag>NonCollideable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <tactics>dummy.tactics</tactics>
+    <protoaction>
+      <name>ChaosAura_Serp</name>
+      <type>AutoRangedModify</type>
+      <modifyamount>1.0</modifyamount>
+      <maxrange>15</maxrange>
+      <persistent>1</persistent>
+      <modifyabstracttype>Unit</modifyabstracttype>
+      <!-- <modifytype>Chaos</modifytype> -->
+      <modifytype>ForcedTarget</modifytype>
+      <modifymultiplier>10.0</modifymultiplier>
+      <nostack>1</nostack>
+      <includenature>1</includenature>
+      <modelattachment>greek\godpowers\restoration\healing_vfx.xml</modelattachment>
+      <modelattachmentbone>bonethatdoesntexist</modelattachmentbone>
+    </protoaction>
+    <protoaction>
+      <name>ChargedModify</name>
+      <type>ChargedModify</type>
+      <persistent>1</persistent>
+      <charged>
+        <chargedmodify modifytype="Chaos" applytype="Set">1.0</chargedmodify>
+        <duration>15</duration>
+        <activationtype>UseOnce</activationtype>
+      </charged>
+    </protoaction>
+  </unit>
+  
   <unit name="TownCenter">
     <flag mergeMode="add">BuildingShowTactics</flag>
     <flag mergeMode="add">CastAbilitySelf</flag>
@@ -231,6 +277,7 @@
     <flag>MilitaryCommands</flag>
     <flag>HideGarrisonFlag</flag>
     <flag>CreateUnitGroupAutomatically</flag>
+    <flag>CastAbilitySelf</flag>
     <flag>SplitQueue</flag>
     <command row="3" column="5">Delete</command>
     <tactics>guardian_copyserp.tactics</tactics>
@@ -252,7 +299,6 @@
       <damagebonus type="MythUnit">1.000000</damagebonus>
       <damagebonus type="Hero">0.250000</damagebonus>
       <maxrange>14.000000</maxrange>
-      
       <type>Attack</type>
       <rate type="All">1.0</rate>
       <chargeaction>1</chargeaction>
@@ -265,6 +311,7 @@
     </protoaction>
   </unit>
   
+
   <unit name="SerpentPredator_GuardsSerp">
     <displaynameid>STR_UNIT_SERPENT_NAME</displaynameid>
     <rollovertextid>STR_UNIT_SERPENT_LR</rollovertextid>
@@ -334,6 +381,11 @@
       <rof>1.200000</rof>
       <damage type="Hack">0.000000</damage>
       <maxrange>1.500000</maxrange>
+      <!-- <onhiteffect type="StatModify" duration="30.000000"> -->
+        <!-- <modify type="Chaos">1.000000</modify> -->
+      <!-- </onhiteffect> -->
+      <!-- <onhiteffect type="Attach" targetunittype="Unit" proto="VFXChaos" attachbone="vfx_top" duration="30.000000"> -->
+      <!-- </onhiteffect> -->
     </protoaction>
     <initialunitaistance>Defensive</initialunitaistance>
     <wanderdistance>7.0000</wanderdistance>
@@ -342,27 +394,7 @@
   
   
   
-  <!-- test -->
-  <unit name="Farm">
-    <tactics>test.tactics</tactics>
-    <rechargetime>3.0000</rechargetime>
-    <hotkeycontext>TacticAccel</hotkeycontext>
-    <flag mergeMode="add">BuildingShowTactics</flag>
-    <flag mergeMode="add">DoNotValidateResourceInventory</flag>
-    <!-- <flag mergeMode="add">DoTacticToSameUnitType</flag> -->
-    <flag mergeMode="remove">DynamicUpdate</flag>
-  </unit>
 
-  <unit name="VillagerAtlantean">
-    <protoaction>
-      <name>Gather</name>
-      <rate mergeMode="remove" type="AbstractFarm">1.050000</rate>
-      <rate mergeMode="add" type="AbstractFarm" resource="Food">1.500000</rate>
-      <rate mergeMode="add" type="AbstractFarm" resource="Wood">1.500000</rate>
-      <rate mergeMode="add" type="AbstractFarm" resource="Gold">1.280000</rate>
-      <rate mergeMode="add" type="AbstractFarm" resource="Favor">1.000000</rate>
-    </protoaction>
-  </unit>
   
   
 </protomods>

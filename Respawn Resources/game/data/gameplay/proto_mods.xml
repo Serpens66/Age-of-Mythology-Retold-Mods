@@ -21,6 +21,9 @@
 
   <!-- There is also a flag called "SelfRespawn", but there you can not define any intervall and it will only respawn once after ~15 seconds or so -->
   
+  <!-- TODO: -->
+   <!-- add BerryBush -->
+
   
   
   <!-- ##################################################################### -->
@@ -234,7 +237,7 @@
   </unit>
   <unit name="StumpOlive">
     <unitregen>-1</unitregen>
-    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeMarsh</spawn>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeOlive</spawn>
     <initialhitpoints>1200.0000</initialhitpoints>
     <maxhitpoints>1200.0000</maxhitpoints>
     <flag mergeMode="add">ForceNormalDeathAnim</flag>
@@ -253,7 +256,7 @@
   </unit>
   <unit name="StumpPalm">
     <unitregen>-1</unitregen>
-    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeMarsh</spawn>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreePalm</spawn>
     <initialhitpoints>1200.0000</initialhitpoints>
     <maxhitpoints>1200.0000</maxhitpoints>
     <flag mergeMode="add">ForceNormalDeathAnim</flag>
@@ -411,6 +414,388 @@
     <decay delay="0.0000" duration="0.0000">
     </decay>
     <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  
+  <!-- chinese trees -->
+  
+  <unit name="TreePeach">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpPeach</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpPeach">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreePeach</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeGinkgo">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpGinkgo</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpGinkgo">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeGinkgo</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeGinkgoAutumn">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpGinkgoAutumn</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpGinkgoAutumn">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeGinkgoAutumn</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeBamboo">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpBamboo</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpBamboo">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeBamboo</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeBambooSingle">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpBambooSingle</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpBambooSingle">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeBambooSingle</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeMetasequoia">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpMetasequoia</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpMetasequoia">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeMetasequoia</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeMetasequoiaAutumn">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpMetasequoiaAutumn</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpMetasequoiaAutumn">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeMetasequoiaAutumn</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreePear">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpPear</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpPear">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreePear</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeWillow">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpWillow</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpWillow">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeWillow</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeChinesePine">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpChinesePine</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpChinesePine">
+    <displaynameid>STR_EMB_STUMP_PINE_NAME</displaynameid>
+    <animfile>nature\trees\pine\pine_stump.xml</animfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeChinesePine</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeChinesePineDead">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpChinesePineDead</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpChinesePineDead">
+    <displaynameid>STR_EMB_STUMP_PINE_NAME</displaynameid>
+    <animfile>nature\trees\pine\pine_stump.xml</animfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeChinesePineDead</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  
+  <!-- Japanese trees -->
+  
+  <unit name="TreePineBuddhist">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpPineBuddhist</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpPineBuddhist">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreePineBuddhist</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreePineBuddhistSnow">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpPineBuddhistSnow</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpPineBuddhistSnow">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreePineBuddhistSnow</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeCherry">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpCherry</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpCherry">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeCherry</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreeMaple">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpMaple</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpMaple">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreeMaple</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  <unit name="TreePineBrown">
+    <replacement mergeMode="remove" type="dead" />
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">StumpPineBrown</spawn>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+  </unit>
+  <unit name="StumpPineBrown">
+    <unitregen>-1</unitregen>
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">TreePineBrown</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag mergeMode="add">ForceNormalDeathAnim</flag>
+    <flag mergeMode="remove">StartOnNoUpdate</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+    <unittype mergeMode="add">AbstractRespawnMarkerTree_Serp</unittype>
+  </unit>
+  
+  
+  <!-- BerryBush (using same system like animals below) -->
+  <unit name="BerryBush">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">BerryBushRespawn_Serp</spawn>
+  </unit>
+  <unit name="BerryBushRespawn_Serp">
+    <displaynameid>STR_EMB_BERRY_BUSH_NAME</displaynameid>
+    <rollovertextid>STR_EMB_BERRY_BUSH_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\berry_bush_icon.png</icon>
+    <animfile>nature\bushes\berry_bush\berry_bush.xml</animfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <impacttype>Wood</impacttype>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">BerryBush</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
   </unit>
   
   <!-- ############################################################################################################################## -->
@@ -1286,9 +1671,304 @@
     </decay>
   </unit>
 
+
+  <!-- chinese animals -->
+
+  <unit name="BlackBear">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">BlackBearRespawn_Serp</spawn>
+  </unit>
+  <unit name="BlackBearRespawn_Serp">
+    <displaynameid>STR_EMB_BLACK_BEAR_NAME</displaynameid>
+    <rollovertextid>STR_EMB_BLACK_BEAR_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\black_bear_icon.png</icon>
+    <animfile>nature\animals\land\black_bear\black_bear.xml</animfile>
+    <soundsetfile>nature\animals\black_bear\black_bear.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">BlackBear</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+  <unit name="GoldenPheasant">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">GoldenPheasantRespawn_Serp</spawn>
+  </unit>
+  <unit name="GoldenPheasantRespawn_Serp">
+    <displaynameid>STR_EMB_GOLDEN_PHEASANT_NAME</displaynameid>
+    <rollovertextid>STR_EMB_GOLDEN_PHEASANT_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\golden_pheasant_icon.png</icon>
+    <animfile>nature\animals\land\golden_pheasant\golden_pheasant.xml</animfile>
+    <soundsetfile>nature\animals\golden_pheasant\golden_pheasant.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">GoldenPheasant</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+  <unit name="RedCrownedCrane">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">RedCrownedCraneRespawn_Serp</spawn>
+  </unit>
+  <unit name="RedCrownedCraneRespawn_Serp">
+    <displaynameid>STR_EMB_RED_CROWNED_CRANE_NAME</displaynameid>
+    <rollovertextid>STR_EMB_RED_CROWNED_CRANE_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\red_crowned_crane_icon.png</icon>
+    <animfile>nature\animals\land\red_crowned_crane\red_crowned_crane.xml</animfile>
+    <soundsetfile>nature\animals\red_crowned_crane\red_crowned_crane.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">RedCrownedCrane</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+  <unit name="SpottedDeer">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">SpottedDeerRespawn_Serp</spawn>
+  </unit>
+  <unit name="SpottedDeerRespawn_Serp">
+    <displaynameid>STR_EMB_SPOTTED_DEER_NAME</displaynameid>
+    <rollovertextid>STR_EMB_SPOTTED_DEER_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\spotted_deer_icon.png</icon>
+    <animfile>nature\animals\land\spotted_deer\spotted_deer.xml</animfile>
+    <soundsetfile>nature\animals\spotted_deer\spotted_deer.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">SpottedDeer</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+
+  <!-- japanese -->
+
+  <unit name="SnowMonkey">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">SnowMonkeyRespawn_Serp</spawn>
+  </unit>
+  <unit name="SnowMonkeyRespawn_Serp">
+    <displaynameid>STR_EMB_SNOW_MONKEY_NAME</displaynameid>
+    <rollovertextid>STR_EMB_SNOW_MONKEY_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\snow_monkey_icon.png</icon>
+    <animfile>nature\animals\land\snow_monkey\snow_monkey.xml</animfile>
+    <soundsetfile>nature\animals\snow_monkey\snow_monkey.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">SnowMonkey</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+  <unit name="GreenPheasant">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">GreenPheasantRespawn_Serp</spawn>
+  </unit>
+  <unit name="GreenPheasantRespawn_Serp">
+    <displaynameid>STR_EMB_GREEN_PHEASANT_NAME</displaynameid>
+    <rollovertextid>STR_EMB_GREEN_PHEASANT_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\green_pheasant_icon.png</icon>
+    <animfile>nature\animals\land\green_pheasant\green_pheasant.xml</animfile>
+    <soundsetfile>nature\animals\green_pheasant\green_pheasant.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">GreenPheasant</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+  <unit name="JapaneseWolf">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">JapaneseWolfRespawn_Serp</spawn>
+  </unit>
+  <unit name="JapaneseWolfRespawn_Serp">
+    <displaynameid>STR_EMB_JAPANESE_WOLF_NAME</displaynameid>
+    <rollovertextid>STR_EMB_JAPANESE_WOLF_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\japanese_wolf_icon.png</icon>
+    <animfile>nature\animals\land\japanese_wolf\japanese_wolf.xml</animfile>
+    <soundsetfile>nature\animals\japanese_wolf\japanese_wolf.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">JapaneseWolf</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+  <unit name="Serow">
+    <spawn mergeMode="add" type="dead" count="1" skipplacementcheck="">SerowRespawn_Serp</spawn>
+  </unit>
+  <unit name="SerowRespawn_Serp">
+    <displaynameid>STR_EMB_SEROW_NAME</displaynameid>
+    <rollovertextid>STR_EMB_SEROW_LR</rollovertextid>
+    <shortrollovertextid>STR_EMB_FOOD_SR</shortrollovertextid>
+    <icon>resources\nature\animals\land\serow_icon.png</icon>
+    <animfile>nature\animals\land\serow\serow.xml</animfile>
+    <soundsetfile>nature\animals\serow\serow.xml</soundsetfile>
+    <obstructionradiusx>0.5000</obstructionradiusx>
+    <obstructionradiusz>0.5000</obstructionradiusz>
+    <movementtype>land</movementtype>
+    <unittype>NatureClass</unittype>
+    <unittype>AbstractRespawnMarkerAnimal_Serp</unittype>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Immoveable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>NotSelectable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>DestroyUnderBuilding</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <unitregen>-1</unitregen>
+    <spawn type="dead" count="1" skipplacementcheck="">Serow</spawn>
+    <initialhitpoints>1200.0000</initialhitpoints>
+    <maxhitpoints>1200.0000</maxhitpoints>
+    <flag>ForceNormalDeathAnim</flag>
+    <decay delay="0.0000" duration="0.0000">
+    </decay>
+  </unit>
+
+
   
   <!-- ####################################################################################### -->
-  <!-- ### regenerative goldmines -->
+  <!-- ### regenerative goldmines and fish -->
   <!-- ####################################################################################### -->
   
   <!-- simply adding AutoGather to them works, but it goes over the max limit unfortunately. -->
@@ -1298,31 +1978,75 @@
     <!-- I think all in all it is ok to AutoGather more than the maximum, if we do not use insane high amounts.  -->
     <!-- 1/s should be fine, this is only 3600 in 1 hour. -->
   
-  <unit name="MineGoldLarge">
-    <flag mergeMode="remove">DieAtZeroResources</flag>
+  
+  <unit name="AutoGatherHelper_Serp">
+    <obstructionradiusx>0.2000</obstructionradiusx>
+    <obstructionradiusz>0.2000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <flag>Invulnerable</flag>
+    <flag>NoIdleActions</flag>
+    <flag>DoNotDieAtZeroHitpoints</flag>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSelectable</flag>
+    <flag>NotSearchable</flag>
+    <flag>NoTieToGround</flag>
+    <flag>NonCollideable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
     <tactics>GoldRegen_Serp.tactics</tactics>
-    <protoaction mergeMode="add">
+    <protoaction>
       <name>AutoGatherGold</name>
       <rate type="Gold">1.0000</rate>
     </protoaction>
-    <!-- test -->
-    <!-- <initialresource resourcetype="Gold">60.0000</initialresource> -->
-    <!-- <carrycapacity resourcetype="Gold">60.0000</carrycapacity> -->
+    <protoaction>
+      <name>AutoGatherFood</name>
+      <rate type="Food">1.0000</rate>
+    </protoaction>
   </unit>
-  <unit name="MineGoldMedium">
+  
+  <!-- protoaction only works if any tactics file is defined (vanilla has non) -->
+   <!-- so at best would be a command to use dummy file if non is used already, but not replace it, if vanilla uses one... but such a command does not exist -->
+  <!-- So incompatible to updates/mods which add a tactics file to goldmine! -->
+  <unit name="MineGoldLarge">
     <flag mergeMode="remove">DieAtZeroResources</flag>
-    <tactics>GoldRegen_Serp.tactics</tactics>
+    <!-- <tactics>GoldRegen_Serp.tactics</tactics> -->
+    <tactics>dummy.tactics</tactics>
     <protoaction mergeMode="add">
       <name>AutoGatherGold</name>
       <rate type="Gold">1.0000</rate>
+      <type>AutoGather</type>
+      <persistent>1</persistent>
+      <addresourcestoinventory>1</addresourcestoinventory>
+    </protoaction>
+  </unit>
+  <unit name="MineGoldMedium">
+    <flag mergeMode="remove">DieAtZeroResources</flag>
+    <!-- <tactics>GoldRegen_Serp.tactics</tactics> -->
+    <tactics>dummy.tactics</tactics>
+    <protoaction mergeMode="add">
+      <name>AutoGatherGold</name>
+      <rate type="Gold">1.0000</rate>
+      
+      <type>AutoGather</type>
+      <persistent>1</persistent>
+      <addresourcestoinventory>1</addresourcestoinventory>
     </protoaction>
   </unit>
   <unit name="MineGoldSmall">
     <flag mergeMode="remove">DieAtZeroResources</flag>
-    <tactics>GoldRegen_Serp.tactics</tactics>
+    <!-- <tactics>GoldRegen_Serp.tactics</tactics> -->
+    <tactics>dummy.tactics</tactics>
     <protoaction mergeMode="add">
       <name>AutoGatherGold</name>
       <rate type="Gold">1.0000</rate>
+      
+      <type>AutoGather</type>
+      <persistent>1</persistent>
+      <addresourcestoinventory>1</addresourcestoinventory>
     </protoaction>
   </unit>
   

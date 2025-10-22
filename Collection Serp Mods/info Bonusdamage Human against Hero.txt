@@ -1,0 +1,5 @@
+(Additive Mod)
+- all HumanSoldiers do +50% Bonus Damage against Hero Units, to make them a better counter to many/strong heroes.
+- automatically works for new units/updates/mod units
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

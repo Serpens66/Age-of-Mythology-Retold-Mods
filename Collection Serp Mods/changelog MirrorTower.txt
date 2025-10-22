@@ -1,0 +1,9 @@
+1.01:
+- fixed critical bug which made nearly endless strange problems: Was caused just because maxrange of an action was 0, which is not allowed by the game.
+1.02:
+- made code more compatible, eg. to my new mod SkyPassage for Everyone
+1.03:
+- moved the buttons in sentry tower one line down (3rd line), because some gods have their mythic upgrades at second line
+1.04:
+- made the Build-Button appear from begin of the game with tooltip to reach heroic age.
+- the AI will autobuild a mirror tower next to each TownCenter/Fortress.

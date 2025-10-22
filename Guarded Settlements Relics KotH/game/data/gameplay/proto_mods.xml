@@ -6,32 +6,54 @@
 <!-- FimbulwinterWolf,Troll,Valkyrie,Einheri,Draugr,BattleBoar,FrostGiant,MountainGiant,RockGiant,FireGiant,FenrisWolfBrood,Fafnir,ShadePredator,Minotaur,Centaur,Cyclops,Manticore,NemeanLion,Hydra,Colossus,Medusa,Chimera,SerpentPredator,Anubite,Sphinx,Wadjet,Scarab,Petsuchos,ScorpionMan,Mummy,Avenger,Phoenix,PrometheanOffspring,Promethean,Caladria,Automaton,Satyr,Dryad,StymphalianBird,Behemoth,Lampades,Centimanus,Argus,Kitsune,Wanyudo,Jorogumo,Kamaitachi,Tengu,Raiju,Oni,Asura,Onmoraki,Shinigami,Fei_GuardsSerp,QiLin,YaZi,QiongQi,TaoWu,BaiHu,TaoTie,QingLong,HunDun,ZhuQue -->
   
     
-  <!-- ForceToNature marker, to find out who is nature player -->
-  <unit name="HelperIsNature_GuardsSerp">
-    <displaynameid>STR_MOTHER_NATURE</displaynameid>
-    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
-    <obstructionradiusx>0.1000</obstructionradiusx>
-    <obstructionradiusz>0.1000</obstructionradiusz>
+    <!-- TODO: -->
+    <!-- den nature units via tech noch ne action mit ForceTarget geben, sodass einheiten in nähe gezwungen werden sie anzugreifen? -->
+    
+  <!-- give the temple a AutoRangedModify Action to prevent relics nearby to spawn the spawner -->
+   <!-- (to make it better compatible to my free relic on ageup mod, which spawns a relic next to players temple) -->
+   <!-- modifymultiplier 0.00001 lowest allowed value.. (0.000001 does not cause an error, but still does not work) -->
+   <unit name="TacticHelper_GuardSerp">
+    <obstructionradiusx>0.2000</obstructionradiusx>
+    <obstructionradiusz>0.2000</obstructionradiusz>
     <movementtype>air</movementtype>
-    <unittype>EmbellishmentClass</unittype>
-    <flag>NoHPBar</flag>
-    <flag>Immoveable</flag>
-    <flag>NonAutoFormedUnit</flag>
-    <flag>NoUnitAI</flag>
+    <flag>Invulnerable</flag>
     <flag>NoIdleActions</flag>
-    <flag>NonCollideable</flag>
+    <flag>DoNotDieAtZeroHitpoints</flag>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
     <flag>DoNotShowOnMiniMap</flag>
-    <flag>NotSearchable</flag>
-    <flag>TieToWaterSurface</flag>
-    <flag>OnlyInEditor</flag>
     <flag>NotSelectable</flag>
-    <flag>PlaceAnywhere</flag>
-    <flag>NotDeathTracked</flag>
+    <flag>NotSearchable</flag>
+    <flag>NoTieToGround</flag>
+    <flag>NonCollideable</flag>
     <flag>DontRotateObstruction</flag>
     <flag>NotPlayerPlaceable</flag>
-    <flag>ForceToNature</flag>
-    <flag>Invulnerable</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <tactics>dummy.tactics</tactics>
+    <protoaction>
+      <name>PreventRelicsSpawnSpawner_Serp</name>
+      <type>AutoRangedModify</type>
+      <modifymultiplier>0.00001</modifymultiplier>
+      <maxrange>15</maxrange>
+      <persistent>1</persistent>
+      <modifyprotoid>Relic</modifyprotoid>
+      <modifytype>BuildingWorkRate</modifytype>
+      <nostack>1</nostack>
+      <targetnature>1</targetnature>
+      <!-- <includenature>1</includenature> -->
+      <!-- <modelattachment>greek\godpowers\restoration\healing_vfx.xml</modelattachment> -->
+      <!-- <modelattachmentbone>bonethatdoesntexist</modelattachmentbone> -->
+    </protoaction>
   </unit>
+   
+   
+   
+   
+   
+   
+   
+   
   <!-- marker that is spawned ForceToNature everytime a player reaches that age. Can be used for nature in techtree to get stronger through the player-ages -->
   <unit name="HelperNatureClassical_GuardsSerp">
     <displaynameid>STR_AGE_CLASSICAL</displaynameid>
@@ -306,7 +328,7 @@
     <initialhitpoints>20000.0000</initialhitpoints>
     <maxhitpoints>20000.0000</maxhitpoints>
     <unitregen>0.0500</unitregen>
-    <trainpoints>1.0000</trainpoints>
+    <trainpoints>3.0000</trainpoints>
     <los>30.0000</los>
     <armor type="Hack" value="0.9000">
     </armor>
@@ -1290,8 +1312,58 @@
     <unittype>AbstractGuard_Serp</unittype>
   </unit>
   
+  <!-- ############################################################################### -->
+  <!-- IsComputerPlayer_Serp IsNature_Serp IsHumanPlayer_Serp techs , used by multiple mods -->
+  <unit name="HelperIsNature_Serp">
+    <displaynameid>STR_MOTHER_NATURE</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
   
-  
+  <unit name="HelperIsHuman_Serp">
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>Invulnerable</flag>
+  </unit>
   
   
 </protomods>

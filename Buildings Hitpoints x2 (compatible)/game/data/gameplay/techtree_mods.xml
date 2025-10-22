@@ -17,6 +17,7 @@
   
   <!-- to do sth always, regardless what age we start, load a savegame, which civ we are and so on, simply use an Obtainable Volatile tech without prereqs -->
    <!-- (when loading a savegame prereqs can not properly be checked or even can crash the game (typecount), so dont add them to Volatile+Obtainable techs. delay is only applied to the actions, not the prereqs check) -->
+  <!-- This is also executed for Nature player!, to prevent this add ignoreNature to the target of efffects! -->
   
   <!-- An extra tech with short delay, to be executed AFTER the ArchaicAgeNorse "Assign" hardcoded HP values to the buildings.. -->
    <!-- ArmorVulnerability does not work with Assign/Override unfortunately.. so we add like 10% on top, not too much to make sure it does not reach 100% -->
@@ -28,63 +29,71 @@
     <flag>DelayedFirstActivation</flag>
     <flag>Volatile</flag>
     <effects>
+      <!-- *2 all buildings -->
+      <effect type="Data" amount="2" subtype="Hitpoints" relativity="Percent">
+        <target ignoreNature='' type="ProtoUnit">Building</target>
+      </effect>
       
-      <effect type="Data" amount="3.0" subtype="Hitpoints" relativity="Percent">
-        <target type="ProtoUnit">AbstractTownCenter</target>
+      <!-- already multiplied with 2, so to reach *4 another multiply with *2 -->
+      <effect type="Data" amount="2.0" subtype="Hitpoints" relativity="Percent">
+        <target ignoreNature='' type="ProtoUnit">AbstractTownCenter</target>
       </effect>
       <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
-        <target type="ProtoUnit">AbstractTownCenter</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractTownCenter</target>
       </effect>
       <effect type="Data" amount="3.0" action="RangedAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
-        <target type="ProtoUnit">AbstractTownCenter</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractTownCenter</target>
       </effect>
       
-      <effect type="Data" amount="2.0" subtype="Hitpoints" relativity="Percent">
-        <target type="ProtoUnit">AbstractTower</target>
+      <!-- already multiplied with 2, so to reach *3 another multiply with *1.5 -->
+      <effect type="Data" amount="1.5" subtype="Hitpoints" relativity="Percent">
+        <target ignoreNature='' type="ProtoUnit">AbstractTower</target>
       </effect>
       <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
-        <target type="ProtoUnit">AbstractTower</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractTower</target>
       </effect>
       <effect type="Data" amount="2.0" action="RangedAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
-        <target type="ProtoUnit">AbstractTower</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractTower</target>
       </effect>
       <effect type="Data" amount="2.0" action="FlyingUnitAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
-        <target type="ProtoUnit">AbstractTower</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractTower</target>
       </effect>
       <effect type="Data" amount="2.0" action="HandAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
-        <target type="ProtoUnit">AbstractTower</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractTower</target>
       </effect>
       <effect type="Data" amount="2.00" subtype="BuildLimit" relativity="Percent">
-        <target type="ProtoUnit">AbstractTower</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractTower</target>
       </effect>
       
+      <!-- already multiplied with 2, so to reach *3 another multiply with *1.5 -->
+      <effect type="Data" amount="1.5" subtype="Hitpoints" relativity="Percent">
+        <target ignoreNature='' type="ProtoUnit">AbstractWall</target>
+      </effect>
+      <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
+        <target ignoreNature='' type="ProtoUnit">AbstractWall</target>
+      </effect>
+      
+      <!-- already multiplied with 2, so to reach *4 another multiply with *2 -->
       <effect type="Data" amount="2.0" subtype="Hitpoints" relativity="Percent">
-        <target type="ProtoUnit">AbstractWall</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractFortress</target>
       </effect>
       <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
-        <target type="ProtoUnit">AbstractWall</target>
-      </effect>
-      
-      <effect type="Data" amount="3.0" subtype="Hitpoints" relativity="Percent">
-        <target type="ProtoUnit">AbstractFortress</target>
-      </effect>
-      <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Hack" relativity="Percent">
-        <target type="ProtoUnit">AbstractFortress</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractFortress</target>
       </effect>
       <effect type="Data" amount="-0.10" subtype="ArmorVulnerability" armortype="Crush" relativity="Percent">
-        <target type="ProtoUnit">AbstractFortress</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractFortress</target>
       </effect>
       <effect type="Data" amount="3.0" action="RangedAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
-        <target type="ProtoUnit">AbstractFortress</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractFortress</target>
       </effect>
       <effect type="Data" amount="3.0" action="FlyingUnitAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
-        <target type="ProtoUnit">AbstractFortress</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractFortress</target>
       </effect>
       <effect type="Data" amount="3.0" action="HandAttack" subtype="Damage" damagetype="Pierce" relativity="Percent">
-        <target type="ProtoUnit">AbstractFortress</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractFortress</target>
       </effect>
       <effect type="Data" amount="1.50" subtype="BuildLimit" relativity="Percent">
-        <target type="ProtoUnit">AbstractFortress</target>
+        <target ignoreNature='' type="ProtoUnit">AbstractFortress</target>
       </effect>
 
       

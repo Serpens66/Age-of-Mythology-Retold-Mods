@@ -90,6 +90,14 @@
     <unitaction>ChargedHandAttack</unitaction>
   </power>
   
+  <!-- <power name="AbilityGuardian_Copy" type="UnitAction"> -->
+    <!-- <displaynameid>STR_ABILITY_RELEASE_SKY_LANTERNS</displaynameid> -->
+    <!-- <rolloverid>STR_ABILITY_RELEASE_SKY_LANTERNS_LR</rolloverid> -->
+    <!-- <icon>chinese\static_color\abilities\xianfeng_ability_icon.png</icon> -->
+    <!-- <placement>Skip</placement> -->
+    <!-- <rangeindicator range="10.0" width="3.0">Arrow</rangeindicator> -->
+    <!-- <unitaction>ReleaseSkyLanternTest</unitaction> -->
+  <!-- </power> -->
  
   
 </powersmod>

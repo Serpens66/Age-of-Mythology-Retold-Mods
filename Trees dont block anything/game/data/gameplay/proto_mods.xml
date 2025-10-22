@@ -1,0 +1,118 @@
+<protomods>
+  
+  <!-- unfortunaltey only possible by mentioning each tree one by one and not support mod/update trees automatically (see techtree file for explanation) -->
+  
+  <!-- NonSolid also works, this does not block units, but still blocks to build buildings -->
+  
+  <unit name="TreeCypress">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeCypressSnow">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeHades">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeGaia">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeMarsh">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeOak">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeOakAutumn">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeOakRound">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeOlive">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePalm">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePine">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePineDead">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePineSnow">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePineSnowBurning">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeSavannah">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeSavannahOld">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeTundra">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeTundraSnow">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePalmBurning">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePeach">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeGinkgo">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeGinkgoAutumn">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeBamboo">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeBambooSingle">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeMetasequoia">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeMetasequoiaAutumn">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePear">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeWillow">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeChinesePine">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeChinesePineDead">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePineBuddhist">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePineBuddhistSnow">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeCherry">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeMaple">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreePineBrown">
+    <flag>NonCollideable</flag>
+  </unit>
+  <unit name="TreeCherryShrine">
+    <flag>NonCollideable</flag>
+  </unit>
+
+  
+  
+</protomods>

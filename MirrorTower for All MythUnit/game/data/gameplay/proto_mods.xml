@@ -58,4 +58,98 @@
     
   </unit>
   
+  <!-- use a helper for the AISpawnMirror_Serp action and add it via tech to AbstractFortress and AbstractTownCenter, to also hit new buildings of this kind -->
+   <!-- dont know how to spawn with 1 HP, but still ok -->
+  <unit name="SpawnMirrorHelper_Serp">
+    <obstructionradiusx>0.2000</obstructionradiusx>
+    <obstructionradiusz>0.2000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <flag>Invulnerable</flag>
+    <flag>NoIdleActions</flag>
+    <flag>DoNotDieAtZeroHitpoints</flag>
+    <flag>NoHPBar</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSelectable</flag>
+    <flag>NotSearchable</flag>
+    <flag>NoTieToGround</flag>
+    <flag>NonCollideable</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>NotKBTracked</flag>
+    <flag>NotDeathTracked</flag>
+    <tactics>dummy.tactics</tactics>
+    <protoaction>
+      <name>AISpawnMirror_Serp</name>
+      <rate type="MirrorTower">1.0</rate>
+      <active>1</active>
+      <type>Maintain</type>
+      <persistent>1</persistent>
+      <pausable>0</pausable>
+      <showqueuewhilewaiting>0</showqueuewhilewaiting>   
+      <hidefromglobalqueue>1</hidefromglobalqueue>
+      <maxrange>5.000000</maxrange>
+      <modifytargetlimit>1</modifytargetlimit>
+      <exclusive>1</exclusive>
+      <maintaintrainpoints>30.0000</maintaintrainpoints>
+      <modelattachment>vfx\glow\shrine_of_the_hunt_target.xml</modelattachment>
+      <modelattachmentbone>bonethatdoesntexist</modelattachmentbone>
+      <modelattachmenttimer>2500</modelattachmenttimer>
+    </protoaction>
+  </unit>
+  
+  
+  <!-- ############################################################################### -->
+  <!-- IsComputerPlayer_Serp IsNature_Serp IsHumanPlayer_Serp techs , used by multiple mods -->
+  <unit name="HelperIsNature_Serp">
+    <displaynameid>STR_MOTHER_NATURE</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  
+  <unit name="HelperIsHuman_Serp">
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  
 </protomods>

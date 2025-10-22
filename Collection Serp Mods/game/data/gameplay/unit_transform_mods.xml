@@ -1,0 +1,20 @@
+<unittransformsmods>
+  <transform mergeMode="add">
+    <from>Peltast</from>
+    <to>Peltast_Hero_Serp</to>
+    <command>Peltast_To_Hero_Serp</command>
+    <tech>ArchaicAgeGreek</tech>
+  </transform>
+  <transform mergeMode="add">
+    <from>Axeman</from>
+    <to>Axeman_Hero_Serp</to>
+    <command>Axeman_To_Hero_Serp</command>
+    <tech>ArchaicAgeEgyptian</tech>
+  </transform>
+  <transform mergeMode="add">
+    <from>WuzuJavelineer</from>
+    <to>WuzuJavelineer_Hero_Serp</to>
+    <command>WuzuJavelineer_To_Hero_Serp</command>
+    <tech>ArchaicAgeChinese</tech>
+  </transform>
+</unittransformsmods>

@@ -16,6 +16,16 @@
         <target type="ProtoUnit">AbstractRespawnMarkerAnimal_Serp</target>
       </effect>
       
+      <!-- goldmines -->
+      <!-- funktioniert an sich, aber die protounit braucht schon eine tactic datei, und offenbar auch mit ner action bereits drin -->
+      <!-- aber da eh nur die 3 vanilla GoldResource getroffen werden brauchen und bisher keine andere zugefügt wurde, -->
+       <!-- reichts das in proto zu machen -->
+      <!-- <effect type="Data" amount="0.00" subtype="ProtoUnitFlag" flag="DieAtZeroResources" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">GoldResource</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" protoaction="AutoGatherGold" amount="1.00" subtype="ProtoActionAdd" unittype="AutoGatherHelper_Serp" addToTactics="1" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">GoldResource</target> -->
+      <!-- </effect> -->
       
       <!-- <effect type="TechStatus" status="active">MakeTreesRespawn_Serp</effect> -->
     </effects>

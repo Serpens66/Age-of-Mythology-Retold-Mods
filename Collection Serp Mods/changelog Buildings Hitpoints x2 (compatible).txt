@@ -1,0 +1,4 @@
+1.01:
+- made savegame compatible (previously only did anything in new game)
+1.02:
+- higher HP: multiply the HP of all buildings with 2. And *3 and *4 for Defensive Buildings.

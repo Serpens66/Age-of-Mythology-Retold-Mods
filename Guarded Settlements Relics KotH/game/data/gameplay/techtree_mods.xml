@@ -32,7 +32,10 @@
       
       <effect type="TechStatus" status="obtainable">IsNature_GuardsSerp</effect>
       
-            
+      <effect type="Data" protoaction="PreventRelicsSpawnSpawner_Serp" amount="1.00" subtype="ProtoActionAdd" unittype="TacticHelper_GuardSerp" addToTactics="1" relativity="Assign">
+        <target ignoreNature='' type="ProtoUnit">AbstractTemple</target>
+      </effect>
+      
     </effects>
   </tech>
   
@@ -3368,9 +3371,16 @@
   
   <!-- ########################################################################################################## -->
   <!-- ########################################################################################################## -->
+    
+  <!-- IsComputerPlayer_Serp IsNature_Serp IsHumanPlayer_Serp techs , used by multiple mods -->
   
-  <!-- Start -->
-  <!-- not tested yet if it is MP compatible (maybe desync?) -->
+  <tech name="Command_Check2IsHumanPlayer_Serp" type="Normal">
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <researchpoints>0.1000</researchpoints>
+    <status>ACTIVE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+  </tech>
   
   <!-- Helper techs to find out which player is human/computer/nature -->
   <!-- Copy paste all of the below techs into your mod. Do NOT add/change anything from there, also do not add effects (this way many mods can use the very same code without conflict)! -->
@@ -3384,11 +3394,12 @@
     <flag>HideFromDialogs</flag>
     <flag>HideAllNotifications</flag>
     <flag>Volatile</flag>
-    <delay>1.0000</delay>
-    <flag>DelayedFirstActivation</flag>   
-    <flag>NeverAutoResearch</flag> 
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
     <effects>
       <effect type="TechStatus" status="obtainable">CheckIsHumanPlayer_Serp</effect>
+      <effect type="TechStatus" status="obtainable">Check2IsHumanPlayer_Serp</effect>
       <effect type="TechStatus" status="obtainable">CheckIsNature_Serp</effect>
       <effect type="TechStatus" status="obtainable">DelayedCheckIsComputerPlayer_Serp</effect>
     </effects>
@@ -3403,23 +3414,50 @@
     <flag>HideAllNotifications</flag>
     <flag>NeverAutoResearch</flag>
     <effects>
-      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Unit</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Building</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect>  -->
+      <!-- <effect type="ConsoleCommand">uiSelectType("Building", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect>  -->
+    
+      <!-- adding a command instead of a tech to everything, because a command always works on any page (economy/military),  -->
+       <!-- but a tech causes problems on ability pages, so in this case it removes the ability from the SkyPassage -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" command="Command_Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Override">
         <target type="ProtoUnit">Unit</target>
       </effect>
-      <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign">
+      <effect type="Data" amount="1.00" subtype="CommandAdd" command="Command_Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Override">
         <target type="ProtoUnit">Building</target>
       </effect>
-      <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
-      <effect type="ConsoleCommand">uiSelectType("Building", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+      <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  commandResearchInSelected("Command_Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+      <effect type="ConsoleCommand">uiSelectType("Building", false, false)  commandResearchInSelected("Command_Check2IsHumanPlayer_Serp")  uiClearSelection()</effect>
+      
     </effects>
   </tech>
+  <!-- <tech name="Check2IsHumanPlayer_Serp"> -->
+    <!-- <status>OBTAINABLE</status> -->
+    <!-- <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid> -->
+    <!-- <researchpoints>0.1000</researchpoints> -->
+    <!-- <flag>HideAllNotifications</flag> -->
+    <!-- <flag>HideFromDialogs</flag> -->
+    <!-- <flag>NeverAutoResearch</flag> -->
+    <!-- <effects> -->
+      <!-- <effect type="TechStatus" status="active">IsHumanPlayer_Serp</effect> -->
+    <!-- </effects> -->
+  <!-- </tech> -->
   <tech name="Check2IsHumanPlayer_Serp">
-    <status>OBTAINABLE</status>
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
     <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
-    <researchpoints>0.1000</researchpoints>
     <flag>HideAllNotifications</flag>
     <flag>HideFromDialogs</flag>
     <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="HelperIsHuman_Serp" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
     <effects>
       <effect type="TechStatus" status="active">IsHumanPlayer_Serp</effect>
     </effects>
@@ -3435,6 +3473,12 @@
     <flag>NeverAutoResearch</flag>
     <effects>
       <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+      <!-- <effect type="CreateUnit" unit="Centaur" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Leaving" speed="0.00" radius="0.00" quantity="2.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
     </effects>
   </tech>
   
@@ -3450,7 +3494,7 @@
     <flag>NeverAutoResearch</flag>
     <effects>
       <!-- Nature does not work, but NatureClass -->
-      <effect type="CreateUnit" unit="BerryBush" generator="NatureClass">
+      <effect type="CreateUnit" unit="HelperIsNature_Serp" generator="NatureClass">
         <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
           <offset x="-5.00" y="0.00" z="5.00">
           </offset>
@@ -3468,9 +3512,17 @@
     <flag>Reversible</flag>
     <flag>NeverAutoResearch</flag>
     <prereqs>
-      <typecount unit="BerryBush" count="1.00" state="aliveState" operator="gte">
+      <typecount unit="HelperIsNature_Serp" count="1.00" state="aliveState" operator="gte">
       </typecount>
     </prereqs>
+    <effects>
+      <!-- <effect type="CreateUnit" unit="Minotaur" generator="AbstractSettlement"> -->
+        <!-- <pattern type="Leaving" speed="0.00" radius="0.00" quantity="5.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+    </effects>
   </tech>
   <!-- every player which has not IsHumanPlayer_Serp nor IsNature_Serp active after few more seconds, must be an AI -->
    <!-- we need this extra tech DelayedCheckIsComputerPlayer_Serp, because prereqs are checked before the delay -->
@@ -3502,6 +3554,13 @@
     </prereqs>
     <effects>
       <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+      
+      <!-- <effect type="CreateUnit" unit="Cyclops" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Leaving" speed="0.00" radius="0.00" quantity="2.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
     </effects>
   </tech>
   

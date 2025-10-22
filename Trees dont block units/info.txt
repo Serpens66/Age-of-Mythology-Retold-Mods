@@ -1,0 +1,6 @@
+(Additive Mod)
+- Trees do not block units so you can walk through them (still block buildings)
+
+Unfortunately not possible to automatically support all newly added trees by mods/updates, so only includes the vanilla trees as of 22.10.2025.
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.
