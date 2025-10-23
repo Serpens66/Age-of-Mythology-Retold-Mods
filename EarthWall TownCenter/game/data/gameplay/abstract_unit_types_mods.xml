@@ -1,0 +1,4 @@
+<abstractunittypesmods>
+  <abstractunittype mergeMode="add">EarthWallAttacker</abstractunittype>
+  <abstractunittype mergeMode="add">EarthWallMaker</abstractunittype>
+</abstractunittypesmods>

@@ -1,0 +1,14 @@
+<unittypedatamods>
+  <unittypeentry mergeMode="add">
+    <unittype>EarthWallAttacker</unittype>
+    <displaynameid>STR_HUD_UNIT_TYPE_MILITARY</displaynameid>
+    <hidefromrollover>
+    </hidefromrollover>
+  </unittypeentry>
+  <unittypeentry mergeMode="add">
+    <unittype>EarthWallMaker</unittype>
+    <displaynameid>STR_HUD_UNIT_TYPE_MILITARY</displaynameid>
+    <hidefromrollover>
+    </hidefromrollover>
+  </unittypeentry>
+</unittypedatamods>

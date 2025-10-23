@@ -29,13 +29,129 @@
   <!-- ############################   End  ######################################################## -->
   <!-- ############################################################################################################### -->
   <!-- ############################################################################################################### -->
-  <!-- ############################   Start  ######################################################## -->
+  <!-- ############################  GoldFarm Start  ######################################################## -->
   <!-- ############################################################################################################### -->
   
   
+  <!-- not adding the mechanic from ThePeachBlossomSpring to vanilla farm, because then normal Workrate tech upgrades do no longer apply (only WorkRateSepcific) -->
+    <!-- which would mean I also have to change all vanilla techs and being incompatible to new techs by updates/mods -->
+   <!-- So instead doing a new farm asset with gold and use eg. a command to switch transform  -->
+
+  
+  <!-- You pay the costs for the tech and the costs for the target unit of the transform -->
+   <!-- for whatever the costs for the target unit are not paid when doing the transform from a Peltast unit to GoldFarm_Serp -->
+   <!-- I dont know why this behaves different, adding all flags and unittypes from Peltast to Farm did not help. -->
+   <!-- Problem with paying the target costs is, that they are not displayed in tooltip (TransformToGate hardcoded to display wall costs outside of xml) -->
+  <!-- <unit name="Peltast"> -->
+    <!-- <command row="0" column="4">Farm_To_GoldFarm_Serp</command> -->
+  <!-- </unit> -->
+
+
+  
+  <unit name="GoldFarm_Serp">
+    <displaynameid>STR_BLD_FARM_NAME</displaynameid>
+    <rollovertextid>STR_BLD_FARM_LR</rollovertextid>
+    <shortrollovertextid>STR_BLD_FARM_SR</shortrollovertextid>
+    <icon>resources\shared\static_color\buildings\farm_icon.png</icon>
+    <icon culture="chinese">resources\chinese\static_color\buildings\farm_rice_icon.png</icon>
+    <icon culture="japanese">resources\japanese\static_color\buildings\farm_rice_icon.png</icon>
+    <animfile>shared\buildings\farm\farm.xml</animfile>
+    <animfile culture="chinese">chinese\buildings\farm\farm.xml</animfile>
+    <animfile culture="japanese">chinese\buildings\farm\farm.xml</animfile>
+    <soundsetfile>shared\sfx\buildings\farm.xml</soundsetfile>
+    <obstructionradiusx>3.0000</obstructionradiusx>
+    <obstructionradiusz>3.0000</obstructionradiusz>
+    <selectionradiusx>2.5000</selectionradiusx>
+    <selectionradiusz>2.5000</selectionradiusz>
+    <farmingradiusx>3.0000</farmingradiusx>
+    <farmingradiusz>3.0000</farmingradiusz>
+    <farmingobstructionradiusx>0.5000</farmingobstructionradiusx>
+    <farmingobstructionradiusz>0.5000</farmingobstructionradiusz>
+    <farmingnumstops>2</farmingnumstops>
+    <movementtype>land</movementtype>
+    <initialhitpoints>200.0000</initialhitpoints>
+    <maxhitpoints>200.0000</maxhitpoints>
+    <buildpoints>10.0000</buildpoints>
+    <gathererlimit>1</gathererlimit>
+    <los>6.0000</los>
+    <cost resourcetype="Wood">75.0000</cost>
+    <initialresource resourcetype="Gold">9999.0000</initialresource>
+    <resourcesubtype>gold</resourcesubtype>
+    <carrycapacity resourcetype="Gold">9999.0000</carrycapacity>
+    <armor type="Hack" value="0.4000">
+    </armor>
+    <armor type="Pierce" value="0.8000">
+    </armor>
+    <armor type="Crush" value="0.0500">
+    </armor>
+    <unittype>LogicalTypeMinimapFilterEconomic</unittype>
+    <unittype>LogicalTypeBuildingsNotWalls</unittype>
+    <unittype>LogicalTypeVillagersAttack</unittype>
+    <unittype>LogicalTypeHandUnitsAttack</unittype>
+    <unittype>LogicalTypeRangedUnitsAttack</unittype>
+    <unittype>CountsTowardEconomicScore</unittype>
+    <unittype>Resource</unittype>
+    <unittype>Building</unittype>
+    <unittype>AbstractFarm</unittype>
+    <unittype>BuildingClass</unittype>
+    <unittype>LogicalTypeAffectedByRestoration</unittype>
+    <unittype>LogicalTypeTartarianGateValidOverlapPlacement</unittype>
+    <unittype>LogicalTypeBuildingSmall</unittype>
+    <unittype>FoodResource</unittype>
+    <unittype>LogicalTypeBuildingNotWonderOrTitan</unittype>
+    <flag>CollidesWithProjectiles</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>Doppled</flag>
+    <flag>UnlimitedSupply</flag>
+    <flag>NonSolid</flag>
+    <flag>UseFarmingAnims</flag>
+    <flag>NoIdleActions</flag>
+    <flag>DynamicUpdate</flag>
+    <command row="0" column="5">GoldFarm_To_Farm_Serp</command>
+    <command row="0" column="1">ResourceUnitConstructSilo</command>
+    <command row="1" column="0">SetVillagerToGather</command>
+    <command row="0" column="1">ResourceUnitConstructGranary</command>
+    <command row="1" column="2">FlareAtUnit</command>
+    <command row="1" column="1">CancelBuilding</command>
+    <command row="3" column="0">SetRallyPointOfNearbyEconUnitsToUnitPos</command>
+    <command row="3" column="1">SetRallyPointOfNearbyMilitaryUnitsToUnitPos</command>
+    <command row="3" column="5">Delete</command>
+    <tactics>dummy.tactics</tactics>
+    <protoaction>
+      <name>FarmGlow_Serp</name>
+      <type>Modify</type>
+      <modifyselfonly>1</modifyselfonly>
+      <persistent>1</persistent>
+      <modelattachment>vfx\glow\armor_glow_small.xml</modelattachment>
+      <modelattachmentbone>bonethatdoesntexist</modelattachmentbone>
+    </protoaction>
+  </unit>
+  
+  
+  <unit name="Farm">
+    <command row="0" column="5">Farm_To_GoldFarm_Serp</command>
+  </unit>
+  
+  <!-- ####################################################################################### -->
+  
+  <!-- Old code adding Tactic swtich to vanilla farm -->
+  
+  <!-- <unit name="Farm"> -->
+    <!-- <hotkeycontext>TacticAccel</hotkeycontext> -->
+    <!-- <tactics>variableresgather_serp.tactics</tactics> -->
+    <!-- <rechargetime>3.0000</rechargetime> -->
+    <!-- <flag mergeMode="add">BuildingShowTactics</flag> -->
+    <!-- <flag mergeMode="add">DoNotValidateResourceInventory</flag> -->
+    <!-- <flag mergeMode="remove">DynamicUpdate</flag> -->
+    
+    <!-- DoTacticToSameUnitType: If set, changing tactic for this unit will cause the change to be propagated to all instances of the same unit, akin to Japanese Shrine behaviour. -->
+    <!-- <flag mergeMode="add">DoTacticToSameUnitType</flag> -->
+  <!-- </unit> -->
+
   
   <!-- ############################################################################################################### -->
-  <!-- ############################   End  ######################################################## -->
+  <!-- ############################  GoldFarm End  ######################################################## -->
   <!-- ############################################################################################################### -->
   <!-- ############################################################################################################### -->
   <!-- ############################  SkyPassage for Everyone Start  ######################################################## -->

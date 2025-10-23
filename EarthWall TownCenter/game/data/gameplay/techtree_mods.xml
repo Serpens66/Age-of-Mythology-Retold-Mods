@@ -1,0 +1,91 @@
+<techtreemods>
+
+  <!-- Instead of enabling and disabling this action, one could also have ot always active (only shoots at InvisibleEarthWallAttacker) -->
+   <!-- and even couldadd a SingleUse maintain action to TownCenter to spawn a InvisibleEarthWallAttacker once -->
+  <!-- Or simply a spawn on birth/built effect (ModifySpawn) -->
+  <!-- This way every new TownCenter would get a Wall -->
+  <!-- But I think a wall at start of the game is enough -->
+  
+  <tech name="AlwaysStuff_WalledTCSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">WalledFirstTCSerp</effect>
+    </effects>
+  </tech>
+  
+  <tech name="WalledFirstTCSerp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="AbstractTownCenter" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>
+      
+      <effect type="Data" amount="5.0" subtype="RechargeTime" relativity="Assign">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      <!-- RechargeInit must be done AFTER setting RechargeTime -->
+      <effect type="Data" subtype="RechargeInit" amount="1.00" relativity="Assign">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      
+      
+      <effect type="CreateUnit" unit="InvisibleEarthWallAttacker" generator="AbstractTownCenter">
+        <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-3.00" y="0.00" z="3.00">
+          </offset>
+        </pattern>
+      </effect>
+      <!-- InvisibleEarthWallMaker is not used, instead its casted by the TownCenter to make sure it is the center of the wall -->
+      <!-- <effect type="CreateUnit" unit="InvisibleEarthWallMaker" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Leaving" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00"> -->
+          <!-- <offset x="-3.00" y="0.00" z="3.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+        
+     
+     
+      <effect delay="10000" type="Data" amount="0.0" subtype="RechargeTime" relativity="Assign">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+     
+     <!-- Problem: attackresponsetype ist am wichtigsten, damit Attacker angegriffen wird, aber das lässt sich nicht via tech ändern... -->
+      <!-- denn autoattacktype scheint bei Nature units nicht zu funktionieren (und via tech AutoAttackType scheint nur ersetzen zu können, aber klappt bei nature halt eh nicht) -->
+      <!-- wobei onhiteffect ForcedTarget beim Nature Angreifer auch hilft. -->
+      <!-- dont know how to remove AddAttackType again, -1 and 0 does not work with Absolute, but not a big problem since it simply allows more objects to attack -->
+      <effect type="Data" tactic="Default" amount="1.00" subtype="AddAttackType" unittype="EarthWallAttacker" relativity="Absolute">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      <!-- <effect type="Data" tactic="Default" amount="1.00" subtype="AutoAttackType" unittype="EarthWallAttacker" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">AbstractTownCenter</target> -->
+      <!-- </effect> -->
+      <!-- <effect delay="10000" type="Data" tactic="Default" amount="1.00" subtype="AutoAttackType" unittype="LogicalTypeRangedUnitsAutoAttack" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">AbstractTownCenter</target> -->
+      <!-- </effect> -->
+      
+      <effect type="Data" action="MakeEarthWall_Serp" amount="1.00" subtype="ActionEnable" relativity="Absolute">
+        <target ignoreNature='' type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      <effect delay="10000" type="Data" action="MakeEarthWall_Serp" amount="0.00" subtype="ActionEnable" relativity="Absolute">
+        <target type="ProtoUnit">AbstractTownCenter</target>
+      </effect>
+      
+
+      
+    </effects>
+  </tech>
+  
+  
+  
+
+  
+</techtreemods>

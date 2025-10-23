@@ -39,12 +39,198 @@
   <!-- ############################  End  ######################################################## -->
   <!-- ############################################################################################################### -->
   <!-- ############################################################################################################### -->
-  <!-- ############################   Start  ######################################################## -->
+  <!-- ############################  GoldFarm Start  ######################################################## -->
   <!-- ############################################################################################################### -->
   
   
+  <tech name="Farm_To_GoldFarm_Serp" type="Normal">
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <researchpoints>0.1000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <techtype>ResearchableCommand</techtype>
+  </tech>
+  <tech name="GoldFarm_To_Farm_Serp" type="Normal">
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <researchpoints>0.1000</researchpoints>
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <techtype>ResearchableCommand</techtype>
+  </tech>
+  
+  <!-- test -->
+  <!-- <tech name="ArchaicAgeGreek"> -->
+  <tech name="MythicAgeGeneral">
+    <effects>
+      <effect type="TechStatus" status="active">Farm_To_GoldFarm_Serp</effect>
+      <effect type="TechStatus" status="active">GoldFarm_To_Farm_Serp</effect>
+    </effects>
+  </tech>
+
+  <tech name="AlwaysStuff_VariableFarmSerp">
+    <status>OBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>1.0000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <effects>
+    
+      <!-- when adding a WorkRate for GoldFarm_Serp here it considers this a seperate Gather entry and therefore ignores the vanilla WorkRate tech upgrades for AbstractFarm -->
+      <!-- But its not a big problem, since we unlock this feature in MythicAge and its fine that no upgrade increases the output -->
+      <!-- in the end I want the goldproduction on the farm be less per second than food on the farm with all upgrades, so I think 0.85 is fine? -->
+      <effect type="Data" action="Gather" amount="0.85" subtype="WorkRate" unittype="GoldFarm_Serp" relativity="Assign" hidetooltip="">
+        <target type="ProtoUnit">AbstractVillager</target>
+      </effect>
+      
+      <!-- ############################################################################################################### -->
+      
+      <!-- OLD code which added Tactic Switch to vanilla farms -->
+      
+      <!-- general gather rate for everyone (update and modded villagers) -->
+      <!-- <effect type="Data" action="Gather" amount="0.70" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">AbstractVillager</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.50" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">AbstractVillager</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.30" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">AbstractVillager</target> -->
+      <!-- </effect> -->
+      <!-- VillagerGreek -->
+      <!-- <effect type="Data" action="Gather" amount="0.70" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerGreek</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.50" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerGreek</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.30" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerGreek</target> -->
+      <!-- </effect> -->
+      <!-- VillagerEgyptian -->
+      <!-- <effect type="Data" action="Gather" amount="0.63" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerEgyptian</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.45" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerEgyptian</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.27" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerEgyptian</target> -->
+      <!-- </effect> -->
+      <!-- VillagerNorse -->
+      <!-- <effect type="Data" action="Gather" amount="0.67" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerNorse</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.48" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerNorse</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.28" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerNorse</target> -->
+      <!-- </effect> -->
+      <!-- VillagerDwarf -->
+      <!-- <effect type="Data" action="Gather" amount="0.56" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerDwarf</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.40" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerDwarf</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.77" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerDwarf</target> -->
+      <!-- </effect> -->
+      <!-- VillagerAtlantean -->
+      <!-- <effect type="Data" action="Gather" amount="1.09" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerAtlantean</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.79" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerAtlantean</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.47" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerAtlantean</target> -->
+      <!-- </effect> -->
+      <!-- VillagerAtlanteanHero -->
+      <!-- <effect type="Data" action="Gather" amount="1.19" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerAtlanteanHero</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.85" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerAtlanteanHero</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.51" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerAtlanteanHero</target> -->
+      <!-- </effect> -->
+      <!-- VillagerChinese -->
+      <!-- <effect type="Data" action="Gather" amount="0.56" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChinese</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.40" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChinese</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.24" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChinese</target> -->
+      <!-- </effect> -->
+      <!-- VillagerChineseClay -->
+      <!-- <effect type="Data" action="Gather" amount="0.56" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChineseClay</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.40" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChineseClay</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.24" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChineseClay</target> -->
+      <!-- </effect> -->
+      <!-- VillagerChineseSPC -->
+      <!-- <effect type="Data" action="Gather" amount="0.56" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChineseSPC</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.40" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChineseSPC</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.24" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerChineseSPC</target> -->
+      <!-- </effect> -->
+      <!-- VillagerJapanese -->
+      <!-- <effect type="Data" action="Gather" amount="0.7" subtype="WorkRateSpecific" resource="Food" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerJapanese</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.50" subtype="WorkRateSpecific" resource="Wood" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerJapanese</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" action="Gather" amount="0.30" subtype="WorkRateSpecific" resource="Gold" unittype="AbstractFarm" relativity="Assign" hidetooltip=""> -->
+        <!-- <target type="ProtoUnit">VillagerJapanese</target> -->
+      <!-- </effect> -->
+      
+      <!-- ##### -->
+      
+      <!-- not really needed/better to do the Farm changes in techtree because: -->
+        <!-- 1) there is only 1 Farm object for all cultures -->
+        <!-- 2) I dont think ProtoActionAdd is able to add different tactics -->
+        <!-- 3) even with ProtoActionAdd we have to add a dummy.tactics file to the Farm, so still incompatible to other mods adding tactics file -->
+        
+      <!-- DoTacticToSameUnitType: If set, changing tactic for this unit will cause the change to be propagated to all instances of the same unit, akin to Japanese Shrine behaviour. -->
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="DoTacticToSameUnitType" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractFarm</target> -->
+      <!-- </effect> -->
+      
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="BuildingShowTactics" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractFarm</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="DoNotValidateResourceInventory" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractFarm</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="0.00" subtype="ProtoUnitFlag" flag="DynamicUpdate" relativity="Absolute"> -->
+        <!-- <target type="ProtoUnit">AbstractFarm</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" subtype="RechargeTime" amount="3.00" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">AbstractFarm</target> -->
+      <!-- </effect> -->
+      
+      
+    </effects>
+  </tech>
+  
+  
   <!-- ############################################################################################################### -->
-  <!-- ############################  End  ######################################################## -->
+  <!-- ############################ GoldFarm End  ######################################################## -->
   <!-- ############################################################################################################### -->
   <!-- ############################################################################################################### -->
   <!-- ############################  SkyPassage for Everyone Start  ######################################################## -->

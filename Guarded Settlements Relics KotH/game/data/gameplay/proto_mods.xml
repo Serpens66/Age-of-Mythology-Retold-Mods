@@ -8,6 +8,7 @@
     
     <!-- TODO: -->
     <!-- den nature units via tech noch ne action mit ForceTarget geben, sodass einheiten in nähe gezwungen werden sie anzugreifen? -->
+    <!-- onhiteffect -->
     
   <!-- give the temple a AutoRangedModify Action to prevent relics nearby to spawn the spawner -->
    <!-- (to make it better compatible to my free relic on ageup mod, which spawns a relic next to players temple) -->

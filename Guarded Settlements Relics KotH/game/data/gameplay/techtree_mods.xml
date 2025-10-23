@@ -1059,6 +1059,9 @@
       <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="DoNotQueue" relativity="Absolute">
         <target type="ProtoUnit">AbstractGuard_Serp</target>
       </effect>
+      <effect type="Data" amount="1.00" subtype="ProtoUnitFlag" flag="VisibleUnderFogIfNature" relativity="Absolute">
+        <target type="ProtoUnit">AbstractGuard_Serp</target>
+      </effect>
       <effect type="Data" amount="1.00" subtype="SetUnitType" unittype="LogicalTypeAgressiveNatureUnit" relativity="Absolute">
         <target type="ProtoUnit">AbstractGuard_Serp</target>
       </effect>

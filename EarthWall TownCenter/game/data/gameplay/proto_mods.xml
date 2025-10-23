@@ -1,0 +1,123 @@
+<protomods>
+  
+  
+  <unit name="TownCenter">
+    <protoaction>
+      <name>MakeEarthWall_Serp</name>
+      <damage type="Divine">10000</damage>
+      <rof>0.200000</rof>
+      <maxrange>18.000000</maxrange>
+      <chargeaction>1</chargeaction>
+      <castpower>EarthWall</castpower>
+      <castpowertargettype>Self</castpowertargettype>
+      <anim>RangedAttack</anim>
+      <active>0</active>
+    </protoaction>
+  </unit>
+  
+  <unit name="InvisibleEarthWallMaker">
+    <animfile>greek\units\infantry\hypaspist\hypaspist.xml</animfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <lifespan>4.0000</lifespan>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>air</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>2000.0000</initialhitpoints>
+    <maxhitpoints>2000.0000</maxhitpoints>
+    <trainpoints>3000.0000</trainpoints>
+    <weightclass>1</weightclass>
+    <populationcount>0</populationcount>
+    <maxvelocity>5.0000</maxvelocity>
+    <los>10.0000</los>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NoHPBar</flag>
+    <flag>RMCanRotate</flag>
+    <flag>NonCollideable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>NotCommandable</flag>
+    <flag>Wanders</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>DontRotateObstruction</flag>
+    
+    <flag>NotSelectable</flag>
+    <flag>OnlyInEditor</flag>
+    
+    <initialunitaistance>Aggressive</initialunitaistance>
+    <wanderdistance>1.0000</wanderdistance>
+    <autoattackrange>20</autoattackrange>
+    <unittype>EarthWallMaker</unittype>
+    <command row="3" column="5">Delete</command>
+    <rechargetime init="1">10.0000</rechargetime>
+    <tactics>earthwallmaker_serp.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <damage type="Divine">10000</damage>
+      <rof>0.200000</rof>
+      <maxrange>5.500000</maxrange>
+      <anim>HandAttack</anim>
+      <chargeaction>1</chargeaction>
+      <castpower>EarthWall</castpower>
+      <castpowertargettype>Self</castpowertargettype>
+    </protoaction>
+  </unit>
+  
+
+  <unit name="InvisibleEarthWallAttacker">
+    <animfile>greek\units\infantry\hypaspist\hypaspist.xml</animfile>
+    <obstructionradiusx>0.4900</obstructionradiusx>
+    <obstructionradiusz>0.4900</obstructionradiusz>
+    <populationcount>0</populationcount>
+    <trainpoints>10000.0000</trainpoints>
+    <aistancebasedistance>16</aistancebasedistance>
+    <lifespan>4.0000</lifespan>
+    <unitaitype>HandCombative</unitaitype>
+    <movementtype>air</movementtype>
+    <turnrate>18.0000</turnrate>
+    <initialhitpoints>1000.0000</initialhitpoints>
+    <maxhitpoints>1000.0000</maxhitpoints>
+    <weightclass>0</weightclass>
+    <maxvelocity>6.00</maxvelocity>
+    <los>10.0000</los>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NoHPBar</flag>
+    <flag>RMCanRotate</flag>
+    <flag>NonCollideable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>NotCommandable</flag>
+    <flag>Wanders</flag>
+    <flag>CreateUnitGroupAutomatically</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>ForceToNature</flag>
+    
+    <flag>NotSelectable</flag>
+    <flag>OnlyInEditor</flag>
+    
+    <initialunitaistance>Aggressive</initialunitaistance>
+    <wanderdistance>1.0000</wanderdistance>
+    <autoattackrange>20</autoattackrange>
+    <unittype>EarthWallAttacker</unittype>
+    <tactics>earthwall_tc_attacker_serp.tactics</tactics>
+    <protoaction>
+      <name>HandAttack</name>
+      <damage type="Divine">0</damage>
+      <rof>0.200000</rof>
+      <maxrange>5.500000</maxrange>
+      <anim>HandAttack</anim>
+      <onhiteffect type="StatModify" duration="5.000000">
+        <modify type="ForcedTarget">1.000000</modify>
+      </onhiteffect>
+    </protoaction>
+  </unit>
+  <!-- ForcedTarget is required, to make the attacked object attack back, even while 0 damage was made. -->
+   <!-- autoattacktype from tactic does not work for nature targets, so this (damage or ForcedTarget) is the only way to get sth. attack a nature unit -->
+  
+  
+
+  
+  
+</protomods>

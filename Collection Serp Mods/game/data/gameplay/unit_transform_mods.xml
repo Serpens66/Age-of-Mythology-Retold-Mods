@@ -17,4 +17,27 @@
     <command>WuzuJavelineer_To_Hero_Serp</command>
     <tech>ArchaicAgeChinese</tech>
   </transform>
+  
+  <transform mergeMode="add">
+    <from>Farm</from>
+    <to>GoldFarm_Serp</to>
+    <!-- <from>Peltast</from> -->
+    <!-- <to>Peltast_Hero_Serp</to> -->
+    
+    <!-- Farm to GoldFarm_Serp: tech and target unit costs -->
+    <!-- Peltast -> Peltast_Hero_Serp: only tech costs -->
+    <!-- Farm to Peltast_Hero_Serp: tech and target unit costs -->
+    <!-- Peltast to GoldFarm_Serp: only tech costs -->
+    <!-- alles unittypes und flags von unit der farm zuzufügen hilft nicht.. -->
+    
+    <command>Farm_To_GoldFarm_Serp</command>
+    <tech>MythicAgeGeneral</tech>
+  </transform>
+  <transform mergeMode="add">
+    <from>GoldFarm_Serp</from>
+    <to>Farm</to>
+    <command>GoldFarm_To_Farm_Serp</command>
+    <tech>MythicAgeGeneral</tech>
+  </transform>
+  
 </unittransformsmods>

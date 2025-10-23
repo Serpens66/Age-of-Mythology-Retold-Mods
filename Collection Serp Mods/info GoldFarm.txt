@@ -1,0 +1,10 @@
+(Additive Mod)
+- allows to transform Farms to Gold-Farms in mythic age (Farm UI) with low gatherrate.
+- meant as an lategame alternative to gather gold save in your base but with lower gatherrate.
+- is not affected by any economic upgrades
+
+Known Issue:
+- does not display costs, but on every transform it reduces the buildcosts of the farm.
+- the tooltip from PeachBlossom is used, which says it automatically produces resources, but its normal farm behaviour (too lazy to create a new string for every language).
+
+If you want to report bugs, write to User "serp66" in the official "Age of Empires" discord channel.

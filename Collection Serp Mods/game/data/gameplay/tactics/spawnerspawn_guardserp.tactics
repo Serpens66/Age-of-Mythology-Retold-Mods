@@ -1,0 +1,19 @@
+<tactics>
+  <!-- SingleUse makes sure it is only spawned once and KeepAlive makes sure that also no kind of internal reset makes it spawn again. -->
+  <action>
+    <name>SapwnerSpawn_GuardsSerp</name>
+    <rate type="DestroyableSpawnerRelic_GuardsSerp">1.0</rate>
+    <!-- <active>0</active> -->
+    <type>Maintain</type>
+    <persistent>1</persistent>
+    <pausable>0</pausable>
+    <SingleUse>1</SingleUse>
+    <KeepAlive>1</KeepAlive>
+    <showqueuewhilewaiting>0</showqueuewhilewaiting>
+    <hidefromglobalqueue>1</hidefromglobalqueue>
+    <exclusive>1</exclusive>
+  </action>
+  <tactic>Default
+    <action>SapwnerSpawn_GuardsSerp</action>
+  </tactic>
+</tactics>

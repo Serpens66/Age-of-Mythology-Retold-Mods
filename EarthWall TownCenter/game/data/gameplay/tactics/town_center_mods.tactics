@@ -1,0 +1,15 @@
+<tacticsmods>
+  <!-- using handlogic instead of range, because it also works and has no projectile and always hits -->
+	<action mergeMode="add">
+		<name stringid="STR_ACTION_RANGED">MakeEarthWall_Serp</name>
+    <attackaction>1</attackaction>
+    <type>Attack</type>
+    <rate type="EarthWallAttacker">1.0</rate>
+    <type>Attack</type>
+    <handlogic>1</handlogic>
+    <damageflags>Nature|Enemy</damageflags>
+	</action>
+  <tactic>Default
+    <action mergeMode="add" priority="101">MakeEarthWall_Serp</action>
+  </tactic>
+</tacticsmods>
