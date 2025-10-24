@@ -1,0 +1,209 @@
+<techtreemods>
+  
+  <!-- ########################################################################################################## -->
+  <!-- ########################################################################################################## -->
+    
+  <!-- IsComputerPlayer_Serp IsNature_Serp IsHumanPlayer_Serp techs , used by multiple mods -->
+  
+  
+  <!-- Helper techs to find out which player is human/computer/nature -->
+  <!-- Copy paste all of code into your mod. Do NOT add/change anything from there, also do not add effects (this way many mods can use the very same code without conflict)! -->
+   <!-- Instead use eg prereqs <techstatus status="active">IsHumanPlayer_Serp</techstatus> and so on in your own techs. -->
+   <!-- (use volatile flag if you want them to be executed as soon as prereqs is true ) -->
+  
+  
+  <tech name="Command_Check2IsHumanPlayer_Serp" type="Normal">
+    <displaynameid>STR_HUD_UNIT_TYPE_HERO</displaynameid>
+    <researchpoints>0.1000</researchpoints>
+    <status>ACTIVE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+  </tech>
+  
+  <!-- General Notes: -->
+   <!-- delay is done AFTER checking prereqs!  -->
+   <!-- checking prereqs techstatus=Obtainable is also true after tech was set to active (except for Reversible techs)! -->
+  <tech name="AlwaysCheckPlayers_Serp">
+    <status>OBTAINABLE</status>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Volatile</flag>
+    <delay>0.5000</delay>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">CheckIsHumanPlayer_Serp</effect>
+      <effect type="TechStatus" status="obtainable">Check2IsHumanPlayer_Serp</effect>
+      <effect type="TechStatus" status="obtainable">CheckIsNature_Serp</effect>
+      <effect type="TechStatus" status="obtainable">DelayedCheckIsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- Add hidden research to every Unit and every Building, so we can for sure research it via ConsoleCommand on every map -->
+   <!-- prints a notification "Huamn is not ready for research" (even if only done for Unit) but still works, so its fine -->
+  <!-- We make use of the fact that AIs can not "select" anything. So if execting player can select and research in selection, it is a human -->
+  <tech name="CheckIsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Unit</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="Data" amount="1.00" subtype="CommandAdd" tech="Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Assign"> -->
+        <!-- <target type="ProtoUnit">Building</target> -->
+      <!-- </effect> -->
+      <!-- <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect>  -->
+      <!-- <effect type="ConsoleCommand">uiSelectType("Building", false, false)  researchTechInSelected("Check2IsHumanPlayer_Serp")  uiClearSelection()</effect>  -->
+    
+      <!-- adding a command instead of a tech to everything, because a command always works on any page (economy/military),  -->
+       <!-- but a tech causes problems on ability pages, so in this case it removes the ability from the SkyPassage -->
+      <effect type="Data" amount="1.00" subtype="CommandAdd" command="Command_Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Override">
+        <target type="ProtoUnit">Unit</target>
+      </effect>
+      <effect type="Data" amount="1.00" subtype="CommandAdd" command="Command_Check2IsHumanPlayer_Serp" row="255" column="255" relativity="Override">
+        <target type="ProtoUnit">Building</target>
+      </effect>
+      <effect type="ConsoleCommand">uiSelectType("Unit", false, false)  commandResearchInSelected("Command_Check2IsHumanPlayer_Serp")  uiClearSelection()</effect> 
+      <effect type="ConsoleCommand">uiSelectType("Building", false, false)  commandResearchInSelected("Command_Check2IsHumanPlayer_Serp")  uiClearSelection()</effect>
+      
+    </effects>
+  </tech>
+  <!-- <tech name="Check2IsHumanPlayer_Serp"> -->
+    <!-- <status>OBTAINABLE</status> -->
+    <!-- <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid> -->
+    <!-- <researchpoints>0.1000</researchpoints> -->
+    <!-- <flag>HideAllNotifications</flag> -->
+    <!-- <flag>HideFromDialogs</flag> -->
+    <!-- <flag>NeverAutoResearch</flag> -->
+    <!-- <effects> -->
+      <!-- <effect type="TechStatus" status="active">IsHumanPlayer_Serp</effect> -->
+    <!-- </effects> -->
+  <!-- </tech> -->
+  <tech name="Check2IsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="HelperIsHuman_Serp" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">IsHumanPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- we need an extra tech that is never set to Obtainable, to be able to check in prereqs for IsComputerPlayer_Serp -->
+   <!-- techstatus=unobtainable. Because checking techstatus=Obtainable is also true after tech was set to active! -->
+    <!-- (another workaround for volatile techs would be to use the flag Reversible, which removes the internal obtainable if active) -->
+  <tech name="IsHumanPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+      <!-- <effect type="CreateUnit" unit="Centaur" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Leaving" speed="0.00" radius="0.00" quantity="2.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+    </effects>
+  </tech>
+  
+  <!-- checking who is nature player. Instead of only checking typecount for Tree/Resource and so on (which could falsely mark a player, since also players can sometimes own these things) -->
+   <!-- we will spawn a ForceToNature helper object at any Nature thing in the world. Regardless who spawns it, it will be owned by Nature -->
+  <!-- Hint: normally nature does not research anything in the techtree. So to execute sth for Nature, you need a tech that has status Obtainable+delay (so similar to the AlwaysCheckPlayers_Serp tech. Beware currently an Obtainalbe+Volatile tech crashes on startup if it has a prereqs. so make your prereqs techs obtainable in such a AlwaysCheckPlayers_Serp tech instead)  -->
+    <!-- no prereqs in CheckIsNature_Serp, to execute it for everyone, so IsNature_Serp is set to Obtainable for everyone (so IsComputerPlayer_Serp can work) -->
+  <tech name="CheckIsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <!-- Nature does not work, but NatureClass -->
+      <effect type="CreateUnit" unit="HelperIsNature_Serp" generator="NatureClass">
+        <pattern type="Scatter" speed="0.00" radius="0.00" quantity="1.00" minradius="0.00">
+          <offset x="-5.00" y="0.00" z="5.00">
+          </offset>
+        </pattern>
+      </effect>
+      <effect type="TechStatus" status="obtainable">IsNature_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsNature_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <typecount unit="HelperIsNature_Serp" count="1.00" state="aliveState" operator="gte">
+      </typecount>
+    </prereqs>
+    <effects>
+      <!-- <effect type="CreateUnit" unit="Minotaur" generator="AbstractSettlement"> -->
+        <!-- <pattern type="Leaving" speed="0.00" radius="0.00" quantity="5.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+    </effects>
+  </tech>
+  <!-- every player which has not IsHumanPlayer_Serp nor IsNature_Serp active after few more seconds, must be an AI -->
+   <!-- we need this extra tech DelayedCheckIsComputerPlayer_Serp, because prereqs are checked before the delay -->
+  <tech name="DelayedCheckIsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <delay>3.0000</delay>
+    <initialdelay>3.0000</initialdelay>
+    <flag>Volatile</flag>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>DelayedFirstActivation</flag>
+    <flag>NeverAutoResearch</flag>
+    <effects>
+      <effect type="TechStatus" status="obtainable">IsComputerPlayer_Serp</effect>
+    </effects>
+  </tech>
+  <!-- adding Reversible flag only to remove the internal Obtainable status after it was set to active -->
+  <tech name="IsComputerPlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>Volatile</flag>
+    <displaynameid>STR_EDT_PDA_CNTR_COMPUTER</displaynameid>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>Reversible</flag>
+    <flag>NeverAutoResearch</flag>
+    <prereqs>
+      <techstatus status="unobtainable">IsHumanPlayer_Serp</techstatus>
+      <techstatus status="obtainable">IsNature_Serp</techstatus>
+    </prereqs>
+    <effects>
+      <effect type="TechStatus" status="active">IsNotNaturePlayer_Serp</effect>
+      
+      <!-- <effect type="CreateUnit" unit="Cyclops" generator="AbstractTownCenter"> -->
+        <!-- <pattern type="Leaving" speed="0.00" radius="0.00" quantity="2.00" minradius="0.00"> -->
+          <!-- <offset x="0.00" y="0.00" z="0.00"> -->
+          <!-- </offset> -->
+        <!-- </pattern> -->
+      <!-- </effect> -->
+    </effects>
+  </tech>
+  
+  <tech name="IsNotNaturePlayer_Serp">
+    <status>UNOBTAINABLE</status>
+    <flag>HideAllNotifications</flag>
+    <flag>HideFromDialogs</flag>
+    <flag>NeverAutoResearch</flag>
+  </tech>
+  
+  
+</techtreemods>

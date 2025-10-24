@@ -1,6 +1,5 @@
 <protomods>
   
-  
   <unit name="TownCenter">
     <protoaction>
       <name>MakeEarthWall_Serp</name>

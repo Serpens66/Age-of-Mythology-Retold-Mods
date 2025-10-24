@@ -35,6 +35,9 @@
       <effect type="Data" protoaction="PreventRelicsSpawnSpawner_Serp" amount="1.00" subtype="ProtoActionAdd" unittype="TacticHelper_GuardSerp" addToTactics="1" relativity="Assign">
         <target ignoreNature='' type="ProtoUnit">AbstractTemple</target>
       </effect>
+      <effect type="Data" protoaction="PreventRelicsSpawnSpawner_Serp" amount="1.00" subtype="ProtoActionAdd" unittype="TacticHelper_GuardSerp" addToTactics="1" relativity="Assign">
+        <target ignoreNature='' type="ProtoUnit">AbstractWonder</target>
+      </effect>
       
     </effects>
   </tech>

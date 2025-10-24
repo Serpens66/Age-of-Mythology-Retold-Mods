@@ -1,0 +1,56 @@
+<protomods>
+  
+  <!-- ################################################################### -->
+  <!-- IsComputerPlayer_Serp IsNature_Serp IsHumanPlayer_Serp techs , used by multiple mods -->
+  <unit name="HelperIsNature_Serp">
+    <displaynameid>STR_MOTHER_NATURE</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>ForceToNature</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  
+  <unit name="HelperIsHuman_Serp">
+    <displaynameid>STR_EDT_PDA_CNTR_HUMAN</displaynameid>
+    <animfile>misc\editor\cinematic_revealers\cinematic_revealer_to_all.xml</animfile>
+    <obstructionradiusx>0.1000</obstructionradiusx>
+    <obstructionradiusz>0.1000</obstructionradiusz>
+    <movementtype>air</movementtype>
+    <unittype>EmbellishmentClass</unittype>
+    <flag>NoHPBar</flag>
+    <flag>Immoveable</flag>
+    <flag>NonAutoFormedUnit</flag>
+    <flag>NoUnitAI</flag>
+    <flag>NoIdleActions</flag>
+    <flag>NonCollideable</flag>
+    <flag>DoNotShowOnMiniMap</flag>
+    <flag>NotSearchable</flag>
+    <flag>TieToWaterSurface</flag>
+    <flag>OnlyInEditor</flag>
+    <flag>NotSelectable</flag>
+    <flag>PlaceAnywhere</flag>
+    <flag>NotDeathTracked</flag>
+    <flag>DontRotateObstruction</flag>
+    <flag>NotPlayerPlaceable</flag>
+    <flag>Invulnerable</flag>
+  </unit>
+  
+</protomods>
