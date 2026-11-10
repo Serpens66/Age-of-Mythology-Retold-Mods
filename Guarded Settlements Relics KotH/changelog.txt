@@ -2,3 +2,6 @@
 - improve check-human/computer code (previous did remove ability button from SkyPassage)
 1.02:
 - relics spawned nearby a temple do not spawn guards (eg. my Free Relic on Ageup mod)
+1.03:
+- Neutral guards remain visible in explored areas under the fog of war.
+- Relics within 15 range of a Wonder no longer spawn guards.
