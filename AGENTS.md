@@ -2,6 +2,8 @@
 
 ## Einstieg und Arbeitsweise
 
+- Unteragenten sind für Chats in diesem Projekt ausdrücklich erlaubt und sollen
+  nach eigenem Ermessen eingesetzt werden, wenn dies für die Aufgabe sinnvoll ist.
 - Zuerst [Documentation/README.md](Documentation/README.md) lesen. Für Datenmods
   zusätzlich [Gameplay Data](Documentation/Gameplay_Data.md), für XS, Karten, KI
   oder Trigger [XS and Scenarios](Documentation/XS_and_Scenarios.md), für Modelle,
